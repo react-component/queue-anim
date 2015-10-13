@@ -1,4 +1,4 @@
-import QueueAnim from 'rc-queue-anim';
+import QueueAnim from 'queue-anim';
 import ReactDom from 'react-dom';
 
 ReactDom.render(<div>

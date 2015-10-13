@@ -8,7 +8,7 @@ ReactDom.render(<QueueAnim>
   <div key="3">依次进入</div>
   <div key="4">依次进入</div>
   <div key="5">依次进入</div>
-  <QueueAnim key="6" style={{backgroundColor: 'red'}}>
+  <QueueAnim key="6" style={{backgroundColor: 'red'}} delay={1000}>
     <div key="7">依次进入</div>
     <div key="8">依次进入</div>
     <div key="9">依次进入</div>
@@ -19,4 +19,3 @@ ReactDom.render(<QueueAnim>
     </QueueAnim>
   </QueueAnim>
 </QueueAnim>, document.getElementById('__react-content'));
-

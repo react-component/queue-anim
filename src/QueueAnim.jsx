@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import velocity from 'velocity-animate';
+import { toArrayChildren, findChildInChildrenByKey, mergeChildren } from './utils';
 
 class QueueAnim extends React.Component {
   constructor(props) {
@@ -20,36 +21,32 @@ class QueueAnim extends React.Component {
 
     this.state = {
       children,
-      childenShow: {},
+      childenShow: {}
     };
 
     [
       'performEnter',
       'performLeave',
-      'leaveCallback',
+      'enterBegin',
+      'leaveComplete',
     ].forEach((method) => this[method] = this[method].bind(this));
   }
 
   performEnter(key, i) {
-    if (!this.refs[key]) {
+    let node = findDOMNode(this.refs[key]);
+    if (!node) {
       return;
     }
-    findDOMNode(this.refs[key]).style.visibility = 'hidden';
-    velocity(findDOMNode(this.refs[key]), {
+    node.style.visibility = 'hidden';
+    velocity(node, {
       opacity: [1, 0],
       translateX: [0, 30],
       display: 'none'
     }, {
-      delay: 30 * i,
-      duration: 500,
+      delay: this.props.interval * i + this.props.delay,
+      duration: this.props.duration,
       visibility: 'visible',
-      begin: () => {
-        let childenShow = this.state.childenShow;
-        childenShow[key] = true;
-        this.setState({
-          childenShow: childenShow
-        });
-      }
+      begin: this.enterBegin.bind(this, key)
     });
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
@@ -64,21 +61,32 @@ class QueueAnim extends React.Component {
       opacity: [0, 1],
       translateX: [30, 0]
     }, {
-      delay: 200 * (this.keysToLeave.length - i),
-      duration: 500,
+      delay: this.props.interval * (this.keysToLeave.length - i) + this.props.delay,
+      duration: this.props.duration,
       display: 'none',
-      complete: this.leaveCallback
+      complete: this.leaveComplete.bind(this, key)
+    });
+  }
+
+  enterBegin(key) {
+    let childenShow = this.state.childenShow;
+    childenShow[key] = true;
+    this.setState({
+      childenShow: childenShow
+    });
+  }
+
+  leaveComplete(key) {
+    let childenShow = this.state.childenShow;
+    childenShow[key] = false;
+    const currentChildren = toArrayChildren(this.props.children);
+    this.setState({
+      children: currentChildren,
+      childenShow: childenShow
     });
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
     }
-  }
-
-  leaveCallback() {
-    const currentChildren = toArrayChildren(this.props.children);
-    this.setState({
-      children: currentChildren
-    });
   }
 
   componentDidMount() {
@@ -131,59 +139,20 @@ class QueueAnim extends React.Component {
         {this.state.childenShow[child.key] ? child : null}
       </div>;
     });
-    return <span>{childrenToRender}</span>;
+    return <div {...this.props}>{childrenToRender}</div>;
   }
 }
+
+QueueAnim.propTypes = {
+  interval: React.PropTypes.number,
+  duration: React.PropTypes.number,
+  delay: React.PropTypes.number
+};
+
+QueueAnim.defaultProps = {
+  interval: 30,
+  duration: 500,
+  delay: 0
+};
 
 export default QueueAnim;
-
-function toArrayChildren(children) {
-  const ret = [];
-  React.Children.forEach(children, (c) => {
-    ret.push(c);
-  });
-  return ret;
-}
-
-function findChildInChildrenByKey(children, key) {
-  let ret = null;
-  if (children) {
-    children.forEach((c) => {
-      if (ret) {
-        return;
-      }
-      if (c.key === key) {
-        ret = c;
-      }
-    });
-  }
-  return ret;
-}
-
-function mergeChildren(prev, next) {
-  let ret = [];
-  // For each key of `next`, the list of keys to insert before that key in
-  // the combined list
-  const nextChildrenPending = {};
-  let pendingChildren = [];
-  prev.forEach((c) => {
-    if (findChildInChildrenByKey(next, c.key)) {
-      if (pendingChildren.length) {
-        nextChildrenPending[c.key] = pendingChildren;
-        pendingChildren = [];
-      }
-    } else {
-      pendingChildren.push(c);
-    }
-  });
-
-  next.forEach((c) => {
-    if (nextChildrenPending.hasOwnProperty(c.key)) {
-      ret = ret.concat(nextChildrenPending[c.key]);
-    }
-    ret.push(c);
-  });
-
-  ret = ret.concat(pendingChildren);
-  return ret;
-}

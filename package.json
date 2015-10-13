@@ -1,7 +1,7 @@
 {
   "name": "queue-anim",
   "version": "1.0.0",
-  "description": "queue-anim ui component for react",
+  "description": "Queue animation component for react",
   "keywords": [
     "react",
     "react-component",
