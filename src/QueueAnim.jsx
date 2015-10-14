@@ -16,6 +16,7 @@ class QueueAnim extends React.Component {
 
     this.keysToEnter = [];
     this.keysToLeave = [];
+    this.keysAnimating = [];
 
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(this.props));
@@ -58,6 +59,9 @@ class QueueAnim extends React.Component {
 
     nextChildren.forEach((c)=> {
       const key = c.key;
+      if (this.keysAnimating.indexOf(c.key) >= 0) {
+        return;
+      }
       const hasPrev = findChildInChildrenByKey(currentChildren, key);
       if (!hasPrev) {
         this.keysToEnter.push(key);
@@ -66,6 +70,9 @@ class QueueAnim extends React.Component {
 
     currentChildren.forEach((c)=> {
       const key = c.key;
+      if (this.keysAnimating.indexOf(key) >= 0) {
+        return;
+      }
       const hasNext = findChildInChildrenByKey(nextChildren, key);
       if (!hasNext) {
         this.keysToLeave.push(key);
@@ -75,9 +82,18 @@ class QueueAnim extends React.Component {
 
   componentDidUpdate() {
     const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
-    keysToEnter.forEach(this.performEnter);
     const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
+    if (this.keysAnimating.length === 0) {
+      this.keysAnimating = keysToEnter.concat(keysToLeave);
+    }
+    keysToEnter.forEach(this.performEnter);
     keysToLeave.forEach(this.performLeave);
+  }
+
+  componentWillUnmount() {
+    this.keysAnimating.forEach((key) => {
+      velocity(findDOMNode(this.refs[key]), 'stop');
+    });
   }
 
   getVelocityEnterConfig() {
@@ -129,6 +145,7 @@ class QueueAnim extends React.Component {
       easing: this.props.ease,
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
+      complete: this.enterComplete.bind(this, key),
     });
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
@@ -159,6 +176,12 @@ class QueueAnim extends React.Component {
     });
   }
 
+  enterComplete(key) {
+    if (this.keysAnimating.indexOf(key) >= 0) {
+      this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
+    }
+  }
+
   leaveComplete(key) {
     const childenShow = this.state.childenShow;
     childenShow[key] = false;
@@ -169,6 +192,9 @@ class QueueAnim extends React.Component {
     });
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
+    }
+    if (this.keysAnimating.indexOf(key) >= 0) {
+      this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
     }
   }
 }
