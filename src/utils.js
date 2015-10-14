@@ -57,3 +57,15 @@ export function transformArguments(arg) {
   }
   return [arg, arg];
 }
+
+export function getChildrenFromProps(props) {
+  const children = props.children;
+  if (React.isValidElement(children)) {
+    if (!children.key) {
+      return React.cloneElement(children, {
+        key: defaultKey,
+      });
+    }
+  }
+  return children;
+}

@@ -1,4 +1,4 @@
-import QueueAnim from 'queue-anim';
+import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 

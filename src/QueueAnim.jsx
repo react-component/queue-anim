@@ -1,4 +1,4 @@
-import React, { cloneElement } from 'react';
+import React from 'react';
 import { findDOMNode } from 'react-dom';
 import velocity from 'velocity-animate';
 import {
@@ -6,18 +6,19 @@ import {
   findChildInChildrenByKey,
   mergeChildren,
   transformArguments,
+  getChildrenFromProps,
 } from './utils';
 import AnimTypes from './animTypes';
 
 class QueueAnim extends React.Component {
-  constructor(props) {
+  constructor() {
     super(...arguments);
 
     this.keysToEnter = [];
     this.keysToLeave = [];
 
     // 第一次进入，默认进场
-    let children = toArrayChildren(this.props.children);
+    const children = toArrayChildren(getChildrenFromProps(this.props));
     children.map(child => {
       if (!child || !child.key) {
         return;
@@ -27,7 +28,7 @@ class QueueAnim extends React.Component {
 
     this.state = {
       children,
-      childenShow: {}
+      childenShow: {},
     };
 
     [
@@ -38,99 +39,14 @@ class QueueAnim extends React.Component {
     ].forEach((method) => this[method] = this[method].bind(this));
   }
 
-  getVelocityEnterConfig() {
-    if (this.props.animConfig) {
-      return this.props.animConfig;
-    }
-    return AnimTypes[this.props.type];
-  }
-
-  getVelocityLeaveConfig() {
-    let config = this.getVelocityEnterConfig();
-    let ret = {};
-    Object.keys(config).forEach((key) => {
-      if (Array.isArray(config[key])) {
-        ret[key] = Array.prototype.slice.call(config[key]).reverse();
-      } else {
-        ret[key] = config[key];
-      }
-    });
-    return ret;
-  }
-
-  performEnter(key, i) {
-    let node = findDOMNode(this.refs[key]);
-    if (!node) {
-      return;
-    }
-    let interval = transformArguments(this.props.interval)[0];
-    let delay = transformArguments(this.props.delay)[0];
-    let duration = transformArguments(this.props.duration)[0];
-    node.style.visibility = 'hidden';
-    velocity(node, this.getVelocityEnterConfig(), {
-      delay: interval * i + delay,
-      duration: duration,
-      easing: this.props.ease,
-      visibility: 'visible',
-      begin: this.enterBegin.bind(this, key)
-    });
-    if (this.keysToEnter.indexOf(key) >= 0) {
-      this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
-    }
-  }
-
-  performLeave(key, i) {
-    if (!this.refs[key]) {
-      return;
-    }
-    let interval = transformArguments(this.props.interval)[1];
-    let delay = transformArguments(this.props.delay)[1];
-    let duration = transformArguments(this.props.duration)[1];
-    velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig(), {
-      delay: interval * (this.keysToLeave.length - i) + delay,
-      duration: duration,
-      easing: this.props.ease,
-      display: 'none',
-      complete: this.leaveComplete.bind(this, key)
-    });
-  }
-
-  enterBegin(key) {
-    let childenShow = this.state.childenShow;
-    childenShow[key] = true;
-    this.setState({
-      childenShow: childenShow
-    });
-  }
-
-  leaveComplete(key) {
-    let childenShow = this.state.childenShow;
-    childenShow[key] = false;
-    const currentChildren = toArrayChildren(this.props.children);
-    this.setState({
-      children: currentChildren,
-      childenShow: childenShow
-    });
-    if (this.keysToLeave.indexOf(key) >= 0) {
-      this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
-    }
-  }
-
   componentDidMount() {
     this.componentDidUpdate();
   }
 
-  componentDidUpdate() {
-    const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
-    keysToEnter.forEach(this.performEnter);
-    const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
-    keysToLeave.forEach(this.performLeave);
-  }
-
   componentWillReceiveProps(nextProps) {
     const nextChildren = toArrayChildren(nextProps.children);
-    let currentChildren = this.state.children;
-    let newChildren = mergeChildren(
+    const currentChildren = this.state.children;
+    const newChildren = mergeChildren(
       currentChildren,
       nextChildren
     );
@@ -157,20 +73,107 @@ class QueueAnim extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
+    keysToEnter.forEach(this.performEnter);
+    const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
+    keysToLeave.forEach(this.performLeave);
+  }
+
+  getVelocityEnterConfig() {
+    if (this.props.animConfig) {
+      return this.props.animConfig;
+    }
+    return AnimTypes[this.props.type];
+  }
+
+  getVelocityLeaveConfig() {
+    const config = this.getVelocityEnterConfig();
+    const ret = {};
+    Object.keys(config).forEach((key) => {
+      if (Array.isArray(config[key])) {
+        ret[key] = Array.prototype.slice.call(config[key]).reverse();
+      } else {
+        ret[key] = config[key];
+      }
+    });
+    return ret;
+  }
+
   render() {
     const childrenToRender = toArrayChildren(this.state.children).map(child => {
       if (!child || !child.key) {
         return child;
       }
-      return <div key={child.key} ref={child.key} {...child.props}>
-        {this.state.childenShow[child.key] ? child : null}
-      </div>;
+      return (
+        <div key={child.key} ref={child.key} {...child.props}>
+          {this.state.childenShow[child.key] ? child : null}
+        </div>
+      );
     });
     return <div {...this.props}>{childrenToRender}</div>;
   }
+
+  performEnter(key, i) {
+    const node = findDOMNode(this.refs[key]);
+    if (!node) {
+      return;
+    }
+    const interval = transformArguments(this.props.interval)[0];
+    const delay = transformArguments(this.props.delay)[0];
+    const duration = transformArguments(this.props.duration)[0];
+    node.style.visibility = 'hidden';
+    velocity(node, this.getVelocityEnterConfig(), {
+      delay: interval * i + delay,
+      duration: duration,
+      easing: this.props.ease,
+      visibility: 'visible',
+      begin: this.enterBegin.bind(this, key),
+    });
+    if (this.keysToEnter.indexOf(key) >= 0) {
+      this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
+    }
+  }
+
+  performLeave(key, i) {
+    if (!this.refs[key]) {
+      return;
+    }
+    const interval = transformArguments(this.props.interval)[1];
+    const delay = transformArguments(this.props.delay)[1];
+    const duration = transformArguments(this.props.duration)[1];
+    velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig(), {
+      delay: interval * (this.keysToLeave.length - i) + delay,
+      duration: duration,
+      easing: this.props.ease,
+      display: 'none',
+      complete: this.leaveComplete.bind(this, key),
+    });
+  }
+
+  enterBegin(key) {
+    const childenShow = this.state.childenShow;
+    childenShow[key] = true;
+    this.setState({
+      childenShow: childenShow,
+    });
+  }
+
+  leaveComplete(key) {
+    const childenShow = this.state.childenShow;
+    childenShow[key] = false;
+    const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
+    this.setState({
+      children: currentChildren,
+      childenShow: childenShow,
+    });
+    if (this.keysToLeave.indexOf(key) >= 0) {
+      this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
+    }
+  }
 }
 
-const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
+const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
 
 QueueAnim.propTypes = {
   interval: numberOrArray,
@@ -178,7 +181,7 @@ QueueAnim.propTypes = {
   delay: numberOrArray,
   type: React.PropTypes.string,
   animConfig: React.PropTypes.object,
-  ease: React.PropTypes.array
+  ease: React.PropTypes.array,
 };
 
 QueueAnim.defaultProps = {
@@ -187,7 +190,7 @@ QueueAnim.defaultProps = {
   delay: 0,
   type: 'right',
   animConfig: null,
-  ease: [0.165, 0.84, 0.44, 1]
+  ease: [0.165, 0.84, 0.44, 1],
 };
 
 export default QueueAnim;
