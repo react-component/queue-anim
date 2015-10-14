@@ -29,7 +29,20 @@ const App = React.createClass({
     });
     this.setState({ items });
   },
-  remove(key) {
+  addTwo() {
+    let items = this.state.items;
+    items.push({
+      children: '新节点',
+      key: this.index++
+    });
+    items.push({
+      children: '新节点',
+      key: this.index++
+    });
+    this.setState({ items });
+  },
+  remove(key, e) {
+    e.preventDefault();
     let items = this.state.items;
     let target = items.filter(item => item.key === key);
     let index;
@@ -48,13 +61,14 @@ const App = React.createClass({
   },
   render() {
     return <div>
-      <QueueAnim>
-      {this.state.items.map((item) => <div key={item.key}>
-        {item.children} <span onClick={this.remove.bind(this, item.key)}>x</span>
-      </div>)}
-      </QueueAnim>
       <button onClick={this.add}>点击新增</button>
+      <button onClick={this.addTwo}>点击新增两个</button>
       <button onClick={this.removeAll}>移出所有</button>
+      <QueueAnim>
+        {this.state.items.map((item) => <div key={item.key}>
+          {item.children} <a href="#" onClick={this.remove.bind(this, item.key)}>删除</a>
+        </div>)}
+      </QueueAnim>
     </div>;
   }
 });
