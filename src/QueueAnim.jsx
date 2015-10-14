@@ -2,6 +2,7 @@ import React, { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import velocity from 'velocity-animate';
 import { toArrayChildren, findChildInChildrenByKey, mergeChildren } from './utils';
+import AnimTypes from './animTypes';
 
 class QueueAnim extends React.Component {
   constructor(props) {
@@ -32,19 +33,23 @@ class QueueAnim extends React.Component {
     ].forEach((method) => this[method] = this[method].bind(this));
   }
 
+  getVelocityConfig() {
+    if (this.props.animConfig) {
+      return this.props.animConfig;
+    }
+    return AnimTypes[this.props.type];
+  }
+
   performEnter(key, i) {
     let node = findDOMNode(this.refs[key]);
     if (!node) {
       return;
     }
     node.style.visibility = 'hidden';
-    velocity(node, {
-      opacity: [1, 0],
-      translateX: [0, 30],
-      display: 'none'
-    }, {
+    velocity(node, this.getVelocityConfig(), {
       delay: this.props.interval * i + this.props.delay,
       duration: this.props.duration,
+      easing: this.props.ease,
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key)
     });
@@ -57,12 +62,10 @@ class QueueAnim extends React.Component {
     if (!this.refs[key]) {
       return;
     }
-    velocity(findDOMNode(this.refs[key]), {
-      opacity: [0, 1],
-      translateX: [30, 0]
-    }, {
+    velocity(findDOMNode(this.refs[key]), this.getVelocityConfig(), {
       delay: this.props.interval * (this.keysToLeave.length - i) + this.props.delay,
       duration: this.props.duration,
+      easing: this.props.ease,
       display: 'none',
       complete: this.leaveComplete.bind(this, key)
     });
@@ -146,13 +149,19 @@ class QueueAnim extends React.Component {
 QueueAnim.propTypes = {
   interval: React.PropTypes.number,
   duration: React.PropTypes.number,
-  delay: React.PropTypes.number
+  delay: React.PropTypes.number,
+  type: React.PropTypes.string,
+  animConfig: React.PropTypes.object,
+  ease: React.PropTypes.array
 };
 
 QueueAnim.defaultProps = {
   interval: 30,
   duration: 500,
-  delay: 0
+  delay: 0,
+  type: 'right',
+  animConfig: null,
+  ease: [0.165, 0.84, 0.44, 1]
 };
 
 export default QueueAnim;
