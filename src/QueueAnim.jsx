@@ -33,11 +33,24 @@ class QueueAnim extends React.Component {
     ].forEach((method) => this[method] = this[method].bind(this));
   }
 
-  getVelocityConfig() {
+  getVelocityEnterConfig() {
     if (this.props.animConfig) {
       return this.props.animConfig;
     }
     return AnimTypes[this.props.type];
+  }
+
+  getVelocityLeaveConfig() {
+    let config = this.getVelocityEnterConfig();
+    let ret = {};
+    Object.keys(config).forEach((key) => {
+      if (Array.isArray(config[key])) {
+        ret[key] = Array.prototype.slice.call(config[key]).reverse();
+      } else {
+        ret[key] = config[key];
+      }
+    });
+    return ret;
   }
 
   performEnter(key, i) {
@@ -46,7 +59,7 @@ class QueueAnim extends React.Component {
       return;
     }
     node.style.visibility = 'hidden';
-    velocity(node, this.getVelocityConfig(), {
+    velocity(node, this.getVelocityEnterConfig(), {
       delay: this.props.interval * i + this.props.delay,
       duration: this.props.duration,
       easing: this.props.ease,
@@ -62,7 +75,7 @@ class QueueAnim extends React.Component {
     if (!this.refs[key]) {
       return;
     }
-    velocity(findDOMNode(this.refs[key]), this.getVelocityConfig(), {
+    velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig(), {
       delay: this.props.interval * (this.keysToLeave.length - i) + this.props.delay,
       duration: this.props.duration,
       easing: this.props.ease,

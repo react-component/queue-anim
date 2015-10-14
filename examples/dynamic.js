@@ -12,6 +12,12 @@ const App = React.createClass({
       }, {
         children: '依次进入2',
         key: 2
+      }, {
+        children: '依次进入3',
+        key: 3
+      }, {
+        children: '依次进入4',
+        key: 4
       }]
     };
   },

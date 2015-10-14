@@ -50,3 +50,10 @@ export function mergeChildren(prev, next) {
   ret = ret.concat(pendingChildren);
   return ret;
 }
+
+export function transformArguments(arg) {
+  if (Array.isArray(arg)) {
+    return arg;
+  }
+  return [arg, arg];
+}
