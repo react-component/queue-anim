@@ -1,7 +1,12 @@
 import React, { cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import velocity from 'velocity-animate';
-import { toArrayChildren, findChildInChildrenByKey, mergeChildren } from './utils';
+import {
+  toArrayChildren,
+  findChildInChildrenByKey,
+  mergeChildren,
+  transformArguments,
+} from './utils';
 import AnimTypes from './animTypes';
 
 class QueueAnim extends React.Component {
@@ -58,10 +63,13 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
+    let interval = transformArguments(this.props.interval)[0];
+    let delay = transformArguments(this.props.delay)[0];
+    let duration = transformArguments(this.props.duration)[0];
     node.style.visibility = 'hidden';
     velocity(node, this.getVelocityEnterConfig(), {
-      delay: this.props.interval * i + this.props.delay,
-      duration: this.props.duration,
+      delay: interval * i + delay,
+      duration: duration,
       easing: this.props.ease,
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key)
@@ -75,9 +83,12 @@ class QueueAnim extends React.Component {
     if (!this.refs[key]) {
       return;
     }
+    let interval = transformArguments(this.props.interval)[1];
+    let delay = transformArguments(this.props.delay)[1];
+    let duration = transformArguments(this.props.duration)[1];
     velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig(), {
-      delay: this.props.interval * (this.keysToLeave.length - i) + this.props.delay,
-      duration: this.props.duration,
+      delay: interval * (this.keysToLeave.length - i) + delay,
+      duration: duration,
       easing: this.props.ease,
       display: 'none',
       complete: this.leaveComplete.bind(this, key)
@@ -159,10 +170,12 @@ class QueueAnim extends React.Component {
   }
 }
 
+const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
+
 QueueAnim.propTypes = {
-  interval: React.PropTypes.number,
-  duration: React.PropTypes.number,
-  delay: React.PropTypes.number,
+  interval: numberOrArray,
+  duration: numberOrArray,
+  delay: numberOrArray,
   type: React.PropTypes.string,
   animConfig: React.PropTypes.object,
   ease: React.PropTypes.array
