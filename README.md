@@ -1,8 +1,7 @@
 # rc-queue-anim
 ---
 
-React QueueAnim Component
-
+Animate React Component in queue, thanks to [rc-animate](https://github.com/react-component/animate) and [enter-animation](https://github.com/ant-design/enter-animation).
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
