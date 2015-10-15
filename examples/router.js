@@ -15,7 +15,13 @@ const App = React.createClass({
     );
   }
 });
-
+const Page3=React.createClass({
+  render() {
+    return (
+          <p ><Link to="/page2">A link to page 2 should be active</Link>依次进场Page3</p>
+    );
+  }
+});
 const Page1 = React.createClass({
   render() {
     return (
@@ -27,6 +33,8 @@ const Page1 = React.createClass({
           <p key="4"><Link to="/page2">A link to page 2 should be active</Link>依次进场</p>
           <p key="5"><Link to="/page2">A link to page 2 should be active</Link>依次进场</p>
           <p key="6"><Link to="/page2">A link to page 2 should be active</Link>改变样式</p>
+          <Page3 key='7'/>
+
         </QueueAnim>
       </div>
     );
