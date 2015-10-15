@@ -141,7 +141,7 @@ class QueueAnim extends React.Component {
   getVelocityEasing() {
     return transformArguments(this.props.ease).map((easeName) => {
       if (typeof easeName === 'string') {
-        return BackEase[ease] || ease;
+        return BackEase[easeName] || easeName;
       }
     });
   }
