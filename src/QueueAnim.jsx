@@ -7,8 +7,14 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
-  } from './utils';
+} from './utils';
 import AnimTypes from './animTypes';
+
+const BackEase = {
+  easeInBack: [0.6, -0.28, 0.735, 0.045],
+  easeOutBack: [0.175, 0.885, 0.32, 1.275],
+  easeInOutBack: [0.68, -0.55, 0.265, 1.55],
+};
 
 class QueueAnim extends React.Component {
   constructor() {
@@ -96,20 +102,19 @@ class QueueAnim extends React.Component {
     });
   }
 
-  getVelocityEnterConfig(type) {
-    const _num = type === 'leave' ? 1 : 0;
+  getVelocityConfig(index) {
     if (this.props.animConfig) {
-      let animConfig = transformArguments(this.props.animConfig)[_num];
-      animConfig = type === 'leave' && !animConfig[_num] ? animConfig[0] : animConfig[_num];
-      return animConfig;
+      return transformArguments(this.props.animConfig)[index];
     }
-    let _type = transformArguments(this.props.type);
-    _type = type === 'leave' && !_type[_num] ? _type[0] : _type[_num];
-    return AnimTypes[_type];
+    return AnimTypes[transformArguments(this.props.type)[index]];
   }
 
-  getVelocityLeaveConfig(type) {
-    const config = this.getVelocityEnterConfig(type);
+  getVelocityEnterConfig() {
+    return this.getVelocityConfig(0);
+  }
+
+  getVelocityLeaveConfig() {
+    const config = this.getVelocityConfig(1);
     const ret = {};
     Object.keys(config).forEach((key) => {
       if (Array.isArray(config[key])) {
@@ -133,19 +138,12 @@ class QueueAnim extends React.Component {
     return createElement(this.props.component, this.props, childrenToRender);
   }
 
-  getVelocityEaseing(type) {
-    let ease = transformArguments(this.props.ease);
-    const _num = type === 'leave' ? 1 : 0;
-    ease = ease[_num];
-    if (typeof ease === 'string') {
-      const BackEase = {
-        easeInBack: [0.6, -0.28, 0.735, 0.045],
-        easeOutBack: [0.175, 0.885, 0.32, 1.275],
-        easeInOutBack: [0.68, -0.55, 0.265, 1.55],
-      };
-      ease = BackEase[ease] || ease;
-    }
-    return ease;
+  getVelocityEasing() {
+    return transformArguments(this.props.ease).map((easeName) => {
+      if (typeof easeName === 'string') {
+        return BackEase[ease] || ease;
+      }
+    });
   }
 
   performEnter(key, i) {
@@ -160,7 +158,7 @@ class QueueAnim extends React.Component {
     velocity(node, this.getVelocityEnterConfig('enter'), {
       delay: interval * i + delay,
       duration: duration,
-      easing: this.getVelocityEaseing('enter'),
+      easing: this.getVelocityEasing()[0],
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
       complete: this.enterComplete.bind(this, key),
@@ -180,7 +178,7 @@ class QueueAnim extends React.Component {
     velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig('leave'), {
       delay: interval * (this.keysToLeave.length - i) + delay,
       duration: duration,
-      easing: this.getVelocityEaseing('leave'),
+      easing: this.getVelocityEasing()[1],
       display: 'none',
       complete: this.leaveComplete.bind(this, key),
     });
