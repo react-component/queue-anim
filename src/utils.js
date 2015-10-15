@@ -46,8 +46,45 @@ export function mergeChildren(prev, next) {
     }
     ret.push(c);
   });
-
-  ret = ret.concat(pendingChildren);
+  const leavaItem = [];
+  pendingChildren.map((item)=> {
+    const index = prev.indexOf(item);
+    let nextIndex;
+    for (let i = index + 1; i < prev.length; i++) {
+      const _item = prev[i];
+      for (let ii = 0; ii < next.length; ii++) {
+        const newItem = next[ii];
+        if (newItem.key === _item.key) {
+          nextIndex = ii;
+          break;
+        }
+      }
+      if (nextIndex) {
+        break;
+      }
+    }
+    if (!(typeof nextIndex === 'number')) {
+      for (let j = index - 1; j >= 0; j--) {
+        const __item = prev[j];
+        for (let jj = 0; jj < next.length; jj++) {
+          const _newItem = next[jj];
+          if (__item.key === _newItem.key) {
+            nextIndex = jj + 1;
+            break;
+          }
+        }
+        if (nextIndex) {
+          break;
+        }
+      }
+    }
+    if (nextIndex) {
+      ret.splice(nextIndex, 0, item);
+    } else {
+      leavaItem.push(item);
+    }
+  });
+  ret = ret.concat(leavaItem);
   return ret;
 }
 
