@@ -47,7 +47,17 @@ export function mergeChildren(prev, next) {
     ret.push(c);
   });
 
-  ret = ret.concat(pendingChildren);
+  // 保持原有的顺序
+  let originIndex;
+  pendingChildren.forEach((c) => {
+    originIndex = prev.indexOf(c);
+    if (originIndex >= 0) {
+      ret.splice(originIndex, 0, c);
+    } else {
+      ret.push(c);
+    }
+  });
+
   return ret;
 }
 
