@@ -24,23 +24,28 @@ const Page3 = React.createClass({
       <QueueAnim interval={200}>
         <p key='1'>
           <Link to="/page2">A link to page 2 should be active</Link>
-          Page3</p>
+          Page3
+        </p>
         <p key='2'>
           <Link to="/page2">A link to page 2 should be active</Link>
-          Page3</p>
+          Page3
+        </p>
         <p key='3'>
           <Link to="/page2">A link to page 2 should be active</Link>
-          Page3</p>
+          Page3
+        </p>
         <p key='4'>
           <Link to="/page2">A link to page 2 should be active</Link>
-          Page3</p>
+          Page3
+        </p>
         <p key='5'>
           <Link to="/page2">A link to page 2 should be active</Link>
-          Page3</p>
+          Page3
+        </p>
         <p key='6'>
           <Link to="/page2">A link to page 2 should be active</Link>
-          Page3</p>
-
+          Page3
+        </p>
       </QueueAnim>
     );
   }
@@ -49,27 +54,25 @@ const Page3 = React.createClass({
 const Page1 = React.createClass({
   render() {
     return (
-      <div>
-        <QueueAnim interval={200}>
-          <h1 key="1">Page 1</h1>
-          <p key="2">
-            <Link to="/page2">A link to page 2 should be active</Link>
-            依次进场</p>
-          <p key="3">
-            <Link to="/page2">A link to page 2 should be active</Link>
-            依次进场</p>
-          <p key="4">
-            <Link to="/page2">A link to page 2 should be active</Link>
-            依次进场</p>
-          <p key="5">
-            <Link to="/page2">A link to page 2 should be active</Link>
-            依次进场</p>
-          <p key="6">
-            <Link to="/page2">A link to page 2 should be active</Link>
-            改变样式</p>
-          <Page3 key='7' />
-        </QueueAnim>
-      </div>
+      <QueueAnim interval={200}>
+        <h1 key="1">Page 1</h1>
+        <p key="2">
+          <Link to="/page2">A link to page 2 should be active</Link>
+          依次进场</p>
+        <p key="3">
+          <Link to="/page2">A link to page 2 should be active</Link>
+          依次进场</p>
+        <p key="4">
+          <Link to="/page2">A link to page 2 should be active</Link>
+          依次进场</p>
+        <p key="5">
+          <Link to="/page2">A link to page 2 should be active</Link>
+          依次进场</p>
+        <p key="6">
+          <Link to="/page2">A link to page 2 should be active</Link>
+          改变样式</p>
+        <Page3 key='7' />
+      </QueueAnim>
     );
   }
 });
@@ -77,23 +80,25 @@ const Page1 = React.createClass({
 const Page2 = React.createClass({
   render() {
     return (
-      <div>
-        <QueueAnim interval={200}>
-          <h1 key="1">Page 2</h1>
-          <p key="2">
-            <Link to="/page1">a link to page 1 </Link>
-            我是页面2.</p>
-          <p key="3">
-            <Link to="/page1">a link to page 1 </Link>
-            我是页面2.</p>
-          <p key="4">
-            <Link to="/page1">a link to page 1 </Link>
-            我是页面2.</p>
-          <p key="5">
-            <Link to="/page1">a link to page 1 </Link>
-            我是页面2.</p>
-        </QueueAnim>
-      </div>
+      <QueueAnim interval={200}>
+        <h1 key="1">Page 2</h1>
+        <p key="2">
+          <Link to="/page1">a link to page 1 </Link>
+          我是页面2.
+        </p>
+        <p key="3">
+          <Link to="/page1">a link to page 1 </Link>
+          我是页面2.
+        </p>
+        <p key="4">
+          <Link to="/page1">a link to page 1 </Link>
+          我是页面2.
+        </p>
+        <p key="5">
+          <Link to="/page1">a link to page 1 </Link>
+          我是页面2.
+        </p>
+      </QueueAnim>
     );
   }
 });

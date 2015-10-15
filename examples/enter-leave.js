@@ -33,7 +33,7 @@ const App = React.createClass({
   },
   render() {
     return <div>
-      <QueueAnim type={['right']} interval={[100, 200]} delay={[0, 1000]} duration={[500, 2000]} ease={['easeOutBack','easeInOutCirc']}>
+      <QueueAnim type={['right', 'left']} interval={[100, 200]} delay={[0, 1000]} duration={[500, 2000]} ease={['easeOutBack','easeInOutCirc']}>
       {this.state.items.map((item) => <div key={item.key}>
         {item.children}
       </div>)}

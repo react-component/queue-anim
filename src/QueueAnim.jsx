@@ -1,4 +1,4 @@
-import React, { createElement } from 'react';
+import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import velocity from 'velocity-animate';
 import {
@@ -131,9 +131,16 @@ class QueueAnim extends React.Component {
       if (!child || !child.key) {
         return child;
       }
-      return (
-        React.cloneElement(child, {ref: child.key}, this.state.childenShow[child.key] ? child.props.children : null)
-      );
+      if (typeof child.type === 'function') {
+        return (
+          <div ref={child.key} key={child.key} {...child.props}>
+            {this.state.childenShow[child.key] ? child : null}
+          </div>
+        );
+      }
+      return cloneElement(child, {
+        ref: child.key,
+      }, this.state.childenShow[child.key] ? child.props.children : null);
     });
     return createElement(this.props.component, this.props, childrenToRender);
   }
