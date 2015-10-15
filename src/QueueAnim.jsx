@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createElement } from 'react';
 import { findDOMNode } from 'react-dom';
 import velocity from 'velocity-animate';
 import {
@@ -7,7 +7,7 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
-} from './utils';
+  } from './utils';
 import AnimTypes from './animTypes';
 
 class QueueAnim extends React.Component {
@@ -96,15 +96,20 @@ class QueueAnim extends React.Component {
     });
   }
 
-  getVelocityEnterConfig() {
+  getVelocityEnterConfig(type) {
+    const _num = type === 'leave' ? 1 : 0;
     if (this.props.animConfig) {
-      return this.props.animConfig;
+      let animConfig = transformArguments(this.props.animConfig)[_num];
+      animConfig = type === 'leave' && !animConfig[_num] ? animConfig[0] : animConfig[_num];
+      return animConfig;
     }
-    return AnimTypes[this.props.type];
+    let _type = transformArguments(this.props.type);
+    _type = type === 'leave' && !_type[_num] ? _type[0] : _type[_num];
+    return AnimTypes[_type];
   }
 
-  getVelocityLeaveConfig() {
-    const config = this.getVelocityEnterConfig();
+  getVelocityLeaveConfig(type) {
+    const config = this.getVelocityEnterConfig(type);
     const ret = {};
     Object.keys(config).forEach((key) => {
       if (Array.isArray(config[key])) {
@@ -122,12 +127,25 @@ class QueueAnim extends React.Component {
         return child;
       }
       return (
-        <div key={child.key} ref={child.key} {...child.props}>
-          {this.state.childenShow[child.key] ? child : null}
-        </div>
+        React.cloneElement(child, {ref: child.key}, this.state.childenShow[child.key] ? child.props.children : null)
       );
     });
-    return <div {...this.props}>{childrenToRender}</div>;
+    return createElement(this.props.component, this.props, childrenToRender);
+  }
+
+  getVelocityEaseing(type) {
+    let ease = transformArguments(this.props.ease);
+    const _num = type === 'leave' ? 1 : 0;
+    ease = ease[_num];
+    if (typeof ease === 'string') {
+      const BackEase = {
+        easeInBack: [0.6, -0.28, 0.735, 0.045],
+        easeOutBack: [0.175, 0.885, 0.32, 1.275],
+        easeInOutBack: [0.68, -0.55, 0.265, 1.55],
+      };
+      ease = BackEase[ease] || ease;
+    }
+    return ease;
   }
 
   performEnter(key, i) {
@@ -139,10 +157,10 @@ class QueueAnim extends React.Component {
     const delay = transformArguments(this.props.delay)[0];
     const duration = transformArguments(this.props.duration)[0];
     node.style.visibility = 'hidden';
-    velocity(node, this.getVelocityEnterConfig(), {
+    velocity(node, this.getVelocityEnterConfig('enter'), {
       delay: interval * i + delay,
       duration: duration,
-      easing: this.props.ease,
+      easing: this.getVelocityEaseing('enter'),
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
       complete: this.enterComplete.bind(this, key),
@@ -159,10 +177,10 @@ class QueueAnim extends React.Component {
     const interval = transformArguments(this.props.interval)[1];
     const delay = transformArguments(this.props.delay)[1];
     const duration = transformArguments(this.props.duration)[1];
-    velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig(), {
+    velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig('leave'), {
       delay: interval * (this.keysToLeave.length - i) + delay,
       duration: duration,
-      easing: this.props.ease,
+      easing: this.getVelocityEaseing('leave'),
       display: 'none',
       complete: this.leaveComplete.bind(this, key),
     });
@@ -200,17 +218,20 @@ class QueueAnim extends React.Component {
 }
 
 const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
-
+const stringOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
+const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
 QueueAnim.propTypes = {
+  component: React.PropTypes.string,
   interval: numberOrArray,
   duration: numberOrArray,
   delay: numberOrArray,
-  type: React.PropTypes.string,
-  animConfig: React.PropTypes.object,
-  ease: React.PropTypes.array,
+  type: stringOrArray,
+  animConfig: objectOrArray,
+  ease: stringOrArray,
 };
 
 QueueAnim.defaultProps = {
+  component: 'div',
   interval: 30,
   duration: 500,
   delay: 0,
