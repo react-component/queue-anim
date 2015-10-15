@@ -59,7 +59,7 @@ export function mergeChildren(prev, next) {
 }
 
 export function transformArguments(arg) {
-  if (Array.isArray(arg)) {
+  if (Array.isArray(arg) && arg.length === 2) {
     return arg;
   }
   return [arg, arg];
