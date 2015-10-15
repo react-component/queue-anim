@@ -24,7 +24,7 @@
   "licenses": "MIT",
   "main": "./lib/index",
   "config": {
-    "port": 8000
+    "port": 8001
   },
   "scripts": {
     "build": "rc-tools run build",
