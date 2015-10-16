@@ -78,7 +78,7 @@ React.render(
 | duration   | number / array | 500     | 每个动画的时间,以毫秒为单位  |
 | interval   | number / array | 30      | 每个动画的间隔时间,以毫秒为单位  |
 | leaveReverse | boolean      | false   | 出场时是否倒放,从最后一个 dom 开始往上播放 |
-| ease       | string / array | `easeOutQuart` | 动画的缓动函数,(详细)(http://julian.com/research/velocity/#easing) |
+| ease       | string / array | `easeOutQuart` | 动画的缓动函数,[详细](http://julian.com/research/velocity/#easing) |
 | component  | string | `div` | QueueAnim 替换的标签名 |
 
 > 当以上数据为Array时，`['enter', 'leave']` 第一个为 `enter` 数据, 第二个为 `leave` 数据
