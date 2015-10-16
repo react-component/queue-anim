@@ -131,12 +131,9 @@ class QueueAnim extends React.Component {
       if (!child || !child.key) {
         return child;
       }
-      if (typeof child.type === 'function') {
-        return (
-          <div ref={child.key} key={child.key} {...child.props}>
-            {this.state.childenShow[child.key] ? child : null}
-          </div>
-        );
+      // handle Component without props, like <App />
+      if (typeof child.type === 'function' && !this.state.childenShow[child.key]) {
+        return <div ref={child.key} />;
       }
       return cloneElement(child, {
         ref: child.key,

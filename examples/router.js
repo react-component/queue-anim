@@ -21,7 +21,7 @@ const App = React.createClass({
 const Page3 = React.createClass({
   render() {
     return (
-      <QueueAnim delay={1000}>
+      <QueueAnim interval={300}>
         <p key='1'>
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
@@ -54,7 +54,7 @@ const Page3 = React.createClass({
 const Page1 = React.createClass({
   render() {
     return (
-      <QueueAnim>
+      <QueueAnim interval={300}>
         <h1 key="1">Page 1</h1>
         <p key="2">
           <Link to="/page2">A link to page 2 should be active</Link>
@@ -80,7 +80,7 @@ const Page1 = React.createClass({
 const Page2 = React.createClass({
   render() {
     return (
-      <QueueAnim>
+      <QueueAnim interval={300}>
         <h1 key="1">Page 2</h1>
         <p key="2">
           <Link to="/page1">a link to page 1 </Link>
