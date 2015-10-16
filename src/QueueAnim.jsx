@@ -182,8 +182,9 @@ class QueueAnim extends React.Component {
     const interval = transformArguments(this.props.interval)[1];
     const delay = transformArguments(this.props.delay)[1];
     const duration = transformArguments(this.props.duration)[1];
+    const order = this.props.leaveReverse ? (this.keysToLeave.length - i) : i;
     velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig('leave'), {
-      delay: interval * (this.keysToLeave.length - i) + delay,
+      delay: interval * order + delay,
       duration: duration,
       easing: this.getVelocityEasing()[1],
       display: 'none',
@@ -233,6 +234,7 @@ QueueAnim.propTypes = {
   type: stringOrArray,
   animConfig: objectOrArray,
   ease: stringOrArray,
+  leaveReverse: React.PropTypes.bool,
 };
 
 QueueAnim.defaultProps = {
@@ -243,6 +245,7 @@ QueueAnim.defaultProps = {
   type: 'right',
   animConfig: null,
   ease: [0.165, 0.84, 0.44, 1],
+  leaveReverse: false,
 };
 
 export default QueueAnim;
