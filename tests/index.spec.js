@@ -13,6 +13,10 @@ describe('rc-queue-anim', function () {
     return parseFloat($(node).css('opacity'));
   }
 
+  function getLeft(node) {
+    return parseInt($(node).css('left'));
+  }
+
   function shouldAnimatingThisOne(children, index) {
     children.forEach(function(node, i) {
       console.log(i, node.style.visibility, getOpacity(node));
@@ -167,6 +171,23 @@ describe('rc-queue-anim', function () {
         }, 500);
       }, 10);
     }, interval * 3 + 500);
+  });
+
+  it.only('should support custom animation config', function() {
+    const interval = 30;
+    instance = createQueueAnimInstance({
+      animConfig: {
+        left: [100, 0]
+      }
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(getLeft(children[1])).to.be(0);
+    setTimeout(function() {
+      expect(getLeft(children[1])).to.above(0);
+    }, 10);
+  });
+
+  it('should support setting default types', function() {
   });
 
 });
