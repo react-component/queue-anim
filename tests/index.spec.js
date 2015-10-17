@@ -3,7 +3,7 @@ import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import QueueAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
-import $ from 'jQuery';
+import $ from 'jquery';
 
 describe('rc-queue-anim', function () {
   let instance;
