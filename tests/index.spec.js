@@ -14,7 +14,7 @@ describe('rc-queue-anim', function () {
   }
 
   function getLeft(node) {
-    return parseInt($(node).css('left'));
+    return parseFloat(node.style.left);
   }
 
   function shouldAnimatingThisOne(children, index) {
@@ -173,21 +173,18 @@ describe('rc-queue-anim', function () {
     }, interval * 3 + 500);
   });
 
-  it.only('should support custom animation config', function() {
-    const interval = 30;
+  it('should support custom animation config', function(done) {
     instance = createQueueAnimInstance({
       animConfig: {
         left: [100, 0]
       }
     });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    expect(getLeft(children[1])).to.be(0);
+    expect(isNaN(getLeft(children[1]))).to.be.ok();
     setTimeout(function() {
       expect(getLeft(children[1])).to.above(0);
+      done();
     }, 10);
-  });
-
-  it('should support setting default types', function() {
   });
 
 });
