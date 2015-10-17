@@ -241,7 +241,7 @@ QueueAnim.defaultProps = {
   delay: 0,
   type: 'right',
   animConfig: null,
-  ease: [0.165, 0.84, 0.44, 1],
+  ease: 'easeOutQuart',
   leaveReverse: false,
 };
 
