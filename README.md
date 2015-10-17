@@ -64,7 +64,7 @@ ReactDom.render(<QueueAnim>
 
 ## API
 
-|参数        |类型             |默认     |详细             |
+| props      | type           | default | description    |
 |------------|----------------|---------|----------------|
 | type       | string / array | `right` | Animation Styles <br/>`left` `right` `top` `bottom` `scale` `scaleFrom` `scaleX` `scaleY`|
 | animConfig | object / array | null    | Custom Velocity config, like `{opacity:[1, 0], translateY:[0, -30]}`, [velocity config](http://julian.com/research/velocity) |
