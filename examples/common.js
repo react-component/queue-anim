@@ -356,7 +356,7 @@
 	      var interval = (0, _utils.transformArguments)(this.props.interval)[1];
 	      var delay = (0, _utils.transformArguments)(this.props.delay)[1];
 	      var duration = (0, _utils.transformArguments)(this.props.duration)[1];
-	      var order = this.props.leaveReverse ? this.keysToLeave.length - i : i;
+	      var order = this.props.leaveReverse ? this.keysToLeave.length - i - 1 : i;
 	      (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(this.refs[key]), this.getVelocityLeaveConfig('leave'), {
 	        delay: interval * order + delay,
 	        duration: duration,

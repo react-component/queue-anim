@@ -239,7 +239,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.9.2</h1>
+    <h1>rc-queue-anim@0.9.3</h1>
 
     <p>Queue animation component for react</p>
   </div>
@@ -282,7 +282,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   },
   render() {
     <span class="hljs-keyword">return</span> &lt;div&gt;
-      &lt;QueueAnim type={[<span class="hljs-string">'right'</span>, <span class="hljs-string">'left'</span>]} interval={[<span class="hljs-number">100</span>, <span class="hljs-number">200</span>]} delay={[<span class="hljs-number">0</span>, <span class="hljs-number">1000</span>]} duration={[<span class="hljs-number">500</span>, <span class="hljs-number">2000</span>]} ease={[<span class="hljs-string">'easeOutBack'</span>,<span class="hljs-string">'easeInOutCirc'</span>]}&gt;
+      &lt;QueueAnim type={[<span class="hljs-string">'right'</span>, <span class="hljs-string">'left'</span>]} interval={[<span class="hljs-number">100</span>, <span class="hljs-number">200</span>]} delay={[<span class="hljs-number">0</span>, <span class="hljs-number">1000</span>]} duration={[<span class="hljs-number">500</span>, <span class="hljs-number">2000</span>]} ease={[<span class="hljs-string">'easeOutBack'</span>,<span class="hljs-string">'easeInOutCirc'</span>]} leaveReverse={<span class="hljs-keyword">true</span>}&gt;
       {<span class="hljs-keyword">this</span>.state.items.<span class="hljs-built_in">map</span>((item) =&gt; &lt;div <span class="hljs-variable">key</span>={item.<span class="hljs-variable">key</span>}&gt;
         {item.children}
       &lt;/div&gt;)}

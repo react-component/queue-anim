@@ -64,7 +64,7 @@ webpackJsonp([3],{
 	      null,
 	      _react2['default'].createElement(
 	        _rcQueueAnim2['default'],
-	        { type: ['right', 'left'], interval: [100, 200], delay: [0, 1000], duration: [500, 2000], ease: ['easeOutBack', 'easeInOutCirc'] },
+	        { type: ['right', 'left'], interval: [100, 200], delay: [0, 1000], duration: [500, 2000], ease: ['easeOutBack', 'easeInOutCirc'], leaveReverse: true },
 	        this.state.items.map(function (item) {
 	          return _react2['default'].createElement(
 	            'div',
