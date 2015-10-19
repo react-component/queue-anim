@@ -179,7 +179,7 @@ class QueueAnim extends React.Component {
     const interval = transformArguments(this.props.interval)[1];
     const delay = transformArguments(this.props.delay)[1];
     const duration = transformArguments(this.props.duration)[1];
-    const order = this.props.leaveReverse ? (this.keysToLeave.length - i) : i;
+    const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(findDOMNode(this.refs[key]), this.getVelocityLeaveConfig('leave'), {
       delay: interval * order + delay,
       duration: duration,
