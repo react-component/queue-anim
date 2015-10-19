@@ -52,7 +52,6 @@
     "lint"
   ],
   "dependencies": {
-    "react-dom": "~0.14.0",
     "velocity-animate": "~1.2.3"
   }
 }
