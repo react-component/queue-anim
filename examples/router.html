@@ -239,7 +239,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.9.3</h1>
+    <h1>rc-queue-anim@0.10.0</h1>
 
     <p>Queue animation component for react</p>
   </div>
@@ -247,119 +247,122 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="common.js?nowrap"></script>
   <script src="router.js?nowrap"></script>
   <div class="highlight">
-    <pre><code><span class="hljs-keyword">import</span> ReactRouter, { Router, Route, <span class="hljs-keyword">Link</span> } from <span class="hljs-string">'react-router'</span>;
-<span class="hljs-keyword">import</span> QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
-<span class="hljs-keyword">import</span> React from <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDom from <span class="hljs-string">'react-dom'</span>;
+    <pre><code>import ReactRouter, { Router, Route, Link } from 'react-router';
+import QueueAnim from 'rc-queue-anim';
+import React from 'react';
+import ReactDom from 'react-dom';
 
-const App <span class="hljs-subst">=</span> React<span class="hljs-built_in">.</span>createClass({
+const App = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-subst">&lt;</span>div<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/"</span> onClick<span class="hljs-subst">=</span>{this<span class="hljs-built_in">.</span>clickPage}<span class="hljs-subst">&gt;</span>首页<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&amp;</span>nbsp;
-        <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page1"</span> onClick<span class="hljs-subst">=</span>{this<span class="hljs-built_in">.</span>clickPage}<span class="hljs-subst">&gt;</span>Page <span class="hljs-number">1</span><span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&amp;</span>nbsp;
-        <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span> onClick<span class="hljs-subst">=</span>{this<span class="hljs-built_in">.</span>clickPage}<span class="hljs-subst">&gt;</span>Page <span class="hljs-number">2</span><span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-        {this<span class="hljs-built_in">.</span>props<span class="hljs-built_in">.</span>children <span class="hljs-subst">||</span> <span class="hljs-subst">&lt;</span>h1<span class="hljs-subst">&gt;</span>Home Page<span class="hljs-subst">&lt;</span>/h1<span class="hljs-subst">&gt;</span>}
-      <span class="hljs-subst">&lt;</span>/div<span class="hljs-subst">&gt;</span>
+    var key = this.props.location.pathname;
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+      &amp;nbsp;
+        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>Page 1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+      &amp;nbsp;
+        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">{['right','left']}</span>&gt;</span>
+          {React.cloneElement(this.props.children||<span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'home'</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>, {key: key})}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
   }
 });
 
-const Page3 <span class="hljs-subst">=</span> React<span class="hljs-built_in">.</span>createClass({
+const Page3 = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-subst">&lt;</span>QueueAnim interval<span class="hljs-subst">=</span>{<span class="hljs-number">300</span>}<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">'1'</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'1'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">'2'</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'2'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">'3'</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'3'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">'4'</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'4'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">'5'</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'5'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">'6'</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'6'</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&lt;</span>/QueueAnim<span class="hljs-subst">&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     );
   }
 });
 
-const Page1 <span class="hljs-subst">=</span> React<span class="hljs-built_in">.</span>createClass({
+const Page1 = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-subst">&lt;</span>QueueAnim interval<span class="hljs-subst">=</span>{<span class="hljs-number">300</span>}<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>h1 key<span class="hljs-subst">=</span><span class="hljs-string">"1"</span><span class="hljs-subst">&gt;</span>Page <span class="hljs-number">1</span><span class="hljs-subst">&lt;</span>/h1<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"2"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          依次进场<span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"3"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          依次进场<span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"4"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          依次进场<span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"5"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          依次进场<span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"6"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page2"</span><span class="hljs-subst">&gt;</span>A <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">2</span> should be active<span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          改变样式<span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>Page3 key<span class="hljs-subst">=</span><span class="hljs-string">'7'</span> <span class="hljs-subst">/</span><span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&lt;</span>/QueueAnim<span class="hljs-subst">&gt;</span>
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Page 1<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          依次进场<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          依次进场<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          依次进场<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"5"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          依次进场<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"6"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          改变样式<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Page3</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'7'</span> /&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     );
   }
 });
 
-const Page2 <span class="hljs-subst">=</span> React<span class="hljs-built_in">.</span>createClass({
+const Page2 = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="hljs-subst">&lt;</span>QueueAnim interval<span class="hljs-subst">=</span>{<span class="hljs-number">300</span>}<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>h1 key<span class="hljs-subst">=</span><span class="hljs-string">"1"</span><span class="hljs-subst">&gt;</span>Page <span class="hljs-number">2</span><span class="hljs-subst">&lt;</span>/h1<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"2"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page1"</span><span class="hljs-subst">&gt;</span>a <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">1</span> <span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          我是页面<span class="hljs-number">2.</span>
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"3"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page1"</span><span class="hljs-subst">&gt;</span>a <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">1</span> <span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          我是页面<span class="hljs-number">2.</span>
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"4"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page1"</span><span class="hljs-subst">&gt;</span>a <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">1</span> <span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          我是页面<span class="hljs-number">2.</span>
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-        <span class="hljs-subst">&lt;</span>p key<span class="hljs-subst">=</span><span class="hljs-string">"5"</span><span class="hljs-subst">&gt;</span>
-          <span class="hljs-subst">&lt;</span><span class="hljs-keyword">Link</span> <span class="hljs-keyword">to</span><span class="hljs-subst">=</span><span class="hljs-string">"/page1"</span><span class="hljs-subst">&gt;</span>a <span class="hljs-keyword">link</span> <span class="hljs-keyword">to</span> page <span class="hljs-number">1</span> <span class="hljs-subst">&lt;</span>/<span class="hljs-keyword">Link</span><span class="hljs-subst">&gt;</span>
-          我是页面<span class="hljs-number">2.</span>
-        <span class="hljs-subst">&lt;</span>/p<span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&lt;</span>/QueueAnim<span class="hljs-subst">&gt;</span>
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          我是页面2.
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          我是页面2.
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          我是页面2.
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"5"</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+          我是页面2.
+        <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     );
   }
 });
 
-ReactDom<span class="hljs-built_in">.</span>render((
-  <span class="hljs-subst">&lt;</span>Router<span class="hljs-subst">&gt;</span>
-    <span class="hljs-subst">&lt;</span>Route path<span class="hljs-subst">=</span><span class="hljs-string">"/"</span> component<span class="hljs-subst">=</span>{App} ignoreScrollBehavior<span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&lt;</span>Route path<span class="hljs-subst">=</span><span class="hljs-string">"page1"</span> component<span class="hljs-subst">=</span>{Page1} <span class="hljs-subst">/</span><span class="hljs-subst">&gt;</span>
-      <span class="hljs-subst">&lt;</span>Route path<span class="hljs-subst">=</span><span class="hljs-string">"page2"</span> component<span class="hljs-subst">=</span>{Page2} <span class="hljs-subst">/</span><span class="hljs-subst">&gt;</span>
-    <span class="hljs-subst">&lt;</span>/Route<span class="hljs-subst">&gt;</span>
-  <span class="hljs-subst">&lt;</span>/Router<span class="hljs-subst">&gt;</span>
-), document<span class="hljs-built_in">.</span>getElementById(<span class="hljs-string">'__react-content'</span>));
+ReactDom.render((
+  <span class="hljs-tag">&lt;<span class="hljs-title">Router</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"/"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{App}</span> <span class="hljs-attribute">ignoreScrollBehavior</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"page1"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Page1}</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"page2"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Page2}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Route</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>
+), document.getElementById('__react-content'));
 </code></pre>
   </div>
 </div>

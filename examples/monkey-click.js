@@ -1,14 +1,14 @@
-webpackJsonp([4],{
+webpackJsonp([5],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(169);
+	module.exports = __webpack_require__(170);
 
 
 /***/ },
 
-/***/ 169:
+/***/ 170:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32,6 +32,7 @@ webpackJsonp([4],{
 	
 	  getInitialState: function getInitialState() {
 	    return {
+	      show: true,
 	      items: [{
 	        children: '依次进入1',
 	        key: 1
@@ -53,9 +54,9 @@ webpackJsonp([4],{
 	      }]
 	    };
 	  },
-	  removeAll: function removeAll() {
+	  toggle: function toggle() {
 	    this.setState({
-	      items: []
+	      show: !this.state.show
 	    });
 	  },
 	  render: function render() {
@@ -63,20 +64,25 @@ webpackJsonp([4],{
 	      'div',
 	      null,
 	      _react2['default'].createElement(
+	        'button',
+	        { onClick: this.toggle },
+	        '切换'
+	      ),
+	      _react2['default'].createElement(
+	        'span',
+	        null,
+	        this.state.show ? '显示' : '隐藏'
+	      ),
+	      _react2['default'].createElement(
 	        _rcQueueAnim2['default'],
-	        { type: ['right', 'left'], interval: [100, 200], delay: [0, 1000], duration: [500, 2000], ease: ['easeOutBack', 'easeInOutCirc'], leaveReverse: true },
-	        this.state.items.map(function (item) {
+	        { leaveReverse: true },
+	        this.state.show ? this.state.items.map(function (item) {
 	          return _react2['default'].createElement(
 	            'div',
 	            { key: item.key },
 	            item.children
 	          );
-	        })
-	      ),
-	      _react2['default'].createElement(
-	        'button',
-	        { onClick: this.removeAll },
-	        '移出所有'
+	        }) : null
 	      )
 	    );
 	  }
@@ -87,4 +93,4 @@ webpackJsonp([4],{
 /***/ }
 
 });
-//# sourceMappingURL=enter-leave.js.map
+//# sourceMappingURL=monkey-click.js.map

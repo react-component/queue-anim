@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		8:0
+/******/ 		10:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"config","1":"custom","2":"dynamic","3":"enter-leave","4":"nested","5":"router","6":"shortcut","7":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dynamic","4":"enter-leave","5":"monkey-click","6":"nested","7":"router","8":"shortcut","9":"simple"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -191,16 +191,18 @@
 	
 	    // 第一次进入，默认进场
 	    var children = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
-	    children.map(function (child) {
+	    children.forEach(function (child) {
 	      if (!child || !child.key) {
 	        return;
 	      }
 	      _this.keysToEnter.push(child.key);
 	    });
 	
+	    this.originalChildren = this.props.children;
+	
 	    this.state = {
 	      children: children,
-	      childenShow: {}
+	      childrenShow: {}
 	    };
 	
 	    ['performEnter', 'performLeave', 'enterBegin', 'leaveComplete'].forEach(function (method) {
@@ -219,8 +221,12 @@
 	      var _this2 = this;
 	
 	      var nextChildren = (0, _utils.toArrayChildren)(nextProps.children);
-	      var currentChildren = this.state.children;
+	      var currentChildren = (0, _utils.toArrayChildren)(this.originalChildren) || [];
 	      var newChildren = (0, _utils.mergeChildren)(currentChildren, nextChildren);
+	
+	      this.keysToEnter = [];
+	      this.keysToLeave = [];
+	      this.keysAnimating = [];
 	
 	      // need render to avoid update
 	      this.setState({
@@ -229,22 +235,16 @@
 	
 	      nextChildren.forEach(function (c) {
 	        var key = c.key;
-	        if (_this2.keysAnimating.indexOf(c.key) >= 0) {
-	          return;
-	        }
 	        var hasPrev = (0, _utils.findChildInChildrenByKey)(currentChildren, key);
-	        if (!hasPrev) {
+	        if (!hasPrev && key) {
 	          _this2.keysToEnter.push(key);
 	        }
 	      });
 	
 	      currentChildren.forEach(function (c) {
 	        var key = c.key;
-	        if (_this2.keysAnimating.indexOf(key) >= 0) {
-	          return;
-	        }
 	        var hasNext = (0, _utils.findChildInChildrenByKey)(nextChildren, key);
-	        if (!hasNext) {
+	        if (!hasNext && key) {
 	          _this2.keysToLeave.push(key);
 	        }
 	      });
@@ -252,6 +252,7 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
+	      this.originalChildren = this.props.children;
 	      var keysToEnter = Array.prototype.slice.call(this.keysToEnter);
 	      var keysToLeave = Array.prototype.slice.call(this.keysToLeave);
 	      if (this.keysAnimating.length === 0) {
@@ -265,8 +266,10 @@
 	    value: function componentWillUnmount() {
 	      var _this3 = this;
 	
-	      this.keysAnimating.forEach(function (key) {
-	        (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(_this3.refs[key]), 'stop');
+	      this.originalChildren.forEach(function (child) {
+	        if (_this3.refs[child.key]) {
+	          (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(_this3.refs[child.key]), 'stop');
+	        }
 	      });
 	    }
 	  }, {
@@ -306,12 +309,12 @@
 	          return child;
 	        }
 	        // handle Component without props, like <App />
-	        if (typeof child.type === 'function' && !_this4.state.childenShow[child.key]) {
+	        if (typeof child.type === 'function' && !_this4.state.childrenShow[child.key]) {
 	          return _react2['default'].createElement('div', { ref: child.key, key: child.key });
 	        }
 	        return (0, _react.cloneElement)(child, {
 	          ref: child.key
-	        }, _this4.state.childenShow[child.key] ? child.props.children : null);
+	        }, _this4.state.childrenShow[child.key] ? child.props.children : null);
 	      });
 	      return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
 	    }
@@ -335,6 +338,7 @@
 	      var delay = (0, _utils.transformArguments)(this.props.delay)[0];
 	      var duration = (0, _utils.transformArguments)(this.props.duration)[0];
 	      node.style.visibility = 'hidden';
+	      (0, _velocityAnimate2['default'])(node, 'stop');
 	      (0, _velocityAnimate2['default'])(node, this.getVelocityEnterConfig('enter'), {
 	        delay: interval * i + delay,
 	        duration: duration,
@@ -350,53 +354,82 @@
 	  }, {
 	    key: 'performLeave',
 	    value: function performLeave(key, i) {
-	      if (!this.refs[key]) {
+	      var node = (0, _reactDom.findDOMNode)(this.refs[key]);
+	      if (!node) {
 	        return;
 	      }
 	      var interval = (0, _utils.transformArguments)(this.props.interval)[1];
 	      var delay = (0, _utils.transformArguments)(this.props.delay)[1];
 	      var duration = (0, _utils.transformArguments)(this.props.duration)[1];
 	      var order = this.props.leaveReverse ? this.keysToLeave.length - i - 1 : i;
-	      (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(this.refs[key]), this.getVelocityLeaveConfig('leave'), {
+	      (0, _velocityAnimate2['default'])(node, 'stop');
+	      (0, _velocityAnimate2['default'])(node, this.getVelocityLeaveConfig('leave'), {
 	        delay: interval * order + delay,
 	        duration: duration,
 	        easing: this.getVelocityEasing()[1],
-	        display: 'none',
+	        begin: this.leaveBegin.bind(this),
 	        complete: this.leaveComplete.bind(this, key)
 	      });
 	    }
 	  }, {
 	    key: 'enterBegin',
-	    value: function enterBegin(key) {
-	      var childenShow = this.state.childenShow;
-	      childenShow[key] = true;
+	    value: function enterBegin(key, elements) {
+	      var _this5 = this;
+	
+	      var childrenShow = this.state.childrenShow;
+	      childrenShow[key] = true;
 	      this.setState({
-	        childenShow: childenShow
+	        childrenShow: childrenShow
+	      });
+	      elements.forEach(function (elem) {
+	        elem.className = _this5.props.animatingClassName[0];
 	      });
 	    }
 	  }, {
 	    key: 'enterComplete',
-	    value: function enterComplete(key) {
+	    value: function enterComplete(key, elements) {
+	      var _this6 = this;
+	
 	      if (this.keysAnimating.indexOf(key) >= 0) {
 	        this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
 	      }
+	      elements.forEach(function (elem) {
+	        elem.className = elem.className.replace(_this6.props.animatingClassName[0], '');
+	      });
+	    }
+	  }, {
+	    key: 'leaveBegin',
+	    value: function leaveBegin(elements) {
+	      var _this7 = this;
+	
+	      elements.forEach(function (elem) {
+	        elem.className = _this7.props.animatingClassName[1];
+	      });
 	    }
 	  }, {
 	    key: 'leaveComplete',
-	    value: function leaveComplete(key) {
-	      var childenShow = this.state.childenShow;
-	      childenShow[key] = false;
-	      var currentChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
-	      this.setState({
-	        children: currentChildren,
-	        childenShow: childenShow
-	      });
+	    value: function leaveComplete(key, elements) {
+	      var _this8 = this;
+	
+	      if (this.keysAnimating.indexOf(key) < 0) {
+	        return;
+	      }
+	      this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
+	      var childrenShow = this.state.childrenShow;
+	      childrenShow[key] = false;
 	      if (this.keysToLeave.indexOf(key) >= 0) {
 	        this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
 	      }
-	      if (this.keysAnimating.indexOf(key) >= 0) {
-	        this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
+	      if (this.keysToLeave.length === 0) {
+	        var currentChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
+	        this.setState({
+	          children: currentChildren,
+	          childrenShow: childrenShow
+	        });
 	      }
+	      elements.forEach(function (elem) {
+	        elem.className = elem.className.replace(_this8.props.animatingClassName[1], '');
+	      });
 	    }
 	  }]);
 	
@@ -414,7 +447,8 @@
 	  type: stringOrArray,
 	  animConfig: objectOrArray,
 	  ease: stringOrArray,
-	  leaveReverse: _react2['default'].PropTypes.bool
+	  leaveReverse: _react2['default'].PropTypes.bool,
+	  animatingClassName: _react2['default'].PropTypes.array
 	};
 	
 	QueueAnim.defaultProps = {
@@ -425,7 +459,8 @@
 	  type: 'right',
 	  animConfig: null,
 	  ease: 'easeOutQuart',
-	  leaveReverse: false
+	  leaveReverse: false,
+	  animatingClassName: ['queue-anim-entering', 'queue-anim-leaving']
 	};
 	
 	exports['default'] = QueueAnim;
@@ -23956,15 +23991,7 @@
 	}
 	
 	function getChildrenFromProps(props) {
-	  var children = props.children;
-	  if (_react2['default'].isValidElement(children)) {
-	    if (!children.key) {
-	      return _react2['default'].cloneElement(children, {
-	        key: defaultKey
-	      });
-	    }
-	  }
-	  return children;
+	  return props && props.children;
 	}
 
 /***/ },

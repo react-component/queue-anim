@@ -1,14 +1,14 @@
-webpackJsonp([4],{
+webpackJsonp([0],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(169);
+	module.exports = __webpack_require__(1);
 
 
 /***/ },
 
-/***/ 169:
+/***/ 1:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -26,6 +26,8 @@ webpackJsonp([4],{
 	var _reactDom = __webpack_require__(161);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
+	
+	__webpack_require__(165);
 	
 	var App = _react2['default'].createClass({
 	  displayName: 'App',
@@ -64,7 +66,7 @@ webpackJsonp([4],{
 	      null,
 	      _react2['default'].createElement(
 	        _rcQueueAnim2['default'],
-	        { type: ['right', 'left'], interval: [100, 200], delay: [0, 1000], duration: [500, 2000], ease: ['easeOutBack', 'easeInOutCirc'], leaveReverse: true },
+	        null,
 	        this.state.items.map(function (item) {
 	          return _react2['default'].createElement(
 	            'div',
@@ -84,7 +86,14 @@ webpackJsonp([4],{
 	
 	_reactDom2['default'].render(_react2['default'].createElement(App, null), document.getElementById('__react-content'));
 
+/***/ },
+
+/***/ 165:
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+
 /***/ }
 
 });
-//# sourceMappingURL=enter-leave.js.map
+//# sourceMappingURL=animating-class.js.map

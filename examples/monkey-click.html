@@ -245,21 +245,55 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
-  <script src="custom.js?nowrap"></script>
+  <script src="monkey-click.js?nowrap"></script>
   <div class="highlight">
-    <pre><code>import QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDom from <span class="hljs-string">'react-dom'</span>;
+    <pre><code><span class="hljs-keyword">import</span> QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
+<span class="hljs-keyword">import</span> React from <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDom from <span class="hljs-string">'react-dom'</span>;
 
-ReactDom.render(&lt;<span class="hljs-keyword">div</span>&gt;
-  &lt;QueueAnim animConfig={{translateX: [<span class="hljs-number">100</span>, <span class="hljs-number">0</span>]}}&gt;
-    &lt;<span class="hljs-keyword">div</span> key=<span class="hljs-string">"1"</span>&gt;依次进入&lt;/<span class="hljs-keyword">div</span>&gt;
-    &lt;<span class="hljs-keyword">div</span> key=<span class="hljs-string">"2"</span>&gt;依次进入&lt;/<span class="hljs-keyword">div</span>&gt;
-    &lt;<span class="hljs-keyword">div</span> key=<span class="hljs-string">"3"</span>&gt;依次进入&lt;/<span class="hljs-keyword">div</span>&gt;
-    &lt;<span class="hljs-keyword">div</span> key=<span class="hljs-string">"4"</span>&gt;依次进入&lt;/<span class="hljs-keyword">div</span>&gt;
-    &lt;<span class="hljs-keyword">div</span> key=<span class="hljs-string">"5"</span>&gt;依次进入&lt;/<span class="hljs-keyword">div</span>&gt;
-  &lt;/QueueAnim&gt;
-&lt;/<span class="hljs-keyword">div</span>&gt;, document.getElementById(<span class="hljs-string">'__react-content'</span>));
+<span class="hljs-keyword">const</span> App = React.createClass({
+  getInitialState() {
+    <span class="hljs-keyword">return</span> {
+      show: <span class="hljs-keyword">true</span>,
+      items: [{
+        children: <span class="hljs-string">'依次进入1'</span>,
+        <span class="hljs-variable">key</span>: <span class="hljs-number">1</span>
+      }, {
+        children: <span class="hljs-string">'依次进入2'</span>,
+        <span class="hljs-variable">key</span>: <span class="hljs-number">2</span>
+      }, {
+        children: <span class="hljs-string">'依次进入3'</span>,
+        <span class="hljs-variable">key</span>: <span class="hljs-number">3</span>
+      }, {
+        children: <span class="hljs-string">'依次进入4'</span>,
+        <span class="hljs-variable">key</span>: <span class="hljs-number">4</span>
+      }, {
+        children: <span class="hljs-string">'依次进入5'</span>,
+        <span class="hljs-variable">key</span>: <span class="hljs-number">5</span>
+      }, {
+        children: <span class="hljs-string">'依次进入6'</span>,
+        <span class="hljs-variable">key</span>: <span class="hljs-number">6</span>
+      }],
+    };
+  },
+  toggle() {
+    <span class="hljs-keyword">this</span>.setState({
+      show: !<span class="hljs-keyword">this</span>.state.show
+    });
+  },
+  render() {
+    <span class="hljs-keyword">return</span> &lt;div&gt;
+      &lt;button onClick={<span class="hljs-keyword">this</span>.toggle}&gt;切换&lt;/button&gt;&lt;span&gt;{<span class="hljs-keyword">this</span>.state.show ? <span class="hljs-string">'显示'</span> : <span class="hljs-string">'隐藏'</span>}&lt;/span&gt;
+      &lt;QueueAnim leaveReverse={<span class="hljs-keyword">true</span>}&gt;
+      {<span class="hljs-keyword">this</span>.state.show ? <span class="hljs-keyword">this</span>.state.items.<span class="hljs-built_in">map</span>((item) =&gt; &lt;div <span class="hljs-variable">key</span>={item.<span class="hljs-variable">key</span>}&gt;
+        {item.children}
+      &lt;/div&gt;) : <span class="hljs-keyword">null</span>}
+      &lt;/QueueAnim&gt;
+    &lt;/div&gt;;
+  }
+});
+
+ReactDom.render(&lt;App /&gt;, document.getElementById(<span class="hljs-string">'__react-content'</span>));
 </code></pre>
   </div>
 </div>

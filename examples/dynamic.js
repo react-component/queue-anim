@@ -1,14 +1,14 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(166);
+	module.exports = __webpack_require__(168);
 
 
 /***/ },
 
-/***/ 166:
+/***/ 168:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -90,7 +90,6 @@ webpackJsonp([2],{
 	  },
 	  removeAndAdd: function removeAndAdd() {
 	    var items = this.state.items;
-	    //console.log(Math.round(Math.random() * items.length), items.length)
 	    items.splice(items.length - 1, 1);
 	    items.push({
 	      children: '新节点' + Date.now(),

@@ -239,7 +239,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.9.3</h1>
+    <h1>rc-queue-anim@0.10.0</h1>
 
     <p>Queue animation component for react</p>
   </div>
@@ -310,13 +310,12 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   },
   removeAndAdd() {
     let items = <span class="hljs-keyword">this</span>.state.items;
-    <span class="hljs-comment">//console.log(Math.round(Math.random() * items.length), items.length)</span>
-    items.<span class="hljs-built_in">splice</span>(items.length-<span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+    items.<span class="hljs-built_in">splice</span>(items.length - <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
     items.push({
       children: <span class="hljs-string">'新节点'</span> + Date.now(),
       <span class="hljs-variable">key</span>: <span class="hljs-keyword">this</span>.index++
     });
-    <span class="hljs-keyword">this</span>.setState({items});
+    <span class="hljs-keyword">this</span>.setState({ items });
   },
   render() {
     <span class="hljs-keyword">return</span> &lt;div&gt;
