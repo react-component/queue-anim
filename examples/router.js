@@ -5,6 +5,7 @@ import ReactDom from 'react-dom';
 
 const App = React.createClass({
   render() {
+    var key = this.props.location.pathname;
     return (
       <div>
         <Link to="/" onClick={this.clickPage}>首页</Link>
@@ -12,7 +13,9 @@ const App = React.createClass({
         <Link to="/page1" onClick={this.clickPage}>Page 1</Link>
       &nbsp;
         <Link to="/page2" onClick={this.clickPage}>Page 2</Link>
-        {this.props.children || <h1>Home Page</h1>}
+        <QueueAnim type={['right','left']}>
+          {React.cloneElement(this.props.children||<h1 key='home'>Home Page</h1>, {key: key})}
+        </QueueAnim>
       </div>
     );
   }
