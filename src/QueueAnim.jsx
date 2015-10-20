@@ -54,7 +54,7 @@ class QueueAnim extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const nextChildren = toArrayChildren(nextProps.children);
-    const currentChildren = this.originalChildren || [];
+    const currentChildren = toArrayChildren(this.originalChildren) || [];
     const newChildren = mergeChildren(
       currentChildren,
       nextChildren
