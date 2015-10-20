@@ -5,6 +5,8 @@ import QueueAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
 import $ from 'jquery';
 
+const defaultInterval = 100;
+
 describe('rc-queue-anim', function () {
   let instance;
   let div;
@@ -86,7 +88,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have queue animation', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     instance = createQueueAnimInstance();
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     shouldAnimatingThisOne(children, 0);
@@ -120,7 +122,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have delay', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     const delay = 1000;
     instance = createQueueAnimInstance({ delay });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
@@ -141,7 +143,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have duration', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     const duration = 300;
     instance = createQueueAnimInstance({ duration });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
@@ -156,7 +158,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have leave animation', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     instance = createQueueAnimInstance();
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     setTimeout(function() {
