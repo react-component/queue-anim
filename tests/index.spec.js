@@ -195,4 +195,32 @@ describe('rc-queue-anim', function () {
     }, 10);
   });
 
+  it.only('should support animation when change direction at animating', function(done) {
+    instance = createQueueAnimInstance({
+      leaveReverse: true
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    let index = 0;
+    let maxOpacity;
+    let opacityArray = [];
+    let interval = setInterval(function() {
+      index += 1;
+      let opacity = getOpacity(children[1]);
+      opacityArray.push(opacity);
+      console.log('time: ', index * 30, 'opacity: ', opacity);
+      if (index === 10) {
+        instance.toggle();
+        maxOpacity = opacity;
+        console.log('toggle');
+      }
+      if (opacity >= 1 || opacity <= 0) {
+        clearInterval(interval);
+        opacityArray.forEach(function(o) {
+          expect(maxOpacity >= o).to.be.ok();
+        });
+        done();
+      }
+    }, 30);
+  });
+
 });
