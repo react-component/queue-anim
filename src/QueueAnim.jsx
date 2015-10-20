@@ -98,8 +98,10 @@ class QueueAnim extends React.Component {
   }
 
   componentWillUnmount() {
-    this.keysAnimating.forEach((key) => {
-      velocity(findDOMNode(this.refs[key]), 'stop');
+    this.originalChildren.forEach((child) => {
+      if (this.refs[child.key]) {
+        velocity(findDOMNode(this.refs[child.key]), 'stop');
+      }
     });
   }
 
