@@ -26,7 +26,7 @@ class QueueAnim extends React.Component {
 
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(this.props));
-    children.map(child => {
+    children.forEach(child => {
       if (!child || !child.key) {
         return;
       }

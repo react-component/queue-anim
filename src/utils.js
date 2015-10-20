@@ -1,4 +1,5 @@
 import React from 'react';
+const defaultKey = 'rc_queue_anim_' + Date.now();
 
 export function toArrayChildren(children) {
   const ret = [];
