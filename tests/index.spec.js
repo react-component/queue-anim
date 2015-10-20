@@ -5,6 +5,8 @@ import QueueAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
 import $ from 'jquery';
 
+const defaultInterval = 100;
+
 describe('rc-queue-anim', function () {
   let instance;
   let div;
@@ -37,6 +39,7 @@ describe('rc-queue-anim', function () {
     const QueueAnimExample = React.createClass({
       getInitialState() {
         return {
+          show: true,
           items: [{
             key: 1,
             content: 'div'
@@ -49,6 +52,11 @@ describe('rc-queue-anim', function () {
           }]
         };
       },
+      toggle() {
+        this.setState({
+          show: !this.state.show
+        });
+      },
       removeOne() {
         let items = this.state.items;
         const removeIndex = 0;
@@ -58,7 +66,7 @@ describe('rc-queue-anim', function () {
       },
       render() {
         return <QueueAnim {...props}>
-          {this.state.items.map((item, i) => <div key={item.key}>{item.content}</div>)}
+          {this.state.show ? this.state.items.map((item, i) => <div key={item.key}>{item.content}</div>) : null}
         </QueueAnim>;
       }
     });
@@ -86,7 +94,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have queue animation', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     instance = createQueueAnimInstance();
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     shouldAnimatingThisOne(children, 0);
@@ -120,7 +128,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have delay', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     const delay = 1000;
     instance = createQueueAnimInstance({ delay });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
@@ -141,7 +149,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have duration', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     const duration = 300;
     instance = createQueueAnimInstance({ duration });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
@@ -156,7 +164,7 @@ describe('rc-queue-anim', function () {
   });
 
   it('should have leave animation', function(done) {
-    const interval = 30;
+    const interval = defaultInterval;
     instance = createQueueAnimInstance();
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     setTimeout(function() {
@@ -185,6 +193,34 @@ describe('rc-queue-anim', function () {
       expect(getLeft(children[1])).to.above(0);
       done();
     }, 10);
+  });
+
+  it.only('should support animation when change direction at animating', function(done) {
+    instance = createQueueAnimInstance({
+      leaveReverse: true
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    let index = 0;
+    let maxOpacity;
+    let opacityArray = [];
+    let interval = setInterval(function() {
+      index += 1;
+      let opacity = getOpacity(children[1]);
+      opacityArray.push(opacity);
+      console.log('time: ', index * 30, 'opacity: ', opacity);
+      if (index === 10) {
+        instance.toggle();
+        maxOpacity = opacity;
+        console.log('toggle');
+      }
+      if (opacity >= 1 || opacity <= 0) {
+        clearInterval(interval);
+        opacityArray.forEach(function(o) {
+          expect(maxOpacity >= o).to.be.ok();
+        });
+        done();
+      }
+    }, 30);
   });
 
 });
