@@ -192,25 +192,38 @@ class QueueAnim extends React.Component {
       delay: interval * order + delay,
       duration: duration,
       easing: this.getVelocityEasing()[1],
+      begin: this.leaveBegin.bind(this),
       complete: this.leaveComplete.bind(this, key),
     });
   }
 
-  enterBegin(key) {
+  enterBegin(key, elements) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
     this.setState({
       childrenShow: childrenShow,
     });
+    elements.forEach((elem) => {
+      elem.className = this.props.animatingClassName[0];
+    });
   }
 
-  enterComplete(key) {
+  enterComplete(key, elements) {
     if (this.keysAnimating.indexOf(key) >= 0) {
       this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
     }
+    elements.forEach((elem) => {
+      elem.className = elem.className.replace(this.props.animatingClassName[0], '');
+    });
   }
 
-  leaveComplete(key) {
+  leaveBegin(elements) {
+    elements.forEach((elem) => {
+      elem.className = this.props.animatingClassName[1];
+    });
+  }
+
+  leaveComplete(key, elements) {
     if (this.keysAnimating.indexOf(key) < 0) {
       return;
     }
@@ -227,6 +240,9 @@ class QueueAnim extends React.Component {
         childrenShow: childrenShow,
       });
     }
+    elements.forEach((elem) => {
+      elem.className = elem.className.replace(this.props.animatingClassName[1], '');
+    });
   }
 }
 
@@ -242,6 +258,7 @@ QueueAnim.propTypes = {
   animConfig: objectOrArray,
   ease: stringOrArray,
   leaveReverse: React.PropTypes.bool,
+  animatingClassName: React.PropTypes.array,
 };
 
 QueueAnim.defaultProps = {
@@ -253,6 +270,7 @@ QueueAnim.defaultProps = {
   animConfig: null,
   ease: 'easeOutQuart',
   leaveReverse: false,
+  animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
 };
 
 export default QueueAnim;

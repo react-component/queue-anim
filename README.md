@@ -74,6 +74,7 @@ ReactDom.render(<QueueAnim>
 | leaveReverse | boolean      | false   | reverse animation order at leave |
 | ease       | string / array | `easeOutQuart` | animation easing string, [more](http://julian.com/research/velocity/#easing) |
 | component  | string | `div` | component tag |
+| animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
 

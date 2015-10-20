@@ -195,7 +195,7 @@ describe('rc-queue-anim', function () {
     }, 10);
   });
 
-  it.only('should support animation when change direction at animating', function(done) {
+  it('should support animation when change direction at animating', function(done) {
     instance = createQueueAnimInstance({
       leaveReverse: true
     });
@@ -221,6 +221,22 @@ describe('rc-queue-anim', function () {
         done();
       }
     }, 30);
+  });
+
+  it('should has animating className', function(done) {
+    const interval = defaultInterval;
+    instance = createQueueAnimInstance();
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(children[1].className).to.contain('queue-anim-entering');
+    setTimeout(function() {
+      expect(children[1].className).not.to.contain('queue-anim-entering');
+      let removeIndex = instance.removeOne();
+      expect(children[removeIndex + 1].className).to.contain('queue-anim-leaving');
+      setTimeout(function() {
+        expect(children[removeIndex + 1].className).not.to.contain('queue-anim-leaving');
+        done();
+      }, 550);
+    }, 550);
   });
 
 });
