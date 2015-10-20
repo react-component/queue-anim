@@ -206,16 +206,18 @@ class QueueAnim extends React.Component {
   leaveComplete(key) {
     const childenShow = this.state.childenShow;
     childenShow[key] = false;
-    const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
-    this.setState({
-      children: currentChildren,
-      childenShow: childenShow,
-    });
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
     }
     if (this.keysAnimating.indexOf(key) >= 0) {
       this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
+    }
+    if (this.keysToLeave.length === 0) {
+      const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
+      this.setState({
+        children: currentChildren,
+        childenShow: childenShow,
+      });
     }
   }
 }
