@@ -61,13 +61,12 @@ const App = React.createClass({
   },
   removeAndAdd() {
     let items = this.state.items;
-    //console.log(Math.round(Math.random() * items.length), items.length)
-    items.splice(items.length-1, 1);
+    items.splice(items.length - 1, 1);
     items.push({
       children: '新节点' + Date.now(),
       key: this.index++
     });
-    this.setState({items});
+    this.setState({ items });
   },
   render() {
     return <div>

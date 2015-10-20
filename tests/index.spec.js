@@ -39,6 +39,7 @@ describe('rc-queue-anim', function () {
     const QueueAnimExample = React.createClass({
       getInitialState() {
         return {
+          show: true,
           items: [{
             key: 1,
             content: 'div'
@@ -51,6 +52,11 @@ describe('rc-queue-anim', function () {
           }]
         };
       },
+      toggle() {
+        this.setState({
+          show: !this.state.show
+        });
+      },
       removeOne() {
         let items = this.state.items;
         const removeIndex = 0;
@@ -60,7 +66,7 @@ describe('rc-queue-anim', function () {
       },
       render() {
         return <QueueAnim {...props}>
-          {this.state.items.map((item, i) => <div key={item.key}>{item.content}</div>)}
+          {this.state.show ? this.state.items.map((item, i) => <div key={item.key}>{item.content}</div>) : null}
         </QueueAnim>;
       }
     });

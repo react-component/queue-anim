@@ -66,13 +66,5 @@ export function transformArguments(arg) {
 }
 
 export function getChildrenFromProps(props) {
-  const children = props.children;
-  if (React.isValidElement(children)) {
-    if (!children.key) {
-      return React.cloneElement(children, {
-        key: defaultKey,
-      });
-    }
-  }
-  return children;
+  return props && props.children;
 }
