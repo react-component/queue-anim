@@ -14,7 +14,7 @@ const App = React.createClass({
       &nbsp;
         <Link to="/page2" onClick={this.clickPage}>Page 2</Link>
         <QueueAnim type={['right','left']}>
-          {React.cloneElement(this.props.children||<h1 key='home'>Home Page</h1>, {key: key})}
+          {React.cloneElement(this.props.children || <h1 key='home'>Home Page</h1>, { key: key })}
         </QueueAnim>
       </div>
     );
@@ -24,7 +24,7 @@ const App = React.createClass({
 const Page3 = React.createClass({
   render() {
     return (
-      <QueueAnim interval={300}>
+      <QueueAnim>
         <p key='1'>
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
@@ -57,7 +57,7 @@ const Page3 = React.createClass({
 const Page1 = React.createClass({
   render() {
     return (
-      <QueueAnim interval={300}>
+      <QueueAnim>
         <h1 key="1">Page 1</h1>
         <p key="2">
           <Link to="/page2">A link to page 2 should be active</Link>
@@ -74,7 +74,7 @@ const Page1 = React.createClass({
         <p key="6">
           <Link to="/page2">A link to page 2 should be active</Link>
           改变样式</p>
-        <Page3 key='7' />
+        <Page3 key='7'>1</Page3>
       </QueueAnim>
     );
   }
@@ -83,7 +83,7 @@ const Page1 = React.createClass({
 const Page2 = React.createClass({
   render() {
     return (
-      <QueueAnim interval={300}>
+      <div>
         <h1 key="1">Page 2</h1>
         <p key="2">
           <Link to="/page1">a link to page 1 </Link>
@@ -101,7 +101,7 @@ const Page2 = React.createClass({
           <Link to="/page1">a link to page 1 </Link>
           我是页面2.
         </p>
-      </QueueAnim>
+      </div>
     );
   }
 });
