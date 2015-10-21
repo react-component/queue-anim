@@ -2,19 +2,22 @@ import ReactRouter, { Router, Route, Link } from 'react-router';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
+import '../assets/router.less';
 
 const App = React.createClass({
   render() {
     var key = this.props.location.pathname;
+    var height = key === '/page1' ? 450 : key === '/page2' ? 200 : 70;
+
     return (
       <div>
-        <Link to="/" onClick={this.clickPage}>首页</Link>
+        <Link to="/">首页</Link>
       &nbsp;
-        <Link to="/page1" onClick={this.clickPage}>Page 1</Link>
+        <Link to="/page1">Page 1</Link>
       &nbsp;
-        <Link to="/page2" onClick={this.clickPage}>Page 2</Link>
-        <QueueAnim type={['right','left']}>
-          {React.cloneElement(this.props.children || <h1 key='home'>Home Page</h1>, { key: key })}
+        <Link to="/page2">Page 2</Link>
+        <QueueAnim type={['right', 'left']} className='router-wap' style={{height: height}}>
+          {React.cloneElement(this.props.children || <h1 key='home'>Home Page</h1>, {key: key})}
         </QueueAnim>
       </div>
     );
@@ -83,7 +86,7 @@ const Page1 = React.createClass({
 const Page2 = React.createClass({
   render() {
     return (
-      <div>
+      <QueueAnim>
         <h1 key="1">Page 2</h1>
         <p key="2">
           <Link to="/page1">a link to page 1 </Link>
@@ -101,7 +104,7 @@ const Page2 = React.createClass({
           <Link to="/page1">a link to page 1 </Link>
           我是页面2.
         </p>
-      </div>
+      </QueueAnim>
     );
   }
 });
