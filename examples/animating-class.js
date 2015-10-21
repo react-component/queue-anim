@@ -1,7 +1,7 @@
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
-import './animating-class.css';
+import '../assets/animating-class.less';
 
 const App = React.createClass({
   getInitialState() {
