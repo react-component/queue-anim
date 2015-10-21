@@ -137,7 +137,7 @@ class QueueAnim extends React.Component {
       // handle Component without props, like <App />
       if (typeof child.type === 'function') {
         return (
-          <div ref={child.key} key={child.key}>
+          <div ref={child.key} key={child.key} {...child.props}>
             {this.state.childrenShow[child.key] ? child : null}
           </div>
         );
@@ -206,7 +206,7 @@ class QueueAnim extends React.Component {
       childrenShow: childrenShow,
     });
     elements.forEach((elem) => {
-      elem.className = this.props.animatingClassName[0];
+      elem.className = (' ' + this.props.animatingClassName[0]);
     });
   }
 
@@ -221,7 +221,7 @@ class QueueAnim extends React.Component {
 
   leaveBegin(elements) {
     elements.forEach((elem) => {
-      elem.className = this.props.animatingClassName[1];
+      elem.className += (' ' + this.props.animatingClassName[1]);
     });
   }
 
