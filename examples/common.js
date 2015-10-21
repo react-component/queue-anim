@@ -200,7 +200,7 @@
 	      _this.keysToEnter.push(child.key);
 	    });
 	
-	    this.originalChildren = this.props.children;
+	    this.originalChildren = (0, _utils.toArrayChildren)(this.props.children);
 	
 	    this.state = {
 	      children: children,
@@ -223,7 +223,7 @@
 	      var _this2 = this;
 	
 	      var nextChildren = (0, _utils.toArrayChildren)(nextProps.children);
-	      var currentChildren = (0, _utils.toArrayChildren)(this.originalChildren) || [];
+	      var currentChildren = this.originalChildren;
 	      var newChildren = (0, _utils.mergeChildren)(currentChildren, nextChildren);
 	
 	      this.keysToEnter = [];
@@ -254,7 +254,7 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
-	      this.originalChildren = this.props.children;
+	      this.originalChildren = (0, _utils.toArrayChildren)(this.props.children);
 	      var keysToEnter = Array.prototype.slice.call(this.keysToEnter);
 	      var keysToLeave = Array.prototype.slice.call(this.keysToLeave);
 	      if (this.keysAnimating.length === 0) {
@@ -268,11 +268,13 @@
 	    value: function componentWillUnmount() {
 	      var _this3 = this;
 	
-	      this.originalChildren.forEach(function (child) {
-	        if (_this3.refs[child.key]) {
-	          (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(_this3.refs[child.key]), 'stop');
-	        }
-	      });
+	      if (this.originalChildren && this.originalChildren.length > 0) {
+	        this.originalChildren.forEach(function (child) {
+	          if (_this3.refs[child.key]) {
+	            (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(_this3.refs[child.key]), 'stop');
+	          }
+	        });
+	      }
 	    }
 	  }, {
 	    key: 'getVelocityConfig',
