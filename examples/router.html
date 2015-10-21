@@ -239,7 +239,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.10.0</h1>
+    <h1>rc-queue-anim@0.10.1</h1>
 
     <p>Queue animation component for react</p>
   </div>
@@ -263,7 +263,7 @@ const App = React.createClass({
       &amp;nbsp;
         <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">{['right','left']}</span>&gt;</span>
-          {React.cloneElement(this.props.children||<span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'home'</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>, {key: key})}
+          {React.cloneElement(this.props.children || <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'home'</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>, { key: key })}
         <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
@@ -273,7 +273,7 @@ const App = React.createClass({
 const Page3 = React.createClass({
   render() {
     return (
-      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'1'</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           Page3
@@ -306,7 +306,7 @@ const Page3 = React.createClass({
 const Page1 = React.createClass({
   render() {
     return (
-      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Page 1<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
@@ -323,7 +323,7 @@ const Page1 = React.createClass({
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"6"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>A link to page 2 should be active<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           改变样式<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">Page3</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'7'</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Page3</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'7'</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">Page3</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     );
   }
@@ -332,7 +332,7 @@ const Page1 = React.createClass({
 const Page2 = React.createClass({
   render() {
     return (
-      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
@@ -350,7 +350,7 @@ const Page2 = React.createClass({
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           我是页面2.
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
   }
 });

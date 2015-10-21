@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		10:0
+/******/ 		11:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dynamic","4":"enter-leave","5":"monkey-click","6":"nested","7":"router","8":"shortcut","9":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dynamic","4":"empty-children","5":"enter-leave","6":"monkey-click","7":"nested","8":"router","9":"shortcut","10":"simple"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -309,8 +309,12 @@
 	          return child;
 	        }
 	        // handle Component without props, like <App />
-	        if (typeof child.type === 'function' && !_this4.state.childrenShow[child.key]) {
-	          return _react2['default'].createElement('div', { ref: child.key, key: child.key });
+	        if (typeof child.type === 'function') {
+	          return _react2['default'].createElement(
+	            'div',
+	            { ref: child.key, key: child.key },
+	            _this4.state.childrenShow[child.key] ? child : null
+	          );
 	        }
 	        return (0, _react.cloneElement)(child, {
 	          ref: child.key
