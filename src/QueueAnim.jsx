@@ -206,7 +206,7 @@ class QueueAnim extends React.Component {
       childrenShow: childrenShow,
     });
     elements.forEach((elem) => {
-      elem.className = (' ' + this.props.animatingClassName[0]);
+      elem.className += (' ' + this.props.animatingClassName[0]);
     });
   }
 
@@ -215,7 +215,7 @@ class QueueAnim extends React.Component {
       this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
     }
     elements.forEach((elem) => {
-      elem.className = elem.className.replace(this.props.animatingClassName[0], '');
+      elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     });
   }
 
@@ -243,7 +243,7 @@ class QueueAnim extends React.Component {
       });
     }
     elements.forEach((elem) => {
-      elem.className = elem.className.replace(this.props.animatingClassName[1], '');
+      elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
     });
   }
 }
