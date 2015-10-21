@@ -33,7 +33,7 @@ class QueueAnim extends React.Component {
       this.keysToEnter.push(child.key);
     });
 
-    this.originalChildren = this.props.children;
+    this.originalChildren = toArrayChildren(this.props.children);
 
     this.state = {
       children,
@@ -54,7 +54,7 @@ class QueueAnim extends React.Component {
 
   componentWillReceiveProps(nextProps) {
     const nextChildren = toArrayChildren(nextProps.children);
-    const currentChildren = toArrayChildren(this.originalChildren) || [];
+    const currentChildren = this.originalChildren;
     const newChildren = mergeChildren(
       currentChildren,
       nextChildren
@@ -87,7 +87,7 @@ class QueueAnim extends React.Component {
   }
 
   componentDidUpdate() {
-    this.originalChildren = this.props.children;
+    this.originalChildren = toArrayChildren(this.props.children);
     const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
     const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
     if (this.keysAnimating.length === 0) {
@@ -98,11 +98,13 @@ class QueueAnim extends React.Component {
   }
 
   componentWillUnmount() {
-    this.originalChildren.forEach((child) => {
-      if (this.refs[child.key]) {
-        velocity(findDOMNode(this.refs[child.key]), 'stop');
-      }
-    });
+    if (this.originalChildren && this.originalChildren.length > 0) {
+      this.originalChildren.forEach(child => {
+        if (this.refs[child.key]) {
+          velocity(findDOMNode(this.refs[child.key]), 'stop');
+        }
+      });
+    }
   }
 
   getVelocityConfig(index) {
