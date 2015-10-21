@@ -201,34 +201,38 @@ webpackJsonp([8],[
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	__webpack_require__(220);
+	
 	var App = _react2['default'].createClass({
 	  displayName: 'App',
 	
 	  render: function render() {
 	    var key = this.props.location.pathname;
+	    var height = key === '/page1' ? 450 : key === '/page2' ? 200 : 70;
+	
 	    return _react2['default'].createElement(
 	      'div',
 	      null,
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: '/', onClick: this.clickPage },
+	        { to: '/' },
 	        '首页'
 	      ),
 	      ' ',
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: '/page1', onClick: this.clickPage },
+	        { to: '/page1' },
 	        'Page 1'
 	      ),
 	      ' ',
 	      _react2['default'].createElement(
 	        _reactRouter.Link,
-	        { to: '/page2', onClick: this.clickPage },
+	        { to: '/page2' },
 	        'Page 2'
 	      ),
 	      _react2['default'].createElement(
 	        _rcQueueAnim2['default'],
-	        { type: ['right', 'left'] },
+	        { type: ['right', 'left'], className: 'router-wap', style: { height: height } },
 	        _react2['default'].cloneElement(this.props.children || _react2['default'].createElement(
 	          'h1',
 	          { key: 'home' },
@@ -386,7 +390,7 @@ webpackJsonp([8],[
 	
 	  render: function render() {
 	    return _react2['default'].createElement(
-	      'div',
+	      _rcQueueAnim2['default'],
 	      null,
 	      _react2['default'].createElement(
 	        'h1',
@@ -4792,6 +4796,12 @@ webpackJsonp([8],[
 	
 	exports['default'] = useBasename;
 	module.exports = exports['default'];
+
+/***/ },
+/* 220 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
 
 /***/ }
 ]);

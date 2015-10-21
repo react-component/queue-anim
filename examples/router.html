@@ -233,13 +233,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <!--[if lt IE 9]>
   <script src="https://a.alipayobjects.com/??es5-shim/4.0.5/es5-shim.js,es5-shim/4.0.5/es5-sham.js,html5shiv/3.7.2/src/html5shiv.js"></script>
   <![endif]-->
-  
+  <link rel="stylesheet" href="router.css" />
 </head>
 
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.10.2</h1>
+    <h1>rc-queue-anim@0.10.3</h1>
 
     <p>Queue animation component for react</p>
   </div>
@@ -247,23 +247,26 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="common.js?nowrap"></script>
   <script src="router.js?nowrap"></script>
   <div class="highlight">
-    <pre><code>import ReactRouter, { Router, Route, Link } from 'react-router';
+    <pre><code><span class="xml">import ReactRouter, { Router, Route, Link } from 'react-router';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
+import '../assets/router.less';
 
 const App = React.createClass({
   render() {
     var key = this.props.location.pathname;
+    var height = key === '/page1' ? 450 : key === '/page2' ? 200 : 70;
+
     return (
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/"</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
       &amp;nbsp;
-        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>Page 1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>Page 1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
       &amp;nbsp;
-        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.clickPage}</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">{['right','left']}</span>&gt;</span>
-          {React.cloneElement(this.props.children || <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'home'</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>, { key: key })}
+        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">{['right',</span> '<span class="hljs-attribute">left</span>']} <span class="hljs-attribute">className</span>=<span class="hljs-value">'router-wap'</span> <span class="hljs-attribute">style</span>=</span></span><span class="hljs-expression">{{<span class="hljs-variable">height</span>: <span class="hljs-variable">height</span>}}</span><span class="xml"><span class="hljs-tag">&gt;</span>
+          {React.cloneElement(this.props.children || <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'home'</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>, {key: key})}
         <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
@@ -332,7 +335,7 @@ const Page1 = React.createClass({
 const Page2 = React.createClass({
   render() {
     return (
-      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
         <span class="hljs-tag">&lt;<span class="hljs-title">p</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
@@ -350,7 +353,7 @@ const Page2 = React.createClass({
           <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>a link to page 1 <span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
           我是页面2.
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     );
   }
 });
@@ -363,7 +366,7 @@ ReactDom.render((
     <span class="hljs-tag">&lt;/<span class="hljs-title">Route</span>&gt;</span>
   <span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>
 ), document.getElementById('__react-content'));
-</code></pre>
+</span></code></pre>
   </div>
 </div>
 <a href="https://github.com/react-component/queue-anim"><img style="position: absolute; top: 0; right: 0; border: 0;"

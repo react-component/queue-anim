@@ -388,7 +388,7 @@
 	        childrenShow: childrenShow
 	      });
 	      elements.forEach(function (elem) {
-	        elem.className = ' ' + _this5.props.animatingClassName[0];
+	        elem.className += ' ' + _this5.props.animatingClassName[0];
 	      });
 	    }
 	  }, {
@@ -400,7 +400,7 @@
 	        this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
 	      }
 	      elements.forEach(function (elem) {
-	        elem.className = elem.className.replace(_this6.props.animatingClassName[0], '');
+	        elem.className = elem.className.replace(_this6.props.animatingClassName[0], '').trim();
 	      });
 	    }
 	  }, {
@@ -434,7 +434,7 @@
 	        });
 	      }
 	      elements.forEach(function (elem) {
-	        elem.className = elem.className.replace(_this8.props.animatingClassName[1], '');
+	        elem.className = elem.className.replace(_this8.props.animatingClassName[1], '').trim();
 	      });
 	    }
 	  }]);
