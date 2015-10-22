@@ -26,7 +26,7 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 
 ## Example
 
-Online example: http://react-component.github.io/queue-anim/examples/
+http://react-component.github.io/queue-anim/examples/
 
 ![](https://t.alipayobjects.com/images/rmsweb/T12PliXjXgXXXXXXXX.gif)
 
