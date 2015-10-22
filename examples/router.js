@@ -208,7 +208,6 @@ webpackJsonp([8],[
 	
 	  render: function render() {
 	    var key = this.props.location.pathname;
-	    var height = key === '/page1' ? 450 : key === '/page2' ? 200 : 70;
 	
 	    return _react2['default'].createElement(
 	      'div',
@@ -232,7 +231,7 @@ webpackJsonp([8],[
 	      ),
 	      _react2['default'].createElement(
 	        _rcQueueAnim2['default'],
-	        { type: ['right', 'left'], className: 'router-wap', style: { height: height } },
+	        { type: ['right', 'left'], className: 'router-wrap' },
 	        _react2['default'].cloneElement(this.props.children || _react2['default'].createElement(
 	          'h1',
 	          { key: 'home' },
