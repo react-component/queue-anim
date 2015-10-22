@@ -7,7 +7,6 @@ import '../assets/router.less';
 const App = React.createClass({
   render() {
     var key = this.props.location.pathname;
-    var height = key === '/page1' ? 450 : key === '/page2' ? 200 : 70;
 
     return (
       <div>
@@ -16,8 +15,8 @@ const App = React.createClass({
         <Link to="/page1">Page 1</Link>
       &nbsp;
         <Link to="/page2">Page 2</Link>
-        <QueueAnim type={['right', 'left']} className='router-wap' style={{height: height}}>
-          {React.cloneElement(this.props.children || <h1 key='home'>Home Page</h1>, {key: key})}
+        <QueueAnim type={['right', 'left']} className="router-wrap">
+          {React.cloneElement(this.props.children || <h1 key="home">Home Page</h1>, {key: key})}
         </QueueAnim>
       </div>
     );
