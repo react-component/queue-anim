@@ -9,9 +9,6 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
-[![Sauce Test Status](https://saucelabs.com/buildstatus/rc-queue-anim)](https://saucelabs.com/u/rc-queue-anim)
-
-[![Sauce Test Status](https://saucelabs.com/browser-matrix/rc-queue-anim.svg)](https://saucelabs.com/u/rc-queue-anim)
 
 [npm-image]: http://img.shields.io/npm/v/rc-queue-anim.svg?style=flat-square
 [npm-url]: http://npmjs.org/package/rc-queue-anim
