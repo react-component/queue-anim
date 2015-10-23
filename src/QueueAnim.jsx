@@ -33,7 +33,7 @@ class QueueAnim extends React.Component {
       this.keysToEnter.push(child.key);
     });
 
-    this.originalChildren = toArrayChildren(this.props.children);
+    this.originalChildren = toArrayChildren(getChildrenFromProps(this.props));
 
     this.state = {
       children,
@@ -87,7 +87,7 @@ class QueueAnim extends React.Component {
   }
 
   componentDidUpdate() {
-    this.originalChildren = toArrayChildren(this.props.children);
+    this.originalChildren = toArrayChildren(getChildrenFromProps(this.props));
     const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
     const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
     if (this.keysAnimating.length === 0) {
@@ -129,25 +129,6 @@ class QueueAnim extends React.Component {
       }
     });
     return ret;
-  }
-
-  render() {
-    const childrenToRender = toArrayChildren(this.state.children).map(child => {
-      if (!child || !child.key) {
-        return child;
-      }
-      // handle Component without props, like <App />
-      if (typeof child.type === 'function') {
-        return createElement('div', {
-          ref: child.key,
-          key: child.key,
-        }, this.state.childrenShow[child.key] ? child : null);
-      }
-      return cloneElement(child, {
-        ref: child.key,
-      }, this.state.childrenShow[child.key] ? child.props.children : null);
-    });
-    return createElement(this.props.component, this.props, childrenToRender);
   }
 
   getVelocityEasing() {
@@ -246,6 +227,25 @@ class QueueAnim extends React.Component {
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
     });
+  }
+
+  render() {
+    const childrenToRender = toArrayChildren(this.state.children).map(child => {
+      if (!child || !child.key) {
+        return child;
+      }
+      // handle Component without props, like <App />
+      if (typeof child.type === 'function') {
+        return createElement('div', {
+          ref: child.key,
+          key: child.key,
+        }, this.state.childrenShow[child.key] ? child : null);
+      }
+      return cloneElement(child, {
+        ref: child.key,
+      }, this.state.childrenShow[child.key] ? child.props.children : null);
+    });
+    return createElement(this.props.component, this.props, childrenToRender);
   }
 }
 
