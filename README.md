@@ -38,9 +38,9 @@ import React from 'react';
 import ReactDom from 'reactd-dom';
 
 ReactDom.render(<QueueAnim>
-  <div key='1'>enter in queue</div>
-  <div key='2'>enter in queue</div>
-  <div key='3'>enter in queue</div>
+  <div key="1">enter in queue</div>
+  <div key="2">enter in queue</div>
+  <div key="3">enter in queue</div>
 </QueueAnim>, container);
 ```
 
