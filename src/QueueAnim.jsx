@@ -7,7 +7,7 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
-} from './utils';
+  } from './utils';
 import AnimTypes from './animTypes';
 
 const BackEase = {
@@ -139,9 +139,7 @@ class QueueAnim extends React.Component {
       // handle Component without props, like <App />
       if (typeof child.type === 'function') {
         return (
-          <div ref={child.key} key={child.key} {...child.props}>
-            {this.state.childrenShow[child.key] ? child : null}
-          </div>
+          createElement('div', {ref: child.key, key: child.key}, this.state.childrenShow[child.key] ? child : null)
         );
       }
       return cloneElement(child, {
