@@ -138,9 +138,10 @@ class QueueAnim extends React.Component {
       }
       // handle Component without props, like <App />
       if (typeof child.type === 'function') {
-        return (
-          createElement('div', {ref: child.key, key: child.key}, this.state.childrenShow[child.key] ? child : null)
-        );
+        return createElement('div', {
+          ref: child.key,
+          key: child.key,
+        }, this.state.childrenShow[child.key] ? child : null);
       }
       return cloneElement(child, {
         ref: child.key,
