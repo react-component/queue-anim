@@ -28,6 +28,8 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 
 http://react-component.github.io/queue-anim/examples/
 
+Use in Ant Design: http://ant.design/components/queue-anim
+
 ![](https://t.alipayobjects.com/images/rmsweb/T12PliXjXgXXXXXXXX.gif)
 
 ## Usage
