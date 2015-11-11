@@ -18,7 +18,7 @@ const Page1 = React.createClass({
     if (e.key === '3') {
       return {opacity: [1, 0], translateX: [0, 30]};
     }
-    return {opacity: [1, 0], translateX: [0, -30]};
+    return [{opacity: [1, 0], translateX: [0, -30]}, {opacity: [1, 0], translateX: [0, 30]}];
   },
   durationFunc(e) {
     if (e.key === '3') {
