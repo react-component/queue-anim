@@ -106,43 +106,43 @@ class QueueAnim extends React.Component {
     }
   }
 
-  getVelocityConfig(index, key, i) {
+  getVelocityConfig(index, obj) {
     let type = this.props.type;
     if (this.props.animConfig) {
       type = this.props.animConfig;
       if (typeof type === 'function') {
-        type = type.call(this, key, i);
+        type = type.call(this, obj);
       }
       return transformArguments(type)[index];
     }
     if (typeof type === 'function') {
-      type = type.call(this, key, i);
+      type = type.call(this, obj);
     }
 
     return AnimTypes[transformArguments(type)[index]];
   }
 
-  getVelocityEnterConfig(key, i) {
-    return this.getVelocityConfig(0, key, i);
+  getVelocityEnterConfig(obj) {
+    return this.getVelocityConfig(0, obj);
   }
 
-  getVelocityLeaveConfig(key) {
-    const config = this.getVelocityConfig(1, key);
+  getVelocityLeaveConfig(obj) {
+    const config = this.getVelocityConfig(1, obj);
     const ret = {};
-    Object.keys(config).forEach((_key) => {
-      if (Array.isArray(config[_key])) {
-        ret[_key] = Array.prototype.slice.call(config[_key]).reverse();
+    Object.keys(config).forEach((key) => {
+      if (Array.isArray(config[key])) {
+        ret[key] = Array.prototype.slice.call(config[key]).reverse();
       } else {
-        ret[_key] = config[key];
+        ret[key] = config[key];
       }
     });
     return ret;
   }
 
-  getVelocityEasing(key, i) {
+  getVelocityEasing(obj) {
     let ease = this.props.ease;
     if (typeof ease === 'function') {
-      ease = ease.call(this, key, i);
+      ease = ease.call(this, obj);
     }
     return transformArguments(ease).map((easeName) => {
       if (typeof easeName === 'string') {
@@ -156,15 +156,16 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
+    const obj = {key: key, index: i, target: node};
     const interval = transformArguments(this.props.interval)[0];
-    const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, key, i))[0] : transformArguments(this.props.delay)[0];
-    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, key, i))[0] : transformArguments(this.props.duration)[0];
+    const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, obj))[0] : transformArguments(this.props.delay)[0];
+    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, obj))[0] : transformArguments(this.props.duration)[0];
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
-    velocity(node, this.getVelocityEnterConfig(key, i), {
+    velocity(node, this.getVelocityEnterConfig(obj), {
       delay: interval * i + delay,
       duration: duration,
-      easing: this.getVelocityEasing(key, i)[0],
+      easing: this.getVelocityEasing(obj)[0],
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
       complete: this.enterComplete.bind(this, key),
@@ -179,15 +180,16 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
+    const obj = {key: key, index: i, target: node};
     const interval = transformArguments(this.props.interval)[1];
-    const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, key, i))[1] : transformArguments(this.props.delay)[1];
-    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, key, i))[1] : transformArguments(this.props.duration)[1];
+    const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, obj))[1] : transformArguments(this.props.delay)[1];
+    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, obj))[1] : transformArguments(this.props.duration)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    velocity(node, this.getVelocityLeaveConfig(key, i), {
+    velocity(node, this.getVelocityLeaveConfig(obj), {
       delay: interval * order + delay,
       duration: duration,
-      easing: this.getVelocityEasing(key, i)[1],
+      easing: this.getVelocityEasing(obj)[1],
       begin: this.leaveBegin.bind(this),
       complete: this.leaveComplete.bind(this, key),
     });

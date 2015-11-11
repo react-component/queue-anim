@@ -70,7 +70,7 @@ ReactDom.render(<QueueAnim>
 | component  | string | `div` | component tag |
 | animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
 
-> Above props support function format, like `type={function (key, index){return 'right';}}`, the index and key is the child. [Demo](http://react-component.github.io/queue-anim/examples/param-func.html)
+> Above props support function format, like `type={function (object){return 'right';}}`, the `key` and `index` and `target` is the object . [Demo](http://react-component.github.io/queue-anim/examples/param-func.html)
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
 

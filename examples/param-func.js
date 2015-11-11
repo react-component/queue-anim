@@ -5,7 +5,6 @@ import ReactDom from 'react-dom';
 
 const Page1 = React.createClass({
   getInitialState() {
-    this.index = 100;
     return {
       show: true
     };
@@ -15,26 +14,26 @@ const Page1 = React.createClass({
       show: !this.state.show
     })
   },
-  typeFunc(key) {
-    if (key === '3') {
+  typeFunc(e) {
+    if (e.key === '3') {
       return {opacity: [1, 0], translateX: [0, 30]};
     }
     return {opacity: [1, 0], translateX: [0, -30]};
   },
-  durationFunc(key) {
-    if (key === '3') {
+  durationFunc(e) {
+    if (e.key === '3') {
       return [1500, 600];
     }
     return 500;
   },
-  easeFunc(key) {
-    if (key === '3') {
+  easeFunc(e) {
+    if (e.key === '3') {
       return ['easeOutBack', 'easeInBack'];
     }
     return 'easeInOutQuart';
   },
-  delayFunc(key, index) {
-    if (index >= 3) {
+  delayFunc(e) {
+    if (e.index >= 3) {
       return [1500, 0];
     }
     return 0;
