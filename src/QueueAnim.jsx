@@ -268,7 +268,7 @@ const stringOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.P
 const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
 const funcOrStringOrArray = React.PropTypes.oneOfType([React.PropTypes.func, stringOrArray]);
 const funcOrObjectOrArray = React.PropTypes.oneOfType([React.PropTypes.func, objectOrArray]);
-const funcOrNumberOrArray = React.PropTypes.oneOfType([React.PropTypes.func, objectOrArray]);
+const funcOrNumberOrArray = React.PropTypes.oneOfType([React.PropTypes.func, numberOrArray]);
 QueueAnim.propTypes = {
   component: React.PropTypes.string,
   interval: numberOrArray,
