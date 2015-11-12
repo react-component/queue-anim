@@ -19,7 +19,8 @@ describe('rc-queue-anim', function () {
     return parseFloat(node.style.left);
   }
 
-  function shouldAnimatingThisOne(children, index) {
+  function shouldAnimatingThisOne(instance, index) {
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     children.forEach(function(node, i) {
       console.log(i, node.style.visibility, getOpacity(node));
       if (i === 0) {
@@ -97,13 +98,13 @@ describe('rc-queue-anim', function () {
     const interval = defaultInterval;
     instance = createQueueAnimInstance();
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    shouldAnimatingThisOne(children, 0);
+    shouldAnimatingThisOne(instance, 0);
     setTimeout(function() {
-      shouldAnimatingThisOne(children, 1);
+      shouldAnimatingThisOne(instance, 1);
       setTimeout(function() {
-        shouldAnimatingThisOne(children, 2);
+        shouldAnimatingThisOne(instance, 2);
         setTimeout(function() {
-          shouldAnimatingThisOne(children, 3);
+          shouldAnimatingThisOne(instance, 3);
           done();
         }, interval);
       }, interval);
@@ -113,14 +114,13 @@ describe('rc-queue-anim', function () {
   it('should have interval', function(done) {
     const interval = 300;
     instance = createQueueAnimInstance({ interval });
-    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    shouldAnimatingThisOne(children, 0);
+    shouldAnimatingThisOne(instance, 0);
     setTimeout(function() {
-      shouldAnimatingThisOne(children, 1);
+      shouldAnimatingThisOne(instance, 1);
       setTimeout(function() {
-        shouldAnimatingThisOne(children, 2);
+        shouldAnimatingThisOne(instance, 2);
         setTimeout(function() {
-          shouldAnimatingThisOne(children, 3);
+          shouldAnimatingThisOne(instance, 3);
           done();
         }, interval);
       }, interval);
@@ -132,15 +132,15 @@ describe('rc-queue-anim', function () {
     const delay = 1000;
     instance = createQueueAnimInstance({ delay });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    shouldAnimatingThisOne(children, 0);
+    shouldAnimatingThisOne(instance, 0);
     setTimeout(function() {
-      shouldAnimatingThisOne(children, 0);
+      shouldAnimatingThisOne(instance, 0);
       setTimeout(function() {
-        shouldAnimatingThisOne(children, 1);
+        shouldAnimatingThisOne(instance, 1);
         setTimeout(function() {
-          shouldAnimatingThisOne(children, 2);
+          shouldAnimatingThisOne(instance, 2);
           setTimeout(function() {
-            shouldAnimatingThisOne(children, 3);
+            shouldAnimatingThisOne(instance, 3);
             done();
           }, interval);
         }, interval);
@@ -153,7 +153,7 @@ describe('rc-queue-anim', function () {
     const duration = 300;
     instance = createQueueAnimInstance({ duration });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    shouldAnimatingThisOne(children, 0);
+    shouldAnimatingThisOne(instance, 0);
     setTimeout(function() {
       expect(getOpacity(children[1])).to.be.above(0);
       setTimeout(function() {
@@ -166,8 +166,8 @@ describe('rc-queue-anim', function () {
   it('should have leave animation', function(done) {
     const interval = defaultInterval;
     instance = createQueueAnimInstance();
-    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     setTimeout(function() {
+      let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getOpacity(children[3])).to.be(1);
       const removeIndex = instance.removeOne();
       setTimeout(function() {
