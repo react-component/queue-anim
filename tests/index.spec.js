@@ -278,7 +278,7 @@ describe('rc-queue-anim', function () {
       }, 100);
     }, 10);
   });
-  it.only('should has animating config is func leave', function (done) {
+  it('should has animating config is func leave', function (done) {
     const interval = defaultInterval;
     instance = createQueueAnimInstance({
       animConfig: function (e) {
