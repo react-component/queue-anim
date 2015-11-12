@@ -12,7 +12,7 @@ export function findChildInChildrenByKey(children, key) {
   let ret = null;
   if (children) {
     children.forEach((c) => {
-      if (ret) {
+      if (ret || !c) {
         return;
       }
       if (c.key === key) {
@@ -30,17 +30,23 @@ export function mergeChildren(prev, next) {
   const nextChildrenPending = {};
   let pendingChildren = [];
   prev.forEach((c) => {
+    if (!c) {
+      return;
+    }
     if (findChildInChildrenByKey(next, c.key)) {
       if (pendingChildren.length) {
         nextChildrenPending[c.key] = pendingChildren;
         pendingChildren = [];
       }
-    } else {
+    } else if (c.key) {
       pendingChildren.push(c);
     }
   });
 
   next.forEach((c) => {
+    if (!c) {
+      return;
+    }
     if (nextChildrenPending.hasOwnProperty(c.key)) {
       ret = ret.concat(nextChildrenPending[c.key]);
     }

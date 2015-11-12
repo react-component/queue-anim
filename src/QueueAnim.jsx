@@ -70,6 +70,9 @@ class QueueAnim extends React.Component {
     });
 
     nextChildren.forEach((c)=> {
+      if (!c) {
+        return;
+      }
       const key = c.key;
       const hasPrev = findChildInChildrenByKey(currentChildren, key);
       if (!hasPrev && key) {
@@ -78,6 +81,9 @@ class QueueAnim extends React.Component {
     });
 
     currentChildren.forEach((c)=> {
+      if (!c) {
+        return;
+      }
       const key = c.key;
       const hasNext = findChildInChildrenByKey(nextChildren, key);
       if (!hasNext && key) {

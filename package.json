@@ -43,6 +43,7 @@
     "precommit-hook": "1.x",
     "rc-server": "3.x",
     "rc-tools": "4.x",
+    "rc-dialog":"~5.2.1",
     "react": "~0.14.0",
     "react-addons-test-utils": "~0.14.0",
     "react-dom": "~0.14.0",
