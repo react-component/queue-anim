@@ -6,8 +6,7 @@ import {
   findChildInChildrenByKey,
   mergeChildren,
   transformArguments,
-  getChildrenFromProps,
-  } from './utils';
+  getChildrenFromProps} from './utils';
 import AnimTypes from './animTypes';
 
 const BackEase = {
@@ -113,19 +112,28 @@ class QueueAnim extends React.Component {
     }
   }
 
-  getVelocityConfig(index) {
+  getVelocityConfig(index, obj) {
+    let type = this.props.type;
     if (this.props.animConfig) {
-      return transformArguments(this.props.animConfig)[index];
+      type = this.props.animConfig;
+      if (typeof type === 'function') {
+        type = type.call(this, obj);
+      }
+      return transformArguments(type)[index];
     }
-    return AnimTypes[transformArguments(this.props.type)[index]];
+    if (typeof type === 'function') {
+      type = type.call(this, obj);
+    }
+
+    return AnimTypes[transformArguments(type)[index]];
   }
 
-  getVelocityEnterConfig() {
-    return this.getVelocityConfig(0);
+  getVelocityEnterConfig(obj) {
+    return this.getVelocityConfig(0, obj);
   }
 
-  getVelocityLeaveConfig() {
-    const config = this.getVelocityConfig(1);
+  getVelocityLeaveConfig(obj) {
+    const config = this.getVelocityConfig(1, obj);
     const ret = {};
     Object.keys(config).forEach((key) => {
       if (Array.isArray(config[key])) {
@@ -137,8 +145,12 @@ class QueueAnim extends React.Component {
     return ret;
   }
 
-  getVelocityEasing() {
-    return transformArguments(this.props.ease).map((easeName) => {
+  getVelocityEasing(obj) {
+    let ease = this.props.ease;
+    if (typeof ease === 'function') {
+      ease = ease.call(this, obj);
+    }
+    return transformArguments(ease).map((easeName) => {
       if (typeof easeName === 'string') {
         return BackEase[easeName] || easeName;
       }
@@ -150,15 +162,16 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
+    const obj = {key: key, index: i, target: node};
     const interval = transformArguments(this.props.interval)[0];
-    const delay = transformArguments(this.props.delay)[0];
-    const duration = transformArguments(this.props.duration)[0];
+    const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, obj))[0] : transformArguments(this.props.delay)[0];
+    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, obj))[0] : transformArguments(this.props.duration)[0];
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
-    velocity(node, this.getVelocityEnterConfig('enter'), {
+    velocity(node, this.getVelocityEnterConfig(obj), {
       delay: interval * i + delay,
       duration: duration,
-      easing: this.getVelocityEasing()[0],
+      easing: this.getVelocityEasing(obj)[0],
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
       complete: this.enterComplete.bind(this, key),
@@ -173,15 +186,16 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
+    const obj = {key: key, index: i, target: node};
     const interval = transformArguments(this.props.interval)[1];
-    const delay = transformArguments(this.props.delay)[1];
-    const duration = transformArguments(this.props.duration)[1];
+    const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, obj))[1] : transformArguments(this.props.delay)[1];
+    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, obj))[1] : transformArguments(this.props.duration)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    velocity(node, this.getVelocityLeaveConfig('leave'), {
+    velocity(node, this.getVelocityLeaveConfig(obj), {
       delay: interval * order + delay,
       duration: duration,
-      easing: this.getVelocityEasing()[1],
+      easing: this.getVelocityEasing(obj)[1],
       begin: this.leaveBegin.bind(this),
       complete: this.leaveComplete.bind(this, key),
     });
@@ -258,14 +272,17 @@ class QueueAnim extends React.Component {
 const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
 const stringOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
 const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
+const funcOrStringOrArray = React.PropTypes.oneOfType([React.PropTypes.func, stringOrArray]);
+const funcOrObjectOrArray = React.PropTypes.oneOfType([React.PropTypes.func, objectOrArray]);
+const funcOrNumberOrArray = React.PropTypes.oneOfType([React.PropTypes.func, numberOrArray]);
 QueueAnim.propTypes = {
   component: React.PropTypes.string,
   interval: numberOrArray,
-  duration: numberOrArray,
-  delay: numberOrArray,
-  type: stringOrArray,
-  animConfig: objectOrArray,
-  ease: stringOrArray,
+  duration: funcOrNumberOrArray,
+  delay: funcOrNumberOrArray,
+  type: funcOrStringOrArray,
+  animConfig: funcOrObjectOrArray,
+  ease: funcOrStringOrArray,
   leaveReverse: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
 };

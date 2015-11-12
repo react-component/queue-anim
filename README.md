@@ -60,15 +60,17 @@ ReactDom.render(<QueueAnim>
 
 | props      | type           | default | description    |
 |------------|----------------|---------|----------------|
-| type       | string / array | `right` | Animation Styles <br/>`left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
-| animConfig | object / array | null    | Custom Velocity config, like `{opacity:[1, 0], translateY:[0, -30]}`, [velocity config](http://julian.com/research/velocity) |
-| delay      | number / array | 0       | delay of animation |
-| duration   | number / array | 500     | duration of animation  |
+| type       | func / string / array | `right` | Animation Styles <br/>`left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
+| animConfig | func / object / array | null    | Custom Velocity config, like `{opacity:[1, 0], translateY:[0, -30]}`, [velocity config](http://julian.com/research/velocity) |
+| delay      | func / number / array | 0       | delay of animation |
+| duration   | func / number / array | 500     | duration of animation  |
 | interval   | number / array | 100      | interval of duration |
 | leaveReverse | boolean      | false   | reverse animation order at leave |
-| ease       | string / array | `easeOutQuart` | animation easing string, [more](http://julian.com/research/velocity/#easing) |
+| ease       | func / string / array | `easeOutQuart` | animation easing string, [more](http://julian.com/research/velocity/#easing) |
 | component  | string | `div` | component tag |
 | animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
+
+> Above props support function format, like `type={function (object){return 'right';}}`, the `key` and `index` and `target` is the object . [Demo](http://react-component.github.io/queue-anim/examples/param-func.html)
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
 
