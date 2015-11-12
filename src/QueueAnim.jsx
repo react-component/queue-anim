@@ -15,6 +15,8 @@ const BackEase = {
   easeInOutBack: [0.68, -0.55, 0.265, 1.55],
 };
 
+const newDivKey = Date.now();
+
 class QueueAnim extends React.Component {
   constructor() {
     super(...arguments);
@@ -152,27 +154,49 @@ class QueueAnim extends React.Component {
   }
 
   performEnter(key, i) {
-    const node = findDOMNode(this.refs[key]);
+    const node = findDOMNode(this.refs[key + newDivKey]);
     if (!node) {
       return;
     }
-    const obj = {key: key, index: i, target: node};
+    const obj = {key: key, index: i};
     const interval = transformArguments(this.props.interval)[0];
     const delay = typeof this.props.delay === 'function' ? transformArguments(this.props.delay.call(this, obj))[0] : transformArguments(this.props.delay)[0];
-    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, obj))[0] : transformArguments(this.props.duration)[0];
-    node.style.visibility = 'hidden';
+
     velocity(node, 'stop');
-    velocity(node, this.getVelocityEnterConfig(obj), {
+    velocity(node, {opacity: [1, 1]}, {
       delay: interval * i + delay,
-      duration: duration,
-      easing: this.getVelocityEasing(obj)[0],
-      visibility: 'visible',
-      begin: this.enterBegin.bind(this, key),
-      complete: this.enterComplete.bind(this, key),
+      duration: 0,
+      begin: this.divEnterBegin.bind(this, key),
+      complete: this.divEnterComplete.bind(this, key, obj),
     });
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
     }
+  }
+
+  divEnterBegin(key) {
+    const childrenShow = this.state.childrenShow;
+    if (!childrenShow[key]) {
+      childrenShow[key] = true;
+      this.setState({
+        childrenShow,
+      });
+    }
+  }
+
+  divEnterComplete(key, obj) {
+    const node = findDOMNode(this.refs[key]);
+    obj.target = node;
+    const duration = typeof this.props.duration === 'function' ? transformArguments(this.props.duration.call(this, obj))[0] : transformArguments(this.props.duration)[0];
+    node.style.visibility = 'hidden';
+    velocity(node, 'stop');
+    velocity(node, this.getVelocityEnterConfig(obj), {
+      duration: duration,
+      easing: this.getVelocityEasing(obj)[0],
+      visibility: 'visible',
+      begin: this.enterBegin.bind(this),
+      complete: this.enterComplete.bind(this, key),
+    });
   }
 
   performLeave(key, i) {
@@ -195,12 +219,7 @@ class QueueAnim extends React.Component {
     });
   }
 
-  enterBegin(key, elements) {
-    const childrenShow = this.state.childrenShow;
-    childrenShow[key] = true;
-    this.setState({
-      childrenShow: childrenShow,
-    });
+  enterBegin(elements) {
     elements.forEach((elem) => {
       elem.className += (' ' + this.props.animatingClassName[0]);
     });
@@ -235,7 +254,7 @@ class QueueAnim extends React.Component {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
       this.setState({
         children: currentChildren,
-        childrenShow: childrenShow,
+        childrenShow,
       });
     }
     elements.forEach((elem) => {
@@ -248,16 +267,10 @@ class QueueAnim extends React.Component {
       if (!child || !child.key) {
         return child;
       }
-      // handle Component without props, like <App />
-      if (typeof child.type === 'function') {
-        return createElement('div', {
-          ref: child.key,
-          key: child.key,
-        }, this.state.childrenShow[child.key] ? child : null);
-      }
-      return cloneElement(child, {
+      return this.state.childrenShow[child.key] ? cloneElement(child, {
         ref: child.key,
-      }, this.state.childrenShow[child.key] ? child.props.children : null);
+        key: child.key,
+      }) : createElement('div', {ref: child.key + newDivKey, key: child.key + newDivKey});
     });
     return createElement(this.props.component, this.props, childrenToRender);
   }
