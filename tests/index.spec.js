@@ -278,7 +278,7 @@ describe('rc-queue-anim', function () {
       }, 100);
     }, 10);
   });
-  it('should has animating config is func leave', function (done) {
+  it.only('should has animating config is func leave', function (done) {
     const interval = defaultInterval;
     instance = createQueueAnimInstance({
       animConfig: function (e) {
@@ -310,7 +310,7 @@ describe('rc-queue-anim', function () {
             expect(isNaN(getLeft(children[2]))).to.be.ok();
             done();
           }, 500);
-        }, 100);
+        }, 110);
       }, 10);
     }, 1000);
   })
