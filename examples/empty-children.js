@@ -5,7 +5,11 @@ import ReactDom from 'react-dom';
 const Item = React.createClass({
   render() {
     return (
-      <div>Item</div>
+      <QueueAnim>
+        <div key='1'>Item</div>
+        <div key='2'>Item</div>
+        <div key='3'>Item</div>
+      </QueueAnim>
     );
   }
 });
@@ -13,7 +17,7 @@ const Item = React.createClass({
 const Page1 = React.createClass({
   render() {
     return (
-      <QueueAnim interval={300}>
+      <QueueAnim interval={3000}>
         <Item key='1' />
         <Item key='2' />
         <Item key='3' />
