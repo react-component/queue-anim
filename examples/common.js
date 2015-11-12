@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		11:0
+/******/ 		12:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dynamic","4":"empty-children","5":"enter-leave","6":"monkey-click","7":"nested","8":"router","9":"shortcut","10":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dialog-style","4":"dynamic","5":"empty-children","6":"enter-leave","7":"monkey-click","8":"nested","9":"router","10":"shortcut","11":"simple"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -198,7 +198,7 @@
 	      _this.keysToEnter.push(child.key);
 	    });
 	
-	    this.originalChildren = (0, _utils.toArrayChildren)(this.props.children);
+	    this.originalChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
 	
 	    this.state = {
 	      children: children,
@@ -234,6 +234,9 @@
 	      });
 	
 	      nextChildren.forEach(function (c) {
+	        if (!c) {
+	          return;
+	        }
 	        var key = c.key;
 	        var hasPrev = (0, _utils.findChildInChildrenByKey)(currentChildren, key);
 	        if (!hasPrev && key) {
@@ -242,6 +245,9 @@
 	      });
 	
 	      currentChildren.forEach(function (c) {
+	        if (!c) {
+	          return;
+	        }
 	        var key = c.key;
 	        var hasNext = (0, _utils.findChildInChildrenByKey)(nextChildren, key);
 	        if (!hasNext && key) {
@@ -252,7 +258,7 @@
 	  }, {
 	    key: 'componentDidUpdate',
 	    value: function componentDidUpdate() {
-	      this.originalChildren = (0, _utils.toArrayChildren)(this.props.children);
+	      this.originalChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
 	      var keysToEnter = Array.prototype.slice.call(this.keysToEnter);
 	      var keysToLeave = Array.prototype.slice.call(this.keysToLeave);
 	      if (this.keysAnimating.length === 0) {
@@ -300,28 +306,6 @@
 	        }
 	      });
 	      return ret;
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this4 = this;
-	
-	      var childrenToRender = (0, _utils.toArrayChildren)(this.state.children).map(function (child) {
-	        if (!child || !child.key) {
-	          return child;
-	        }
-	        // handle Component without props, like <App />
-	        if (typeof child.type === 'function') {
-	          return (0, _react.createElement)('div', {
-	            ref: child.key,
-	            key: child.key
-	          }, _this4.state.childrenShow[child.key] ? child : null);
-	        }
-	        return (0, _react.cloneElement)(child, {
-	          ref: child.key
-	        }, _this4.state.childrenShow[child.key] ? child.props.children : null);
-	      });
-	      return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
 	    }
 	  }, {
 	    key: 'getVelocityEasing',
@@ -379,7 +363,7 @@
 	  }, {
 	    key: 'enterBegin',
 	    value: function enterBegin(key, elements) {
-	      var _this5 = this;
+	      var _this4 = this;
 	
 	      var childrenShow = this.state.childrenShow;
 	      childrenShow[key] = true;
@@ -387,34 +371,34 @@
 	        childrenShow: childrenShow
 	      });
 	      elements.forEach(function (elem) {
-	        elem.className += ' ' + _this5.props.animatingClassName[0];
+	        elem.className += ' ' + _this4.props.animatingClassName[0];
 	      });
 	    }
 	  }, {
 	    key: 'enterComplete',
 	    value: function enterComplete(key, elements) {
-	      var _this6 = this;
+	      var _this5 = this;
 	
 	      if (this.keysAnimating.indexOf(key) >= 0) {
 	        this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
 	      }
 	      elements.forEach(function (elem) {
-	        elem.className = elem.className.replace(_this6.props.animatingClassName[0], '').trim();
+	        elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
 	      });
 	    }
 	  }, {
 	    key: 'leaveBegin',
 	    value: function leaveBegin(elements) {
-	      var _this7 = this;
+	      var _this6 = this;
 	
 	      elements.forEach(function (elem) {
-	        elem.className += ' ' + _this7.props.animatingClassName[1];
+	        elem.className += ' ' + _this6.props.animatingClassName[1];
 	      });
 	    }
 	  }, {
 	    key: 'leaveComplete',
 	    value: function leaveComplete(key, elements) {
-	      var _this8 = this;
+	      var _this7 = this;
 	
 	      if (this.keysAnimating.indexOf(key) < 0) {
 	        return;
@@ -433,8 +417,30 @@
 	        });
 	      }
 	      elements.forEach(function (elem) {
-	        elem.className = elem.className.replace(_this8.props.animatingClassName[1], '').trim();
+	        elem.className = elem.className.replace(_this7.props.animatingClassName[1], '').trim();
 	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this8 = this;
+	
+	      var childrenToRender = (0, _utils.toArrayChildren)(this.state.children).map(function (child) {
+	        if (!child || !child.key) {
+	          return child;
+	        }
+	        // handle Component without props, like <App />
+	        if (typeof child.type === 'function') {
+	          return (0, _react.createElement)('div', {
+	            ref: child.key,
+	            key: child.key
+	          }, _this8.state.childrenShow[child.key] ? child : null);
+	        }
+	        return (0, _react.cloneElement)(child, {
+	          ref: child.key
+	        }, _this8.state.childrenShow[child.key] ? child.props.children : null);
+	      });
+	      return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
 	    }
 	  }]);
 	
@@ -23942,7 +23948,7 @@
 	  var ret = null;
 	  if (children) {
 	    children.forEach(function (c) {
-	      if (ret) {
+	      if (ret || !c) {
 	        return;
 	      }
 	      if (c.key === key) {
@@ -23960,17 +23966,23 @@
 	  var nextChildrenPending = {};
 	  var pendingChildren = [];
 	  prev.forEach(function (c) {
+	    if (!c) {
+	      return;
+	    }
 	    if (findChildInChildrenByKey(next, c.key)) {
 	      if (pendingChildren.length) {
 	        nextChildrenPending[c.key] = pendingChildren;
 	        pendingChildren = [];
 	      }
-	    } else {
+	    } else if (c.key) {
 	      pendingChildren.push(c);
 	    }
 	  });
 	
 	  next.forEach(function (c) {
+	    if (!c) {
+	      return;
+	    }
 	    if (nextChildrenPending.hasOwnProperty(c.key)) {
 	      ret = ret.concat(nextChildrenPending[c.key]);
 	    }
