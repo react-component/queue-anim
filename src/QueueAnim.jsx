@@ -115,19 +115,19 @@ class QueueAnim extends React.Component {
     }
   }
 
-  getVelocityConfig(index) {
+  getVelocityConfig(index, ...args) {
     if (this.props.animConfig) {
-      return transformArguments(this.props.animConfig)[index];
+      return transformArguments(this.props.animConfig, ...args)[index];
     }
-    return AnimTypes[transformArguments(this.props.type)[index]];
+    return AnimTypes[transformArguments(this.props.type, ...args)[index]];
   }
 
-  getVelocityEnterConfig() {
-    return this.getVelocityConfig(0);
+  getVelocityEnterConfig(...args) {
+    return this.getVelocityConfig(0, ...args);
   }
 
-  getVelocityLeaveConfig() {
-    const config = this.getVelocityConfig(1);
+  getVelocityLeaveConfig(...args) {
+    const config = this.getVelocityConfig(1, ...args);
     const ret = {};
     Object.keys(config).forEach((key) => {
       if (Array.isArray(config[key])) {
@@ -139,8 +139,8 @@ class QueueAnim extends React.Component {
     return ret;
   }
 
-  getVelocityEasing() {
-    return transformArguments(this.props.ease).map((easeName) => {
+  getVelocityEasing(...args) {
+    return transformArguments(this.props.ease, ...args).map((easeName) => {
       if (typeof easeName === 'string') {
         return BackEase[easeName] || easeName;
       }
@@ -152,35 +152,35 @@ class QueueAnim extends React.Component {
     if (!placeholderNode) {
       return;
     }
-    const interval = transformArguments(this.props.interval)[0];
-    const delay = transformArguments(this.props.delay)[0];
+    const interval = transformArguments(this.props.interval, key, i)[0];
+    const delay = transformArguments(this.props.delay, key, i)[0];
     placeholderNode.style.visibility = 'hidden';
     velocity(placeholderNode, 'stop');
     velocity(placeholderNode, { opacity: [0, 0] }, {
       delay: interval * i + delay,
       duration: 0,
-      begin: this.performEnterBegin.bind(this, key),
+      begin: this.performEnterBegin.bind(this, key, i),
     });
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
     }
   }
 
-  performEnterBegin(key) {
+  performEnterBegin(key, i) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
-    this.setState({ childrenShow }, this.realPerformEnter.bind(this, key));
+    this.setState({ childrenShow }, this.realPerformEnter.bind(this, key, i));
   }
 
-  realPerformEnter(key) {
+  realPerformEnter(key, i) {
     const node = findDOMNode(this.refs[key]);
     if (!node) {
       return;
     }
-    const duration = transformArguments(this.props.duration)[0];
+    const duration = transformArguments(this.props.duration, key, i)[0];
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
-    velocity(node, this.getVelocityEnterConfig('enter'), {
+    velocity(node, this.getVelocityEnterConfig(key, i), {
       duration: duration,
       easing: this.getVelocityEasing()[0],
       visibility: 'visible',
@@ -194,12 +194,12 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
-    const interval = transformArguments(this.props.interval)[1];
-    const delay = transformArguments(this.props.delay)[1];
-    const duration = transformArguments(this.props.duration)[1];
+    const interval = transformArguments(this.props.interval, key, i)[1];
+    const delay = transformArguments(this.props.delay, key, i)[1];
+    const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    velocity(node, this.getVelocityLeaveConfig('leave'), {
+    velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
       duration: duration,
       easing: this.getVelocityEasing()[1],
@@ -271,14 +271,18 @@ class QueueAnim extends React.Component {
 const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
 const stringOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
 const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
+const funcOrStringOrArray = React.PropTypes.oneOfType([React.PropTypes.func, stringOrArray]);
+const funcOrObjectOrArray = React.PropTypes.oneOfType([React.PropTypes.func, objectOrArray]);
+const funcOrNumberOrArray = React.PropTypes.oneOfType([React.PropTypes.func, numberOrArray]);
+
 QueueAnim.propTypes = {
   component: React.PropTypes.string,
   interval: numberOrArray,
-  duration: numberOrArray,
-  delay: numberOrArray,
-  type: stringOrArray,
-  animConfig: objectOrArray,
-  ease: stringOrArray,
+  duration: funcOrNumberOrArray,
+  delay: funcOrNumberOrArray,
+  type: funcOrStringOrArray,
+  animConfig: funcOrObjectOrArray,
+  ease: funcOrStringOrArray,
   leaveReverse: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
 };

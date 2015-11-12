@@ -19,6 +19,10 @@ describe('rc-queue-anim', function () {
     return parseFloat(node.style.left);
   }
 
+  function getTop(node) {
+    return parseFloat(node.style.top);
+  }
+
   function shouldAnimatingThisOne(instance, index) {
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     children.forEach(function(node, i) {
@@ -237,6 +241,87 @@ describe('rc-queue-anim', function () {
         done();
       }, 550);
     }, 550);
+  });
+
+  it('should has animating config is func enter', function (done) {
+    const interval = defaultInterval;
+    instance = createQueueAnimInstance({
+      animConfig(e) {
+        if (e.index === 1) {
+          return {top: [100, 0]};
+        }
+        return {left: [100, 0]};
+      }
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(isNaN(getLeft(children[1]))).to.be.ok();
+    expect(isNaN(getTop(children[2]))).to.be.ok();
+    setTimeout(function () {
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      expect(getLeft(children[1])).to.above(0);
+      expect(isNaN(getTop(children[1]))).to.be.ok();
+      console.log('left:', getLeft(children[1]));
+      setTimeout(function () {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        expect(getTop(children[2])).to.above(0);
+        expect(isNaN(getLeft(children[2]))).to.be.ok();
+        console.log('top:', getTop(children[2]));
+        setTimeout(function () {
+          children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+          expect(getTop(children[2])).to.be(100);
+          expect(isNaN(getLeft(children[2]))).to.be.ok();
+          console.log('top_end:', getTop(children[2]));
+          done();
+        }, 500);
+      }, interval);
+      setTimeout(function () {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        expect(getLeft(children[1])).to.be(100);
+        expect(isNaN(getTop(children[1]))).to.be.ok();
+        console.log('left_end:', getLeft(children[1]));
+      }, 500);
+    }, 10);
+  });
+
+  it('should has animating config is func leave', function (done) {
+    const interval = defaultInterval;
+    instance = createQueueAnimInstance({
+      animConfig(e) {
+        if (e.index === 1) {
+          return {top: [100, 0]};
+        }
+        return {left: [100, 0]};
+      }
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    setTimeout(function () {
+      instance.toggle();
+      setTimeout(function () {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        expect(getLeft(children[1])).to.below(100);
+        expect(isNaN(getTop(children[1]))).to.be.ok();
+        console.log('left:', getLeft(children[1]));
+        setTimeout(function () {
+          children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+          expect(getLeft(children[1])).to.be(0);
+          expect(isNaN(getTop(children[1]))).to.be.ok();
+          console.log('left_end:', getLeft(children[1]));
+        }, 500);
+        setTimeout(function () {
+          children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+          expect(getTop(children[2])).to.below(100);
+          expect(isNaN(getLeft(children[2]))).to.be.ok();
+          console.log('top:', getTop(children[2]));
+          setTimeout(function () {
+            children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+            console.log('top_end:', getTop(children[2]));
+            expect(getTop(children[2])).to.be(0);
+            expect(isNaN(getLeft(children[2]))).to.be.ok();
+            done();
+          }, 500);
+        }, 110);
+      }, 10);
+    }, 1000);
   });
 
 });

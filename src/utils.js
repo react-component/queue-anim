@@ -64,11 +64,20 @@ export function mergeChildren(prev, next) {
   return ret;
 }
 
-export function transformArguments(arg) {
-  if (Array.isArray(arg) && arg.length === 2) {
-    return arg;
+export function transformArguments(arg, key, i) {
+  let result;
+  if (typeof arg === 'function') {
+    result = arg({
+      key: key,
+      index: i,
+    });
+  } else {
+    result = arg;
   }
-  return [arg, arg];
+  if (Array.isArray(result) && result.length === 2) {
+    return result;
+  }
+  return [result, result];
 }
 
 export function getChildrenFromProps(props) {
