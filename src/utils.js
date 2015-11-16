@@ -83,3 +83,12 @@ export function transformArguments(arg, key, i) {
 export function getChildrenFromProps(props) {
   return props && props.children;
 }
+
+export function setTransition(node, value) {
+  const style = node.style;
+  ['Webkit', 'Moz', 'Ms', 'ms'].forEach((prefix)=> {
+    style[`${prefix}Transition`] = value;
+  });
+  style[`Transition`] = value;
+}
+
