@@ -7,6 +7,7 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
+  setTransition,
   } from './utils';
 import AnimTypes from './animTypes';
 
@@ -156,7 +157,7 @@ class QueueAnim extends React.Component {
     const delay = transformArguments(this.props.delay, key, i)[0];
     placeholderNode.style.visibility = 'hidden';
     velocity(placeholderNode, 'stop');
-    velocity(placeholderNode, { opacity: [0, 0] }, {
+    velocity(placeholderNode, {opacity: [0, 0]}, {
       delay: interval * i + delay,
       duration: 0,
       begin: this.performEnterBegin.bind(this, key, i),
@@ -169,7 +170,7 @@ class QueueAnim extends React.Component {
   performEnterBegin(key, i) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
-    this.setState({ childrenShow }, this.realPerformEnter.bind(this, key, i));
+    this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
   }
 
   realPerformEnter(key, i) {
@@ -211,6 +212,7 @@ class QueueAnim extends React.Component {
   enterBegin(key, elements) {
     elements.forEach((elem) => {
       elem.className += (' ' + this.props.animatingClassName[0]);
+      setTransition(elem, 'none');
     });
   }
 
@@ -220,12 +222,14 @@ class QueueAnim extends React.Component {
     }
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
+      setTransition(elem, '');
     });
   }
 
   leaveBegin(elements) {
     elements.forEach((elem) => {
       elem.className += (' ' + this.props.animatingClassName[1]);
+      setTransition(elem, 'none');
     });
   }
 
@@ -248,6 +252,7 @@ class QueueAnim extends React.Component {
     }
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
+      setTransition(elem, '');
     });
   }
 
