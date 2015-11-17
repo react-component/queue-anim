@@ -156,7 +156,7 @@ class QueueAnim extends React.Component {
     const delay = transformArguments(this.props.delay, key, i)[0];
     placeholderNode.style.visibility = 'hidden';
     velocity(placeholderNode, 'stop');
-    velocity(placeholderNode, { opacity: [0, 0] }, {
+    velocity(placeholderNode, {opacity: [0, 0]}, {
       delay: interval * i + delay,
       duration: 0,
       begin: this.performEnterBegin.bind(this, key, i),
@@ -169,7 +169,7 @@ class QueueAnim extends React.Component {
   performEnterBegin(key, i) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
-    this.setState({ childrenShow }, this.realPerformEnter.bind(this, key, i));
+    this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
   }
 
   realPerformEnter(key, i) {
@@ -182,7 +182,7 @@ class QueueAnim extends React.Component {
     velocity(node, 'stop');
     velocity(node, this.getVelocityEnterConfig(key, i), {
       duration: duration,
-      easing: this.getVelocityEasing()[0],
+      easing: this.getVelocityEasing(key, i)[0],
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
       complete: this.enterComplete.bind(this, key),
@@ -202,7 +202,7 @@ class QueueAnim extends React.Component {
     velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
       duration: duration,
-      easing: this.getVelocityEasing()[1],
+      easing: this.getVelocityEasing(key, i)[1],
       begin: this.leaveBegin.bind(this),
       complete: this.leaveComplete.bind(this, key),
     });
