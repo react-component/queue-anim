@@ -27,6 +27,32 @@ webpackJsonp([5],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
+	var QueueItem = _react2['default'].createClass({
+	  displayName: 'QueueItem',
+	
+	  render: function render() {
+	    return _react2['default'].createElement(
+	      _rcQueueAnim2['default'],
+	      null,
+	      _react2['default'].createElement(
+	        'div',
+	        { key: '1' },
+	        'Item'
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { key: '2' },
+	        'Item'
+	      ),
+	      _react2['default'].createElement(
+	        'div',
+	        { key: '3' },
+	        'Item'
+	      )
+	    );
+	  }
+	});
+	
 	var Item = _react2['default'].createClass({
 	  displayName: 'Item',
 	
@@ -44,12 +70,41 @@ webpackJsonp([5],{
 	
 	  render: function render() {
 	    return _react2['default'].createElement(
-	      _rcQueueAnim2['default'],
-	      { interval: 300 },
-	      _react2['default'].createElement(Item, { key: '1' }),
-	      _react2['default'].createElement(Item, { key: '2' }),
-	      _react2['default'].createElement(Item, { key: '3' }),
-	      _react2['default'].createElement(Item, { key: '4' })
+	      'div',
+	      null,
+	      _react2['default'].createElement(
+	        _rcQueueAnim2['default'],
+	        { interval: 1500 },
+	        _react2['default'].createElement(Item, { key: '1' }),
+	        _react2['default'].createElement(Item, { key: '2' }),
+	        _react2['default'].createElement(Item, { key: '3' }),
+	        _react2['default'].createElement(Item, { key: '4' })
+	      ),
+	      _react2['default'].createElement('hr', null),
+	      _react2['default'].createElement(
+	        _rcQueueAnim2['default'],
+	        { interval: 1500 },
+	        _react2['default'].createElement(
+	          QueueItem,
+	          { key: '1' },
+	          '11'
+	        ),
+	        _react2['default'].createElement(
+	          QueueItem,
+	          { key: '2' },
+	          '11'
+	        ),
+	        _react2['default'].createElement(
+	          QueueItem,
+	          { key: '3' },
+	          '11'
+	        ),
+	        _react2['default'].createElement(
+	          QueueItem,
+	          { key: '4' },
+	          '11'
+	        )
+	      )
 	    );
 	  }
 	});

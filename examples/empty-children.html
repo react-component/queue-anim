@@ -239,7 +239,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.10.6</h1>
+    <h1>rc-queue-anim@0.11.2</h1>
 
     <p>Queue animation component for react</p>
   </div>
@@ -247,32 +247,53 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
   <script src="common.js?nowrap"></script>
   <script src="empty-children.js?nowrap"></script>
   <div class="highlight">
-    <pre><code><span class="hljs-keyword">import</span> QueueAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-queue-anim'</span>;
-<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
-<span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+    <pre><code>import QueueAnim from 'rc-queue-anim';
+import React from 'react';
+import ReactDom from 'react-dom';
 
-<span class="hljs-keyword">const</span> Item = React.createClass({
+const QueueItem = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> (
-      &lt;div&gt;Item&lt;/div&gt;
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'1'</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'2'</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'3'</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     );
   }
 });
 
-<span class="hljs-keyword">const</span> Page1 = React.createClass({
+const Item = React.createClass({
   render() {
-    <span class="hljs-keyword">return</span> (
-      &lt;QueueAnim interval={<span class="hljs-number">300</span>}&gt;
-        &lt;Item key=<span class="hljs-string">'1'</span> /&gt;
-        &lt;Item key=<span class="hljs-string">'2'</span> /&gt;
-        &lt;Item key=<span class="hljs-string">'3'</span> /&gt;
-        &lt;Item key=<span class="hljs-string">'4'</span> /&gt;
-      &lt;/QueueAnim&gt;
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
   }
 });
 
-ReactDom.render(&lt;Page1 /&gt;, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'__react-content'</span>));
+const Page1 = React.createClass({
+  render() {
+    return (
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{1500}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'1'</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'2'</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'3'</span> /&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'4'</span> /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">hr</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{1500}</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'1'</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'2'</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'3'</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">'4'</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    );
+  }
+});
+
+ReactDom.render(<span class="hljs-tag">&lt;<span class="hljs-title">Page1</span> /&gt;</span>, document.getElementById('__react-content'));
 </code></pre>
   </div>
 </div>

@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		12:0
+/******/ 		13:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dialog-style","4":"dynamic","5":"empty-children","6":"enter-leave","7":"monkey-click","8":"nested","9":"router","10":"shortcut","11":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dialog-style","4":"dynamic","5":"empty-children","6":"enter-leave","7":"monkey-click","8":"nested","9":"param-func","10":"router","11":"shortcut","12":"simple"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -174,6 +174,8 @@
 	  easeOutBack: [0.175, 0.885, 0.32, 1.275],
 	  easeInOutBack: [0.68, -0.55, 0.265, 1.55]
 	};
+	
+	var placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 	
 	var QueueAnim = (function (_React$Component) {
 	  _inherits(QueueAnim, _React$Component);
@@ -283,20 +285,32 @@
 	  }, {
 	    key: 'getVelocityConfig',
 	    value: function getVelocityConfig(index) {
-	      if (this.props.animConfig) {
-	        return (0, _utils.transformArguments)(this.props.animConfig)[index];
+	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	        args[_key - 1] = arguments[_key];
 	      }
-	      return _animTypes2['default'][(0, _utils.transformArguments)(this.props.type)[index]];
+	
+	      if (this.props.animConfig) {
+	        return _utils.transformArguments.apply(undefined, [this.props.animConfig].concat(args))[index];
+	      }
+	      return _animTypes2['default'][_utils.transformArguments.apply(undefined, [this.props.type].concat(args))[index]];
 	    }
 	  }, {
 	    key: 'getVelocityEnterConfig',
 	    value: function getVelocityEnterConfig() {
-	      return this.getVelocityConfig(0);
+	      for (var _len2 = arguments.length, args = Array(_len2), _key2 = 0; _key2 < _len2; _key2++) {
+	        args[_key2] = arguments[_key2];
+	      }
+	
+	      return this.getVelocityConfig.apply(this, [0].concat(args));
 	    }
 	  }, {
 	    key: 'getVelocityLeaveConfig',
 	    value: function getVelocityLeaveConfig() {
-	      var config = this.getVelocityConfig(1);
+	      for (var _len3 = arguments.length, args = Array(_len3), _key3 = 0; _key3 < _len3; _key3++) {
+	        args[_key3] = arguments[_key3];
+	      }
+	
+	      var config = this.getVelocityConfig.apply(this, [1].concat(args));
 	      var ret = {};
 	      Object.keys(config).forEach(function (key) {
 	        if (Array.isArray(config[key])) {
@@ -310,7 +324,11 @@
 	  }, {
 	    key: 'getVelocityEasing',
 	    value: function getVelocityEasing() {
-	      return (0, _utils.transformArguments)(this.props.ease).map(function (easeName) {
+	      for (var _len4 = arguments.length, args = Array(_len4), _key4 = 0; _key4 < _len4; _key4++) {
+	        args[_key4] = arguments[_key4];
+	      }
+	
+	      return _utils.transformArguments.apply(undefined, [this.props.ease].concat(args)).map(function (easeName) {
 	        if (typeof easeName === 'string') {
 	          return BackEase[easeName] || easeName;
 	        }
@@ -319,26 +337,47 @@
 	  }, {
 	    key: 'performEnter',
 	    value: function performEnter(key, i) {
-	      var node = (0, _reactDom.findDOMNode)(this.refs[key]);
-	      if (!node) {
+	      var placeholderNode = (0, _reactDom.findDOMNode)(this.refs[placeholderKeyPrefix + key]);
+	      if (!placeholderNode) {
 	        return;
 	      }
-	      var interval = (0, _utils.transformArguments)(this.props.interval)[0];
-	      var delay = (0, _utils.transformArguments)(this.props.delay)[0];
-	      var duration = (0, _utils.transformArguments)(this.props.duration)[0];
-	      node.style.visibility = 'hidden';
-	      (0, _velocityAnimate2['default'])(node, 'stop');
-	      (0, _velocityAnimate2['default'])(node, this.getVelocityEnterConfig('enter'), {
+	      var interval = (0, _utils.transformArguments)(this.props.interval, key, i)[0];
+	      var delay = (0, _utils.transformArguments)(this.props.delay, key, i)[0];
+	      placeholderNode.style.visibility = 'hidden';
+	      (0, _velocityAnimate2['default'])(placeholderNode, 'stop');
+	      (0, _velocityAnimate2['default'])(placeholderNode, { opacity: [0, 0] }, {
 	        delay: interval * i + delay,
-	        duration: duration,
-	        easing: this.getVelocityEasing()[0],
-	        visibility: 'visible',
-	        begin: this.enterBegin.bind(this, key),
-	        complete: this.enterComplete.bind(this, key)
+	        duration: 0,
+	        begin: this.performEnterBegin.bind(this, key, i)
 	      });
 	      if (this.keysToEnter.indexOf(key) >= 0) {
 	        this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
 	      }
+	    }
+	  }, {
+	    key: 'performEnterBegin',
+	    value: function performEnterBegin(key, i) {
+	      var childrenShow = this.state.childrenShow;
+	      childrenShow[key] = true;
+	      this.setState({ childrenShow: childrenShow }, this.realPerformEnter.bind(this, key, i));
+	    }
+	  }, {
+	    key: 'realPerformEnter',
+	    value: function realPerformEnter(key, i) {
+	      var node = (0, _reactDom.findDOMNode)(this.refs[key]);
+	      if (!node) {
+	        return;
+	      }
+	      var duration = (0, _utils.transformArguments)(this.props.duration, key, i)[0];
+	      node.style.visibility = 'hidden';
+	      (0, _velocityAnimate2['default'])(node, 'stop');
+	      (0, _velocityAnimate2['default'])(node, this.getVelocityEnterConfig(key, i), {
+	        duration: duration,
+	        easing: this.getVelocityEasing(key, i)[0],
+	        visibility: 'visible',
+	        begin: this.enterBegin.bind(this, key),
+	        complete: this.enterComplete.bind(this, key)
+	      });
 	    }
 	  }, {
 	    key: 'performLeave',
@@ -347,15 +386,15 @@
 	      if (!node) {
 	        return;
 	      }
-	      var interval = (0, _utils.transformArguments)(this.props.interval)[1];
-	      var delay = (0, _utils.transformArguments)(this.props.delay)[1];
-	      var duration = (0, _utils.transformArguments)(this.props.duration)[1];
+	      var interval = (0, _utils.transformArguments)(this.props.interval, key, i)[1];
+	      var delay = (0, _utils.transformArguments)(this.props.delay, key, i)[1];
+	      var duration = (0, _utils.transformArguments)(this.props.duration, key, i)[1];
 	      var order = this.props.leaveReverse ? this.keysToLeave.length - i - 1 : i;
 	      (0, _velocityAnimate2['default'])(node, 'stop');
-	      (0, _velocityAnimate2['default'])(node, this.getVelocityLeaveConfig('leave'), {
+	      (0, _velocityAnimate2['default'])(node, this.getVelocityLeaveConfig(key, i), {
 	        delay: interval * order + delay,
 	        duration: duration,
-	        easing: this.getVelocityEasing()[1],
+	        easing: this.getVelocityEasing(key, i)[1],
 	        begin: this.leaveBegin.bind(this),
 	        complete: this.leaveComplete.bind(this, key)
 	      });
@@ -365,11 +404,6 @@
 	    value: function enterBegin(key, elements) {
 	      var _this4 = this;
 	
-	      var childrenShow = this.state.childrenShow;
-	      childrenShow[key] = true;
-	      this.setState({
-	        childrenShow: childrenShow
-	      });
 	      elements.forEach(function (elem) {
 	        elem.className += ' ' + _this4.props.animatingClassName[0];
 	      });
@@ -429,16 +463,13 @@
 	        if (!child || !child.key) {
 	          return child;
 	        }
-	        // handle Component without props, like <App />
-	        if (typeof child.type === 'function') {
-	          return (0, _react.createElement)('div', {
-	            ref: child.key,
-	            key: child.key
-	          }, _this8.state.childrenShow[child.key] ? child : null);
-	        }
-	        return (0, _react.cloneElement)(child, {
-	          ref: child.key
-	        }, _this8.state.childrenShow[child.key] ? child.props.children : null);
+	        return _this8.state.childrenShow[child.key] ? (0, _react.cloneElement)(child, {
+	          ref: child.key,
+	          key: child.key
+	        }) : (0, _react.createElement)('div', {
+	          ref: placeholderKeyPrefix + child.key,
+	          key: placeholderKeyPrefix + child.key
+	        });
 	      });
 	      return (0, _react.createElement)(this.props.component, this.props, childrenToRender);
 	    }
@@ -450,14 +481,18 @@
 	var numberOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.number, _react2['default'].PropTypes.array]);
 	var stringOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.string, _react2['default'].PropTypes.array]);
 	var objectOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.object, _react2['default'].PropTypes.array]);
+	var funcOrStringOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, stringOrArray]);
+	var funcOrObjectOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, objectOrArray]);
+	var funcOrNumberOrArray = _react2['default'].PropTypes.oneOfType([_react2['default'].PropTypes.func, numberOrArray]);
+	
 	QueueAnim.propTypes = {
 	  component: _react2['default'].PropTypes.string,
 	  interval: numberOrArray,
-	  duration: numberOrArray,
-	  delay: numberOrArray,
-	  type: stringOrArray,
-	  animConfig: objectOrArray,
-	  ease: stringOrArray,
+	  duration: funcOrNumberOrArray,
+	  delay: funcOrNumberOrArray,
+	  type: funcOrStringOrArray,
+	  animConfig: funcOrObjectOrArray,
+	  ease: funcOrStringOrArray,
 	  leaveReverse: _react2['default'].PropTypes.bool,
 	  animatingClassName: _react2['default'].PropTypes.array
 	};
@@ -24000,11 +24035,20 @@
 	  return ret;
 	}
 	
-	function transformArguments(arg) {
-	  if (Array.isArray(arg) && arg.length === 2) {
-	    return arg;
+	function transformArguments(arg, key, i) {
+	  var result = undefined;
+	  if (typeof arg === 'function') {
+	    result = arg({
+	      key: key,
+	      index: i
+	    });
+	  } else {
+	    result = arg;
 	  }
-	  return [arg, arg];
+	  if (Array.isArray(result) && result.length === 2) {
+	    return result;
+	  }
+	  return [result, result];
 	}
 	
 	function getChildrenFromProps(props) {
