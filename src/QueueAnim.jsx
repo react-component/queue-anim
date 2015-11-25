@@ -148,7 +148,10 @@ class QueueAnim extends React.Component {
   }
 
   performEnter(key, i) {
-    const placeholderNode = findDOMNode(this.refs[placeholderKeyPrefix + key]);
+    /*
+     *占位符在暴击时是不存在的,所以用create
+     */
+    const placeholderNode = document.createElement('div');
     if (!placeholderNode) {
       return;
     }
@@ -169,7 +172,13 @@ class QueueAnim extends React.Component {
   performEnterBegin(key, i) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
-    this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
+    /*
+     *这里会报错,用_reactInternalInstance来分别出这个组件还存在否,
+     * componentWillUnmount能去掉所有的setState吗?这里有延时处理...
+     */
+    if (this._reactInternalInstance) {
+      this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
+    }
   }
 
   realPerformEnter(key, i) {
