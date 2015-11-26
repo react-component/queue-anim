@@ -26,6 +26,8 @@ class QueueAnim extends React.Component {
     this.keysToLeave = [];
     this.keysAnimating = [];
 
+    this.placeholder = {};
+
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(this.props));
     children.forEach(child => {
@@ -148,22 +150,22 @@ class QueueAnim extends React.Component {
   }
 
   performEnter(key, i) {
-    /*
-     *占位符在暴击时是不存在的,所以用create
-     */
-    const placeholderNode = document.createElement('div');
-    if (!placeholderNode) {
-      return;
-    }
+    /* const placeholderNode = findDOMNode(this.refs[placeholderKeyPrefix + key]);
+     if (!placeholderNode) {
+     return;
+     }*/
+
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
-    placeholderNode.style.visibility = 'hidden';
-    velocity(placeholderNode, 'stop');
-    velocity(placeholderNode, {opacity: [0, 0]}, {
-      delay: interval * i + delay,
-      duration: 0,
-      begin: this.performEnterBegin.bind(this, key, i),
-    });
+    /*
+     placeholderNode.style.visibility = 'hidden';
+     velocity(placeholderNode, 'stop', true);
+     velocity(placeholderNode, {opacity: [0, 0]}, {
+     delay: interval * i + delay,
+     duration: 0,
+     begin: this.performEnterBegin.bind(this, key, i),
+     });*/
+    this.placeholder[key] = setTimeout(this.performEnterBegin.bind(this, key, i), interval * i + delay);
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
     }
@@ -200,6 +202,11 @@ class QueueAnim extends React.Component {
 
   performLeave(key, i) {
     const node = findDOMNode(this.refs[key]);
+    /*
+    this.placeholder.forEach((item)=> {
+     velocity(item, 'stop', true);
+     });*/
+    clearTimeout(this.placeholder[key]);
     if (!node) {
       return;
     }
@@ -207,7 +214,7 @@ class QueueAnim extends React.Component {
     const delay = transformArguments(this.props.delay, key, i)[1];
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
-    velocity(node, 'stop');
+    velocity(node, 'stop', true);
     velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
       duration: duration,
@@ -248,7 +255,13 @@ class QueueAnim extends React.Component {
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
     }
-    if (this.keysToLeave.length === 0) {
+    let leaveEnd;
+    this.keysToLeave.forEach((c)=> {
+      if (childrenShow[c]) {
+        leaveEnd = true;
+      }
+    });
+    if (!leaveEnd) {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
       this.setState({
         children: currentChildren,
