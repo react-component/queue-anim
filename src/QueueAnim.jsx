@@ -150,16 +150,15 @@ class QueueAnim extends React.Component {
   }
 
   performEnter(key, i) {
-    /* const placeholderNode = findDOMNode(this.refs[placeholderKeyPrefix + key]);
-     if (!placeholderNode) {
-     return;
-     }*/
+    /*
+     const placeholderNode = this.placeholder[key] || document.createElement('div');//findDOMNode(this.refs[placeholderKeyPrefix + key]);
+     this.placeholder[key] = placeholderNode*/
 
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
     /*
      placeholderNode.style.visibility = 'hidden';
-     velocity(placeholderNode, 'stop', true);
+     velocity(placeholderNode, 'stop');
      velocity(placeholderNode, {opacity: [0, 0]}, {
      delay: interval * i + delay,
      duration: 0,
@@ -174,10 +173,6 @@ class QueueAnim extends React.Component {
   performEnterBegin(key, i) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
-    /*
-     *这里会报错,用_reactInternalInstance来分别出这个组件还存在否,
-     * componentWillUnmount能去掉所有的setState吗?这里有延时处理...
-     */
     if (this._reactInternalInstance) {
       this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
     }
@@ -191,6 +186,7 @@ class QueueAnim extends React.Component {
     const duration = transformArguments(this.props.duration, key, i)[0];
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
+    console.log('enter', key);
     velocity(node, this.getVelocityEnterConfig(key, i), {
       duration: duration,
       easing: this.getVelocityEasing(key, i)[0],
@@ -202,10 +198,10 @@ class QueueAnim extends React.Component {
 
   performLeave(key, i) {
     const node = findDOMNode(this.refs[key]);
+    // console.log('stop', key);
     /*
-    this.placeholder.forEach((item)=> {
-     velocity(item, 'stop', true);
-     });*/
+     velocity(this.placeholder[key], 'stop');
+     */
     clearTimeout(this.placeholder[key]);
     if (!node) {
       return;
@@ -214,7 +210,8 @@ class QueueAnim extends React.Component {
     const delay = transformArguments(this.props.delay, key, i)[1];
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
-    velocity(node, 'stop', true);
+    velocity(node, 'stop');
+    // console.log('leave', key);
     velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
       duration: duration,
