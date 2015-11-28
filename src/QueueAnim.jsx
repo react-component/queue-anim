@@ -25,6 +25,7 @@ class QueueAnim extends React.Component {
     this.keysToEnter = [];
     this.keysToLeave = [];
     this.keysAnimating = [];
+    this.placeholderTimeoutIds = {};
 
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(this.props));
@@ -112,6 +113,9 @@ class QueueAnim extends React.Component {
           velocity(findDOMNode(this.refs[child.key]), 'stop');
         }
       });
+      Object.keys(this.placeholderTimeoutIds).forEach(key => {
+        clearTimeout(this.placeholderTimeoutIds[key]);
+      });
     }
   }
 
@@ -148,19 +152,12 @@ class QueueAnim extends React.Component {
   }
 
   performEnter(key, i) {
-    const placeholderNode = findDOMNode(this.refs[placeholderKeyPrefix + key]);
-    if (!placeholderNode) {
-      return;
-    }
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
-    placeholderNode.style.visibility = 'hidden';
-    velocity(placeholderNode, 'stop');
-    velocity(placeholderNode, {opacity: [0, 0]}, {
-      delay: interval * i + delay,
-      duration: 0,
-      begin: this.performEnterBegin.bind(this, key, i),
-    });
+    this.placeholderTimeoutIds[key] = setTimeout(
+      this.performEnterBegin.bind(this, key, i),
+      interval * i + delay
+    );
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
     }
@@ -190,6 +187,8 @@ class QueueAnim extends React.Component {
   }
 
   performLeave(key, i) {
+    clearTimeout(this.placeholderTimeoutIds[key]);
+    delete this.placeholderTimeoutIds[key];
     const node = findDOMNode(this.refs[key]);
     if (!node) {
       return;
@@ -239,7 +238,8 @@ class QueueAnim extends React.Component {
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
     }
-    if (this.keysToLeave.length === 0) {
+    const needLeave = this.keysToLeave.some(c => childrenShow[c]);
+    if (!needLeave) {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
       this.setState({
         children: currentChildren,
