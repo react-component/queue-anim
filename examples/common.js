@@ -190,6 +190,7 @@
 	    this.keysToEnter = [];
 	    this.keysToLeave = [];
 	    this.keysAnimating = [];
+	    this.placeholderTimeoutIds = {};
 	
 	    // 第一次进入，默认进场
 	    var children = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
@@ -280,6 +281,9 @@
 	            (0, _velocityAnimate2['default'])((0, _reactDom.findDOMNode)(_this3.refs[child.key]), 'stop');
 	          }
 	        });
+	        Object.keys(this.placeholderTimeoutIds).forEach(function (key) {
+	          clearTimeout(_this3.placeholderTimeoutIds[key]);
+	        });
 	      }
 	    }
 	  }, {
@@ -337,19 +341,9 @@
 	  }, {
 	    key: 'performEnter',
 	    value: function performEnter(key, i) {
-	      var placeholderNode = (0, _reactDom.findDOMNode)(this.refs[placeholderKeyPrefix + key]);
-	      if (!placeholderNode) {
-	        return;
-	      }
 	      var interval = (0, _utils.transformArguments)(this.props.interval, key, i)[0];
 	      var delay = (0, _utils.transformArguments)(this.props.delay, key, i)[0];
-	      placeholderNode.style.visibility = 'hidden';
-	      (0, _velocityAnimate2['default'])(placeholderNode, 'stop');
-	      (0, _velocityAnimate2['default'])(placeholderNode, { opacity: [0, 0] }, {
-	        delay: interval * i + delay,
-	        duration: 0,
-	        begin: this.performEnterBegin.bind(this, key, i)
-	      });
+	      this.placeholderTimeoutIds[key] = setTimeout(this.performEnterBegin.bind(this, key, i), interval * i + delay);
 	      if (this.keysToEnter.indexOf(key) >= 0) {
 	        this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
 	      }
@@ -382,6 +376,8 @@
 	  }, {
 	    key: 'performLeave',
 	    value: function performLeave(key, i) {
+	      clearTimeout(this.placeholderTimeoutIds[key]);
+	      delete this.placeholderTimeoutIds[key];
 	      var node = (0, _reactDom.findDOMNode)(this.refs[key]);
 	      if (!node) {
 	        return;
@@ -443,7 +439,10 @@
 	      if (this.keysToLeave.indexOf(key) >= 0) {
 	        this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
 	      }
-	      if (this.keysToLeave.length === 0) {
+	      var needLeave = this.keysToLeave.some(function (c) {
+	        return childrenShow[c];
+	      });
+	      if (!needLeave) {
 	        var currentChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(this.props));
 	        this.setState({
 	          children: currentChildren,
