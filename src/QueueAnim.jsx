@@ -25,8 +25,7 @@ class QueueAnim extends React.Component {
     this.keysToEnter = [];
     this.keysToLeave = [];
     this.keysAnimating = [];
-
-    this.placeholder = {};
+    this.placeholderTimeoutIds = {};
 
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(this.props));
@@ -114,6 +113,9 @@ class QueueAnim extends React.Component {
           velocity(findDOMNode(this.refs[child.key]), 'stop');
         }
       });
+      Object.keys(this.placeholderTimeoutIds).forEach(key => {
+        clearTimeout(this.placeholderTimeoutIds[key]);
+      });
     }
   }
 
@@ -150,21 +152,12 @@ class QueueAnim extends React.Component {
   }
 
   performEnter(key, i) {
-    /*
-     const placeholderNode = this.placeholder[key] || document.createElement('div');//findDOMNode(this.refs[placeholderKeyPrefix + key]);
-     this.placeholder[key] = placeholderNode*/
-
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
-    /*
-     placeholderNode.style.visibility = 'hidden';
-     velocity(placeholderNode, 'stop');
-     velocity(placeholderNode, {opacity: [0, 0]}, {
-     delay: interval * i + delay,
-     duration: 0,
-     begin: this.performEnterBegin.bind(this, key, i),
-     });*/
-    this.placeholder[key] = setTimeout(this.performEnterBegin.bind(this, key, i), interval * i + delay);
+    this.placeholderTimeoutIds[key] = setTimeout(
+      this.performEnterBegin.bind(this, key, i),
+      interval * i + delay
+    );
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
     }
@@ -173,9 +166,7 @@ class QueueAnim extends React.Component {
   performEnterBegin(key, i) {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
-    if (this._reactInternalInstance) {
-      this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
-    }
+    this.setState({childrenShow}, this.realPerformEnter.bind(this, key, i));
   }
 
   realPerformEnter(key, i) {
@@ -186,7 +177,6 @@ class QueueAnim extends React.Component {
     const duration = transformArguments(this.props.duration, key, i)[0];
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
-    console.log('enter', key);
     velocity(node, this.getVelocityEnterConfig(key, i), {
       duration: duration,
       easing: this.getVelocityEasing(key, i)[0],
@@ -197,12 +187,9 @@ class QueueAnim extends React.Component {
   }
 
   performLeave(key, i) {
+    clearTimeout(this.placeholderTimeoutIds[key]);
+    delete this.placeholderTimeoutIds[key];
     const node = findDOMNode(this.refs[key]);
-    // console.log('stop', key);
-    /*
-     velocity(this.placeholder[key], 'stop');
-     */
-    clearTimeout(this.placeholder[key]);
     if (!node) {
       return;
     }
@@ -211,7 +198,6 @@ class QueueAnim extends React.Component {
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    // console.log('leave', key);
     velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
       duration: duration,
@@ -252,13 +238,8 @@ class QueueAnim extends React.Component {
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
     }
-    let leaveEnd;
-    this.keysToLeave.forEach((c)=> {
-      if (childrenShow[c]) {
-        leaveEnd = true;
-      }
-    });
-    if (!leaveEnd) {
+    const needLeave = this.keysToLeave.some(c => childrenShow[c]);
+    if (!needLeave) {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
       this.setState({
         children: currentChildren,
