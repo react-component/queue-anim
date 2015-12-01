@@ -6,13 +6,13 @@ import ReactDom from 'react-dom';
 const Page1 = React.createClass({
   getInitialState() {
     return {
-      show: true
+      show: true,
     };
   },
   onClick() {
     this.setState({
-      show: !this.state.show
-    })
+      show: !this.state.show,
+    });
   },
   animConfigFunc(e) {
     if (e.key === '3') {
@@ -50,7 +50,7 @@ const Page1 = React.createClass({
       </QueueAnim>
     </div>
     );
-  }
+  },
 });
 
 ReactDom.render(<Page1 />, document.getElementById('__react-content'));

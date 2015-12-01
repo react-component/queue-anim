@@ -1,4 +1,4 @@
-import ReactRouter, { Router, Route, Link } from 'react-router';
+import { Router, Route, Link } from 'react-router';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -6,7 +6,8 @@ import '../assets/router.less';
 
 const App = React.createClass({
   render() {
-    var key = this.props.location.pathname;
+    const props = this.props;
+    const key = props.location.pathname;
 
     return (
       <div>
@@ -16,44 +17,44 @@ const App = React.createClass({
       &nbsp;
         <Link to="/page2">Page 2</Link>
         <QueueAnim type={['right', 'left']} className="router-wrap">
-          {React.cloneElement(this.props.children || <h1 key="home">Home Page</h1>, {key: key})}
+          {React.cloneElement(props.children || <h1 key="home">Home Page</h1>, {key: key})}
         </QueueAnim>
       </div>
     );
-  }
+  },
 });
 
 const Page3 = React.createClass({
   render() {
     return (
       <QueueAnim>
-        <p key='1'>
+        <p key="1">
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
         </p>
-        <p key='2'>
+        <p key="2">
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
         </p>
-        <p key='3'>
+        <p key="3">
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
         </p>
-        <p key='4'>
+        <p key="4">
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
         </p>
-        <p key='5'>
+        <p key="5">
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
         </p>
-        <p key='6'>
+        <p key="6">
           <Link to="/page2">A link to page 2 should be active</Link>
           Page3
         </p>
       </QueueAnim>
     );
-  }
+  },
 });
 
 const Page1 = React.createClass({
@@ -76,10 +77,10 @@ const Page1 = React.createClass({
         <p key="6">
           <Link to="/page2">A link to page 2 should be active</Link>
           改变样式</p>
-        <Page3 key='7'>1</Page3>
+        <Page3 key="7">1</Page3>
       </QueueAnim>
     );
-  }
+  },
 });
 
 const Page2 = React.createClass({
@@ -105,7 +106,7 @@ const Page2 = React.createClass({
         </p>
       </QueueAnim>
     );
-  }
+  },
 });
 
 ReactDom.render((

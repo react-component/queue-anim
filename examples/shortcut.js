@@ -76,4 +76,3 @@ ReactDom.render(<div>
     <div key="5">依次进入</div>
   </QueueAnim>
 </div>, document.getElementById('__react-content'));
-

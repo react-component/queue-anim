@@ -8,7 +8,7 @@ import 'rc-dialog/assets/index.css';
 const App = React.createClass({
   getInitialState() {
     return {
-      show: false
+      show: false,
     };
   },
   onClick() {
@@ -18,37 +18,41 @@ const App = React.createClass({
   },
   onClose() {
     this.setState({
-      show: false
+      show: false,
     });
   },
   render() {
     let dialog;
     if (this.state.show) {
-      dialog = <Dialog visible={this.state.show}
-        animation="zoom"
-        maskAnimation="fade"
-        onClose={this.onClose}
-        style={{width: 600}}
-        title={<div> 第二个弹框</div>}>
-        <QueueAnim>
+      dialog = (
+        <Dialog visible={this.state.show}
+          animation="zoom"
+          maskAnimation="fade"
+          onClose={this.onClose}
+          style={{width: 600}}
+          title={<div> 第二个弹框</div>}>
+          <QueueAnim>
+            <div key="1">依次进入</div>
+            <div key="2">依次进入</div>
+            <div key="3">依次进入</div>
+            <div key="4">依次进入</div>
+          </QueueAnim>
+        </Dialog>
+      );
+    }
+    return (
+      <div>
+        <QueueAnim type={['right', 'left']} interval={[100, 200]} delay={[0, 1000]} duration={[500, 2000]} ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
           <div key="1">依次进入</div>
           <div key="2">依次进入</div>
           <div key="3">依次进入</div>
           <div key="4">依次进入</div>
+          {dialog}
         </QueueAnim>
-      </Dialog>
-    }
-    return <div>
-      <QueueAnim type={['right', 'left']} interval={[100, 200]} delay={[0, 1000]} duration={[500, 2000]} ease={['easeOutBack', 'easeInOutCirc']} leaveReverse={true}>
-        <div key="1">依次进入</div>
-        <div key="2">依次进入</div>
-        <div key="3">依次进入</div>
-        <div key="4">依次进入</div>
-        {dialog}
-      </QueueAnim>
-      <button onClick={this.onClick}>弹出框口</button>
-    </div>;
-  }
+        <button onClick={this.onClick}>弹出框口</button>
+      </div>
+    );
+  },
 });
 
 ReactDom.render(<App />, document.getElementById('__react-content'));
