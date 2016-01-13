@@ -1,19 +1,18 @@
 import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 
-let velocity
-if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-    // only load velocity on the client
-    velocity = require('velocity-animate')
-
+let velocity;
+if ( typeof document !== 'undefined' && typeof window !== 'undefined' ) {
+  // only load velocity on the client
+  velocity = require('velocity-animate');
 } else {
-    // provide a velocity stub for the server
-    _velocityAnimate = function velocityServerDummy () {
-        var callback = arguments[arguments.length - 1]
-        // call after stack flushes
-        // in case you app depends on the asyncron nature of this function
-        setImmediate(function () { callback() })
-    }
+  // provide a velocity stub for the server
+  velocity = function velocityServerDummy() {
+    const callback = arguments[arguments.length - 1];
+    // call after stack flushes
+    // in case you app depends on the asyncron nature of this function
+    setImmediate(function() { callback(); });
+  };
 }
 
 import {
