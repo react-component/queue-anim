@@ -1,6 +1,20 @@
 import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
-import velocity from 'velocity-animate';
+
+let velocity;
+if ( typeof document !== 'undefined' && typeof window !== 'undefined' ) {
+  // only load velocity on the client
+  velocity = require('velocity-animate');
+} else {
+  // provide a velocity stub for the server
+  velocity = function velocityServerDummy() {
+    const callback = arguments[arguments.length - 1];
+    // call after stack flushes
+    // in case you app depends on the asyncron nature of this function
+    setImmediate(function() { callback(); });
+  };
+}
+
 import {
   toArrayChildren,
   findChildInChildrenByKey,
