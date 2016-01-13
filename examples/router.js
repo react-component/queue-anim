@@ -1,3 +1,4 @@
+/* eslint-disable no-console,react/no-multi-comp */
 import { Router, Route, Link } from 'react-router';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';

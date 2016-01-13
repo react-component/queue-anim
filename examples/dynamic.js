@@ -1,3 +1,4 @@
+/* eslint-disable no-console,react/no-multi-comp */
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
