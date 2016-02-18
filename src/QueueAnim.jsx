@@ -2,7 +2,7 @@ import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 
 let velocity;
-if ( typeof document !== 'undefined' && typeof window !== 'undefined' ) {
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   // only load velocity on the client
   velocity = require('velocity-animate');
 } else {
@@ -11,7 +11,9 @@ if ( typeof document !== 'undefined' && typeof window !== 'undefined' ) {
     const callback = arguments[arguments.length - 1];
     // call after stack flushes
     // in case you app depends on the asyncron nature of this function
-    setImmediate(function() { callback(); });
+    setImmediate(function() {
+      callback();
+    });
   };
 }
 
@@ -21,7 +23,7 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
-  } from './utils';
+} from './utils';
 import AnimTypes from './animTypes';
 
 const BackEase = {
@@ -223,6 +225,9 @@ class QueueAnim extends React.Component {
 
   enterBegin(key, elements) {
     elements.forEach((elem) => {
+      const currentClassName = this.props.animatingClassName[1];
+      const reg = new RegExp(currentClassName, 'ig');
+      elem.className = elem.className.replace(reg, '');
       elem.className += (' ' + this.props.animatingClassName[0]);
     });
   }
@@ -232,12 +237,17 @@ class QueueAnim extends React.Component {
       this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
     }
     elements.forEach((elem) => {
-      elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
+      const currentClassName = this.props.animatingClassName[0];
+      const reg = new RegExp(currentClassName, 'ig');
+      elem.className = elem.className.replace(reg, '').trim();
     });
   }
 
   leaveBegin(elements) {
     elements.forEach((elem) => {
+      const currentClassName = this.props.animatingClassName[0];
+      const reg = new RegExp(currentClassName, 'ig');
+      elem.className = elem.className.replace(reg, '');
       elem.className += (' ' + this.props.animatingClassName[1]);
     });
   }
@@ -261,7 +271,9 @@ class QueueAnim extends React.Component {
       });
     }
     elements.forEach((elem) => {
-      elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
+      const currentClassName = this.props.animatingClassName[1];
+      const reg = new RegExp(currentClassName, 'ig');
+      elem.className = elem.className.replace(reg, '').trim();
     });
   }
 
