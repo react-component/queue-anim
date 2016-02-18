@@ -2,7 +2,7 @@ import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 
 let velocity;
-if ( typeof document !== 'undefined' && typeof window !== 'undefined' ) {
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
   // only load velocity on the client
   velocity = require('velocity-animate');
 } else {
@@ -11,7 +11,9 @@ if ( typeof document !== 'undefined' && typeof window !== 'undefined' ) {
     const callback = arguments[arguments.length - 1];
     // call after stack flushes
     // in case you app depends on the asyncron nature of this function
-    setImmediate(function() { callback(); });
+    setImmediate(function() {
+      callback();
+    });
   };
 }
 
@@ -21,7 +23,7 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
-  } from './utils';
+} from './utils';
 import AnimTypes from './animTypes';
 
 const BackEase = {
@@ -223,7 +225,13 @@ class QueueAnim extends React.Component {
 
   enterBegin(key, elements) {
     elements.forEach((elem) => {
-      elem.className += (' ' + this.props.animatingClassName[0]);
+      const animatingClassName = this.props.animatingClassName;
+      if (elem.className.indexOf(animatingClassName[1]) >= 0) {
+        elem.className = elem.className.replace(animatingClassName[1], '');
+      }
+      if (elem.className.indexOf(' ' + animatingClassName[0]) === -1) {
+        elem.className += (' ' + animatingClassName[0]);
+      }
     });
   }
 
@@ -238,7 +246,13 @@ class QueueAnim extends React.Component {
 
   leaveBegin(elements) {
     elements.forEach((elem) => {
-      elem.className += (' ' + this.props.animatingClassName[1]);
+      const animatingClassName = this.props.animatingClassName;
+      if (elem.className.indexOf(animatingClassName[0]) >= 0) {
+        elem.className = elem.className.replace(animatingClassName[0], '');
+      }
+      if (elem.className.indexOf(animatingClassName[1]) === -1) {
+        elem.className += (' ' + animatingClassName[1]);
+      }
     });
   }
 
