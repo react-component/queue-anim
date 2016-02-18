@@ -225,10 +225,14 @@ class QueueAnim extends React.Component {
 
   enterBegin(key, elements) {
     elements.forEach((elem) => {
-      elem.className += (' ' + this.props.animatingClassName[0]);
-      const currentClassName = this.props.animatingClassName[1];
-      const reg = new RegExp(currentClassName, 'g');
-      elem.className = elem.className.replace(reg, '');
+      const animatingClassName = this.props.animatingClassName;
+      if (elem.className.indexOf(this.props.animatingClassName[1]) >= 0) {
+        const reg = new RegExp(animatingClassName[1], 'g');
+        elem.className = elem.className.replace(reg, '');
+      }
+      if (elem.className.indexOf(' ' + animatingClassName[0]) === -1) {
+        elem.className += (' ' + animatingClassName[0]);
+      }
     });
   }
 
@@ -237,18 +241,22 @@ class QueueAnim extends React.Component {
       this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
     }
     elements.forEach((elem) => {
-      const currentClassName = this.props.animatingClassName[0];
-      const reg = new RegExp(currentClassName, 'g');
-      elem.className = elem.className.replace(reg, '').trim();
+      if (elem.className.indexOf(this.props.animatingClassName[0]) >= 0) {
+        elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
+      }
     });
   }
 
   leaveBegin(elements) {
     elements.forEach((elem) => {
-      elem.className += (' ' + this.props.animatingClassName[1]);
-      const currentClassName = this.props.animatingClassName[0];
-      const reg = new RegExp(currentClassName, 'g');
-      elem.className = elem.className.replace(reg, '');
+      const animatingClassName = this.props.animatingClassName;
+      if (elem.className.indexOf(animatingClassName[0]) >= 0) {
+        const reg = new RegExp(animatingClassName[0], 'g');
+        elem.className = elem.className.replace(reg, '');
+      }
+      if (elem.className.indexOf(animatingClassName[1]) === -1) {
+        elem.className += (' ' + animatingClassName[1]);
+      }
     });
   }
 
@@ -271,9 +279,9 @@ class QueueAnim extends React.Component {
       });
     }
     elements.forEach((elem) => {
-      const currentClassName = this.props.animatingClassName[1];
-      const reg = new RegExp(currentClassName, 'g');
-      elem.className = elem.className.replace(reg, '').trim();
+      if (elem.className.indexOf(this.props.animatingClassName[1]) >= 0) {
+        elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
+      }
     });
   }
 
