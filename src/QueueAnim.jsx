@@ -225,10 +225,10 @@ class QueueAnim extends React.Component {
 
   enterBegin(key, elements) {
     elements.forEach((elem) => {
-      const currentClassName = this.props.animatingClassName[1];
-      const reg = new RegExp(currentClassName, 'ig');
-      elem.className = elem.className.replace(reg, '');
       elem.className += (' ' + this.props.animatingClassName[0]);
+      const currentClassName = this.props.animatingClassName[1];
+      const reg = new RegExp(currentClassName, 'g');
+      elem.className = elem.className.replace(reg, '');
     });
   }
 
@@ -238,17 +238,17 @@ class QueueAnim extends React.Component {
     }
     elements.forEach((elem) => {
       const currentClassName = this.props.animatingClassName[0];
-      const reg = new RegExp(currentClassName, 'ig');
+      const reg = new RegExp(currentClassName, 'g');
       elem.className = elem.className.replace(reg, '').trim();
     });
   }
 
   leaveBegin(elements) {
     elements.forEach((elem) => {
-      const currentClassName = this.props.animatingClassName[0];
-      const reg = new RegExp(currentClassName, 'ig');
-      elem.className = elem.className.replace(reg, '');
       elem.className += (' ' + this.props.animatingClassName[1]);
+      const currentClassName = this.props.animatingClassName[0];
+      const reg = new RegExp(currentClassName, 'g');
+      elem.className = elem.className.replace(reg, '');
     });
   }
 
@@ -272,7 +272,7 @@ class QueueAnim extends React.Component {
     }
     elements.forEach((elem) => {
       const currentClassName = this.props.animatingClassName[1];
-      const reg = new RegExp(currentClassName, 'ig');
+      const reg = new RegExp(currentClassName, 'g');
       elem.className = elem.className.replace(reg, '').trim();
     });
   }
