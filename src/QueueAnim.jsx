@@ -226,10 +226,8 @@ class QueueAnim extends React.Component {
   enterBegin(key, elements) {
     elements.forEach((elem) => {
       const animatingClassName = this.props.animatingClassName;
-      if (elem.className.indexOf(animatingClassName[1]) >= 0) {
-        elem.className = elem.className.replace(animatingClassName[1], '');
-      }
-      if (elem.className.indexOf(' ' + animatingClassName[0]) === -1) {
+      elem.className = elem.className.replace(animatingClassName[1], '');
+      if (elem.className.indexOf(animatingClassName[0]) === -1) {
         elem.className += (' ' + animatingClassName[0]);
       }
     });
@@ -247,9 +245,7 @@ class QueueAnim extends React.Component {
   leaveBegin(elements) {
     elements.forEach((elem) => {
       const animatingClassName = this.props.animatingClassName;
-      if (elem.className.indexOf(animatingClassName[0]) >= 0) {
-        elem.className = elem.className.replace(animatingClassName[0], '');
-      }
+      elem.className = elem.className.replace(animatingClassName[0], '');
       if (elem.className.indexOf(animatingClassName[1]) === -1) {
         elem.className += (' ' + animatingClassName[1]);
       }
