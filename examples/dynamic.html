@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>dynamic.js - example - rc-queue-anim@0.11.4</title>
+  <title>dynamic.js - example - rc-queue-anim@0.11.5</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,103 +257,103 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.11.4</h1>
+    <h1>rc-queue-anim@0.11.5</h1>
 
     <p>Queue animation component for react</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="dynamic.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console,react/no-multi-comp */</span>
-import QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDom from <span class="hljs-string">'react-dom'</span>;
+  <div class="highlight"><pre><code language="undefined">/* eslint-disable no-console,react/no-multi-comp */
+import QueueAnim from 'rc-queue-anim';
+import React from 'react';
+import ReactDom from 'react-dom';
 
-<span class="hljs-keyword">const</span> App = React.createClass({
+const App = React.createClass({
   getInitialState() {
-    <span class="hljs-keyword">this</span>.index = <span class="hljs-number">100</span>;
-    <span class="hljs-keyword">return</span> {
+    this.index = 100;
+    return {
       items: [{
-        children: <span class="hljs-string">'依次进入1'</span>,
-        key: <span class="hljs-number">1</span>,
+        children: '依次进入1',
+        key: 1,
       }, {
-        children: <span class="hljs-string">'依次进入2'</span>,
-        key: <span class="hljs-number">2</span>,
+        children: '依次进入2',
+        key: 2,
       }, {
-        children: <span class="hljs-string">'依次进入3'</span>,
-        key: <span class="hljs-number">3</span>,
+        children: '依次进入3',
+        key: 3,
       }, {
-        children: <span class="hljs-string">'依次进入4'</span>,
-        key: <span class="hljs-number">4</span>,
+        children: '依次进入4',
+        key: 4,
       }],
     };
   },
   add() {
-    <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">this</span>.state.items;
+    const items = this.state.items;
     items.push({
-      children: <span class="hljs-string">'新节点'</span>,
-      key: <span class="hljs-keyword">this</span>.index++,
+      children: '新节点',
+      key: this.index++,
     });
-    <span class="hljs-keyword">this</span>.setState({ items });
+    this.setState({ items });
   },
   addTwo() {
-    <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">this</span>.state.items;
+    const items = this.state.items;
     items.push({
-      children: <span class="hljs-string">'新节点'</span>,
-      key: <span class="hljs-keyword">this</span>.index++,
+      children: '新节点',
+      key: this.index++,
     });
     items.push({
-      children: <span class="hljs-string">'新节点'</span>,
-      key: <span class="hljs-keyword">this</span>.index++,
+      children: '新节点',
+      key: this.index++,
     });
-    <span class="hljs-keyword">this</span>.setState({ items });
+    this.setState({ items });
   },
   remove(key, e) {
     e.preventDefault();
-    <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">this</span>.state.items;
-    <span class="hljs-keyword">const</span> target = items.filter(item =&gt; item.key === key);
-    <span class="hljs-keyword">let</span> index;
-    <span class="hljs-keyword">if</span> (target &amp;&amp; target[<span class="hljs-number">0</span>]) {
-      index = items.indexOf(target[<span class="hljs-number">0</span>]);
+    const items = this.state.items;
+    const target = items.filter(item =&gt; item.key === key);
+    let index;
+    if (target &amp;&amp; target[0]) {
+      index = items.indexOf(target[0]);
     }
-    <span class="hljs-keyword">if</span> (index &gt;= <span class="hljs-number">0</span>) {
-      items.splice(index, <span class="hljs-number">1</span>);
+    if (index &gt;= 0) {
+      items.splice(index, 1);
     }
-    <span class="hljs-keyword">this</span>.setState({ items });
+    this.setState({ items });
   },
   removeAll() {
-    <span class="hljs-keyword">this</span>.setState({
+    this.setState({
       items: [],
     });
   },
   removeAndAdd() {
-    <span class="hljs-keyword">const</span> items = <span class="hljs-keyword">this</span>.state.items;
-    items.splice(items.length - <span class="hljs-number">1</span>, <span class="hljs-number">1</span>);
+    const items = this.state.items;
+    items.splice(items.length - 1, 1);
     items.push({
-      children: <span class="hljs-string">'新节点'</span> + <span class="hljs-built_in">Date</span>.now(),
-      key: <span class="hljs-keyword">this</span>.index++,
+      children: '新节点' + Date.now(),
+      key: this.index++,
     });
-    <span class="hljs-keyword">this</span>.setState({ items });
+    this.setState({ items });
   },
   render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.add}</span>&gt;</span>点击新增<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.addTwo}</span>&gt;</span>点击新增两个<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.removeAll}</span>&gt;</span>移出所有<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.removeAndAdd}</span>&gt;</span>移出与添加<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
-          {this.state.items.map((item) =&gt; <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{item.key}</span>&gt;</span>
-            {item.children} <span class="hljs-tag">&lt;<span class="hljs-title">a</span> <span class="hljs-attribute">href</span>=<span class="hljs-value">"#"</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.remove.bind(this,</span> <span class="hljs-attribute">item.key</span>)}&gt;</span>删除<span class="hljs-tag">&lt;/<span class="hljs-title">a</span>&gt;</span>
-          <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)}
-        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    return (
+      &lt;div&gt;
+        &lt;button onClick={this.add}&gt;点击新增&lt;/button&gt;
+        &lt;button onClick={this.addTwo}&gt;点击新增两个&lt;/button&gt;
+        &lt;button onClick={this.removeAll}&gt;移出所有&lt;/button&gt;
+        &lt;button onClick={this.removeAndAdd}&gt;移出与添加&lt;/button&gt;
+        &lt;QueueAnim&gt;
+          {this.state.items.map((item) =&gt; &lt;div key={item.key}&gt;
+            {item.children} &lt;a href="#" onClick={this.remove.bind(this, item.key)}&gt;删除&lt;/a&gt;
+          &lt;/div&gt;)}
+        &lt;/QueueAnim&gt;
+      &lt;/div&gt;
     );
   },
 });
 
-ReactDom.render(<span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById('__react-content'));
-</span></code></pre></div>
+ReactDom.render(&lt;App /&gt;, document.getElementById('__react-content'));
+</code></pre></div>
 </div>
 <a href="https://github.com/react-component/queue-anim">
   <img style="position: absolute; top: 0; right: 0; border: 0;"

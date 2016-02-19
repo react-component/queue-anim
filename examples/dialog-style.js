@@ -199,7 +199,7 @@ webpackJsonp([3],[
 	
 	var _rcDialog2 = _interopRequireDefault(_rcDialog);
 	
-	__webpack_require__(217);
+	__webpack_require__(216);
 	
 	var App = _react2['default'].createClass({
 	  displayName: 'App',
@@ -341,7 +341,7 @@ webpackJsonp([3],[
 	
 	var _Dialog2 = _interopRequireDefault(_Dialog);
 	
-	var _objectAssign = __webpack_require__(203);
+	var _objectAssign = __webpack_require__(202);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
@@ -522,15 +522,15 @@ webpackJsonp([3],[
 	
 	var _rcUtil = __webpack_require__(184);
 	
-	var _objectAssign = __webpack_require__(203);
+	var _objectAssign = __webpack_require__(202);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
-	var _rcAnimate = __webpack_require__(208);
+	var _rcAnimate = __webpack_require__(207);
 	
 	var _rcAnimate2 = _interopRequireDefault(_rcAnimate);
 	
-	var _DOMWrap = __webpack_require__(216);
+	var _DOMWrap = __webpack_require__(215);
 	
 	var _DOMWrap2 = _interopRequireDefault(_DOMWrap);
 	
@@ -872,7 +872,7 @@ webpackJsonp([3],[
 	
 	var _rcUtil = __webpack_require__(184);
 	
-	var _isWindow = __webpack_require__(207);
+	var _isWindow = __webpack_require__(206);
 	
 	var _isWindow2 = _interopRequireDefault(_isWindow);
 	
@@ -2043,14 +2043,14 @@ webpackJsonp([3],[
 	  KeyCode: __webpack_require__(190),
 	  PureRenderMixin: __webpack_require__(191),
 	  shallowEqual: __webpack_require__(192),
-	  createChainedFunction: __webpack_require__(198),
+	  createChainedFunction: __webpack_require__(197),
 	  Dom: {
-	    addEventListener: __webpack_require__(199),
-	    contains: __webpack_require__(204)
+	    addEventListener: __webpack_require__(198),
+	    contains: __webpack_require__(203)
 	  },
 	  Children: {
-	    toArray: __webpack_require__(205),
-	    mapSelf: __webpack_require__(206)
+	    toArray: __webpack_require__(204),
+	    mapSelf: __webpack_require__(205)
 	  }
 	};
 
@@ -2786,17 +2786,7 @@ webpackJsonp([3],[
 
 	'use strict';
 	
-	var shallowEqual = __webpack_require__(193);
-	
-	module.exports = shallowEqual;
-
-/***/ },
-/* 193 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	var fetchKeys = __webpack_require__(194);
+	var fetchKeys = __webpack_require__(193);
 	
 	module.exports = function shallowEqual(objA, objB, compare, compareContext) {
 	
@@ -2844,7 +2834,7 @@ webpackJsonp([3],[
 	};
 
 /***/ },
-/* 194 */
+/* 193 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -2855,9 +2845,9 @@ webpackJsonp([3],[
 	 * Copyright 2009-2015 Jeremy Ashkenas, DocumentCloud and Investigative Reporters & Editors
 	 * Available under MIT license <https://lodash.com/license>
 	 */
-	var getNative = __webpack_require__(195),
-	    isArguments = __webpack_require__(196),
-	    isArray = __webpack_require__(197);
+	var getNative = __webpack_require__(194),
+	    isArguments = __webpack_require__(195),
+	    isArray = __webpack_require__(196);
 	
 	/** Used to detect unsigned integer values. */
 	var reIsUint = /^\d+$/;
@@ -3086,7 +3076,7 @@ webpackJsonp([3],[
 
 
 /***/ },
-/* 195 */
+/* 194 */
 /***/ function(module, exports) {
 
 	/**
@@ -3229,11 +3219,11 @@ webpackJsonp([3],[
 
 
 /***/ },
-/* 196 */
+/* 195 */
 /***/ function(module, exports) {
 
-	/* WEBPACK VAR INJECTION */(function(global) {/**
-	 * lodash 3.0.5 (Custom Build) <https://lodash.com/>
+	/**
+	 * lodash 3.0.7 (Custom Build) <https://lodash.com/>
 	 * Build: `lodash modularize exports="npm" -o ./`
 	 * Copyright 2012-2016 The Dojo Foundation <http://dojofoundation.org/>
 	 * Based on Underscore.js 1.8.3 <http://underscorejs.org/LICENSE>
@@ -3250,7 +3240,7 @@ webpackJsonp([3],[
 	    genTag = '[object GeneratorFunction]';
 	
 	/** Used for built-in method references. */
-	var objectProto = global.Object.prototype;
+	var objectProto = Object.prototype;
 	
 	/** Used to check objects for own properties. */
 	var hasOwnProperty = objectProto.hasOwnProperty;
@@ -3318,7 +3308,6 @@ webpackJsonp([3],[
 	 *
 	 * @static
 	 * @memberOf _
-	 * @type Function
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is array-like, else `false`.
@@ -3347,7 +3336,6 @@ webpackJsonp([3],[
 	 *
 	 * @static
 	 * @memberOf _
-	 * @type Function
 	 * @category Lang
 	 * @param {*} value The value to check.
 	 * @returns {boolean} Returns `true` if `value` is an array-like object, else `false`.
@@ -3418,7 +3406,8 @@ webpackJsonp([3],[
 	 * // => false
 	 */
 	function isLength(value) {
-	  return typeof value == 'number' && value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
+	  return typeof value == 'number' &&
+	    value > -1 && value % 1 == 0 && value <= MAX_SAFE_INTEGER;
 	}
 	
 	/**
@@ -3445,8 +3434,6 @@ webpackJsonp([3],[
 	 * // => false
 	 */
 	function isObject(value) {
-	  // Avoid a V8 JIT bug in Chrome 19-20.
-	  // See https://code.google.com/p/v8/issues/detail?id=2291 for more details.
 	  var type = typeof value;
 	  return !!value && (type == 'object' || type == 'function');
 	}
@@ -3479,11 +3466,10 @@ webpackJsonp([3],[
 	}
 	
 	module.exports = isArguments;
-	
-	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
+
 
 /***/ },
-/* 197 */
+/* 196 */
 /***/ function(module, exports) {
 
 	/**
@@ -3669,7 +3655,7 @@ webpackJsonp([3],[
 
 
 /***/ },
-/* 198 */
+/* 197 */
 /***/ function(module, exports) {
 
 	/**
@@ -3696,7 +3682,7 @@ webpackJsonp([3],[
 	module.exports = createChainedFunction;
 
 /***/ },
-/* 199 */
+/* 198 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3708,7 +3694,7 @@ webpackJsonp([3],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _addDomEventListener = __webpack_require__(200);
+	var _addDomEventListener = __webpack_require__(199);
 	
 	var _addDomEventListener2 = _interopRequireDefault(_addDomEventListener);
 	
@@ -3727,7 +3713,7 @@ webpackJsonp([3],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 200 */
+/* 199 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3739,7 +3725,7 @@ webpackJsonp([3],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _EventObject = __webpack_require__(201);
+	var _EventObject = __webpack_require__(200);
 	
 	var _EventObject2 = _interopRequireDefault(_EventObject);
 	
@@ -3769,7 +3755,7 @@ webpackJsonp([3],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 201 */
+/* 200 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -3786,11 +3772,11 @@ webpackJsonp([3],[
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
-	var _EventBaseObject = __webpack_require__(202);
+	var _EventBaseObject = __webpack_require__(201);
 	
 	var _EventBaseObject2 = _interopRequireDefault(_EventBaseObject);
 	
-	var _objectAssign = __webpack_require__(203);
+	var _objectAssign = __webpack_require__(202);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
@@ -4052,7 +4038,7 @@ webpackJsonp([3],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 202 */
+/* 201 */
 /***/ function(module, exports) {
 
 	/**
@@ -4120,7 +4106,7 @@ webpackJsonp([3],[
 	module.exports = exports["default"];
 
 /***/ },
-/* 203 */
+/* 202 */
 /***/ function(module, exports) {
 
 	/* eslint-disable no-unused-vars */
@@ -4165,7 +4151,7 @@ webpackJsonp([3],[
 
 
 /***/ },
-/* 204 */
+/* 203 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4183,7 +4169,7 @@ webpackJsonp([3],[
 	};
 
 /***/ },
-/* 205 */
+/* 204 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4199,7 +4185,7 @@ webpackJsonp([3],[
 	};
 
 /***/ },
-/* 206 */
+/* 205 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4216,7 +4202,7 @@ webpackJsonp([3],[
 	};
 
 /***/ },
-/* 207 */
+/* 206 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -4235,16 +4221,16 @@ webpackJsonp([3],[
 	module.exports = exports["default"];
 
 /***/ },
-/* 208 */
+/* 207 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// export this package's api
 	'use strict';
 	
-	module.exports = __webpack_require__(209);
+	module.exports = __webpack_require__(208);
 
 /***/ },
-/* 209 */
+/* 208 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4261,13 +4247,13 @@ webpackJsonp([3],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _ChildrenUtils = __webpack_require__(210);
+	var _ChildrenUtils = __webpack_require__(209);
 	
-	var _AnimateChild = __webpack_require__(211);
+	var _AnimateChild = __webpack_require__(210);
 	
 	var _AnimateChild2 = _interopRequireDefault(_AnimateChild);
 	
-	var _util = __webpack_require__(215);
+	var _util = __webpack_require__(214);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -4346,13 +4332,19 @@ webpackJsonp([3],[
 	  componentWillReceiveProps: function componentWillReceiveProps(nextProps) {
 	    var _this2 = this;
 	
+	    this.nextProps = nextProps;
 	    var nextChildren = (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(nextProps));
 	    var props = this.props;
+	    // exclusive needs immediate response
+	    if (props.exclusive) {
+	      Object.keys(this.currentlyAnimatingKeys).forEach(function (key) {
+	        _this2.stop(key);
+	      });
+	    }
 	    var showProp = props.showProp;
 	    var currentlyAnimatingKeys = this.currentlyAnimatingKeys;
 	    // last props children if exclusive
-	    // exclusive needs immediate response
-	    var currentChildren = this.state.children;
+	    var currentChildren = props.exclusive ? (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(props)) : this.state.children;
 	    // in case destroy in showProp mode
 	    var newChildren = [];
 	    if (showProp) {
@@ -4425,15 +4417,7 @@ webpackJsonp([3],[
 	    });
 	  },
 	
-	  componentDidUpdate: function componentDidUpdate(prevProps) {
-	    var _this3 = this;
-	
-	    // exclusive needs immediate response
-	    if (this.props.exclusive && this.props !== prevProps) {
-	      Object.keys(this.currentlyAnimatingKeys).forEach(function (key) {
-	        _this3.stop(key);
-	      });
-	    }
+	  componentDidUpdate: function componentDidUpdate() {
 	    if (this.isMounted()) {
 	      var keysToEnter = this.keysToEnter;
 	      this.keysToEnter = [];
@@ -4462,6 +4446,10 @@ webpackJsonp([3],[
 	  handleDoneAdding: function handleDoneAdding(key, type) {
 	    var props = this.props;
 	    delete this.currentlyAnimatingKeys[key];
+	    // if update on exclusive mode, skip check
+	    if (props.exclusive && props !== this.nextProps) {
+	      return;
+	    }
 	    var currentChildren = (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(props));
 	    if (!this.isValidChildByKey(currentChildren, key)) {
 	      // exclusive will not need this
@@ -4492,6 +4480,10 @@ webpackJsonp([3],[
 	  handleDoneLeaving: function handleDoneLeaving(key) {
 	    var props = this.props;
 	    delete this.currentlyAnimatingKeys[key];
+	    // if update on exclusive mode, skip check
+	    if (props.exclusive && props !== this.nextProps) {
+	      return;
+	    }
 	    var currentChildren = (0, _ChildrenUtils.toArrayChildren)(getChildrenFromProps(props));
 	    // in case state change is too fast
 	    if (this.isValidChildByKey(currentChildren, key)) {
@@ -4527,10 +4519,14 @@ webpackJsonp([3],[
 	
 	  render: function render() {
 	    var props = this.props;
+	    this.nextProps = props;
 	    var stateChildren = this.state.children;
 	    var children = null;
 	    if (stateChildren) {
 	      children = stateChildren.map(function (child) {
+	        if (child === null) {
+	          return child;
+	        }
 	        if (!child.key) {
 	          throw new Error('must set key for <rc-animate> children');
 	        }
@@ -4564,7 +4560,7 @@ webpackJsonp([3],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 210 */
+/* 209 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4682,7 +4678,7 @@ webpackJsonp([3],[
 	}
 
 /***/ },
-/* 211 */
+/* 210 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -4701,11 +4697,11 @@ webpackJsonp([3],[
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var _cssAnimation = __webpack_require__(212);
+	var _cssAnimation = __webpack_require__(211);
 	
 	var _cssAnimation2 = _interopRequireDefault(_cssAnimation);
 	
-	var _util = __webpack_require__(215);
+	var _util = __webpack_require__(214);
 	
 	var _util2 = _interopRequireDefault(_util);
 	
@@ -4785,13 +4781,13 @@ webpackJsonp([3],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 212 */
+/* 211 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var Event = __webpack_require__(213);
-	var Css = __webpack_require__(214);
+	var Event = __webpack_require__(212);
+	var Css = __webpack_require__(213);
 	var isCssAnimationSupported = Event.endEvents.length !== 0;
 	
 	function getDuration(node, name) {
@@ -4943,7 +4939,7 @@ webpackJsonp([3],[
 	module.exports = cssAnimation;
 
 /***/ },
-/* 213 */
+/* 212 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5031,7 +5027,7 @@ webpackJsonp([3],[
 	module.exports = TransitionEvents;
 
 /***/ },
-/* 214 */
+/* 213 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -5062,7 +5058,7 @@ webpackJsonp([3],[
 	};
 
 /***/ },
-/* 215 */
+/* 214 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -5095,7 +5091,7 @@ webpackJsonp([3],[
 	module.exports = exports["default"];
 
 /***/ },
-/* 216 */
+/* 215 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -5110,7 +5106,7 @@ webpackJsonp([3],[
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _objectAssign = __webpack_require__(203);
+	var _objectAssign = __webpack_require__(202);
 	
 	var _objectAssign2 = _interopRequireDefault(_objectAssign);
 	
@@ -5142,7 +5138,7 @@ webpackJsonp([3],[
 	module.exports = exports['default'];
 
 /***/ },
-/* 217 */
+/* 216 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

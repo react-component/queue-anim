@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>param-func.js - example - rc-queue-anim@0.11.4</title>
+  <title>param-func.js - example - rc-queue-anim@0.11.5</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,71 +257,71 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.11.4</h1>
+    <h1>rc-queue-anim@0.11.5</h1>
 
     <p>Queue animation component for react</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="param-func.js?nowrap"></script>
-  <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console,react/no-multi-comp */</span>
-import QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
-import React from <span class="hljs-string">'react'</span>;
-import ReactDom from <span class="hljs-string">'react-dom'</span>;
+  <div class="highlight"><pre><code language="undefined">/* eslint-disable no-console,react/no-multi-comp */
+import QueueAnim from 'rc-queue-anim';
+import React from 'react';
+import ReactDom from 'react-dom';
 
 
-<span class="hljs-keyword">const</span> Page1 = React.createClass({
+const Page1 = React.createClass({
   getInitialState() {
-    <span class="hljs-keyword">return</span> {
-      show: <span class="hljs-literal">true</span>,
+    return {
+      show: true,
     };
   },
   onClick() {
-    <span class="hljs-keyword">this</span>.setState({
-      show: !<span class="hljs-keyword">this</span>.state.show,
+    this.setState({
+      show: !this.state.show,
     });
   },
   animConfigFunc(e) {
-    <span class="hljs-keyword">if</span> (e.key === <span class="hljs-string">'3'</span>) {
-      <span class="hljs-keyword">return</span> {opacity: [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], translateX: [<span class="hljs-number">0</span>, <span class="hljs-number">30</span>]};
+    if (e.key === '3') {
+      return {opacity: [1, 0], translateX: [0, 30]};
     }
-    <span class="hljs-keyword">return</span> [{opacity: [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], translateX: [<span class="hljs-number">0</span>, -<span class="hljs-number">30</span>]}, {opacity: [<span class="hljs-number">1</span>, <span class="hljs-number">0</span>], translateX: [<span class="hljs-number">0</span>, <span class="hljs-number">30</span>]}];
+    return [{opacity: [1, 0], translateX: [0, -30]}, {opacity: [1, 0], translateX: [0, 30]}];
   },
   durationFunc(e) {
-    <span class="hljs-keyword">if</span> (e.key === <span class="hljs-string">'3'</span>) {
-      <span class="hljs-keyword">return</span> [<span class="hljs-number">1500</span>, <span class="hljs-number">4000</span>];
+    if (e.key === '3') {
+      return [1500, 4000];
     }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">500</span>;
+    return 500;
   },
   easeFunc(e) {
-    <span class="hljs-keyword">if</span> (e.key === <span class="hljs-string">'3'</span>) {
-      <span class="hljs-keyword">return</span> [<span class="hljs-string">'easeOutBack'</span>, <span class="hljs-string">'easeInBack'</span>];
+    if (e.key === '3') {
+      return ['easeOutBack', 'easeInBack'];
     }
-    <span class="hljs-keyword">return</span> <span class="hljs-string">'easeInOutQuart'</span>;
+    return 'easeInOutQuart';
   },
   delayFunc(e) {
-    <span class="hljs-keyword">if</span> (e.index &gt;= <span class="hljs-number">3</span>) {
-      <span class="hljs-keyword">return</span> [<span class="hljs-number">1500</span>, <span class="hljs-number">0</span>];
+    if (e.index &gt;= 3) {
+      return [1500, 0];
     }
-    <span class="hljs-keyword">return</span> <span class="hljs-number">0</span>;
+    return 0;
   },
   render() {
-    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onClick}</span>&gt;</span>切换<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{300}</span> <span class="hljs-attribute">animConfig</span>=<span class="hljs-value">{this.animConfigFunc}</span> <span class="hljs-attribute">duration</span>=<span class="hljs-value">{this.durationFunc}</span> <span class="hljs-attribute">ease</span>=<span class="hljs-value">{this.easeFunc}</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{this.delayFunc}</span>&gt;</span>
-      {this.state.show ? [<span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>改变type<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"5"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>] : null}
-      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    return (&lt;div&gt;
+      &lt;button onClick={this.onClick}&gt;切换&lt;/button&gt;
+      &lt;QueueAnim interval={300} animConfig={this.animConfigFunc} duration={this.durationFunc} ease={this.easeFunc} delay={this.delayFunc}&gt;
+      {this.state.show ? [&lt;div key="1"&gt;依次进入&lt;/div&gt;,
+        &lt;div key="2"&gt;依次进入&lt;/div&gt;,
+        &lt;div key="3"&gt;改变type&lt;/div&gt;,
+        &lt;div key="4"&gt;依次进入&lt;/div&gt;,
+        &lt;div key="5"&gt;依次进入&lt;/div&gt;] : null}
+      &lt;/QueueAnim&gt;
+    &lt;/div&gt;
     );
   },
 });
 
-ReactDom.render(<span class="hljs-tag">&lt;<span class="hljs-title">Page1</span> /&gt;</span>, document.getElementById('__react-content'));
-</span></code></pre></div>
+ReactDom.render(&lt;Page1 /&gt;, document.getElementById('__react-content'));
+</code></pre></div>
 </div>
 <a href="https://github.com/react-component/queue-anim">
   <img style="position: absolute; top: 0; right: 0; border: 0;"
