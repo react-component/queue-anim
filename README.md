@@ -37,7 +37,7 @@ Use in Ant Design: http://ant.design/components/queue-anim
 ```js
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
-import ReactDom from 'reactd-dom';
+import ReactDom from 'react-dom';
 
 ReactDom.render(<QueueAnim>
   <div key="1">enter in queue</div>
