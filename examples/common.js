@@ -414,10 +414,8 @@
 	
 	      elements.forEach(function (elem) {
 	        var animatingClassName = _this4.props.animatingClassName;
-	        if (elem.className.indexOf(animatingClassName[1]) >= 0) {
-	          elem.className = elem.className.replace(animatingClassName[1], '');
-	        }
-	        if (elem.className.indexOf(' ' + animatingClassName[0]) === -1) {
+	        elem.className = elem.className.replace(animatingClassName[1], '');
+	        if (elem.className.indexOf(animatingClassName[0]) === -1) {
 	          elem.className += ' ' + animatingClassName[0];
 	        }
 	      });
@@ -441,9 +439,7 @@
 	
 	      elements.forEach(function (elem) {
 	        var animatingClassName = _this6.props.animatingClassName;
-	        if (elem.className.indexOf(animatingClassName[0]) >= 0) {
-	          elem.className = elem.className.replace(animatingClassName[0], '');
-	        }
+	        elem.className = elem.className.replace(animatingClassName[0], '');
 	        if (elem.className.indexOf(animatingClassName[1]) === -1) {
 	          elem.className += ' ' + animatingClassName[1];
 	        }
@@ -9875,7 +9871,6 @@
 	 */
 	var EventInterface = {
 	  type: null,
-	  target: null,
 	  // currentTarget is set when dispatching; no use in copying it here
 	  currentTarget: emptyFunction.thatReturnsNull,
 	  eventPhase: null,
@@ -9909,6 +9904,8 @@
 	  this.dispatchConfig = dispatchConfig;
 	  this.dispatchMarker = dispatchMarker;
 	  this.nativeEvent = nativeEvent;
+	  this.target = nativeEventTarget;
+	  this.currentTarget = nativeEventTarget;
 	
 	  var Interface = this.constructor.Interface;
 	  for (var propName in Interface) {
@@ -9919,11 +9916,7 @@
 	    if (normalize) {
 	      this[propName] = normalize(nativeEvent);
 	    } else {
-	      if (propName === 'target') {
-	        this.target = nativeEventTarget;
-	      } else {
-	        this[propName] = nativeEvent[propName];
-	      }
+	      this[propName] = nativeEvent[propName];
 	    }
 	  }
 	
@@ -13772,10 +13765,7 @@
 	      }
 	    });
 	
-	    if (content) {
-	      nativeProps.children = content;
-	    }
-	
+	    nativeProps.children = content;
 	    return nativeProps;
 	  }
 	
@@ -19248,7 +19238,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.7';
+	module.exports = '0.14.6';
 
 /***/ },
 /* 152 */

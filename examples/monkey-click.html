@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>monkey-click.js - example - rc-queue-anim@0.11.5</title>
+  <title>monkey-click.js - example - rc-queue-anim@0.11.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,64 +257,64 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
 <div class="container">
   <div class="header">
-    <h1>rc-queue-anim@0.11.5</h1>
+    <h1>rc-queue-anim@0.11.6</h1>
 
     <p>Queue animation component for react</p>
   </div>
   <div class="example" id="__react-content"></div>
   <script src="common.js?nowrap"></script>
   <script src="monkey-click.js?nowrap"></script>
-  <div class="highlight"><pre><code language="undefined">/* eslint-disable no-console,react/no-multi-comp */
-import QueueAnim from 'rc-queue-anim';
-import React from 'react';
-import ReactDom from 'react-dom';
+  <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console,react/no-multi-comp */</span>
+import QueueAnim from <span class="hljs-string">'rc-queue-anim'</span>;
+import React from <span class="hljs-string">'react'</span>;
+import ReactDom from <span class="hljs-string">'react-dom'</span>;
 
-const App = React.createClass({
+<span class="hljs-keyword">const</span> App = React.createClass({
   getInitialState() {
-    return {
-      show: true,
+    <span class="hljs-keyword">return</span> {
+      show: <span class="hljs-literal">true</span>,
       items: [{
-        children: '依次进入1',
-        key: 1,
+        children: <span class="hljs-string">'依次进入1'</span>,
+        key: <span class="hljs-number">1</span>,
       }, {
-        children: '依次进入2',
-        key: 2,
+        children: <span class="hljs-string">'依次进入2'</span>,
+        key: <span class="hljs-number">2</span>,
       }, {
-        children: '依次进入3',
-        key: 3,
+        children: <span class="hljs-string">'依次进入3'</span>,
+        key: <span class="hljs-number">3</span>,
       }, {
-        children: '依次进入4',
-        key: 4,
+        children: <span class="hljs-string">'依次进入4'</span>,
+        key: <span class="hljs-number">4</span>,
       }, {
-        children: '依次进入5',
-        key: 5,
+        children: <span class="hljs-string">'依次进入5'</span>,
+        key: <span class="hljs-number">5</span>,
       }, {
-        children: '依次进入6',
-        key: 6,
+        children: <span class="hljs-string">'依次进入6'</span>,
+        key: <span class="hljs-number">6</span>,
       }],
     };
   },
   toggle() {
-    this.setState({
-      show: !this.state.show,
+    <span class="hljs-keyword">this</span>.setState({
+      show: !<span class="hljs-keyword">this</span>.state.show,
     });
   },
   render() {
-    return (
-      &lt;div&gt;
-        &lt;button onClick={this.toggle}&gt;切换&lt;/button&gt;&lt;span&gt;{this.state.show ? '显示' : '隐藏'}&lt;/span&gt;
-        &lt;QueueAnim leaveReverse&gt;
-        {this.state.show ? this.state.items.map((item) =&gt; &lt;div key={item.key}&gt;
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.toggle}</span>&gt;</span>切换<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span><span class="hljs-tag">&lt;<span class="hljs-title">span</span>&gt;</span>{this.state.show ? '显示' : '隐藏'}<span class="hljs-tag">&lt;/<span class="hljs-title">span</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">leaveReverse</span>&gt;</span>
+        {this.state.show ? this.state.items.map((item) =&gt; <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{item.key}</span>&gt;</span>
           {item.children}
-        &lt;/div&gt;) : null}
-        &lt;/QueueAnim&gt;
-      &lt;/div&gt;
+        <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>) : null}
+        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     );
   },
 });
 
-ReactDom.render(&lt;App /&gt;, document.getElementById('__react-content'));
-</code></pre></div>
+ReactDom.render(<span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById('__react-content'));
+</span></code></pre></div>
 </div>
 <a href="https://github.com/react-component/queue-anim">
   <img style="position: absolute; top: 0; right: 0; border: 0;"
