@@ -18,7 +18,7 @@ const QueueItem = React.createClass({
 const Item = React.createClass({
   render() {
     return (
-      <div>Item</div>
+      <div {...this.props}>Item</div>
     );
   },
 });

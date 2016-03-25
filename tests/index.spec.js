@@ -95,7 +95,7 @@ describe('rc-queue-anim', function() {
   it('should render children', function() {
     const instance = createQueueAnimInstance();
     const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    expect(children.length).to.be(4);
+    expect(children.length).to.be(1);
   });
 
   it('should have queue animation', function(done) {
@@ -111,7 +111,7 @@ describe('rc-queue-anim', function() {
           done();
         }, interval);
       }, interval);
-    }, 10);
+    }, 30);
   });
 
   it('should have interval', function(done) {
@@ -127,7 +127,7 @@ describe('rc-queue-anim', function() {
           done();
         }, interval);
       }, interval);
-    }, 10);
+    }, 30);
   });
 
   it('should have delay', function(done) {
@@ -147,21 +147,23 @@ describe('rc-queue-anim', function() {
           }, interval);
         }, interval);
       }, delay);
-    }, 10);
+    }, 30);
   });
 
   it('should have duration', function(done) {
     const duration = 300;
     const instance = createQueueAnimInstance({ duration });
-    const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     shouldAnimatingThisOne(instance, 0);
     setTimeout(function() {
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getOpacity(children[1])).to.be.above(0);
       setTimeout(function() {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getOpacity(children[1])).to.be(1);
         done();
       }, duration);
-    }, 10);
+    }, 30);
   });
 
   it('should have leave animation', function(done) {
@@ -177,9 +179,9 @@ describe('rc-queue-anim', function() {
         setTimeout(function() {
           expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div').length).to.be(3);
           done();
-        }, 500);
-      }, 10);
-    }, interval * 3 + 500);
+        }, 550);
+      }, 30);
+    }, interval * 3 + 550);
   });
 
   it('should support custom animation config', function(done) {
@@ -195,7 +197,7 @@ describe('rc-queue-anim', function() {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getLeft(children[1])).to.above(0);
         done();
-      }, 10);
+      }, 30);
     }, 0);
   });
 
@@ -244,7 +246,7 @@ describe('rc-queue-anim', function() {
           done();
         }, 550);
       }, 550);
-    }, 5);
+    }, 30);
   });
 
   it('should has animating config is func enter', function(done) {
@@ -252,9 +254,9 @@ describe('rc-queue-anim', function() {
     const instance = createQueueAnimInstance({
       animConfig(e) {
         if (e.index === 1) {
-          return {top: [100, 0]};
+          return { top: [100, 0] };
         }
-        return {left: [100, 0]};
+        return { left: [100, 0] };
       },
     });
     setTimeout(function() {
@@ -285,7 +287,7 @@ describe('rc-queue-anim', function() {
           expect(isNaN(getTop(children[1]))).to.be.ok();
           console.log('left_end:', getLeft(children[1]));
         }, 500);
-      }, 10);
+      }, 30);
     }, 0);
   });
 
@@ -293,9 +295,9 @@ describe('rc-queue-anim', function() {
     const instance = createQueueAnimInstance({
       animConfig(e) {
         if (e.index === 1) {
-          return {top: [100, 0]};
+          return { top: [100, 0] };
         }
-        return {left: [100, 0]};
+        return { left: [100, 0] };
       },
     });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
@@ -324,8 +326,8 @@ describe('rc-queue-anim', function() {
             expect(isNaN(getLeft(children[2]))).to.be.ok();
             done();
           }, 500);
-        }, 110);
-      }, 10);
+        }, 130);
+      }, 30);
     }, 1000);
   });
 });
