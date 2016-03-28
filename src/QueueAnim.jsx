@@ -270,7 +270,7 @@ QueueAnim.propTypes = {
 QueueAnim.defaultProps = {
   component: 'div',
   interval: 100,
-  duration: 500,
+  duration: 300,
   delay: 0,
   type: 'right',
   animConfig: null,
