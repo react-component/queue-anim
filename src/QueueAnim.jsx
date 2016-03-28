@@ -185,10 +185,7 @@ class QueueAnim extends React.Component {
     const oneEnterKey = this.state.oneEnterKey;
     delete oneEnterKey[key];
     // const children = toArrayChildren(this.state.children).filter(child => child.key !== key);
-    setTimeout(()=> {
-      // 加setTimeout 是 tweenOne 的 bug, 呆会再改,,先用着;
-      this.setState({ oneEnterKey });
-    });
+    this.setState({ oneEnterKey });
   }
 
   render() {
