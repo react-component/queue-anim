@@ -9,7 +9,7 @@ import {
   transformArguments,
   getChildrenFromProps,
 } from './utils';
-import Css from './Css';
+import Css from 'style-utils';
 import AnimTypes from './animTypes';
 
 class QueueAnim extends React.Component {
