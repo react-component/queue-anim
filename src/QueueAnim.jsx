@@ -295,12 +295,13 @@ class QueueAnim extends React.Component {
 const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
 const stringOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
 const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
+const funcOrString = React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]);
 const funcOrStringOrArray = React.PropTypes.oneOfType([React.PropTypes.func, stringOrArray]);
 const funcOrObjectOrArray = React.PropTypes.oneOfType([React.PropTypes.func, objectOrArray]);
 const funcOrNumberOrArray = React.PropTypes.oneOfType([React.PropTypes.func, numberOrArray]);
 
 QueueAnim.propTypes = {
-  component: React.PropTypes.string,
+  component: funcOrString,
   interval: numberOrArray,
   duration: funcOrNumberOrArray,
   delay: funcOrNumberOrArray,
