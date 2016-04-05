@@ -36,14 +36,12 @@ const _ease = {
     const _p1 = o >= 1 ? o : 1;
     const _p2 = (t || 1) / (o < 1 ? o : 1);
     const _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
-    // _p2 = Math.PI * 2 / _p2;
     return -(_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2));
   },
   easeOutElastic: function(p, o, t) {
     const _p1 = o >= 1 ? o : 1;
     const _p2 = (t || 1) / (o < 1 ? o : 1);
     const _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
-    //  _p2 = Math.PI * 2 / _p2;
     return _p1 * Math.pow(2, -10 * p) * Math.sin((p - _p3) * _p2) + 1;
   },
   easeInOutElastic: function(_p, o, t) {
