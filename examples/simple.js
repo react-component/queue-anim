@@ -3,7 +3,7 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-ReactDom.render(<QueueAnim>
+ReactDom.render(<QueueAnim ease="easeOutElastic" duration={1000}>
   <div key="1">依次进入</div>
   <div key="2">依次进入</div>
   <div key="3">依次进入</div>
