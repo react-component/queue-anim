@@ -165,27 +165,6 @@
 	
 	var _animTypes2 = _interopRequireDefault(_animTypes);
 	
-	var velocity = undefined;
-	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-	  // only load velocity on the client
-	  velocity = __webpack_require__(166);
-	} else {
-	  // provide a velocity stub for the server
-	  velocity = function velocityServerDummy() {
-	    var callback = arguments[arguments.length - 1];
-	    // call after stack flushes
-	    // in case you app depends on the asyncron nature of this function
-	    setImmediate(function () {
-	      callback();
-	    });
-	  };
-	}
-	
-	var BackEase = {
-	  easeInBack: [0.6, -0.28, 0.735, 0.045],
-	  easeOutBack: [0.175, 0.885, 0.32, 1.275],
-	  easeInOutBack: [0.68, -0.55, 0.265, 1.55]
-	};
 	var _ease = {
 	  easeInElastic: function easeInElastic(_p, o, t) {
 	    var p = _p;
@@ -252,9 +231,33 @@
 	  }
 	};
 	
-	Object.keys(_ease).forEach(function (key) {
-	  velocity.Easings[key] = _ease[key];
-	});
+	var velocity = undefined;
+	if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+	  // only load velocity on the client
+	  velocity = __webpack_require__(166);
+	  Object.keys(_ease).forEach(function (key) {
+	    if (velocity.Easings) {
+	      velocity.Easings[key] = _ease[key];
+	    }
+	  });
+	} else {
+	  // provide a velocity stub for the server
+	  velocity = function velocityServerDummy() {
+	    var callback = arguments[arguments.length - 1];
+	    // call after stack flushes
+	    // in case you app depends on the asyncron nature of this function
+	    setImmediate(function () {
+	      callback();
+	    });
+	  };
+	}
+	
+	var BackEase = {
+	  easeInBack: [0.6, -0.28, 0.735, 0.045],
+	  easeOutBack: [0.175, 0.885, 0.32, 1.275],
+	  easeInOutBack: [0.68, -0.55, 0.265, 1.55]
+	};
+	
 	var placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 	
 	var QueueAnim = (function (_React$Component) {
@@ -8582,6 +8585,10 @@
 	  }
 	};
 	
+	function registerNullComponentID() {
+	  ReactEmptyComponentRegistry.registerNullComponentID(this._rootNodeID);
+	}
+	
 	var ReactEmptyComponent = function (instantiate) {
 	  this._currentElement = null;
 	  this._rootNodeID = null;
@@ -8590,7 +8597,7 @@
 	assign(ReactEmptyComponent.prototype, {
 	  construct: function (element) {},
 	  mountComponent: function (rootID, transaction, context) {
-	    ReactEmptyComponentRegistry.registerNullComponentID(rootID);
+	    transaction.getReactMountReady().enqueue(registerNullComponentID, this);
 	    this._rootNodeID = rootID;
 	    return ReactReconciler.mountComponent(this._renderedComponent, rootID, transaction, context);
 	  },
@@ -19313,7 +19320,7 @@
 	
 	'use strict';
 	
-	module.exports = '0.14.7';
+	module.exports = '0.14.8';
 
 /***/ },
 /* 152 */
