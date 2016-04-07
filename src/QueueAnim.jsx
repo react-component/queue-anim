@@ -1,35 +1,6 @@
 import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 
-let velocity;
-if (typeof document !== 'undefined' && typeof window !== 'undefined') {
-  // only load velocity on the client
-  velocity = require('velocity-animate');
-} else {
-  // provide a velocity stub for the server
-  velocity = function velocityServerDummy() {
-    const callback = arguments[arguments.length - 1];
-    // call after stack flushes
-    // in case you app depends on the asyncron nature of this function
-    setImmediate(function() {
-      callback();
-    });
-  };
-}
-
-import {
-  toArrayChildren,
-  findChildInChildrenByKey,
-  mergeChildren,
-  transformArguments,
-  getChildrenFromProps,
-} from './utils';
-import AnimTypes from './animTypes';
-const BackEase = {
-  easeInBack: [0.6, -0.28, 0.735, 0.045],
-  easeOutBack: [0.175, 0.885, 0.32, 1.275],
-  easeInOutBack: [0.68, -0.55, 0.265, 1.55],
-};
 const _ease = {
   easeInElastic: function(_p, o, t) {
     let p = _p;
@@ -96,9 +67,41 @@ const _ease = {
   },
 };
 
-Object.keys(_ease).forEach(key => {
-  velocity.Easings[key] = _ease[key];
-});
+let velocity;
+if (typeof document !== 'undefined' && typeof window !== 'undefined') {
+  // only load velocity on the client
+  velocity = require('velocity-animate');
+  Object.keys(_ease).forEach(key => {
+    if (velocity.Easings) {
+      velocity.Easings[key] = _ease[key];
+    }
+  });
+} else {
+  // provide a velocity stub for the server
+  velocity = function velocityServerDummy() {
+    const callback = arguments[arguments.length - 1];
+    // call after stack flushes
+    // in case you app depends on the asyncron nature of this function
+    setImmediate(function() {
+      callback();
+    });
+  };
+}
+
+import {
+  toArrayChildren,
+  findChildInChildrenByKey,
+  mergeChildren,
+  transformArguments,
+  getChildrenFromProps,
+} from './utils';
+import AnimTypes from './animTypes';
+const BackEase = {
+  easeInBack: [0.6, -0.28, 0.735, 0.045],
+  easeOutBack: [0.175, 0.885, 0.32, 1.275],
+  easeInOutBack: [0.68, -0.55, 0.265, 1.55],
+};
+
 const placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 
 class QueueAnim extends React.Component {
