@@ -63,7 +63,7 @@ ReactDom.render(<QueueAnim>
 | type       | string / array | `right` | Animation Styles <br/>`left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
 | animConfig | object / array | null    | Custom Velocity config, like `{opacity:[1, 0], translateY:[0, -30]}`, [velocity config](http://julian.com/research/velocity) |
 | delay      | number / array | 0       | delay of animation |
-| duration   | number / array | 500     | duration of animation  |
+| duration   | number / array | 450     | duration of animation  |
 | interval   | number / array | 100      | interval of duration |
 | leaveReverse | boolean      | false   | reverse animation order at leave |
 | ease       | string / array | `easeOutQuart` | animation easing string, [more](http://julian.com/research/velocity/#easing) |
