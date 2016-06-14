@@ -360,7 +360,7 @@
 	
 	      if (this.originalChildren && this.originalChildren.length > 0) {
 	        this.originalChildren.forEach(function (child) {
-	          if (_this3.refs[child.key]) {
+	          if (child && _this3.refs[child.key]) {
 	            velocity((0, _reactDom.findDOMNode)(_this3.refs[child.key]), 'stop');
 	          }
 	        });
@@ -591,7 +591,7 @@
 	QueueAnim.defaultProps = {
 	  component: 'div',
 	  interval: 100,
-	  duration: 500,
+	  duration: 450,
 	  delay: 0,
 	  type: 'right',
 	  animConfig: null,
