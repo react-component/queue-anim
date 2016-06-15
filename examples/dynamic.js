@@ -64,7 +64,7 @@ const App = React.createClass({
     const items = this.state.items;
     items.splice(items.length - 1, 1);
     items.push({
-      children: '新节点' + Date.now(),
+      children: `新节点${Date.now()}`,
       key: this.index++,
     });
     this.setState({ items });

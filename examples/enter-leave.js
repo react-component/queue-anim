@@ -35,10 +35,13 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <QueueAnim type={['right', 'left']} interval={[100, 200]} delay={[0, 1000]} duration={[500, 2000]} ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
-        {this.state.items.map((item) => <div key={item.key}>
-          {item.children}
-        </div>)}
+        <QueueAnim type={['right', 'left']} interval={[100, 200]} delay={[0, 1000]}
+          duration={[500, 2000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse
+        >
+          {this.state.items.map((item) => <div key={item.key}>
+            {item.children}
+          </div>)}
         </QueueAnim>
         <button onClick={this.removeAll}>移出所有</button>
       </div>

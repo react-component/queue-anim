@@ -30,8 +30,9 @@ const App = React.createClass({
           animation="zoom"
           maskAnimation="fade"
           onClose={this.onClose}
-          style={{width: 600}}
-          title={<div> 第二个弹框</div>}>
+          style={{ width: 600 }}
+          title={<div> 第二个弹框</div>}
+        >
           <QueueAnim>
             <div key="1">依次进入</div>
             <div key="2">依次进入</div>
@@ -43,7 +44,10 @@ const App = React.createClass({
     }
     return (
       <div>
-        <QueueAnim type={['right', 'left']} interval={[100, 200]} delay={[0, 1000]} duration={[500, 2000]} ease={['easeOutBack', 'easeInOutCirc']} leaveReverse>
+        <QueueAnim type={['right', 'left']} interval={[100, 200]}
+          delay={[0, 1000]} duration={[500, 2000]}
+          ease={['easeOutBack', 'easeInOutCirc']} leaveReverse
+        >
           <div key="1">依次进入</div>
           <div key="2">依次进入</div>
           <div key="3">依次进入</div>

@@ -21,7 +21,8 @@ const _ease = {
     const _p2 = (t || 1) / (o < 1 ? o : 1);
     const _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
     p *= 2;
-    return p < 1 ? -0.5 * (_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2)) : _p1 * Math.pow(2, -10 * (p -= 1)) * Math.sin((p - _p3) * _p2) * 0.5 + 1;
+    return p < 1 ? -0.5 * (_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2)) :
+    _p1 * Math.pow(2, -10 * (p -= 1)) * Math.sin((p - _p3) * _p2) * 0.5 + 1;
   },
   easeInBounce: (_p) => {
     let p = _p;
@@ -158,7 +159,7 @@ class QueueAnim extends React.Component {
       children: newChildren,
     });
 
-    nextChildren.forEach((c)=> {
+    nextChildren.forEach((c) => {
       if (!c) {
         return;
       }
@@ -169,7 +170,7 @@ class QueueAnim extends React.Component {
       }
     });
 
-    currentChildren.forEach((c)=> {
+    currentChildren.forEach((c) => {
       if (!c) {
         return;
       }
@@ -260,7 +261,7 @@ class QueueAnim extends React.Component {
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
     velocity(node, this.getVelocityEnterConfig(key, i), {
-      duration: duration,
+      duration,
       easing: this.getVelocityEasing(key, i)[0],
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
@@ -282,7 +283,7 @@ class QueueAnim extends React.Component {
     velocity(node, 'stop');
     velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
-      duration: duration,
+      duration,
       easing: this.getVelocityEasing(key, i)[1],
       begin: this.leaveBegin.bind(this),
       complete: this.leaveComplete.bind(this, key),
@@ -294,7 +295,7 @@ class QueueAnim extends React.Component {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[1], '');
       if (elem.className.indexOf(animatingClassName[0]) === -1) {
-        elem.className += (' ' + animatingClassName[0]);
+        elem.className += (` ${animatingClassName[0]}`);
       }
     });
   }
@@ -313,7 +314,7 @@ class QueueAnim extends React.Component {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[0], '');
       if (elem.className.indexOf(animatingClassName[1]) === -1) {
-        elem.className += (' ' + animatingClassName[1]);
+        elem.className += (` ${animatingClassName[1]}`);
       }
     });
   }
@@ -333,7 +334,7 @@ class QueueAnim extends React.Component {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
       this.setState({
         children: currentChildren,
-        childrenShow: childrenShow,
+        childrenShow,
       });
     }
     elements.forEach((elem) => {

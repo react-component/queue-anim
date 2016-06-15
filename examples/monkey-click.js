@@ -36,11 +36,12 @@ const App = React.createClass({
   render() {
     return (
       <div>
-        <button onClick={this.toggle}>切换</button><span>{this.state.show ? '显示' : '隐藏'}</span>
+        <button onClick={this.toggle}>切换</button>
+        <span>{this.state.show ? '显示' : '隐藏'}</span>
         <QueueAnim leaveReverse>
-        {this.state.show ? this.state.items.map((item) => <div key={item.key}>
-          {item.children}
-        </div>) : null}
+          {this.state.show ? this.state.items.map((item) => <div key={item.key}>
+            {item.children}
+          </div>) : null}
         </QueueAnim>
       </div>
     );
