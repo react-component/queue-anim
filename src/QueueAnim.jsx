@@ -195,11 +195,14 @@ class QueueAnim extends React.Component {
 
   componentWillUnmount() {
     [].concat(this.keysToEnter, this.keysToLeave, this.keysAnimating).forEach(key =>
-      velocity(findDOMNode(this.refs[key]), 'stop')
+      this.refs[key] && velocity(findDOMNode(this.refs[key]), 'stop')
     );
     Object.keys(this.placeholderTimeoutIds).forEach(key => {
       clearTimeout(this.placeholderTimeoutIds[key]);
     });
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+    this.keysAnimating = [];
   }
 
   getVelocityConfig(index, ...args) {
