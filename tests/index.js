@@ -98,14 +98,18 @@ describe('rc-queue-anim', () => {
   });
 
   it('should render children', () => {
-    const instance = createQueueAnimInstance();
+    const instance = createQueueAnimInstance({
+      ease: 'easeInBounce',
+    });
     const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     expect(children.length).to.be(4);
   });
 
   it('should have queue animation', (done) => {
     const interval = defaultInterval;
-    const instance = createQueueAnimInstance();
+    const instance = createQueueAnimInstance({
+      ease: 'easeInOutBounce',
+    });
     shouldAnimatingThisOne(instance, 0);
     setTimeout(() => {
       shouldAnimatingThisOne(instance, 1);
@@ -121,7 +125,10 @@ describe('rc-queue-anim', () => {
 
   it('should have interval', (done) => {
     const interval = 300;
-    const instance = createQueueAnimInstance({ interval });
+    const instance = createQueueAnimInstance({
+      interval,
+      ease: 'easeOutBounce',
+    });
     shouldAnimatingThisOne(instance, 0);
     setTimeout(() => {
       shouldAnimatingThisOne(instance, 1);
@@ -193,15 +200,13 @@ describe('rc-queue-anim', () => {
         left: [100, 0],
       },
     });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(isNaN(getLeft(children[1]))).to.be.ok();
     setTimeout(() => {
-      let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      expect(isNaN(getLeft(children[1]))).to.be.ok();
-      setTimeout(() => {
-        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        expect(getLeft(children[1])).to.above(0);
-        done();
-      }, 10);
-    }, 0);
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      expect(getLeft(children[1])).to.above(0);
+      done();
+    }, 10);
   });
 
   it('should support animation when change direction at animating', (done) => {
@@ -262,36 +267,34 @@ describe('rc-queue-anim', () => {
         return { left: [100, 0] };
       },
     });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(isNaN(getLeft(children[1]))).to.be.ok();
+    expect(isNaN(getTop(children[2]))).to.be.ok();
     setTimeout(() => {
-      let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      expect(isNaN(getLeft(children[1]))).to.be.ok();
-      expect(isNaN(getTop(children[2]))).to.be.ok();
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      expect(getLeft(children[1])).to.above(0);
+      expect(isNaN(getTop(children[1]))).to.be.ok();
+      console.log('left:', getLeft(children[1]));
       setTimeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        expect(getLeft(children[1])).to.above(0);
-        expect(isNaN(getTop(children[1]))).to.be.ok();
-        console.log('left:', getLeft(children[1]));
+        expect(getTop(children[2])).to.above(0);
+        expect(isNaN(getLeft(children[2]))).to.be.ok();
+        console.log('top:', getTop(children[2]));
         setTimeout(() => {
           children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-          expect(getTop(children[2])).to.above(0);
+          expect(getTop(children[2])).to.be(100);
           expect(isNaN(getLeft(children[2]))).to.be.ok();
-          console.log('top:', getTop(children[2]));
-          setTimeout(() => {
-            children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-            expect(getTop(children[2])).to.be(100);
-            expect(isNaN(getLeft(children[2]))).to.be.ok();
-            console.log('top_end:', getTop(children[2]));
-            done();
-          }, 500);
-        }, interval);
-        setTimeout(() => {
-          children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-          expect(getLeft(children[1])).to.be(100);
-          expect(isNaN(getTop(children[1]))).to.be.ok();
-          console.log('left_end:', getLeft(children[1]));
+          console.log('top_end:', getTop(children[2]));
+          done();
         }, 500);
-      }, 10);
-    }, 0);
+      }, interval);
+      setTimeout(() => {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        expect(getLeft(children[1])).to.be(100);
+        expect(isNaN(getTop(children[1]))).to.be.ok();
+        console.log('left_end:', getLeft(children[1]));
+      }, 500);
+    }, 10);
   });
 
   it('should has animating config is func leave', (done) => {
