@@ -11,10 +11,7 @@ webpackJsonp([5],{
 /***/ 219:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-console,react/no-multi-comp */
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _rcQueueAnim = __webpack_require__(2);
 	
@@ -28,37 +25,38 @@ webpackJsonp([5],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var QueueItem = _react2['default'].createClass({
-	  displayName: 'QueueItem',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var QueueItem = _react2.default.createClass({
+	  displayName: 'QueueItem',
 	  render: function render() {
-	    return _react2['default'].createElement(
-	      _rcQueueAnim2['default'],
+	    return _react2.default.createElement(
+	      _rcQueueAnim2.default,
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'div',
 	        { key: '1' },
 	        'Item'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'div',
 	        { key: '2' },
 	        'Item'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'div',
 	        { key: '3' },
 	        'Item'
 	      )
 	    );
 	  }
-	});
+	}); /* eslint-disable no-console,react/no-multi-comp */
 	
-	var Item = _react2['default'].createClass({
+	
+	var Item = _react2.default.createClass({
 	  displayName: 'Item',
-	
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      null,
 	      'Item'
@@ -66,41 +64,40 @@ webpackJsonp([5],{
 	  }
 	});
 	
-	var Page1 = _react2['default'].createClass({
+	var Page1 = _react2.default.createClass({
 	  displayName: 'Page1',
-	
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
-	        _rcQueueAnim2['default'],
+	      _react2.default.createElement(
+	        _rcQueueAnim2.default,
 	        { interval: 1500 },
-	        _react2['default'].createElement(Item, { key: '1' }),
-	        _react2['default'].createElement(Item, { key: '2' }),
-	        _react2['default'].createElement(Item, { key: '3' }),
-	        _react2['default'].createElement(Item, { key: '4' })
+	        _react2.default.createElement(Item, { key: '1' }),
+	        _react2.default.createElement(Item, { key: '2' }),
+	        _react2.default.createElement(Item, { key: '3' }),
+	        _react2.default.createElement(Item, { key: '4' })
 	      ),
-	      _react2['default'].createElement('hr', null),
-	      _react2['default'].createElement(
-	        _rcQueueAnim2['default'],
+	      _react2.default.createElement('hr', null),
+	      _react2.default.createElement(
+	        _rcQueueAnim2.default,
 	        { interval: 1500 },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          QueueItem,
 	          { key: '1' },
 	          '11'
 	        ),
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          QueueItem,
 	          { key: '2' },
 	          '11'
 	        ),
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          QueueItem,
 	          { key: '3' },
 	          '11'
 	        ),
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          QueueItem,
 	          { key: '4' },
 	          '11'
@@ -110,7 +107,7 @@ webpackJsonp([5],{
 	  }
 	});
 	
-	_reactDom2['default'].render(_react2['default'].createElement(Page1, null), document.getElementById('__react-content'));
+	_reactDom2.default.render(_react2.default.createElement(Page1, null), document.getElementById('__react-content'));
 
 /***/ }
 

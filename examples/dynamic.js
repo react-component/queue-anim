@@ -11,10 +11,7 @@ webpackJsonp([4],{
 /***/ 218:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-console,react/no-multi-comp */
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _rcQueueAnim = __webpack_require__(2);
 	
@@ -28,9 +25,10 @@ webpackJsonp([4],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var App = _react2['default'].createClass({
-	  displayName: 'App',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var App = _react2.default.createClass({
+	  displayName: 'App',
 	  getInitialState: function getInitialState() {
 	    this.index = 100;
 	    return {
@@ -75,7 +73,7 @@ webpackJsonp([4],{
 	    var target = items.filter(function (item) {
 	      return item.key === key;
 	    });
-	    var index = undefined;
+	    var index = void 0;
 	    if (target && target[0]) {
 	      index = items.indexOf(target[0]);
 	    }
@@ -101,39 +99,39 @@ webpackJsonp([4],{
 	  render: function render() {
 	    var _this = this;
 	
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.add },
 	        '点击新增'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.addTwo },
 	        '点击新增两个'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAll },
 	        '移出所有'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAndAdd },
 	        '移出与添加'
 	      ),
-	      _react2['default'].createElement(
-	        _rcQueueAnim2['default'],
+	      _react2.default.createElement(
+	        _rcQueueAnim2.default,
 	        null,
 	        this.state.items.map(function (item) {
-	          return _react2['default'].createElement(
+	          return _react2.default.createElement(
 	            'div',
 	            { key: item.key },
 	            item.children,
 	            ' ',
-	            _react2['default'].createElement(
+	            _react2.default.createElement(
 	              'a',
 	              { href: '#', onClick: _this.remove.bind(_this, item.key) },
 	              '删除'
@@ -143,9 +141,10 @@ webpackJsonp([4],{
 	      )
 	    );
 	  }
-	});
+	}); /* eslint-disable no-console,react/no-multi-comp */
 	
-	_reactDom2['default'].render(_react2['default'].createElement(App, null), document.getElementById('__react-content'));
+	
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));
 
 /***/ }
 

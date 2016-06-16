@@ -11,10 +11,7 @@ webpackJsonp([10],{
 /***/ 224:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-console,react/no-multi-comp */
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _reactRouter = __webpack_require__(225);
 	
@@ -32,37 +29,38 @@ webpackJsonp([10],{
 	
 	__webpack_require__(271);
 	
-	var App = _react2['default'].createClass({
-	  displayName: 'App',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var App = _react2.default.createClass({
+	  displayName: 'App',
 	  render: function render() {
 	    var props = this.props;
 	    var key = props.location.pathname;
 	
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/' },
 	        '首页'
 	      ),
 	      ' ',
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/page1' },
 	        'Page 1'
 	      ),
 	      ' ',
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        _reactRouter.Link,
 	        { to: '/page2' },
 	        'Page 2'
 	      ),
-	      _react2['default'].createElement(
-	        _rcQueueAnim2['default'],
+	      _react2.default.createElement(
+	        _rcQueueAnim2.default,
 	        { type: ['right', 'left'], className: 'router-wrap' },
-	        _react2['default'].cloneElement(props.children || _react2['default'].createElement(
+	        _react2.default.cloneElement(props.children || _react2.default.createElement(
 	          'h1',
 	          { key: 'home' },
 	          'Home Page'
@@ -70,69 +68,69 @@ webpackJsonp([10],{
 	      )
 	    );
 	  }
-	});
+	}); /* eslint-disable no-console,react/no-multi-comp */
 	
-	var Page3 = _react2['default'].createClass({
+	
+	var Page3 = _react2.default.createClass({
 	  displayName: 'Page3',
-	
 	  render: function render() {
-	    return _react2['default'].createElement(
-	      _rcQueueAnim2['default'],
+	    return _react2.default.createElement(
+	      _rcQueueAnim2.default,
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '1' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        'Page3'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '2' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        'Page3'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '3' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        'Page3'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '4' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        'Page3'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '5' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        'Page3'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '6' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
@@ -143,69 +141,68 @@ webpackJsonp([10],{
 	  }
 	});
 	
-	var Page1 = _react2['default'].createClass({
+	var Page1 = _react2.default.createClass({
 	  displayName: 'Page1',
-	
 	  render: function render() {
-	    return _react2['default'].createElement(
-	      _rcQueueAnim2['default'],
+	    return _react2.default.createElement(
+	      _rcQueueAnim2.default,
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'h1',
 	        { key: '1' },
 	        'Page 1'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '2' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        '依次进场'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '3' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        '依次进场'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '4' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        '依次进场'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '5' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        '依次进场'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '6' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page2' },
 	          'A link to page 2 should be active'
 	        ),
 	        '改变样式'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        Page3,
 	        { key: '7' },
 	        '1'
@@ -214,52 +211,51 @@ webpackJsonp([10],{
 	  }
 	});
 	
-	var Page2 = _react2['default'].createClass({
+	var Page2 = _react2.default.createClass({
 	  displayName: 'Page2',
-	
 	  render: function render() {
-	    return _react2['default'].createElement(
-	      _rcQueueAnim2['default'],
+	    return _react2.default.createElement(
+	      _rcQueueAnim2.default,
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'h1',
 	        { key: '1' },
 	        'Page 2'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '2' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page1' },
 	          'a link to page 1 '
 	        ),
 	        '我是页面2.'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '3' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page1' },
 	          'a link to page 1 '
 	        ),
 	        '我是页面2.'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '4' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page1' },
 	          'a link to page 1 '
 	        ),
 	        '我是页面2.'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'p',
 	        { key: '5' },
-	        _react2['default'].createElement(
+	        _react2.default.createElement(
 	          _reactRouter.Link,
 	          { to: '/page1' },
 	          'a link to page 1 '
@@ -270,14 +266,14 @@ webpackJsonp([10],{
 	  }
 	});
 	
-	_reactDom2['default'].render(_react2['default'].createElement(
+	_reactDom2.default.render(_react2.default.createElement(
 	  _reactRouter.Router,
 	  null,
-	  _react2['default'].createElement(
+	  _react2.default.createElement(
 	    _reactRouter.Route,
 	    { path: '/', component: App, ignoreScrollBehavior: true },
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'page1', component: Page1 }),
-	    _react2['default'].createElement(_reactRouter.Route, { path: 'page2', component: Page2 })
+	    _react2.default.createElement(_reactRouter.Route, { path: 'page1', component: Page1 }),
+	    _react2.default.createElement(_reactRouter.Route, { path: 'page2', component: Page2 })
 	  )
 	), document.getElementById('__react-content'));
 
@@ -2740,7 +2736,7 @@ webpackJsonp([10],{
 	
 	function isNestedObject(object) {
 	  for (var p in object) {
-	    if (object.hasOwnProperty(p) && typeof object[p] === 'object' && !Array.isArray(object[p]) && object[p] !== null) return true;
+	    if (Object.prototype.hasOwnProperty.call(object, p) && typeof object[p] === 'object' && !Array.isArray(object[p]) && object[p] !== null) return true;
 	  }return false;
 	}
 	
@@ -4538,13 +4534,17 @@ webpackJsonp([10],{
 /***/ 270:
 /***/ function(module, exports, __webpack_require__) {
 
-	'use strict';
+	/* WEBPACK VAR INJECTION */(function(process) {'use strict';
 	
 	exports.__esModule = true;
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
+	
+	var _warning = __webpack_require__(227);
+	
+	var _warning2 = _interopRequireDefault(_warning);
 	
 	var _ExecutionEnvironment = __webpack_require__(232);
 	
@@ -4566,15 +4566,32 @@ webpackJsonp([10],{
 	
 	    var basename = options.basename;
 	
-	    // Automatically use the value of <base href> in HTML
-	    // documents as basename if it's not explicitly given.
-	    if (basename == null && _ExecutionEnvironment.canUseDOM) {
-	      var base = document.getElementsByTagName('base')[0];
+	    var checkedBaseHref = false;
 	
-	      if (base) basename = _PathUtils.extractPath(base.href);
+	    function checkBaseHref() {
+	      if (checkedBaseHref) {
+	        return;
+	      }
+	
+	      // Automatically use the value of <base href> in HTML
+	      // documents as basename if it's not explicitly given.
+	      if (basename == null && _ExecutionEnvironment.canUseDOM) {
+	        var base = document.getElementsByTagName('base')[0];
+	        var baseHref = base && base.getAttribute('href');
+	
+	        if (baseHref != null) {
+	          basename = baseHref;
+	
+	          process.env.NODE_ENV !== 'production' ? _warning2['default'](false, 'Automatically setting basename using <base href> is deprecated and will ' + 'be removed in the next major release. The semantics of <base href> are ' + 'subtly different from basename. Please pass the basename explicitly in ' + 'the options to createHistory') : undefined;
+	        }
+	      }
+	
+	      checkedBaseHref = true;
 	    }
 	
 	    function addBasename(location) {
+	      checkBaseHref();
+	
 	      if (basename && location.basename == null) {
 	        if (location.pathname.indexOf(basename) === 0) {
 	          location.pathname = location.pathname.substring(basename.length);
@@ -4590,6 +4607,8 @@ webpackJsonp([10],{
 	    }
 	
 	    function prependBasename(location) {
+	      checkBaseHref();
+	
 	      if (!basename) return location;
 	
 	      if (typeof location === 'string') location = _PathUtils.parsePath(location);
@@ -4673,6 +4692,7 @@ webpackJsonp([10],{
 	
 	exports['default'] = useBasename;
 	module.exports = exports['default'];
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)))
 
 /***/ },
 

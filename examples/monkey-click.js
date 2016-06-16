@@ -11,10 +11,7 @@ webpackJsonp([7],{
 /***/ 221:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-console,react/no-multi-comp */
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _rcQueueAnim = __webpack_require__(2);
 	
@@ -28,9 +25,10 @@ webpackJsonp([7],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var App = _react2['default'].createClass({
-	  displayName: 'App',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var App = _react2.default.createClass({
+	  displayName: 'App',
 	  getInitialState: function getInitialState() {
 	    return {
 	      show: true,
@@ -61,24 +59,24 @@ webpackJsonp([7],{
 	    });
 	  },
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.toggle },
 	        '切换'
 	      ),
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'span',
 	        null,
 	        this.state.show ? '显示' : '隐藏'
 	      ),
-	      _react2['default'].createElement(
-	        _rcQueueAnim2['default'],
+	      _react2.default.createElement(
+	        _rcQueueAnim2.default,
 	        { leaveReverse: true },
 	        this.state.show ? this.state.items.map(function (item) {
-	          return _react2['default'].createElement(
+	          return _react2.default.createElement(
 	            'div',
 	            { key: item.key },
 	            item.children
@@ -87,9 +85,10 @@ webpackJsonp([7],{
 	      )
 	    );
 	  }
-	});
+	}); /* eslint-disable no-console,react/no-multi-comp */
 	
-	_reactDom2['default'].render(_react2['default'].createElement(App, null), document.getElementById('__react-content'));
+	
+	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));
 
 /***/ }
 

@@ -11,10 +11,7 @@ webpackJsonp([9],{
 /***/ 223:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-console,react/no-multi-comp */
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _rcQueueAnim = __webpack_require__(2);
 	
@@ -28,9 +25,10 @@ webpackJsonp([9],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	var Page1 = _react2['default'].createClass({
-	  displayName: 'Page1',
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	var Page1 = _react2.default.createClass({
+	  displayName: 'Page1',
 	  getInitialState: function getInitialState() {
 	    return {
 	      show: true
@@ -66,34 +64,37 @@ webpackJsonp([9],{
 	    return 0;
 	  },
 	  render: function render() {
-	    return _react2['default'].createElement(
+	    return _react2.default.createElement(
 	      'div',
 	      null,
-	      _react2['default'].createElement(
+	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.onClick },
 	        '切换'
 	      ),
-	      _react2['default'].createElement(
-	        _rcQueueAnim2['default'],
-	        { interval: 300, animConfig: this.animConfigFunc, duration: this.durationFunc, ease: this.easeFunc, delay: this.delayFunc },
-	        this.state.show ? [_react2['default'].createElement(
+	      _react2.default.createElement(
+	        _rcQueueAnim2.default,
+	        { interval: 300, animConfig: this.animConfigFunc,
+	          duration: this.durationFunc, ease: this.easeFunc,
+	          delay: this.delayFunc
+	        },
+	        this.state.show ? [_react2.default.createElement(
 	          'div',
 	          { key: '1' },
 	          '依次进入'
-	        ), _react2['default'].createElement(
+	        ), _react2.default.createElement(
 	          'div',
 	          { key: '2' },
 	          '依次进入'
-	        ), _react2['default'].createElement(
+	        ), _react2.default.createElement(
 	          'div',
 	          { key: '3' },
 	          '改变type'
-	        ), _react2['default'].createElement(
+	        ), _react2.default.createElement(
 	          'div',
 	          { key: '4' },
 	          '依次进入'
-	        ), _react2['default'].createElement(
+	        ), _react2.default.createElement(
 	          'div',
 	          { key: '5' },
 	          '依次进入'
@@ -101,9 +102,10 @@ webpackJsonp([9],{
 	      )
 	    );
 	  }
-	});
+	}); /* eslint-disable no-console,react/no-multi-comp */
 	
-	_reactDom2['default'].render(_react2['default'].createElement(Page1, null), document.getElementById('__react-content'));
+	
+	_reactDom2.default.render(_react2.default.createElement(Page1, null), document.getElementById('__react-content'));
 
 /***/ }
 

@@ -11,10 +11,7 @@ webpackJsonp([12],{
 /***/ 273:
 /***/ function(module, exports, __webpack_require__) {
 
-	/* eslint-disable no-console,react/no-multi-comp */
 	'use strict';
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { 'default': obj }; }
 	
 	var _rcQueueAnim = __webpack_require__(2);
 	
@@ -28,35 +25,37 @@ webpackJsonp([12],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	_reactDom2['default'].render(_react2['default'].createElement(
-	  _rcQueueAnim2['default'],
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	_reactDom2.default.render(_react2.default.createElement(
+	  _rcQueueAnim2.default,
 	  null,
-	  _react2['default'].createElement(
+	  _react2.default.createElement(
 	    'div',
 	    { key: '1' },
 	    '依次进入'
 	  ),
-	  _react2['default'].createElement(
+	  _react2.default.createElement(
 	    'div',
 	    { key: '2' },
 	    '依次进入'
 	  ),
-	  _react2['default'].createElement(
+	  _react2.default.createElement(
 	    'div',
 	    { key: '3' },
 	    '依次进入'
 	  ),
-	  _react2['default'].createElement(
+	  _react2.default.createElement(
 	    'div',
 	    { key: '4' },
 	    '依次进入'
 	  ),
-	  _react2['default'].createElement(
+	  _react2.default.createElement(
 	    'div',
 	    { key: '5' },
 	    '依次进入'
 	  )
-	), document.getElementById('__react-content'));
+	), document.getElementById('__react-content')); /* eslint-disable no-console,react/no-multi-comp */
 
 /***/ }
 
