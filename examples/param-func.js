@@ -17,9 +17,9 @@ const Page1 = React.createClass({
   },
   animConfigFunc(e) {
     if (e.key === '3') {
-      return {opacity: [1, 0], translateX: [0, 30]};
+      return { opacity: [1, 0], translateX: [0, 30] };
     }
-    return [{opacity: [1, 0], translateX: [0, -30]}, {opacity: [1, 0], translateX: [0, 30]}];
+    return [{ opacity: [1, 0], translateX: [0, -30] }, { opacity: [1, 0], translateX: [0, 30] }];
   },
   durationFunc(e) {
     if (e.key === '3') {
@@ -41,15 +41,18 @@ const Page1 = React.createClass({
   },
   render() {
     return (<div>
-      <button onClick={this.onClick}>切换</button>
-      <QueueAnim interval={300} animConfig={this.animConfigFunc} duration={this.durationFunc} ease={this.easeFunc} delay={this.delayFunc}>
-      {this.state.show ? [<div key="1">依次进入</div>,
-        <div key="2">依次进入</div>,
-        <div key="3">改变type</div>,
-        <div key="4">依次进入</div>,
-        <div key="5">依次进入</div>] : null}
-      </QueueAnim>
-    </div>
+        <button onClick={this.onClick}>切换</button>
+        <QueueAnim interval={300} animConfig={this.animConfigFunc}
+          duration={this.durationFunc} ease={this.easeFunc}
+          delay={this.delayFunc}
+        >
+          {this.state.show ? [<div key="1">依次进入</div>,
+            <div key="2">依次进入</div>,
+            <div key="3">改变type</div>,
+            <div key="4">依次进入</div>,
+            <div key="5">依次进入</div>] : null}
+        </QueueAnim>
+      </div>
     );
   },
 });

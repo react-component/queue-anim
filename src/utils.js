@@ -68,7 +68,7 @@ export function transformArguments(arg, key, i) {
   let result;
   if (typeof arg === 'function') {
     result = arg({
-      key: key,
+      key,
       index: i,
     });
   } else {

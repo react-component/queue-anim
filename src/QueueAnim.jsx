@@ -2,28 +2,29 @@ import React, { createElement, cloneElement } from 'react';
 import { findDOMNode } from 'react-dom';
 
 const _ease = {
-  easeInElastic: function(_p, o, t) {
+  easeInElastic: (_p, o, t) => {
     let p = _p;
     const _p1 = o >= 1 ? o : 1;
     const _p2 = (t || 1) / (o < 1 ? o : 1);
     const _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
     return -(_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2));
   },
-  easeOutElastic: function(p, o, t) {
+  easeOutElastic: (p, o, t) => {
     const _p1 = o >= 1 ? o : 1;
     const _p2 = (t || 1) / (o < 1 ? o : 1);
     const _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
     return _p1 * Math.pow(2, -10 * p) * Math.sin((p - _p3) * _p2) + 1;
   },
-  easeInOutElastic: function(_p, o, t) {
+  easeInOutElastic: (_p, o, t) => {
     let p = _p;
     const _p1 = o >= 1 ? o : 1;
     const _p2 = (t || 1) / (o < 1 ? o : 1);
     const _p3 = _p2 / Math.PI * 2 * (Math.asin(1 / _p1) || 0);
     p *= 2;
-    return p < 1 ? -0.5 * (_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2)) : _p1 * Math.pow(2, -10 * (p -= 1)) * Math.sin((p - _p3) * _p2) * 0.5 + 1;
+    return p < 1 ? -0.5 * (_p1 * Math.pow(2, 10 * (p -= 1)) * Math.sin((p - _p3) * _p2)) :
+    _p1 * Math.pow(2, -10 * (p -= 1)) * Math.sin((p - _p3) * _p2) * 0.5 + 1;
   },
-  easeInBounce: function(_p) {
+  easeInBounce: (_p) => {
     let p = _p;
     const __p = 1 - p;
     if (__p < 1 / 2.75) {
@@ -35,7 +36,7 @@ const _ease = {
     }
     return 1 - (7.5625 * (p -= 2.625 / 2.75) * p + 0.984375);
   },
-  easeOutBounce: function(_p) {
+  easeOutBounce: (_p) => {
     let p = _p;
     if (p < 1 / 2.75) {
       return 7.5625 * p * p;
@@ -46,7 +47,7 @@ const _ease = {
     }
     return 7.5625 * (p -= 2.625 / 2.75) * p + 0.984375;
   },
-  easeInOutBounce: function(_p) {
+  easeInOutBounce: (_p) => {
     let p = _p;
     const invert = (p < 0.5);
     if (invert) {
@@ -82,9 +83,9 @@ if (typeof document !== 'undefined' && typeof window !== 'undefined') {
     const callback = arguments[arguments.length - 1];
     // call after stack flushes
     // in case you app depends on the asyncron nature of this function
-    setImmediate(function() {
-      callback();
-    });
+    setImmediate(() =>
+      callback()
+    );
   };
 }
 
@@ -158,7 +159,7 @@ class QueueAnim extends React.Component {
       children: newChildren,
     });
 
-    nextChildren.forEach((c)=> {
+    nextChildren.forEach((c) => {
       if (!c) {
         return;
       }
@@ -169,7 +170,7 @@ class QueueAnim extends React.Component {
       }
     });
 
-    currentChildren.forEach((c)=> {
+    currentChildren.forEach((c) => {
       if (!c) {
         return;
       }
@@ -193,16 +194,15 @@ class QueueAnim extends React.Component {
   }
 
   componentWillUnmount() {
-    if (this.originalChildren && this.originalChildren.length > 0) {
-      this.originalChildren.forEach(child => {
-        if (child && this.refs[child.key]) {
-          velocity(findDOMNode(this.refs[child.key]), 'stop');
-        }
-      });
-      Object.keys(this.placeholderTimeoutIds).forEach(key => {
-        clearTimeout(this.placeholderTimeoutIds[key]);
-      });
-    }
+    [].concat(this.keysToEnter, this.keysToLeave, this.keysAnimating).forEach(key =>
+      this.refs[key] && velocity(findDOMNode(this.refs[key]), 'stop')
+    );
+    Object.keys(this.placeholderTimeoutIds).forEach(key => {
+      clearTimeout(this.placeholderTimeoutIds[key]);
+    });
+    this.keysToEnter = [];
+    this.keysToLeave = [];
+    this.keysAnimating = [];
   }
 
   getVelocityConfig(index, ...args) {
@@ -264,7 +264,7 @@ class QueueAnim extends React.Component {
     node.style.visibility = 'hidden';
     velocity(node, 'stop');
     velocity(node, this.getVelocityEnterConfig(key, i), {
-      duration: duration,
+      duration,
       easing: this.getVelocityEasing(key, i)[0],
       visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
@@ -286,7 +286,7 @@ class QueueAnim extends React.Component {
     velocity(node, 'stop');
     velocity(node, this.getVelocityLeaveConfig(key, i), {
       delay: interval * order + delay,
-      duration: duration,
+      duration,
       easing: this.getVelocityEasing(key, i)[1],
       begin: this.leaveBegin.bind(this),
       complete: this.leaveComplete.bind(this, key),
@@ -298,7 +298,7 @@ class QueueAnim extends React.Component {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[1], '');
       if (elem.className.indexOf(animatingClassName[0]) === -1) {
-        elem.className += (' ' + animatingClassName[0]);
+        elem.className += (` ${animatingClassName[0]}`);
       }
     });
   }
@@ -317,7 +317,7 @@ class QueueAnim extends React.Component {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[0], '');
       if (elem.className.indexOf(animatingClassName[1]) === -1) {
-        elem.className += (' ' + animatingClassName[1]);
+        elem.className += (` ${animatingClassName[1]}`);
       }
     });
   }
@@ -337,7 +337,7 @@ class QueueAnim extends React.Component {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
       this.setState({
         children: currentChildren,
-        childrenShow: childrenShow,
+        childrenShow,
       });
     }
     elements.forEach((elem) => {
