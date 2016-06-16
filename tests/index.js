@@ -76,6 +76,7 @@ describe('rc-queue-anim', () => {
               this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
               null
             }
+            {null}
           </QueueAnim>
         );
       },
@@ -98,9 +99,7 @@ describe('rc-queue-anim', () => {
   });
 
   it('should render children', () => {
-    const instance = createQueueAnimInstance({
-      ease: 'easeInBounce',
-    });
+    const instance = createQueueAnimInstance();
     const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     expect(children.length).to.be(4);
   });
@@ -164,7 +163,10 @@ describe('rc-queue-anim', () => {
 
   it('should have duration', (done) => {
     const duration = 300;
-    const instance = createQueueAnimInstance({ duration });
+    const instance = createQueueAnimInstance({
+      duration,
+      ease: 'easeInBounce',
+    });
     const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     shouldAnimatingThisOne(instance, 0);
     setTimeout(() => {
@@ -178,7 +180,9 @@ describe('rc-queue-anim', () => {
 
   it('should have leave animation', (done) => {
     const interval = defaultInterval;
-    const instance = createQueueAnimInstance();
+    const instance = createQueueAnimInstance({
+      ease: 'easeInOutElastic',
+    });
     setTimeout(() => {
       const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getOpacity(children[3])).to.be(1);
@@ -196,6 +200,7 @@ describe('rc-queue-anim', () => {
 
   it('should support custom animation config', (done) => {
     const instance = createQueueAnimInstance({
+      ease: 'easeOutElastic',
       animConfig: {
         left: [100, 0],
       },
@@ -240,7 +245,9 @@ describe('rc-queue-anim', () => {
   });
 
   it('should has animating className', (done) => {
-    const instance = createQueueAnimInstance();
+    const instance = createQueueAnimInstance({
+      ease: 'easeInElastic',
+    });
     setTimeout(() => {
       let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(children[1].className).to.contain('queue-anim-entering');
