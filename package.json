@@ -1,6 +1,6 @@
 {
   "name": "rc-queue-anim",
-  "version": "0.11.11",
+  "version": "0.11.12",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
@@ -45,9 +45,9 @@
     "precommit-hook": "1.x",
     "rc-dialog": "~5.2.1",
     "rc-tools": "5.x",
-    "react": "~0.14.0",
-    "react-addons-test-utils": "~0.14.0",
-    "react-dom": "~0.14.0",
+    "react": "~15.2.0",
+    "react-addons-test-utils": "~15.2.0",
+    "react-dom": "~15.2.0",
     "react-router": "~1.0.0-rc1"
   },
   "precommit": [

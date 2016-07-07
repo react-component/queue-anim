@@ -358,7 +358,19 @@ class QueueAnim extends React.Component {
         key: placeholderKeyPrefix + child.key,
       });
     });
-    return createElement(this.props.component, this.props, childrenToRender);
+    const { ...tagProps } = this.props;
+    [
+      'component',
+      'interval',
+      'duration',
+      'delay',
+      'type',
+      'animConfig',
+      'ease',
+      'leaveReverse',
+      'animatingClassName',
+    ].forEach(key => delete tagProps[key]);
+    return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
 }
 
