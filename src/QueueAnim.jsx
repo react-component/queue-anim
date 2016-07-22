@@ -276,9 +276,12 @@ class QueueAnim extends React.Component {
             return;
           }
         }
+        data[dataKey][1] = 0;
       }
       if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
         data[dataKey][1] = parseFloat(nodeStyle[dataKey]);
+      } else {
+        data[dataKey][1] = 0;
       }
     });
     return data;
@@ -331,15 +334,22 @@ class QueueAnim extends React.Component {
       return;
     }
     const interval = transformArguments(this.props.interval, key, i)[1];
-    const delay = transformArguments(this.props.delay, key, i)[1];
-    const duration = transformArguments(this.props.duration, key, i)[1];
+    let delay = transformArguments(this.props.delay, key, i)[1];
+    let duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-
+    delay = interval * order + delay;
     const data = this.getInitAnimType(node, this.getVelocityLeaveConfig(key, i));
-
+    // 当数据为 [0, 0] 时，，有延时的话会出现跳动。。。
+    Object.keys(data).forEach(dataKey => {
+      const item = data[dataKey];
+      if (Array.isArray(item) && item[0] === 0 && item[1] === 0) {
+        delay = 0;
+        duration = 0;
+      }
+    });
     velocity(node, data, {
-      delay: interval * order + delay,
+      delay,
       duration,
       easing: this.getVelocityEasing(key, i)[1],
       begin: this.leaveBegin.bind(this),
