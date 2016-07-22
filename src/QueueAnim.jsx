@@ -254,14 +254,14 @@ class QueueAnim extends React.Component {
     });
   }
 
-  getInitAnimType = (node, _data) => {
+  getInitAnimType = (node, velocityConfig) => {
     /*
      * enterForcedRePlay 为 false 时:
      * 强行结束后，获取当前 dom 里是否有 data 里的 key 值，
      * 如果有，出场开始启动为 dom 里的值
      * 而不是 animTypes 里的初始值，如果是初始值将会跳动。
      */
-    const data = Object.assign({}, assignChild(_data));
+    const data = { ...assignChild(velocityConfig) };
     const transformsBase = velocity &&
       velocity.prototype.constructor.CSS.Lists.transformsBase || [];
     const nodeStyle = node.style;

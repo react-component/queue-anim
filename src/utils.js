@@ -91,7 +91,7 @@ export function assignChild(data) {
       obj[key] = [].concat(data[key]);
       return;
     } else if (typeof data[key] === 'object') {
-      obj[key] = Object.assign({}, data[key]);
+      obj[key] = { ...data[key] };
       return;
     }
     obj[key] = data[key];
