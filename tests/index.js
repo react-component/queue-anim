@@ -44,6 +44,7 @@ describe('rc-queue-anim', () => {
       getInitialState() {
         return {
           show: true,
+          unMount: false,
           items: [{
             key: 1,
             content: 'div',
@@ -61,6 +62,11 @@ describe('rc-queue-anim', () => {
           show: !this.state.show,
         });
       },
+      unMountQueue() {
+        this.setState({
+          unMount: true,
+        });
+      },
       removeOne() {
         const items = this.state.items;
         const removeIndex = 0;
@@ -70,14 +76,16 @@ describe('rc-queue-anim', () => {
       },
       render() {
         return (
-          <QueueAnim {...props}>
-            {
-              this.state.show ?
-              this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
-              null
-            }
-            {null}
-          </QueueAnim>
+          <section>
+            {!this.state.unMount ? <QueueAnim {...props}>
+              {
+                this.state.show ?
+                  this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                  null
+              }
+              {null}
+            </QueueAnim> : null}
+          </section>
         );
       },
     });
@@ -342,5 +350,24 @@ describe('rc-queue-anim', () => {
         }, 110);
       }, 17);
     }, 1000);
+  });
+
+  it.only('will un mount', (done) => {
+    const instance = createQueueAnimInstance({
+      animConfig(e) {
+        if (e.index === 1) {
+          return { top: [100, 0] };
+        }
+        return { left: [100, 0] };
+      },
+    });
+    setTimeout(() => {
+      let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      expect(children.length).to.be(4);
+      instance.unMountQueue();
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      expect(children.length).to.be(0);
+      done();
+    }, 100);
   });
 });

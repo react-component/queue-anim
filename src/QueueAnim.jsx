@@ -160,7 +160,7 @@ class QueueAnim extends React.Component {
       // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
       newChildren.forEach(item => {
         if (this.keysToLeave.indexOf(item.key) >= 0) {
-          const node = this.refs[item.key];
+          const node = findDOMNode(this.refs[item.key]);
           // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
           velocity(node, 'stop');
           delete childrenShow[item.key];
