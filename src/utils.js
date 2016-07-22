@@ -90,6 +90,9 @@ export function assignChild(data) {
     if (Array.isArray(data[key])) {
       obj[key] = [].concat(data[key]);
       return;
+    } else if (typeof data[key] === 'object') {
+      obj[key] = Object.assign({}, data[key]);
+      return;
     }
     obj[key] = data[key];
     return;

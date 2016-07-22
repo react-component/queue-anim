@@ -154,7 +154,7 @@ class QueueAnim extends React.Component {
 
     const childrenShow = this.state.childrenShow;
     if (nextProps.enterForcedRePlay) {
-      // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的，所以在这做下清除。
+      // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
       newChildren.forEach(item => {
         if (this.keysToLeave.indexOf(item.key) >= 0) {
           const node = this.refs[item.key];
@@ -256,14 +256,14 @@ class QueueAnim extends React.Component {
 
   getInitAnimType = (node, _data) => {
     /*
-     * 强行结束后，获取当前 dom 里是否有 data 里的 key 值，如果有，出场开始启动为 dom 里的值
-     * 而不是 animTypes 里的初始值，如果是 初始值将会跳动。
+     * enterForcedRePlay 为 false 时:
+     * 强行结束后，获取当前 dom 里是否有 data 里的 key 值，
+     * 如果有，出场开始启动为 dom 里的值
+     * 而不是 animTypes 里的初始值，如果是初始值将会跳动。
      */
     const data = Object.assign({}, assignChild(_data));
     const transformsBase = velocity &&
       velocity.prototype.constructor.CSS.Lists.transformsBase || [];
-    // const setPropertyValue = velocity.prototype.constructor.CSS.setPropertyValue;
-    // const getUnitType = velocity.prototype.constructor.CSS.Values.getUnitType;
     const nodeStyle = node.style;
     Object.keys(data).forEach(dataKey => {
       if (transformsBase.indexOf(dataKey) >= 0) {
@@ -309,10 +309,15 @@ class QueueAnim extends React.Component {
     }
     const duration = transformArguments(this.props.duration, key, i)[0];
     velocity(node, 'stop');
-    const data = this.getInitAnimType(node, this.getVelocityEnterConfig(key, i));
+    const data = this.props.enterForcedRePlay ? this.getVelocityEnterConfig(key, i) :
+      this.getInitAnimType(node, this.getVelocityEnterConfig(key, i));
+    if (this.props.enterForcedRePlay) {
+      node.style.visibility = 'hidden';
+    }
     velocity(node, data, {
       duration,
       easing: this.getVelocityEasing(key, i)[0],
+      visibility: 'visible',
       begin: this.enterBegin.bind(this, key),
       complete: this.enterComplete.bind(this, key),
     });
@@ -441,6 +446,7 @@ QueueAnim.propTypes = {
   animConfig: funcOrObjectOrArray,
   ease: funcOrStringOrArray,
   leaveReverse: React.PropTypes.bool,
+  enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
 };
 
