@@ -352,7 +352,7 @@ describe('rc-queue-anim', () => {
     }, 1000);
   });
 
-  it.only('will un mount', (done) => {
+  it('will un mount', (done) => {
     const instance = createQueueAnimInstance({
       animConfig(e) {
         if (e.index === 1) {
