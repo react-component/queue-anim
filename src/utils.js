@@ -83,3 +83,25 @@ export function transformArguments(arg, key, i) {
 export function getChildrenFromProps(props) {
   return props && props.children;
 }
+
+export function assignChild(data) {
+  const obj = {};
+  Object.keys(data).forEach(key => {
+    if (Array.isArray(data[key])) {
+      obj[key] = [].concat(data[key]);
+      return;
+    }
+    obj[key] = data[key];
+    return;
+  });
+  return obj;
+}
+
+export function checkStyleName(p) {
+  const a = ['O', 'Moz', 'ms', 'Ms', 'Webkit'];
+  if (p !== 'filter' && p in document.body.style) {
+    return p;
+  }
+  const _p = p.charAt(0).toUpperCase() + p.substr(1);
+  return `${(a.filter((key) => `${key}${_p}` in document.body.style)[0] || '')}${_p}`;
+}
