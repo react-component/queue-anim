@@ -42,13 +42,13 @@ class Demo extends React.Component {
     const childrenToRender = this.getChildren();
     return (<div className="switch" onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
       <h2>鼠标经过当前区域，再移出区域查看</h2>
-      <QueueAnim component="ul" leaveReverse delay={[0, 300]} type="scale">
+      <QueueAnim component="ul" leaveReverse delay={[0, 300]} type="scale" enterForcedRePlay>
         {childrenToRender}
       </QueueAnim>
-      <QueueAnim component="ul" leaveReverse delay={150} type="scale">
+      <QueueAnim component="ul" leaveReverse delay={150} type="scale" enterForcedRePlay>
         {childrenToRender}
       </QueueAnim>
-      <QueueAnim component="ul" leaveReverse delay={[300, 0]} type="scale">
+      <QueueAnim component="ul" leaveReverse delay={[300, 0]} type="scale" enterForcedRePlay>
         {childrenToRender}
       </QueueAnim>
     </div>);
