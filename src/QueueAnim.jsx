@@ -149,13 +149,23 @@ class QueueAnim extends React.Component {
       currentChildren,
       nextChildren
     );
-
+    // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的，所以在这做下清除。
+    const childrenShow = this.state.childrenShow;
+    newChildren.forEach(item => {
+      if (this.keysToLeave.indexOf(item.key) >= 0) {
+        const node = this.refs[item.key];
+        // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
+        velocity(node, 'stop');
+        delete childrenShow[item.key];
+      }
+    });
     this.keysToEnter = [];
     this.keysToLeave = [];
     this.keysAnimating = [];
 
     // need render to avoid update
     this.setState({
+      childrenShow,
       children: newChildren,
     });
 
@@ -272,6 +282,15 @@ class QueueAnim extends React.Component {
     });
   }
 
+  checkStyleName = (p) => {
+    const a = ['O', 'Moz', 'ms', 'Ms', 'Webkit'];
+    if (p !== 'filter' && p in document.body.style) {
+      return p;
+    }
+    const _p = p.charAt(0).toUpperCase() + p.substr(1);
+    return `${(a.filter((key) => `${key}${_p}` in document.body.style)[0] || '')}${_p}`;
+  };
+
   performLeave(key, i) {
     clearTimeout(this.placeholderTimeoutIds[key]);
     delete this.placeholderTimeoutIds[key];
@@ -284,7 +303,34 @@ class QueueAnim extends React.Component {
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    velocity(node, this.getVelocityLeaveConfig(key, i), {
+    /*
+     * 强行结束后，获取当前 dom 里是否有 data 里的 key 值，如果有，出场开始启动为 dom 里的值
+     * 而不是 animTypes 里的初始值，如果是 初始值将会跳动。
+     */
+    const data = { ...this.getVelocityLeaveConfig(key, i) };
+    const transformsBase = velocity &&
+      velocity.prototype.constructor.CSS.Lists.transformsBase || [];
+    // const setPropertyValue = velocity.prototype.constructor.CSS.setPropertyValue;
+    // const getUnitType = velocity.prototype.constructor.CSS.Values.getUnitType;
+    const nodeStyle = node.style;
+    Object.keys(data).forEach(dataKey => {
+      if (transformsBase.indexOf(dataKey) >= 0) {
+        const transformString = nodeStyle[this.checkStyleName('transform')];
+        if (transformString && transformString !== 'none') {
+          if (transformString.match(dataKey)) {
+            const rep = new RegExp(`[^${dataKey}\\(\\d+.*\\)]`, 'i');
+            const rep2 = new RegExp(`${dataKey}\\(([\\s\\S]+)\\)`, 'i');
+            const transformData = transformString.replace(rep, '').replace(rep2, '$1');
+            data[dataKey][1] = parseFloat(transformData);
+            return;
+          }
+        }
+      }
+      if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
+        data[dataKey][1] = parseFloat(nodeStyle[dataKey]);
+      }
+    });
+    velocity(node, data, {
       delay: interval * order + delay,
       duration,
       easing: this.getVelocityEasing(key, i)[1],
