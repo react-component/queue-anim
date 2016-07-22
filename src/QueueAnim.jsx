@@ -107,6 +107,9 @@ const BackEase = {
 
 const placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 
+const noop = () => {
+};
+
 class QueueAnim extends React.Component {
   constructor() {
     super(...arguments);
@@ -262,12 +265,18 @@ class QueueAnim extends React.Component {
      * 而不是 animTypes 里的初始值，如果是初始值将会跳动。
      */
     const data = { ...assignChild(velocityConfig) };
-    const transformsBase = velocity &&
+    const transformsBase = velocity && velocity.prototype.constructor &&
       velocity.prototype.constructor.CSS.Lists.transformsBase || [];
+    const setPropertyValue = velocity && velocity.prototype.constructor &&
+      velocity.prototype.constructor.CSS.setPropertyValue || noop;
+    const getUnitType = velocity && velocity.prototype.constructor &&
+      velocity.prototype.constructor.CSS.Values.getUnitType || noop;
     const nodeStyle = node.style;
     Object.keys(data).forEach(dataKey => {
+      let cssName = dataKey;
       if (transformsBase.indexOf(dataKey) >= 0) {
-        const transformString = nodeStyle[checkStyleName('transform')];
+        cssName = 'transform';
+        const transformString = nodeStyle[checkStyleName(cssName)];
         if (transformString && transformString !== 'none') {
           if (transformString.match(dataKey)) {
             const rep = new RegExp(`^.*${dataKey}\\(([^\\)]+?)\\).*`, 'i');
@@ -275,14 +284,16 @@ class QueueAnim extends React.Component {
             data[dataKey][1] = parseFloat(transformData);
             return;
           }
+        } else {
+          data[dataKey][1] = 0;
         }
-        data[dataKey][1] = 0;
-      }
-      if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
+      } else if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
         data[dataKey][1] = parseFloat(nodeStyle[dataKey]);
       } else {
         data[dataKey][1] = 0;
       }
+      // 先把初始值设进 style 里。免得跳动；把下面的设置放到这里。
+      setPropertyValue(node, cssName, `${data[dataKey][1]}${getUnitType(dataKey)}`);
     });
     return data;
   };
@@ -334,22 +345,13 @@ class QueueAnim extends React.Component {
       return;
     }
     const interval = transformArguments(this.props.interval, key, i)[1];
-    let delay = transformArguments(this.props.delay, key, i)[1];
-    let duration = transformArguments(this.props.duration, key, i)[1];
+    const delay = transformArguments(this.props.delay, key, i)[1];
+    const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    delay = interval * order + delay;
     const data = this.getInitAnimType(node, this.getVelocityLeaveConfig(key, i));
-    // 当数据为 [0, 0] 时，，有延时的话会出现跳动。。。
-    Object.keys(data).forEach(dataKey => {
-      const item = data[dataKey];
-      if (Array.isArray(item) && item[0] === 0 && item[1] === 0) {
-        delay = 0;
-        duration = 0;
-      }
-    });
     velocity(node, data, {
-      delay,
+      delay: interval * order + delay,
       duration,
       easing: this.getVelocityEasing(key, i)[1],
       begin: this.leaveBegin.bind(this),
