@@ -351,23 +351,4 @@ describe('rc-queue-anim', () => {
       }, 17);
     }, 1000);
   });
-
-  it('will un mount', (done) => {
-    const instance = createQueueAnimInstance({
-      animConfig(e) {
-        if (e.index === 1) {
-          return { top: [100, 0] };
-        }
-        return { left: [100, 0] };
-      },
-    });
-    setTimeout(() => {
-      let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      expect(children.length).to.be(4);
-      instance.unMountQueue();
-      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-      expect(children.length).to.be(0);
-      done();
-    }, 100);
-  });
 });
