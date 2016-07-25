@@ -346,17 +346,17 @@
 	    var newChildren = (0, _utils.mergeChildren)(currentChildren, nextChildren);
 	
 	    var childrenShow = this.state.childrenShow;
-	    if (nextProps.enterForcedRePlay) {
-	      // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
-	      newChildren.forEach(function (item) {
-	        if (_this2.keysToLeave.indexOf(item.key) >= 0) {
-	          var node = (0, _reactDom.findDOMNode)(_this2.refs[item.key]);
-	          // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
-	          velocity(node, 'stop');
-	          delete childrenShow[item.key];
-	        }
-	      });
-	    }
+	    // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+	    this.keysToLeave.forEach(function (key) {
+	      // 将所有在出场里的停止掉。避免间隔性出现
+	      // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
+	      var node = (0, _reactDom.findDOMNode)(_this2.refs[key]);
+	      velocity(node, 'stop');
+	      if (nextProps.enterForcedRePlay) {
+	        // 清掉所有出场的。
+	        delete childrenShow[key];
+	      }
+	    });
 	
 	    this.keysToEnter = [];
 	    this.keysToLeave = [];
