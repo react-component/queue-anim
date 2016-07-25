@@ -282,7 +282,6 @@ class QueueAnim extends React.Component {
             const rep = new RegExp(`^.*${dataKey}\\(([^\\)]+?)\\).*`, 'i');
             const transformData = transformString.replace(rep, '$1');
             data[dataKey][1] = parseFloat(transformData);
-            return;
           }
         }
       } else if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
