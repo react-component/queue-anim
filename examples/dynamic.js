@@ -19,6 +19,12 @@ const App = React.createClass({
       }, {
         children: '依次进入4',
         key: 4,
+      }, {
+        children: '依次进入5',
+        key: 5,
+      }, {
+        children: '依次进入6',
+        key: 6,
       }],
     };
   },
@@ -69,6 +75,20 @@ const App = React.createClass({
     });
     this.setState({ items });
   },
+  removeAndAddTow() {
+    const items = this.state.items;
+    items.splice(items.length - 1, 1);
+    items.splice(items.length - 2, 1);
+    items.push({
+      children: `新节点${Date.now()}`,
+      key: this.index++,
+    });
+    items.unshift({
+      children: `新节点${Date.now()}-top`,
+      key: this.index++,
+    });
+    this.setState({ items });
+  },
   render() {
     return (
       <div>
@@ -76,6 +96,7 @@ const App = React.createClass({
         <button onClick={this.addTwo}>点击新增两个</button>
         <button onClick={this.removeAll}>移出所有</button>
         <button onClick={this.removeAndAdd}>移出与添加</button>
+        <button onClick={this.removeAndAddTow}>头尾添加与移出两个</button>
         <QueueAnim>
           {this.state.items.map((item) => <div key={item.key}>
             {item.children} <a href="#" onClick={this.remove.bind(this, item.key)}>删除</a>

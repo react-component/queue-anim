@@ -29,6 +29,7 @@ export function mergeChildren(prev, next) {
   // the combined list
   const nextChildrenPending = {};
   let pendingChildren = [];
+  let followChildrenKey;
   prev.forEach((c) => {
     if (!c) {
       return;
@@ -38,11 +39,14 @@ export function mergeChildren(prev, next) {
         nextChildrenPending[c.key] = pendingChildren;
         pendingChildren = [];
       }
+      followChildrenKey = c.key;
     } else if (c.key) {
       pendingChildren.push(c);
     }
   });
-
+  if (!followChildrenKey) {
+    ret = ret.concat(pendingChildren);
+  }
   next.forEach((c) => {
     if (!c) {
       return;
@@ -51,13 +55,8 @@ export function mergeChildren(prev, next) {
       ret = ret.concat(nextChildrenPending[c.key]);
     }
     ret.push(c);
-  });
-
-  // 保持原有的顺序
-  pendingChildren.forEach((c) => {
-    const originIndex = prev.indexOf(c);
-    if (originIndex >= 0) {
-      ret.splice(originIndex, 0, c);
+    if (c.key === followChildrenKey) {
+      ret = ret.concat(pendingChildren);
     }
   });
 
