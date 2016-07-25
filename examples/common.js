@@ -30,7 +30,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		13:0
+/******/ 		15:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -76,7 +76,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dialog-style","4":"dynamic","5":"empty-children","6":"enter-leave","7":"monkey-click","8":"nested","9":"param-func","10":"router","11":"shortcut","12":"simple"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"dialog-style","4":"dynamic","5":"empty-children","6":"enter-leave","7":"monkey-click","8":"nested","9":"param-func","10":"router","11":"shortcut","12":"simple","13":"switch","14":"switch-enterForcedRePlay"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -264,6 +264,8 @@
 	
 	var placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 	
+	var noop = function noop() {};
+	
 	var QueueAnim = function (_React$Component) {
 	  _inherits(QueueAnim, _React$Component);
 	
@@ -271,6 +273,44 @@
 	    _classCallCheck(this, QueueAnim);
 	
 	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	
+	    _this.getInitAnimType = function (node, velocityConfig) {
+	      /*
+	       * enterForcedRePlay 为 false 时:
+	       * 强行结束后，获取当前 dom 里是否有 data 里的 key 值，
+	       * 如果有，出场开始启动为 dom 里的值
+	       * 而不是 animTypes 里的初始值，如果是初始值将会跳动。
+	       */
+	      var data = _extends({}, (0, _utils.assignChild)(velocityConfig));
+	      var transformsBase = velocity && velocity.prototype.constructor && velocity.prototype.constructor.CSS.Lists.transformsBase || [];
+	      var setPropertyValue = velocity && velocity.prototype.constructor && velocity.prototype.constructor.CSS.setPropertyValue || noop;
+	      var getUnitType = velocity && velocity.prototype.constructor && velocity.prototype.constructor.CSS.Values.getUnitType || noop;
+	      var nodeStyle = node.style;
+	      Object.keys(data).forEach(function (dataKey) {
+	        var cssName = dataKey;
+	        if (transformsBase.indexOf(dataKey) >= 0) {
+	          cssName = 'transform';
+	          var transformString = nodeStyle[(0, _utils.checkStyleName)(cssName)];
+	          if (transformString && transformString !== 'none') {
+	            if (transformString.match(dataKey)) {
+	              var rep = new RegExp('^.*' + dataKey + '\\(([^\\)]+?)\\).*', 'i');
+	              var transformData = transformString.replace(rep, '$1');
+	              data[dataKey][1] = parseFloat(transformData);
+	              return;
+	            }
+	          } else {
+	            data[dataKey][1] = 0;
+	          }
+	        } else if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
+	          data[dataKey][1] = parseFloat(nodeStyle[dataKey]);
+	        } else {
+	          data[dataKey][1] = 0;
+	        }
+	        // 先把初始值设进 style 里。免得跳动；把下面的设置放到这里。
+	        setPropertyValue(node, cssName, '' + data[dataKey][1] + getUnitType(dataKey));
+	      });
+	      return data;
+	    };
 	
 	    _this.keysToEnter = [];
 	    _this.keysToLeave = [];
@@ -310,12 +350,26 @@
 	    var currentChildren = this.originalChildren;
 	    var newChildren = (0, _utils.mergeChildren)(currentChildren, nextChildren);
 	
+	    var childrenShow = this.state.childrenShow;
+	    if (nextProps.enterForcedRePlay) {
+	      // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+	      newChildren.forEach(function (item) {
+	        if (_this2.keysToLeave.indexOf(item.key) >= 0) {
+	          var node = (0, _reactDom.findDOMNode)(_this2.refs[item.key]);
+	          // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
+	          velocity(node, 'stop');
+	          delete childrenShow[item.key];
+	        }
+	      });
+	    }
+	
 	    this.keysToEnter = [];
 	    this.keysToLeave = [];
 	    this.keysAnimating = [];
 	
 	    // need render to avoid update
 	    this.setState({
+	      childrenShow: childrenShow,
 	      children: newChildren
 	    });
 	
@@ -436,9 +490,12 @@
 	      return;
 	    }
 	    var duration = (0, _utils.transformArguments)(this.props.duration, key, i)[0];
-	    node.style.visibility = 'hidden';
 	    velocity(node, 'stop');
-	    velocity(node, this.getVelocityEnterConfig(key, i), {
+	    var data = this.props.enterForcedRePlay ? this.getVelocityEnterConfig(key, i) : this.getInitAnimType(node, this.getVelocityEnterConfig(key, i));
+	    if (this.props.enterForcedRePlay) {
+	      node.style.visibility = 'hidden';
+	    }
+	    velocity(node, data, {
 	      duration: duration,
 	      easing: this.getVelocityEasing(key, i)[0],
 	      visibility: 'visible',
@@ -459,7 +516,8 @@
 	    var duration = (0, _utils.transformArguments)(this.props.duration, key, i)[1];
 	    var order = this.props.leaveReverse ? this.keysToLeave.length - i - 1 : i;
 	    velocity(node, 'stop');
-	    velocity(node, this.getVelocityLeaveConfig(key, i), {
+	    var data = this.getInitAnimType(node, this.getVelocityLeaveConfig(key, i));
+	    velocity(node, data, {
 	      delay: interval * order + delay,
 	      duration: duration,
 	      easing: this.getVelocityEasing(key, i)[1],
@@ -548,7 +606,7 @@
 	
 	    var tagProps = _objectWithoutProperties(this.props, []);
 	
-	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName'].forEach(function (key) {
+	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay'].forEach(function (key) {
 	      return delete tagProps[key];
 	    });
 	    return (0, _react.createElement)(this.props.component, _extends({}, tagProps), childrenToRender);
@@ -574,6 +632,7 @@
 	  animConfig: funcOrObjectOrArray,
 	  ease: funcOrStringOrArray,
 	  leaveReverse: _react2.default.PropTypes.bool,
+	  enterForcedRePlay: _react2.default.PropTypes.bool,
 	  animatingClassName: _react2.default.PropTypes.array
 	};
 	
@@ -586,6 +645,7 @@
 	  animConfig: null,
 	  ease: 'easeOutQuart',
 	  leaveReverse: false,
+	  enterForcedRePlay: false,
 	  animatingClassName: ['queue-anim-entering', 'queue-anim-leaving']
 	};
 	
@@ -21599,11 +21659,18 @@
 	Object.defineProperty(exports, "__esModule", {
 	  value: true
 	});
+	
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+	
+	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
+	
 	exports.toArrayChildren = toArrayChildren;
 	exports.findChildInChildrenByKey = findChildInChildrenByKey;
 	exports.mergeChildren = mergeChildren;
 	exports.transformArguments = transformArguments;
 	exports.getChildrenFromProps = getChildrenFromProps;
+	exports.assignChild = assignChild;
+	exports.checkStyleName = checkStyleName;
 	
 	var _react = __webpack_require__(7);
 	
@@ -21693,6 +21760,33 @@
 	
 	function getChildrenFromProps(props) {
 	  return props && props.children;
+	}
+	
+	function assignChild(data) {
+	  var obj = {};
+	  Object.keys(data).forEach(function (key) {
+	    if (Array.isArray(data[key])) {
+	      obj[key] = [].concat(data[key]);
+	      return;
+	    } else if (_typeof(data[key]) === 'object') {
+	      obj[key] = _extends({}, data[key]);
+	      return;
+	    }
+	    obj[key] = data[key];
+	    return;
+	  });
+	  return obj;
+	}
+	
+	function checkStyleName(p) {
+	  var a = ['O', 'Moz', 'ms', 'Ms', 'Webkit'];
+	  if (p !== 'filter' && p in document.body.style) {
+	    return p;
+	  }
+	  var _p = p.charAt(0).toUpperCase() + p.substr(1);
+	  return '' + (a.filter(function (key) {
+	    return '' + key + _p in document.body.style;
+	  })[0] || '') + _p;
 	}
 
 /***/ },
@@ -23674,11 +23768,9 @@
 	            } else {
 	                var transformValue,
 	                    perspective;
-	
 	                /* Transform properties are stored as members of the transformCache object. Concatenate all the members into a string. */
 	                $.each(Data(element).transformCache, function(transformName) {
 	                    transformValue = Data(element).transformCache[transformName];
-	
 	                    /* Transform's perspective subproperty must be set first in order to take effect. Store it temporarily. */
 	                    if (transformName === "transformPerspective") {
 	                        perspective = transformValue;
@@ -23698,7 +23790,6 @@
 	                    transformString = "perspective" + perspective + " " + transformString;
 	                }
 	            }
-	
 	            CSS.setPropertyValue(element, "transform", transformString);
 	        }
 	    };
@@ -25633,6 +25724,7 @@
 	/* The CSS spec mandates that the translateX/Y/Z transforms are %-relative to the element itself -- not its parent.
 	Velocity, however, doesn't make this distinction. Thus, converting to or from the % unit with these subproperties
 	will produce an inaccurate conversion value. The same issue exists with the cx/cy attributes of SVG circles and ellipses. */
+
 
 /***/ }
 /******/ ]);
