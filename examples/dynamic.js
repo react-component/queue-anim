@@ -44,6 +44,12 @@ webpackJsonp([4],{
 	      }, {
 	        children: '依次进入4',
 	        key: 4
+	      }, {
+	        children: '依次进入5',
+	        key: 5
+	      }, {
+	        children: '依次进入6',
+	        key: 6
 	      }]
 	    };
 	  },
@@ -96,6 +102,20 @@ webpackJsonp([4],{
 	    });
 	    this.setState({ items: items });
 	  },
+	  removeAndAddTow: function removeAndAddTow() {
+	    var items = this.state.items;
+	    items.splice(items.length - 1, 1);
+	    items.splice(items.length - 2, 1);
+	    items.push({
+	      children: '新节点' + Date.now(),
+	      key: this.index++
+	    });
+	    items.unshift({
+	      children: '新节点' + Date.now() + '-top',
+	      key: this.index++
+	    });
+	    this.setState({ items: items });
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -121,6 +141,11 @@ webpackJsonp([4],{
 	        'button',
 	        { onClick: this.removeAndAdd },
 	        '移出与添加'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.removeAndAddTow },
+	        '头尾添加与移出两个'
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,

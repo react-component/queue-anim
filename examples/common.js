@@ -21702,6 +21702,7 @@
 	  // the combined list
 	  var nextChildrenPending = {};
 	  var pendingChildren = [];
+	  var followChildrenKey = void 0;
 	  prev.forEach(function (c) {
 	    if (!c) {
 	      return;
@@ -21711,11 +21712,14 @@
 	        nextChildrenPending[c.key] = pendingChildren;
 	        pendingChildren = [];
 	      }
+	      followChildrenKey = c.key;
 	    } else if (c.key) {
 	      pendingChildren.push(c);
 	    }
 	  });
-	
+	  if (!followChildrenKey) {
+	    ret = ret.concat(pendingChildren);
+	  }
 	  next.forEach(function (c) {
 	    if (!c) {
 	      return;
@@ -21724,13 +21728,8 @@
 	      ret = ret.concat(nextChildrenPending[c.key]);
 	    }
 	    ret.push(c);
-	  });
-	
-	  // 保持原有的顺序
-	  pendingChildren.forEach(function (c) {
-	    var originIndex = prev.indexOf(c);
-	    if (originIndex >= 0) {
-	      ret.splice(originIndex, 0, c);
+	    if (c.key === followChildrenKey) {
+	      ret = ret.concat(pendingChildren);
 	    }
 	  });
 	
