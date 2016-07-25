@@ -296,15 +296,10 @@
 	              var rep = new RegExp('^.*' + dataKey + '\\(([^\\)]+?)\\).*', 'i');
 	              var transformData = transformString.replace(rep, '$1');
 	              data[dataKey][1] = parseFloat(transformData);
-	              return;
 	            }
-	          } else {
-	            data[dataKey][1] = 0;
 	          }
 	        } else if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
 	          data[dataKey][1] = parseFloat(nodeStyle[dataKey]);
-	        } else {
-	          data[dataKey][1] = 0;
 	        }
 	        // 先把初始值设进 style 里。免得跳动；把下面的设置放到这里。
 	        setPropertyValue(node, cssName, '' + data[dataKey][1] + getUnitType(dataKey));
