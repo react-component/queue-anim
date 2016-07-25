@@ -95,6 +95,8 @@ import {
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
+  assignChild,
+  checkStyleName,
 } from './utils';
 import AnimTypes from './animTypes';
 const BackEase = {
@@ -104,6 +106,9 @@ const BackEase = {
 };
 
 const placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
+
+const noop = () => {
+};
 
 class QueueAnim extends React.Component {
   constructor() {
@@ -150,12 +155,27 @@ class QueueAnim extends React.Component {
       nextChildren
     );
 
+    const childrenShow = this.state.childrenShow;
+    if (nextProps.enterForcedRePlay) {
+      // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+      newChildren.forEach(item => {
+        if (this.keysToLeave.indexOf(item.key) >= 0) {
+          const node = findDOMNode(this.refs[item.key]);
+          // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
+          velocity(node, 'stop');
+          delete childrenShow[item.key];
+        }
+      });
+    }
+
+
     this.keysToEnter = [];
     this.keysToLeave = [];
     this.keysAnimating = [];
 
     // need render to avoid update
     this.setState({
+      childrenShow,
       children: newChildren,
     });
 
@@ -237,6 +257,47 @@ class QueueAnim extends React.Component {
     });
   }
 
+  getInitAnimType = (node, velocityConfig) => {
+    /*
+     * enterForcedRePlay 为 false 时:
+     * 强行结束后，获取当前 dom 里是否有 data 里的 key 值，
+     * 如果有，出场开始启动为 dom 里的值
+     * 而不是 animTypes 里的初始值，如果是初始值将会跳动。
+     */
+    const data = { ...assignChild(velocityConfig) };
+    const transformsBase = velocity && velocity.prototype.constructor &&
+      velocity.prototype.constructor.CSS.Lists.transformsBase || [];
+    const setPropertyValue = velocity && velocity.prototype.constructor &&
+      velocity.prototype.constructor.CSS.setPropertyValue || noop;
+    const getUnitType = velocity && velocity.prototype.constructor &&
+      velocity.prototype.constructor.CSS.Values.getUnitType || noop;
+    const nodeStyle = node.style;
+    Object.keys(data).forEach(dataKey => {
+      let cssName = dataKey;
+      if (transformsBase.indexOf(dataKey) >= 0) {
+        cssName = 'transform';
+        const transformString = nodeStyle[checkStyleName(cssName)];
+        if (transformString && transformString !== 'none') {
+          if (transformString.match(dataKey)) {
+            const rep = new RegExp(`^.*${dataKey}\\(([^\\)]+?)\\).*`, 'i');
+            const transformData = transformString.replace(rep, '$1');
+            data[dataKey][1] = parseFloat(transformData);
+            return;
+          }
+        } else {
+          data[dataKey][1] = 0;
+        }
+      } else if (nodeStyle[dataKey] && parseFloat(nodeStyle[dataKey])) {
+        data[dataKey][1] = parseFloat(nodeStyle[dataKey]);
+      } else {
+        data[dataKey][1] = 0;
+      }
+      // 先把初始值设进 style 里。免得跳动；把下面的设置放到这里。
+      setPropertyValue(node, cssName, `${data[dataKey][1]}${getUnitType(dataKey)}`);
+    });
+    return data;
+  };
+
   performEnter(key, i) {
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
@@ -261,9 +322,13 @@ class QueueAnim extends React.Component {
       return;
     }
     const duration = transformArguments(this.props.duration, key, i)[0];
-    node.style.visibility = 'hidden';
     velocity(node, 'stop');
-    velocity(node, this.getVelocityEnterConfig(key, i), {
+    const data = this.props.enterForcedRePlay ? this.getVelocityEnterConfig(key, i) :
+      this.getInitAnimType(node, this.getVelocityEnterConfig(key, i));
+    if (this.props.enterForcedRePlay) {
+      node.style.visibility = 'hidden';
+    }
+    velocity(node, data, {
       duration,
       easing: this.getVelocityEasing(key, i)[0],
       visibility: 'visible',
@@ -284,7 +349,8 @@ class QueueAnim extends React.Component {
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
-    velocity(node, this.getVelocityLeaveConfig(key, i), {
+    const data = this.getInitAnimType(node, this.getVelocityLeaveConfig(key, i));
+    velocity(node, data, {
       delay: interval * order + delay,
       duration,
       easing: this.getVelocityEasing(key, i)[1],
@@ -369,6 +435,7 @@ class QueueAnim extends React.Component {
       'ease',
       'leaveReverse',
       'animatingClassName',
+      'enterForcedRePlay',
     ].forEach(key => delete tagProps[key]);
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
@@ -391,6 +458,7 @@ QueueAnim.propTypes = {
   animConfig: funcOrObjectOrArray,
   ease: funcOrStringOrArray,
   leaveReverse: React.PropTypes.bool,
+  enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
 };
 
@@ -403,6 +471,7 @@ QueueAnim.defaultProps = {
   animConfig: null,
   ease: 'easeOutQuart',
   leaveReverse: false,
+  enterForcedRePlay: false,
   animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
 };
 

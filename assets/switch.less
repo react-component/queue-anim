@@ -1,0 +1,19 @@
+.switch {
+  height: 400px;
+  background: #CCC;
+  & ul {
+    display: block;
+    width: 100%;
+    overflow: hidden;
+    & li {
+      list-style: none;
+      height: 100px;
+      width: 100px;
+      float: left;
+      background: #000;
+      &:nth-child(2n) {
+        background: #ff6600;
+      }
+    }
+  }
+}

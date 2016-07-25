@@ -44,6 +44,7 @@ describe('rc-queue-anim', () => {
       getInitialState() {
         return {
           show: true,
+          unMount: false,
           items: [{
             key: 1,
             content: 'div',
@@ -61,6 +62,11 @@ describe('rc-queue-anim', () => {
           show: !this.state.show,
         });
       },
+      unMountQueue() {
+        this.setState({
+          unMount: true,
+        });
+      },
       removeOne() {
         const items = this.state.items;
         const removeIndex = 0;
@@ -70,14 +76,16 @@ describe('rc-queue-anim', () => {
       },
       render() {
         return (
-          <QueueAnim {...props}>
-            {
-              this.state.show ?
-              this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
-              null
-            }
-            {null}
-          </QueueAnim>
+          <section>
+            {!this.state.unMount ? <QueueAnim {...props}>
+              {
+                this.state.show ?
+                  this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                  null
+              }
+              {null}
+            </QueueAnim> : null}
+          </section>
         );
       },
     });
@@ -119,7 +127,7 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 10);
+    }, 17);
   });
 
   it('should have interval', (done) => {
@@ -138,7 +146,7 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 10);
+    }, 17);
   });
 
   it('should have delay', (done) => {
@@ -158,7 +166,7 @@ describe('rc-queue-anim', () => {
           }, interval);
         }, interval);
       }, delay);
-    }, 10);
+    }, 17);
   });
 
   it('should have duration', (done) => {
@@ -175,7 +183,7 @@ describe('rc-queue-anim', () => {
         expect(getOpacity(children[1])).to.be(1);
         done();
       }, duration);
-    }, 10);
+    }, 17);
   });
 
   it('should have leave animation', (done) => {
@@ -194,7 +202,7 @@ describe('rc-queue-anim', () => {
           expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div').length).to.be(3);
           done();
         }, 500);
-      }, 10);
+      }, 17);
     }, interval * 3 + 500);
   });
 
@@ -211,7 +219,7 @@ describe('rc-queue-anim', () => {
       children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getLeft(children[1])).to.above(0);
       done();
-    }, 10);
+    }, 17);
   });
 
   it('should support animation when change direction at animating', (done) => {
@@ -261,7 +269,7 @@ describe('rc-queue-anim', () => {
           done();
         }, 550);
       }, 550);
-    }, 5);
+    }, 17);
   });
 
   it('should has animating config is func enter', (done) => {
@@ -301,7 +309,7 @@ describe('rc-queue-anim', () => {
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left_end:', getLeft(children[1]));
       }, 500);
-    }, 10);
+    }, 17);
   });
 
   it('should has animating config is func leave', (done) => {
@@ -340,7 +348,7 @@ describe('rc-queue-anim', () => {
             done();
           }, 500);
         }, 110);
-      }, 10);
+      }, 17);
     }, 1000);
   });
 });
