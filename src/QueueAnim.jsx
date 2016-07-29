@@ -155,7 +155,7 @@ class QueueAnim extends React.Component {
       nextChildren
     );
 
-    const childrenShow = this.state.childrenShow;
+    const childrenShow = !newChildren.length ? {} : this.state.childrenShow;
     // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
     this.keysToLeave.forEach(key => {
       // 将所有在出场里的停止掉。避免间隔性出现
@@ -343,6 +343,7 @@ class QueueAnim extends React.Component {
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
     velocity(node, 'stop');
+    node.style.visibility = 'visible';
     const data = this.getInitAnimType(node, this.getVelocityLeaveConfig(key, i));
     velocity(node, data, {
       delay: interval * order + delay,
