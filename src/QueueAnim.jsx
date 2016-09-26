@@ -349,7 +349,7 @@ class QueueAnim extends React.Component {
       delay: interval * order + delay,
       duration,
       easing: this.getVelocityEasing(key, i)[1],
-      begin: this.leaveBegin.bind(this),
+      begin: this.leaveBegin.bind(this, key),
       complete: this.leaveComplete.bind(this, key),
     });
   }
@@ -362,6 +362,9 @@ class QueueAnim extends React.Component {
         elem.className += (` ${animatingClassName[0]}`);
       }
     });
+    if (this.props.onStart) {
+      this.props.onStart({ key, type: 'enter' });
+    }
   }
 
   enterComplete(key, elements) {
@@ -371,9 +374,12 @@ class QueueAnim extends React.Component {
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     });
+    if (this.props.onEnd) {
+      this.props.onEnd({ key, type: 'enter' });
+    }
   }
 
-  leaveBegin(elements) {
+  leaveBegin(key, elements) {
     elements.forEach((elem) => {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[0], '');
@@ -381,6 +387,9 @@ class QueueAnim extends React.Component {
         elem.className += (` ${animatingClassName[1]}`);
       }
     });
+    if (this.props.onStart) {
+      this.props.onStart({ key, type: 'leave' });
+    }
   }
 
   leaveComplete(key, elements) {
@@ -404,6 +413,9 @@ class QueueAnim extends React.Component {
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
     });
+    if (this.props.onEnd) {
+      this.props.onEnd({ key, type: 'leave' });
+    }
   }
 
   render() {
@@ -431,6 +443,8 @@ class QueueAnim extends React.Component {
       'leaveReverse',
       'animatingClassName',
       'enterForcedRePlay',
+      'onStart',
+      'onEnd',
     ].forEach(key => delete tagProps[key]);
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
@@ -455,6 +469,8 @@ QueueAnim.propTypes = {
   leaveReverse: React.PropTypes.bool,
   enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
+  onStart: React.PropTypes.func,
+  onEnd: React.PropTypes.func,
 };
 
 QueueAnim.defaultProps = {
