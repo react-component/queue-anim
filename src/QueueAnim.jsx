@@ -362,9 +362,6 @@ class QueueAnim extends React.Component {
         elem.className += (` ${animatingClassName[0]}`);
       }
     });
-    if (this.props.onStart) {
-      this.props.onStart({ key, type: 'enter' });
-    }
   }
 
   enterComplete(key, elements) {
@@ -374,9 +371,7 @@ class QueueAnim extends React.Component {
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     });
-    if (this.props.onEnd) {
-      this.props.onEnd({ key, type: 'enter' });
-    }
+    this.props.onEnd({ key, type: 'enter' });
   }
 
   leaveBegin(key, elements) {
@@ -387,9 +382,6 @@ class QueueAnim extends React.Component {
         elem.className += (` ${animatingClassName[1]}`);
       }
     });
-    if (this.props.onStart) {
-      this.props.onStart({ key, type: 'leave' });
-    }
   }
 
   leaveComplete(key, elements) {
@@ -413,9 +405,7 @@ class QueueAnim extends React.Component {
     elements.forEach((elem) => {
       elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
     });
-    if (this.props.onEnd) {
-      this.props.onEnd({ key, type: 'leave' });
-    }
+    this.props.onEnd({ key, type: 'leave' });
   }
 
   render() {
@@ -443,7 +433,6 @@ class QueueAnim extends React.Component {
       'leaveReverse',
       'animatingClassName',
       'enterForcedRePlay',
-      'onStart',
       'onEnd',
     ].forEach(key => delete tagProps[key]);
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
@@ -469,7 +458,6 @@ QueueAnim.propTypes = {
   leaveReverse: React.PropTypes.bool,
   enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
-  onStart: React.PropTypes.func,
   onEnd: React.PropTypes.func,
 };
 
@@ -484,6 +472,7 @@ QueueAnim.defaultProps = {
   leaveReverse: false,
   enterForcedRePlay: false,
   animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
+  onEnd: noop,
 };
 
 export default QueueAnim;
