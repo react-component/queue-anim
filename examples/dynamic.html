@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>dynamic.js - example - rc-queue-anim@0.12.4</title>
+  <title>dynamic.js - example - rc-queue-anim@0.12.5</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -258,7 +258,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@0.12.4</h1>
+      <h1>rc-queue-anim@0.12.5</h1>
 
       <p>Queue animation component for react</p>
     </div>
@@ -355,11 +355,17 @@ const App = React.createClass({
     });
     this.setState({ items });
   },
+  removeTwo() {
+    const items = this.state.items;
+    items.splice(1, 1);
+    this.setState({ items });
+  },
   render() {
     return (
       &lt;div&gt;
         &lt;button onClick={this.add}&gt;点击新增&lt;/button&gt;
         &lt;button onClick={this.addTwo}&gt;点击新增两个&lt;/button&gt;
+        &lt;button onClick={this.removeTwo}&gt;点击移出第二个&lt;/button&gt;
         &lt;button onClick={this.removeAll}&gt;移出所有&lt;/button&gt;
         &lt;button onClick={this.removeAndAdd}&gt;移出与添加&lt;/button&gt;
         &lt;button onClick={this.removeAndAddTow}&gt;头尾添加与移出两个&lt;/button&gt;

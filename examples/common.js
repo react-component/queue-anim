@@ -517,7 +517,7 @@
 	      delay: interval * order + delay,
 	      duration: duration,
 	      easing: this.getVelocityEasing(key, i)[1],
-	      begin: this.leaveBegin.bind(this),
+	      begin: this.leaveBegin.bind(this, key),
 	      complete: this.leaveComplete.bind(this, key)
 	    });
 	  };
@@ -543,9 +543,10 @@
 	    elements.forEach(function (elem) {
 	      elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
 	    });
+	    this.props.onEnd({ key: key, type: 'enter' });
 	  };
 	
-	  QueueAnim.prototype.leaveBegin = function leaveBegin(elements) {
+	  QueueAnim.prototype.leaveBegin = function leaveBegin(key, elements) {
 	    var _this6 = this;
 	
 	    elements.forEach(function (elem) {
@@ -582,6 +583,7 @@
 	    elements.forEach(function (elem) {
 	      elem.className = elem.className.replace(_this7.props.animatingClassName[1], '').trim();
 	    });
+	    this.props.onEnd({ key: key, type: 'leave' });
 	  };
 	
 	  QueueAnim.prototype.render = function render() {
@@ -602,7 +604,7 @@
 	
 	    var tagProps = _objectWithoutProperties(this.props, []);
 	
-	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay'].forEach(function (key) {
+	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd'].forEach(function (key) {
 	      return delete tagProps[key];
 	    });
 	    return (0, _react.createElement)(this.props.component, _extends({}, tagProps), childrenToRender);
@@ -629,7 +631,8 @@
 	  ease: funcOrStringOrArray,
 	  leaveReverse: _react2.default.PropTypes.bool,
 	  enterForcedRePlay: _react2.default.PropTypes.bool,
-	  animatingClassName: _react2.default.PropTypes.array
+	  animatingClassName: _react2.default.PropTypes.array,
+	  onEnd: _react2.default.PropTypes.func
 	};
 	
 	QueueAnim.defaultProps = {
@@ -642,7 +645,8 @@
 	  ease: 'easeOutQuart',
 	  leaveReverse: false,
 	  enterForcedRePlay: false,
-	  animatingClassName: ['queue-anim-entering', 'queue-anim-leaving']
+	  animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
+	  onEnd: noop
 	};
 	
 	exports.default = QueueAnim;

@@ -116,6 +116,11 @@ webpackJsonp([4],{
 	    });
 	    this.setState({ items: items });
 	  },
+	  removeTwo: function removeTwo() {
+	    var items = this.state.items;
+	    items.splice(1, 1);
+	    this.setState({ items: items });
+	  },
 	  render: function render() {
 	    var _this = this;
 	
@@ -131,6 +136,11 @@ webpackJsonp([4],{
 	        'button',
 	        { onClick: this.addTwo },
 	        '点击新增两个'
+	      ),
+	      _react2.default.createElement(
+	        'button',
+	        { onClick: this.removeTwo },
+	        '点击移出第二个'
 	      ),
 	      _react2.default.createElement(
 	        'button',
