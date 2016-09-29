@@ -89,11 +89,17 @@ const App = React.createClass({
     });
     this.setState({ items });
   },
+  removeTwo() {
+    const items = this.state.items;
+    items.splice(1, 1);
+    this.setState({ items });
+  },
   render() {
     return (
       <div>
         <button onClick={this.add}>点击新增</button>
         <button onClick={this.addTwo}>点击新增两个</button>
+        <button onClick={this.removeTwo}>点击移出第二个</button>
         <button onClick={this.removeAll}>移出所有</button>
         <button onClick={this.removeAndAdd}>移出与添加</button>
         <button onClick={this.removeAndAddTow}>头尾添加与移出两个</button>
