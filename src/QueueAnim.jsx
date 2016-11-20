@@ -253,6 +253,7 @@ class QueueAnim extends React.Component {
       if (typeof easeName === 'string') {
         return BackEase[easeName] || easeName;
       }
+      return easeName;
     });
   }
 
