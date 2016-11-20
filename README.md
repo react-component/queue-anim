@@ -1,7 +1,7 @@
 # rc-queue-anim
 ---
 
-Animate React Component in queue, thanks to [rc-animate](https://github.com/react-component/animate) and [enter-animation](https://github.com/ant-design/enter-animation).
+Animate React Component in queue, thanks to [rc-animate](https://github.com/react-component/animate) and [enter-animation](https://github.com/jljsj33/enter-animation).
 
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
@@ -23,12 +23,9 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [download-image]: https://img.shields.io/npm/dm/rc-queue-anim.svg?style=flat-square
 [download-url]: https://npmjs.org/package/rc-queue-anim
 
-
 ## Example
 
 http://react-component.github.io/queue-anim/examples/
-
-Use in Ant Design: http://ant.design/components/queue-anim
 
 ![](https://t.alipayobjects.com/images/rmsweb/T12PliXjXgXXXXXXXX.gif)
 
@@ -39,11 +36,13 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-ReactDom.render(<QueueAnim>
-  <div key="1">enter in queue</div>
-  <div key="2">enter in queue</div>
-  <div key="3">enter in queue</div>
-</QueueAnim>, container);
+ReactDom.render(
+  <QueueAnim>
+    <div key="1">enter in queue</div>
+    <div key="2">enter in queue</div>
+    <div key="3">enter in queue</div>
+  </QueueAnim>
+, mountNode);
 ```
 
 ## Install
@@ -66,10 +65,10 @@ ReactDom.render(<QueueAnim>
 | duration   | number / array | 450     | duration of animation  |
 | interval   | number / array | 100      | interval of duration |
 | leaveReverse | boolean      | false   | reverse animation order at leave |
-| ease       | string / array | `easeOutQuart` | animation easing string, [more](http://julian.com/research/velocity/#easing) |
+| ease       | string / array | `easeOutQuart` | animation easing config like `'ease'`, `['easeIn', 'easeOut']`, `[[.42,0,.58,1]`, [.42,0,.58,1]]: [more](http://julian.com/research/velocity/#easing) |
 | component  | string | `div` | component tag |
 | animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
-| onEnd      | function      |   null    |  animate end callback({ key, type }), type: `enter` or `leave` | 
+| onEnd      | function      |   null    |  animate end callback({ key, type }), type: `enter` or `leave` |
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
 
