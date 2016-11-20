@@ -1,14 +1,14 @@
-webpackJsonp([7],{
+webpackJsonp([8],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(231);
+	module.exports = __webpack_require__(235);
 
 
 /***/ },
 
-/***/ 231:
+/***/ 235:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -65,7 +65,7 @@ webpackJsonp([7],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.toggle },
-	        '切换'
+	        '\u5207\u6362'
 	      ),
 	      _react2.default.createElement(
 	        'span',

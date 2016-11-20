@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>animating-class.js - example - rc-queue-anim@0.12.6</title>
+  <title>custom-ease.js - example - rc-queue-anim@0.12.6</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,7 +257,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="animating-class.css" />
+  
 </head>
 
 <body>
@@ -269,57 +269,31 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="undefined">/* eslint-disable no-console,react/no-multi-comp */
-import QueueAnim from 'rc-queue-anim';
-import React from 'react';
-import ReactDom from 'react-dom';
-import '../assets/animating-class.less';
+    <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console,react/no-multi-comp */</span>
+<span class="hljs-keyword">import</span> QueueAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-queue-anim'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
-const App = React.createClass({
-  getInitialState() {
-    return {
-      items: [{
-        children: '依次进入1',
-        key: 1,
-      }, {
-        children: '依次进入2',
-        key: 2,
-      }, {
-        children: '依次进入3',
-        key: 3,
-      }, {
-        children: '依次进入4',
-        key: 4,
-      }, {
-        children: '依次进入5',
-        key: 5,
-      }, {
-        children: '依次进入6',
-        key: 6,
-      }],
-    };
-  },
-  removeAll() {
-    this.setState({
-      items: [],
-    });
-  },
-  render() {
-    return (
-      &lt;div&gt;
-        &lt;QueueAnim&gt;
-        {this.state.items.map((item) =&gt; &lt;div key={item.key}&gt;
-          {item.children}
-        &lt;/div&gt;)}
-        &lt;/QueueAnim&gt;
-        &lt;button onClick={this.removeAll}&gt;移出所有&lt;/button&gt;
-      &lt;/div&gt;
-    );
-  },
-});
-
-ReactDom.render(&lt;App /&gt;, document.getElementById('__react-content'));
-</code></pre></div>
+ReactDom.render(
+  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">ease</span>=<span class="hljs-value">{[0.42,</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.58</span>, <span class="hljs-attribute">1</span>]}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>div 1<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>div 1<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>div 1<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>div 1<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"5"</span>&gt;</span>div 1<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">br</span> /&gt;</span>
+    <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">ease</span>=<span class="hljs-value">{[[0.42,</span> <span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.58</span>, <span class="hljs-attribute">1</span>], [<span class="hljs-attribute">0.42</span>, <span class="hljs-attribute">0</span>, <span class="hljs-attribute">0.58</span>, <span class="hljs-attribute">1</span>]]}&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>div 2<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>div 2<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>div 2<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>div 2<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"5"</span>&gt;</span>div 2<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+  <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+, document.getElementById('__react-content'));
+</span></code></pre></div>
   </div>
   <a href="https://github.com/react-component/queue-anim">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -329,7 +303,7 @@ ReactDom.render(&lt;App /&gt;, document.getElementById('__react-content'));
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="common.js?nowrap"></script>
-  <script src="animating-class.js?nowrap"></script>
+  <script src="custom-ease.js?nowrap"></script>
 </body>
 
 </html>

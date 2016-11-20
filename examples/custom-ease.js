@@ -1,14 +1,14 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(182);
+	module.exports = __webpack_require__(183);
 
 
 /***/ },
 
-/***/ 182:
+/***/ 183:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32,31 +32,61 @@ webpackJsonp([2],{
 	  null,
 	  _react2.default.createElement(
 	    _rcQueueAnim2.default,
-	    { animConfig: { translateX: [100, 0] } },
+	    { ease: [0.42, 0, 0.58, 1] },
 	    _react2.default.createElement(
 	      'div',
 	      { key: '1' },
-	      '\u4F9D\u6B21\u8FDB\u5165'
+	      'div 1'
 	    ),
 	    _react2.default.createElement(
 	      'div',
 	      { key: '2' },
-	      '\u4F9D\u6B21\u8FDB\u5165'
+	      'div 1'
 	    ),
 	    _react2.default.createElement(
 	      'div',
 	      { key: '3' },
-	      '\u4F9D\u6B21\u8FDB\u5165'
+	      'div 1'
 	    ),
 	    _react2.default.createElement(
 	      'div',
 	      { key: '4' },
-	      '\u4F9D\u6B21\u8FDB\u5165'
+	      'div 1'
 	    ),
 	    _react2.default.createElement(
 	      'div',
 	      { key: '5' },
-	      '\u4F9D\u6B21\u8FDB\u5165'
+	      'div 1'
+	    )
+	  ),
+	  _react2.default.createElement('br', null),
+	  _react2.default.createElement(
+	    _rcQueueAnim2.default,
+	    { ease: [[0.42, 0, 0.58, 1], [0.42, 0, 0.58, 1]] },
+	    _react2.default.createElement(
+	      'div',
+	      { key: '1' },
+	      'div 2'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { key: '2' },
+	      'div 2'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { key: '3' },
+	      'div 2'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { key: '4' },
+	      'div 2'
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      { key: '5' },
+	      'div 2'
 	    )
 	  )
 	), document.getElementById('__react-content')); /* eslint-disable no-console,react/no-multi-comp */
@@ -64,4 +94,4 @@ webpackJsonp([2],{
 /***/ }
 
 });
-//# sourceMappingURL=custom.js.map
+//# sourceMappingURL=custom-ease.js.map

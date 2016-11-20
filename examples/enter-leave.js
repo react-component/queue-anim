@@ -1,14 +1,14 @@
-webpackJsonp([6],{
+webpackJsonp([7],{
 
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(230);
+	module.exports = __webpack_require__(234);
 
 
 /***/ },
 
-/***/ 230:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -78,7 +78,7 @@ webpackJsonp([6],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAll },
-	        '移出所有'
+	        '\u79FB\u51FA\u6240\u6709'
 	      )
 	    );
 	  }
