@@ -202,6 +202,9 @@ class QueueAnim extends React.Component {
   }
 
   componentDidUpdate() {
+    if (!this.props.shouldPlay) {
+      return
+    }
     this.originalChildren = toArrayChildren(getChildrenFromProps(this.props));
     const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
     const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
@@ -410,18 +413,6 @@ class QueueAnim extends React.Component {
   }
 
   render() {
-    const childrenToRender = toArrayChildren(this.state.children).map(child => {
-      if (!child || !child.key) {
-        return child;
-      }
-      return this.state.childrenShow[child.key] ? cloneElement(child, {
-        ref: child.key,
-        key: child.key,
-      }) : createElement('div', {
-        ref: placeholderKeyPrefix + child.key,
-        key: placeholderKeyPrefix + child.key,
-      });
-    });
     const { ...tagProps } = this.props;
     [
       'component',
@@ -435,7 +426,23 @@ class QueueAnim extends React.Component {
       'animatingClassName',
       'enterForcedRePlay',
       'onEnd',
+      'shouldPlay',
     ].forEach(key => delete tagProps[key]);
+    if (!this.props.shouldPlay) {
+      return createElement(this.props.component, { ...tagProps }, this.props.children);
+    }
+    const childrenToRender = toArrayChildren(this.state.children).map(child => {
+      if (!child || !child.key) {
+        return child;
+      }
+      return this.state.childrenShow[child.key] ? cloneElement(child, {
+        ref: child.key,
+        key: child.key,
+      }) : createElement('div', {
+        ref: placeholderKeyPrefix + child.key,
+        key: placeholderKeyPrefix + child.key,
+      });
+    });
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
 }
@@ -460,6 +467,8 @@ QueueAnim.propTypes = {
   enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
   onEnd: React.PropTypes.func,
+  shouldPlay: React.PropTypes.bool,
+  children: React.PropTypes.array,
 };
 
 QueueAnim.defaultProps = {
@@ -474,6 +483,7 @@ QueueAnim.defaultProps = {
   enterForcedRePlay: false,
   animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
   onEnd: noop,
+  shouldPlay: true,
 };
 
 export default QueueAnim;
