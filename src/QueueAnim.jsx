@@ -121,30 +121,30 @@ class QueueAnim extends React.Component {
 
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(this.props));
+    const childrenShow = {};
     children.forEach(child => {
       if (!child || !child.key) {
         return;
       }
-      this.keysToEnter.push(child.key);
+      if (this.props.appear) {
+        this.keysToEnter.push(child.key);
+      } else {
+        childrenShow[child.key] = true;
+      }
     });
 
     this.originalChildren = toArrayChildren(getChildrenFromProps(this.props));
 
     this.state = {
       children,
-      childrenShow: {},
+      childrenShow,
     };
-
-    [
-      'performEnter',
-      'performLeave',
-      'enterBegin',
-      'leaveComplete',
-    ].forEach((method) => this[method] = this[method].bind(this));
   }
 
   componentDidMount() {
-    this.componentDidUpdate();
+    if (this.props.appear) {
+      this.componentDidUpdate();
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -224,18 +224,18 @@ class QueueAnim extends React.Component {
     this.keysAnimating = [];
   }
 
-  getVelocityConfig(index, ...args) {
+  getVelocityConfig = (index, ...args) => {
     if (this.props.animConfig) {
       return transformArguments(this.props.animConfig, ...args)[index];
     }
     return AnimTypes[transformArguments(this.props.type, ...args)[index]];
   }
 
-  getVelocityEnterConfig(...args) {
+  getVelocityEnterConfig = (...args) => {
     return this.getVelocityConfig(0, ...args);
   }
 
-  getVelocityLeaveConfig(...args) {
+  getVelocityLeaveConfig = (...args) => {
     const config = this.getVelocityConfig(1, ...args);
     const ret = {};
     Object.keys(config).forEach((key) => {
@@ -248,7 +248,7 @@ class QueueAnim extends React.Component {
     return ret;
   }
 
-  getVelocityEasing(...args) {
+  getVelocityEasing = (...args) => {
     return transformArguments(this.props.ease, ...args).map((easeName) => {
       if (typeof easeName === 'string') {
         return BackEase[easeName] || easeName;
@@ -293,7 +293,7 @@ class QueueAnim extends React.Component {
     return data;
   };
 
-  performEnter(key, i) {
+  performEnter = (key, i) => {
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
     this.placeholderTimeoutIds[key] = setTimeout(
@@ -305,13 +305,13 @@ class QueueAnim extends React.Component {
     }
   }
 
-  performEnterBegin(key, i) {
+  performEnterBegin = (key, i) => {
     const childrenShow = this.state.childrenShow;
     childrenShow[key] = true;
     this.setState({ childrenShow }, this.realPerformEnter.bind(this, key, i));
   }
 
-  realPerformEnter(key, i) {
+  realPerformEnter = (key, i) => {
     const node = findDOMNode(this.refs[key]);
     if (!node) {
       return;
@@ -332,7 +332,7 @@ class QueueAnim extends React.Component {
     });
   }
 
-  performLeave(key, i) {
+  performLeave = (key, i) => {
     clearTimeout(this.placeholderTimeoutIds[key]);
     delete this.placeholderTimeoutIds[key];
     const node = findDOMNode(this.refs[key]);
@@ -355,7 +355,7 @@ class QueueAnim extends React.Component {
     });
   }
 
-  enterBegin(key, elements) {
+  enterBegin = (key, elements) => {
     elements.forEach((elem) => {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[1], '');
@@ -365,7 +365,7 @@ class QueueAnim extends React.Component {
     });
   }
 
-  enterComplete(key, elements) {
+  enterComplete = (key, elements) => {
     if (this.keysAnimating.indexOf(key) >= 0) {
       this.keysAnimating.splice(this.keysAnimating.indexOf(key), 1);
     }
@@ -375,7 +375,7 @@ class QueueAnim extends React.Component {
     this.props.onEnd({ key, type: 'enter' });
   }
 
-  leaveBegin(key, elements) {
+  leaveBegin = (key, elements) => {
     elements.forEach((elem) => {
       const animatingClassName = this.props.animatingClassName;
       elem.className = elem.className.replace(animatingClassName[0], '');
@@ -385,7 +385,7 @@ class QueueAnim extends React.Component {
     });
   }
 
-  leaveComplete(key, elements) {
+  leaveComplete = (key, elements) => {
     if (this.keysAnimating.indexOf(key) < 0) {
       return;
     }
@@ -435,31 +435,25 @@ class QueueAnim extends React.Component {
       'animatingClassName',
       'enterForcedRePlay',
       'onEnd',
+      'appear',
     ].forEach(key => delete tagProps[key]);
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
 }
 
-const numberOrArray = React.PropTypes.oneOfType([React.PropTypes.number, React.PropTypes.array]);
-const stringOrArray = React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.array]);
-const objectOrArray = React.PropTypes.oneOfType([React.PropTypes.object, React.PropTypes.array]);
-const funcOrString = React.PropTypes.oneOfType([React.PropTypes.func, React.PropTypes.string]);
-const funcOrStringOrArray = React.PropTypes.oneOfType([React.PropTypes.func, stringOrArray]);
-const funcOrObjectOrArray = React.PropTypes.oneOfType([React.PropTypes.func, objectOrArray]);
-const funcOrNumberOrArray = React.PropTypes.oneOfType([React.PropTypes.func, numberOrArray]);
-
 QueueAnim.propTypes = {
-  component: funcOrString,
-  interval: numberOrArray,
-  duration: funcOrNumberOrArray,
-  delay: funcOrNumberOrArray,
-  type: funcOrStringOrArray,
-  animConfig: funcOrObjectOrArray,
-  ease: funcOrStringOrArray,
+  component: React.PropTypes.any,
+  interval: React.PropTypes.any,
+  duration: React.PropTypes.any,
+  delay: React.PropTypes.any,
+  type: React.PropTypes.any,
+  animConfig: React.PropTypes.any,
+  ease: React.PropTypes.any,
   leaveReverse: React.PropTypes.bool,
   enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
   onEnd: React.PropTypes.func,
+  appear: React.PropTypes.bool,
 };
 
 QueueAnim.defaultProps = {
@@ -474,6 +468,7 @@ QueueAnim.defaultProps = {
   enterForcedRePlay: false,
   animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
   onEnd: noop,
+  appear: true,
 };
 
 export default QueueAnim;

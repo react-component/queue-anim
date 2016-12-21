@@ -66,6 +66,7 @@ ReactDom.render(
 | interval   | number / array | 100      | interval of duration |
 | leaveReverse | boolean      | false   | reverse animation order at leave |
 | ease       | string / array | `easeOutQuart` | animation easing config like `'ease'`, `['easeIn', 'easeOut']`, `[[.42,0,.58,1]`, [.42,0,.58,1]]: [more](http://julian.com/research/velocity/#easing) |
+| appear     | boolean        |  true   | whether support appear anim |
 | component  | string | `div` | component tag |
 | animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
 | onEnd      | function      |   null    |  animate end callback({ key, type }), type: `enter` or `leave` |
