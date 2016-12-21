@@ -3,19 +3,19 @@ webpackJsonp([15],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(290);
+	module.exports = __webpack_require__(287);
 
 
 /***/ },
 
-/***/ 289:
+/***/ 286:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 290:
+/***/ 287:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32,7 +32,7 @@ webpackJsonp([15],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	__webpack_require__(289);
+	__webpack_require__(286);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -86,7 +86,7 @@ webpackJsonp([15],{
 	      _react2.default.createElement(
 	        'h2',
 	        null,
-	        '\u9F20\u6807\u7ECF\u8FC7\u5F53\u524D\u533A\u57DF\uFF0C\u518D\u79FB\u51FA\u533A\u57DF\u67E5\u770B'
+	        '鼠标经过当前区域，再移出区域查看'
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,

@@ -25,11 +25,13 @@ webpackJsonp([0],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	__webpack_require__(180);
+	__webpack_require__(178);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* eslint-disable no-console,react/no-multi-comp */
+	
+	
 	var App = _react2.default.createClass({
 	  displayName: 'App',
 	  getInitialState: function getInitialState() {
@@ -78,7 +80,7 @@ webpackJsonp([0],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAll },
-	        '\u79FB\u51FA\u6240\u6709'
+	        '移出所有'
 	      )
 	    );
 	  }
@@ -88,7 +90,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 180:
+/***/ 178:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

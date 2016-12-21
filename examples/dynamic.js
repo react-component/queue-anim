@@ -3,12 +3,12 @@ webpackJsonp([5],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(232);
+	module.exports = __webpack_require__(229);
 
 
 /***/ },
 
-/***/ 232:
+/***/ 229:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -97,7 +97,7 @@ webpackJsonp([5],{
 	    var items = this.state.items;
 	    items.splice(items.length - 1, 1);
 	    items.push({
-	      children: '\u65B0\u8282\u70B9' + Date.now(),
+	      children: '新节点' + Date.now(),
 	      key: this.index++
 	    });
 	    this.setState({ items: items });
@@ -107,11 +107,11 @@ webpackJsonp([5],{
 	    items.splice(items.length - 1, 1);
 	    items.splice(items.length - 2, 1);
 	    items.push({
-	      children: '\u65B0\u8282\u70B9' + Date.now(),
+	      children: '新节点' + Date.now(),
 	      key: this.index++
 	    });
 	    items.unshift({
-	      children: '\u65B0\u8282\u70B9' + Date.now() + '-top',
+	      children: '新节点' + Date.now() + '-top',
 	      key: this.index++
 	    });
 	    this.setState({ items: items });
@@ -130,32 +130,32 @@ webpackJsonp([5],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.add },
-	        '\u70B9\u51FB\u65B0\u589E'
+	        '点击新增'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.addTwo },
-	        '\u70B9\u51FB\u65B0\u589E\u4E24\u4E2A'
+	        '点击新增两个'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeTwo },
-	        '\u70B9\u51FB\u79FB\u51FA\u7B2C\u4E8C\u4E2A'
+	        '点击移出第二个'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAll },
-	        '\u79FB\u51FA\u6240\u6709'
+	        '移出所有'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAndAdd },
-	        '\u79FB\u51FA\u4E0E\u6DFB\u52A0'
+	        '移出与添加'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAndAddTow },
-	        '\u5934\u5C3E\u6DFB\u52A0\u4E0E\u79FB\u51FA\u4E24\u4E2A'
+	        '头尾添加与移出两个'
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,
@@ -169,7 +169,7 @@ webpackJsonp([5],{
 	            _react2.default.createElement(
 	              'a',
 	              { href: '#', onClick: _this.remove.bind(_this, item.key) },
-	              '\u5220\u9664'
+	              '删除'
 	            )
 	          );
 	        })

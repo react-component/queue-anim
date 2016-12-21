@@ -3,12 +3,12 @@ webpackJsonp([10],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(237);
+	module.exports = __webpack_require__(234);
 
 
 /***/ },
 
-/***/ 237:
+/***/ 234:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -70,7 +70,7 @@ webpackJsonp([10],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.onClick },
-	        '\u5207\u6362'
+	        '切换'
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,
@@ -81,23 +81,23 @@ webpackJsonp([10],{
 	        this.state.show ? [_react2.default.createElement(
 	          'div',
 	          { key: '1' },
-	          '\u4F9D\u6B21\u8FDB\u5165'
+	          '依次进入'
 	        ), _react2.default.createElement(
 	          'div',
 	          { key: '2' },
-	          '\u4F9D\u6B21\u8FDB\u5165'
+	          '依次进入'
 	        ), _react2.default.createElement(
 	          'div',
 	          { key: '3' },
-	          '\u6539\u53D8type'
+	          '改变type'
 	        ), _react2.default.createElement(
 	          'div',
 	          { key: '4' },
-	          '\u4F9D\u6B21\u8FDB\u5165'
+	          '依次进入'
 	        ), _react2.default.createElement(
 	          'div',
 	          { key: '5' },
-	          '\u4F9D\u6B21\u8FDB\u5165'
+	          '依次进入'
 	        )] : null
 	      )
 	    );
