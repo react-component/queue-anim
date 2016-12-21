@@ -352,10 +352,10 @@ describe('rc-queue-anim', () => {
     }, 1000);
   });
 
-  it('when shouldPlay is false, do not play anime', (done) => {
+  it('when appear is false, do not play anime', (done) => {
     const interval = defaultInterval;
     const instance = createQueueAnimInstance({
-      shouldPlay: false,
+      appear: false,
       animConfig(e) {
         if (e.index === 1) {
           return { top: [100, 0] };

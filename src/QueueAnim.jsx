@@ -202,9 +202,6 @@ class QueueAnim extends React.Component {
   }
 
   componentDidUpdate() {
-    if (!this.props.shouldPlay) {
-      return
-    }
     this.originalChildren = toArrayChildren(getChildrenFromProps(this.props));
     const keysToEnter = Array.prototype.slice.call(this.keysToEnter);
     const keysToLeave = Array.prototype.slice.call(this.keysToLeave);
@@ -301,7 +298,7 @@ class QueueAnim extends React.Component {
     const delay = transformArguments(this.props.delay, key, i)[0];
     this.placeholderTimeoutIds[key] = setTimeout(
       this.performEnterBegin.bind(this, key, i),
-      interval * i + delay
+      this.props.appear ? interval * i + delay : 0
     );
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
@@ -317,6 +314,10 @@ class QueueAnim extends React.Component {
   realPerformEnter(key, i) {
     const node = findDOMNode(this.refs[key]);
     if (!node) {
+      return;
+    }
+    if (!this.props.appear) {
+      this.props.onEnd({ key, type: 'enter' });
       return;
     }
     const duration = transformArguments(this.props.duration, key, i)[0];
@@ -342,11 +343,20 @@ class QueueAnim extends React.Component {
     if (!node) {
       return;
     }
+    velocity(node, 'stop');
+    if (!this.props.appear) {
+      this.state.childrenShow[key] = true
+      this.setState({
+        children: this.props.children,
+        childrenShow: this.state.childrenShow,
+      })
+      this.props.onEnd({ key, type: 'leave' });
+      return
+    }
     const interval = transformArguments(this.props.interval, key, i)[1];
     const delay = transformArguments(this.props.delay, key, i)[1];
     const duration = transformArguments(this.props.duration, key, i)[1];
     const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
-    velocity(node, 'stop');
     node.style.visibility = 'visible';
     const data = this.getInitAnimType(node, this.getVelocityLeaveConfig(key, i));
     velocity(node, data, {
@@ -413,6 +423,18 @@ class QueueAnim extends React.Component {
   }
 
   render() {
+    const childrenToRender = toArrayChildren(this.state.children).map(child => {
+      if (!child || !child.key) {
+        return child;
+      }
+      return this.state.childrenShow[child.key] ? cloneElement(child, {
+        ref: child.key,
+        key: child.key,
+      }) : createElement('div', {
+        ref: placeholderKeyPrefix + child.key,
+        key: placeholderKeyPrefix + child.key,
+      });
+    });
     const { ...tagProps } = this.props;
     [
       'component',
@@ -426,23 +448,8 @@ class QueueAnim extends React.Component {
       'animatingClassName',
       'enterForcedRePlay',
       'onEnd',
-      'shouldPlay',
+      'appear',
     ].forEach(key => delete tagProps[key]);
-    if (!this.props.shouldPlay) {
-      return createElement(this.props.component, { ...tagProps }, this.props.children);
-    }
-    const childrenToRender = toArrayChildren(this.state.children).map(child => {
-      if (!child || !child.key) {
-        return child;
-      }
-      return this.state.childrenShow[child.key] ? cloneElement(child, {
-        ref: child.key,
-        key: child.key,
-      }) : createElement('div', {
-        ref: placeholderKeyPrefix + child.key,
-        key: placeholderKeyPrefix + child.key,
-      });
-    });
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
 }
@@ -467,8 +474,7 @@ QueueAnim.propTypes = {
   enterForcedRePlay: React.PropTypes.bool,
   animatingClassName: React.PropTypes.array,
   onEnd: React.PropTypes.func,
-  shouldPlay: React.PropTypes.bool,
-  children: React.PropTypes.array,
+  appear: React.PropTypes.bool,
 };
 
 QueueAnim.defaultProps = {
@@ -483,7 +489,7 @@ QueueAnim.defaultProps = {
   enterForcedRePlay: false,
   animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
   onEnd: noop,
-  shouldPlay: true,
+  appear: true,
 };
 
 export default QueueAnim;
