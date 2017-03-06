@@ -3,12 +3,12 @@ webpackJsonp([5],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(229);
+	module.exports = __webpack_require__(318);
 
 
 /***/ },
 
-/***/ 229:
+/***/ 318:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,11 +17,11 @@ webpackJsonp([5],{
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _react = __webpack_require__(7);
+	var _react = __webpack_require__(92);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(38);
+	var _reactDom = __webpack_require__(123);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -97,7 +97,7 @@ webpackJsonp([5],{
 	    var items = this.state.items;
 	    items.splice(items.length - 1, 1);
 	    items.push({
-	      children: '新节点' + Date.now(),
+	      children: '\u65B0\u8282\u70B9' + Date.now(),
 	      key: this.index++
 	    });
 	    this.setState({ items: items });
@@ -107,11 +107,11 @@ webpackJsonp([5],{
 	    items.splice(items.length - 1, 1);
 	    items.splice(items.length - 2, 1);
 	    items.push({
-	      children: '新节点' + Date.now(),
+	      children: '\u65B0\u8282\u70B9' + Date.now(),
 	      key: this.index++
 	    });
 	    items.unshift({
-	      children: '新节点' + Date.now() + '-top',
+	      children: '\u65B0\u8282\u70B9' + Date.now() + '-top',
 	      key: this.index++
 	    });
 	    this.setState({ items: items });
@@ -130,32 +130,32 @@ webpackJsonp([5],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.add },
-	        '点击新增'
+	        '\u70B9\u51FB\u65B0\u589E'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.addTwo },
-	        '点击新增两个'
+	        '\u70B9\u51FB\u65B0\u589E\u4E24\u4E2A'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeTwo },
-	        '点击移出第二个'
+	        '\u70B9\u51FB\u79FB\u51FA\u7B2C\u4E8C\u4E2A'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAll },
-	        '移出所有'
+	        '\u79FB\u51FA\u6240\u6709'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAndAdd },
-	        '移出与添加'
+	        '\u79FB\u51FA\u4E0E\u6DFB\u52A0'
 	      ),
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.removeAndAddTow },
-	        '头尾添加与移出两个'
+	        '\u5934\u5C3E\u6DFB\u52A0\u4E0E\u79FB\u51FA\u4E24\u4E2A'
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,
@@ -169,7 +169,7 @@ webpackJsonp([5],{
 	            _react2.default.createElement(
 	              'a',
 	              { href: '#', onClick: _this.remove.bind(_this, item.key) },
-	              '删除'
+	              '\u5220\u9664'
 	            )
 	          );
 	        })

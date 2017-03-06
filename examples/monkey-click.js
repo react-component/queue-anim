@@ -3,12 +3,12 @@ webpackJsonp([8],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(232);
+	module.exports = __webpack_require__(321);
 
 
 /***/ },
 
-/***/ 232:
+/***/ 321:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -17,11 +17,11 @@ webpackJsonp([8],{
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _react = __webpack_require__(7);
+	var _react = __webpack_require__(92);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(38);
+	var _reactDom = __webpack_require__(123);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -65,7 +65,7 @@ webpackJsonp([8],{
 	      _react2.default.createElement(
 	        'button',
 	        { onClick: this.toggle },
-	        '切换'
+	        '\u5207\u6362'
 	      ),
 	      _react2.default.createElement(
 	        'span',

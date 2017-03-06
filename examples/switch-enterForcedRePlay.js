@@ -3,55 +3,59 @@ webpackJsonp([15],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(287);
+	module.exports = __webpack_require__(376);
 
 
 /***/ },
 
-/***/ 286:
+/***/ 375:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
 /***/ },
 
-/***/ 287:
+/***/ 376:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
+	
+	var _classCallCheck2 = __webpack_require__(47);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(48);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(84);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
 	
 	var _rcQueueAnim = __webpack_require__(2);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _react = __webpack_require__(7);
+	var _react = __webpack_require__(92);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(38);
+	var _reactDom = __webpack_require__(123);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	__webpack_require__(286);
+	__webpack_require__(375);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	function _defaults(obj, defaults) { var keys = Object.getOwnPropertyNames(defaults); for (var i = 0; i < keys.length; i++) { var key = keys[i]; var value = Object.getOwnPropertyDescriptor(defaults, key); if (value && value.configurable && obj[key] === undefined) { Object.defineProperty(obj, key, value); } } return obj; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : _defaults(subClass, superClass); } /* eslint-disable no-console,react/no-multi-comp */
-	
-	
+	/* eslint-disable no-console,react/no-multi-comp */
 	var Demo = function (_React$Component) {
-	  _inherits(Demo, _React$Component);
+	  (0, _inherits3.default)(Demo, _React$Component);
 	
 	  function Demo() {
-	    _classCallCheck(this, Demo);
+	    (0, _classCallCheck3.default)(this, Demo);
 	
-	    var _this = _possibleConstructorReturn(this, _React$Component.apply(this, arguments));
+	    var _this = (0, _possibleConstructorReturn3.default)(this, _React$Component.apply(this, arguments));
 	
 	    _this.onEnter = function () {
 	      _this.setState({
@@ -86,7 +90,7 @@ webpackJsonp([15],{
 	      _react2.default.createElement(
 	        'h2',
 	        null,
-	        '鼠标经过当前区域，再移出区域查看'
+	        '\u9F20\u6807\u7ECF\u8FC7\u5F53\u524D\u533A\u57DF\uFF0C\u518D\u79FB\u51FA\u533A\u57DF\u67E5\u770B'
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,
