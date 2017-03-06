@@ -59,7 +59,7 @@ ReactDom.render(
 
 | props      | type           | default | description    |
 |------------|----------------|---------|----------------|
-| type       | string / array | `right` | Animation Styles <br/>`left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
+| type       | string / array | `right` | Animation Styles <br/>`alpha` `left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
 | animConfig | object / array | null    | Custom Velocity config, like `{opacity:[1, 0], translateY:[0, -30]}`, [velocity config](http://julian.com/research/velocity) |
 | delay      | number / array | 0       | delay of animation |
 | duration   | number / array | 450     | duration of animation  |
