@@ -1,6 +1,6 @@
 {
   "name": "rc-queue-anim",
-  "version": "0.13.1",
+  "version": "0.13.2",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
@@ -26,8 +26,8 @@
   "main": "./lib/index",
   "entry": {
     "rc-queue-anim": [
-      "./src/index.js",
-      "./assets/index.less"
+      "./assets/index.less",
+      "./src/index.js"
     ]
   },
   "config": {
