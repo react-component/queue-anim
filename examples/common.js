@@ -173,8 +173,8 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	exports.default = _QueueAnim2.default; // export this package's api
-	
+	_QueueAnim2.default.isQueueAnim = true; // export this package's api
+	exports.default = _QueueAnim2.default;
 	module.exports = exports['default'];
 
 /***/ },
