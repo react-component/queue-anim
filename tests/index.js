@@ -4,6 +4,7 @@ import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import QueueAnim from '../index';
 import TestUtils from 'react-addons-test-utils';
+import ticker from 'rc-tween-one/lib/ticker';
 import $ from 'jquery';
 
 const defaultInterval = 100;
@@ -78,13 +79,13 @@ describe('rc-queue-anim', () => {
         return (
           <section>
             {!this.state.unMount ? <QueueAnim {...props}>
-              {
-                this.state.show ?
-                  this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
-                  null
-              }
-              {null}
-            </QueueAnim> : null}
+                {
+                  this.state.show ?
+                    this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                    null
+                }
+                {null}
+              </QueueAnim> : null}
           </section>
         );
       },
@@ -114,39 +115,36 @@ describe('rc-queue-anim', () => {
 
   it('should have queue animation', (done) => {
     const interval = defaultInterval;
-    const instance = createQueueAnimInstance({
-      ease: 'easeInOutBounce',
-    });
+    const instance = createQueueAnimInstance();
     shouldAnimatingThisOne(instance, 0);
-    setTimeout(() => {
+    ticker.timeout(() => {
       shouldAnimatingThisOne(instance, 1);
-      setTimeout(() => {
+      ticker.timeout(() => {
         shouldAnimatingThisOne(instance, 2);
-        setTimeout(() => {
+        ticker.timeout(() => {
           shouldAnimatingThisOne(instance, 3);
           done();
         }, interval);
       }, interval);
-    }, 17);
+    }, 18);
   });
 
   it('should have interval', (done) => {
     const interval = 300;
     const instance = createQueueAnimInstance({
       interval,
-      ease: 'easeOutBounce',
     });
     shouldAnimatingThisOne(instance, 0);
-    setTimeout(() => {
+    ticker.timeout(() => {
       shouldAnimatingThisOne(instance, 1);
-      setTimeout(() => {
+      ticker.timeout(() => {
         shouldAnimatingThisOne(instance, 2);
-        setTimeout(() => {
+        ticker.timeout(() => {
           shouldAnimatingThisOne(instance, 3);
           done();
         }, interval);
       }, interval);
-    }, 17);
+    }, 18);
   });
 
   it('should have delay', (done) => {
@@ -154,19 +152,19 @@ describe('rc-queue-anim', () => {
     const delay = 1000;
     const instance = createQueueAnimInstance({ delay });
     shouldAnimatingThisOne(instance, 0);
-    setTimeout(() => {
+    ticker.timeout(() => {
       shouldAnimatingThisOne(instance, 0);
-      setTimeout(() => {
+      ticker.timeout(() => {
         shouldAnimatingThisOne(instance, 1);
-        setTimeout(() => {
+        ticker.timeout(() => {
           shouldAnimatingThisOne(instance, 2);
-          setTimeout(() => {
+          ticker.timeout(() => {
             shouldAnimatingThisOne(instance, 3);
             done();
           }, interval);
         }, interval);
       }, delay);
-    }, 17);
+    }, 18);
   });
 
   it('should have duration', (done) => {
@@ -177,32 +175,30 @@ describe('rc-queue-anim', () => {
     });
     const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     shouldAnimatingThisOne(instance, 0);
-    setTimeout(() => {
+    ticker.timeout(() => {
       expect(getOpacity(children[1])).to.be.above(0);
-      setTimeout(() => {
+      ticker.timeout(() => {
         expect(getOpacity(children[1])).to.be(1);
         done();
       }, duration);
-    }, 17);
+    }, 18);
   });
 
   it('should have leave animation', (done) => {
     const interval = defaultInterval;
-    const instance = createQueueAnimInstance({
-      ease: 'easeInOutElastic',
-    });
-    setTimeout(() => {
+    const instance = createQueueAnimInstance();
+    ticker.timeout(() => {
       const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getOpacity(children[3])).to.be(1);
       const removeIndex = instance.removeOne();
-      setTimeout(() => {
+      ticker.timeout(() => {
         expect(getOpacity(children[removeIndex + 1])).to.below(1);
         expect(children.length).to.be(4);
-        setTimeout(() => {
+        ticker.timeout(() => {
           expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div').length).to.be(3);
           done();
         }, 500);
-      }, 17);
+      }, 18);
     }, interval * 3 + 500);
   });
 
@@ -215,11 +211,11 @@ describe('rc-queue-anim', () => {
     });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     expect(isNaN(getLeft(children[1]))).to.be.ok();
-    setTimeout(() => {
+    ticker.timeout(() => {
       children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getLeft(children[1])).to.above(0);
       done();
-    }, 17);
+    }, 18);
   });
 
   it('should support animation when change direction at animating', (done) => {
@@ -229,47 +225,52 @@ describe('rc-queue-anim', () => {
     let index = 0;
     let maxOpacity;
     const opacityArray = [];
-    const interval = setInterval(() => {
+    const interval = ticker.interval(() => {
       index += 1;
-      const opacity = getOpacity(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1]);
+      // 取第一个， 时间为 450 加间隔 100 ，，应该 550 为最高点。10不是最高点
+      const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+      const opacity = getOpacity(children);
       if (!isNaN(opacity)) {
         opacityArray.push(opacity);
       }
-      console.log('time: ', index * 30, 'opacity: ', opacity);
+      console.log('time: ', index * 50, 'opacity: ', opacity, 'children is remove:', !children);
       if (index === 10) {
         instance.toggle();
-        maxOpacity = opacity;
         console.log('toggle');
       }
+      if (index === 11) {
+        // tweenOne 在改变动画后是在下一帧再启动改变后的动画，，
+        maxOpacity = opacity;
+      }
       if (opacity >= 1 || opacity <= 0 || isNaN(opacity)) {
-        clearInterval(interval);
+        ticker.clear(interval);
         console.log(maxOpacity);
         opacityArray.forEach((o) => {
           expect(maxOpacity >= o).to.be.ok();
         });
         done();
       }
-    }, 30);
+    }, 18);
   });
 
   it('should has animating className', (done) => {
     const instance = createQueueAnimInstance({
       ease: 'easeInElastic',
     });
-    setTimeout(() => {
+    ticker.timeout(() => {
       let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(children[1].className).to.contain('queue-anim-entering');
-      setTimeout(() => {
+      ticker.timeout(() => {
         expect(children[1].className).not.to.contain('queue-anim-entering');
         const removeIndex = instance.removeOne();
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(children[removeIndex + 1].className).to.contain('queue-anim-leaving');
-        setTimeout(() => {
+        ticker.timeout(() => {
           expect(children[removeIndex + 1].className).not.to.contain('queue-anim-leaving');
           done();
         }, 550);
       }, 550);
-    }, 17);
+    }, 18);
   });
 
   it('should has animating config is func enter', (done) => {
@@ -285,31 +286,31 @@ describe('rc-queue-anim', () => {
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     expect(isNaN(getLeft(children[1]))).to.be.ok();
     expect(isNaN(getTop(children[2]))).to.be.ok();
-    setTimeout(() => {
+    ticker.timeout(() => {
       children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getLeft(children[1])).to.above(0);
       expect(isNaN(getTop(children[1]))).to.be.ok();
       console.log('left:', getLeft(children[1]));
-      setTimeout(() => {
+      ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getTop(children[2])).to.above(0);
         expect(isNaN(getLeft(children[2]))).to.be.ok();
         console.log('top:', getTop(children[2]));
-        setTimeout(() => {
+        ticker.timeout(() => {
           children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
           expect(getTop(children[2])).to.be(100);
           expect(isNaN(getLeft(children[2]))).to.be.ok();
           console.log('top_end:', getTop(children[2]));
           done();
-        }, 500);
+        }, 517);// +17 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
       }, interval);
-      setTimeout(() => {
+      ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getLeft(children[1])).to.be(100);
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left_end:', getLeft(children[1]));
-      }, 500);
-    }, 17);
+      }, 517);
+    }, 18);
   });
 
   it('should has animating config is func leave', (done) => {
@@ -322,25 +323,25 @@ describe('rc-queue-anim', () => {
       },
     });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-    setTimeout(() => {
+    ticker.timeout(() => {
       instance.toggle();
-      setTimeout(() => {
+      ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getLeft(children[1])).to.below(100);
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left:', getLeft(children[1]));
-        setTimeout(() => {
+        ticker.timeout(() => {
           children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
           expect(getLeft(children[1])).to.be(0);
           expect(isNaN(getTop(children[1]))).to.be.ok();
           console.log('left_end:', getLeft(children[1]));
         }, 500);
-        setTimeout(() => {
+        ticker.timeout(() => {
           children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
           expect(getTop(children[2])).to.below(100);
           expect(isNaN(getLeft(children[2]))).to.be.ok();
           console.log('top:', getTop(children[2]));
-          setTimeout(() => {
+          ticker.timeout(() => {
             children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
             console.log('top_end:', getTop(children[2]));
             expect(getTop(children[2])).to.be(0);

@@ -3,7 +3,7 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const QueueItem = React.createClass({
+class QueueItem extends React.Component {
   render() {
     return (
       <QueueAnim>
@@ -12,18 +12,18 @@ const QueueItem = React.createClass({
         <div key="3">Item</div>
       </QueueAnim>
     );
-  },
-});
+  }
+}
 
-const Item = React.createClass({
+class Item extends React.Component {
   render() {
     return (
       <div>Item</div>
     );
-  },
-});
+  }
+}
 
-const Page1 = React.createClass({
+class Page1 extends React.Component {
   render() {
     return (
       <div>
@@ -42,7 +42,7 @@ const Page1 = React.createClass({
         </QueueAnim>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(<Page1 />, document.getElementById('__react-content'));

@@ -3,9 +3,10 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const App = React.createClass({
-  getInitialState() {
-    return {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       items: [{
         children: '依次进入1',
         key: 1,
@@ -26,12 +27,14 @@ const App = React.createClass({
         key: 6,
       }],
     };
-  },
-  removeAll() {
+  }
+
+  removeAll = () => {
     this.setState({
       items: [],
     });
-  },
+  }
+
   render() {
     return (
       <div>
@@ -46,7 +49,7 @@ const App = React.createClass({
         <button onClick={this.removeAll}>移出所有</button>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(<App />, document.getElementById('__react-content'));
