@@ -3,10 +3,11 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const App = React.createClass({
-  getInitialState() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
     this.index = 100;
-    return {
+    this.state = {
       items: [{
         children: '依次进入1',
         key: 1,
@@ -27,16 +28,17 @@ const App = React.createClass({
         key: 6,
       }],
     };
-  },
-  add() {
+  }
+
+  add = () => {
     const items = this.state.items;
     items.push({
       children: '新节点',
       key: this.index++,
     });
     this.setState({ items });
-  },
-  addTwo() {
+  }
+  addTwo = () => {
     const items = this.state.items;
     items.push({
       children: '新节点',
@@ -47,8 +49,8 @@ const App = React.createClass({
       key: this.index++,
     });
     this.setState({ items });
-  },
-  remove(key, e) {
+  }
+  remove = (key, e) => {
     e.preventDefault();
     const items = this.state.items;
     const target = items.filter(item => item.key === key);
@@ -60,13 +62,13 @@ const App = React.createClass({
       items.splice(index, 1);
     }
     this.setState({ items });
-  },
-  removeAll() {
+  }
+  removeAll = () => {
     this.setState({
       items: [],
     });
-  },
-  removeAndAdd() {
+  }
+  removeAndAdd = () => {
     const items = this.state.items;
     items.splice(items.length - 1, 1);
     items.push({
@@ -74,8 +76,8 @@ const App = React.createClass({
       key: this.index++,
     });
     this.setState({ items });
-  },
-  removeAndAddTow() {
+  }
+  removeAndAddTow = () => {
     const items = this.state.items;
     items.splice(items.length - 1, 1);
     items.splice(items.length - 2, 1);
@@ -88,12 +90,13 @@ const App = React.createClass({
       key: this.index++,
     });
     this.setState({ items });
-  },
-  removeTwo() {
+  }
+  removeTwo = () => {
     const items = this.state.items;
     items.splice(1, 1);
     this.setState({ items });
-  },
+  }
+
   render() {
     return (
       <div>
@@ -110,7 +113,7 @@ const App = React.createClass({
         </QueueAnim>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(<App />, document.getElementById('__react-content'));

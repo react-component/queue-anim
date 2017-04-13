@@ -3,9 +3,10 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const App = React.createClass({
-  getInitialState() {
-    return {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       show: true,
       items: [{
         children: '依次进入1',
@@ -27,12 +28,14 @@ const App = React.createClass({
         key: 6,
       }],
     };
-  },
-  toggle() {
+  }
+
+  toggle = () => {
     this.setState({
       show: !this.state.show,
     });
-  },
+  }
+
   render() {
     return (
       <div>
@@ -40,12 +43,12 @@ const App = React.createClass({
         <span>{this.state.show ? '显示' : '隐藏'}</span>
         <QueueAnim leaveReverse>
           {this.state.show ? this.state.items.map((item) => <div key={item.key}>
-            {item.children}
-          </div>) : null}
+              {item.children}
+            </div>) : null}
         </QueueAnim>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(<App />, document.getElementById('__react-content'));

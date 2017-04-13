@@ -6,22 +6,25 @@ import ReactDom from 'react-dom';
 import Dialog from 'rc-dialog';
 import 'rc-dialog/assets/index.css';
 
-const App = React.createClass({
-  getInitialState() {
-    return {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       show: false,
     };
-  },
-  onClick() {
+  }
+
+  onClick = () => {
     this.setState({
       show: true,
     });
-  },
-  onClose() {
+  }
+  onClose = () => {
     this.setState({
       show: false,
     });
-  },
+  }
+
   render() {
     let dialog;
     if (this.state.show) {
@@ -57,7 +60,7 @@ const App = React.createClass({
         <button onClick={this.onClick}>弹出框口</button>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(<App />, document.getElementById('__react-content'));

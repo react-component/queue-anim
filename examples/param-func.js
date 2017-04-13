@@ -3,42 +3,43 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-
-const Page1 = React.createClass({
-  getInitialState() {
-    return {
+class Page1 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       show: true,
     };
-  },
-  onClick() {
+  }
+
+  onClick = () => {
     this.setState({
       show: !this.state.show,
     });
-  },
-  animConfigFunc(e) {
+  }
+  animConfigFunc = (e) => {
     if (e.key === '3') {
       return { opacity: [1, 0], translateX: [0, 30] };
     }
     return [{ opacity: [1, 0], translateX: [0, -30] }, { opacity: [1, 0], translateX: [0, 30] }];
-  },
-  durationFunc(e) {
+  }
+  durationFunc = (e) => {
     if (e.key === '3') {
       return [1500, 4000];
     }
     return 500;
-  },
-  easeFunc(e) {
+  }
+  easeFunc = (e) => {
     if (e.key === '3') {
       return ['easeOutBack', 'easeInBack'];
     }
     return 'easeInOutQuart';
-  },
-  delayFunc(e) {
+  }
+  delayFunc = (e) => {
     if (e.index >= 3) {
       return [1500, 0];
     }
     return 0;
-  },
+  }
   render() {
     return (<div>
         <button onClick={this.onClick}>切换</button>
@@ -54,7 +55,7 @@ const Page1 = React.createClass({
         </QueueAnim>
       </div>
     );
-  },
-});
+  }
+}
 
 ReactDom.render(<Page1 />, document.getElementById('__react-content'));
