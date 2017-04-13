@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>router.js - example - rc-queue-anim@0.13.3</title>
+  <title>router.js - example - rc-queue-anim@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,40 +263,36 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@0.13.3</h1>
+      <h1>rc-queue-anim@1.0.0</h1>
 
       <p>Queue animation component for react</p>
     </div>
     <div class="example" id="__react-content"></div>
 
     <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console,react/no-multi-comp */</span>
-<span class="hljs-keyword">import</span> { Router, Route, Link } <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router'</span>;
+<span class="hljs-keyword">import</span> {
+  HashRouter <span class="hljs-keyword">as</span> Router,
+  Route,
+  Link,
+  Redirect,
+} <span class="hljs-keyword">from</span> <span class="hljs-string">'react-router-dom'</span>;
+
 <span class="hljs-keyword">import</span> QueueAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-queue-anim'</span>;
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 <span class="hljs-keyword">import</span> <span class="hljs-string">'../assets/router.less'</span>;
 
-<span class="hljs-keyword">const</span> App = React.createClass({
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Home</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
-    <span class="hljs-keyword">const</span> props = <span class="hljs-keyword">this</span>.props;
-    <span class="hljs-keyword">const</span> key = props.location.pathname;
-
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/"</span>&gt;</span>首页<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-      &amp;nbsp;
-        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page1"</span>&gt;</span>Page 1<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-      &amp;nbsp;
-        <span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/page2"</span>&gt;</span>Page 2<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">{['right',</span> '<span class="hljs-attribute">left</span>']} <span class="hljs-attribute">className</span>=<span class="hljs-value">"router-wrap"</span>&gt;</span>
-          {React.cloneElement(props.children || <span class="hljs-tag">&lt;<span class="hljs-title">h1</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"home"</span>&gt;</span>Home Page<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>, { key })}
-        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">h1</span>&gt;</span>HOME<span class="hljs-tag">&lt;/<span class="hljs-title">h1</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
     )</span>;
-  },
-});
+  }
+}
 
-<span class="hljs-keyword">const</span> Page3 = React.createClass({
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page3</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
@@ -326,10 +322,10 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     )</span>;
-  },
-});
+  }
+}
 
-<span class="hljs-keyword">const</span> Page1 = React.createClass({
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
@@ -352,10 +348,10 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;<span class="hljs-title">Page3</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"7"</span>&gt;</span>1<span class="hljs-tag">&lt;/<span class="hljs-title">Page3</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     )</span>;
-  },
-});
+  }
+}
 
-<span class="hljs-keyword">const</span> Page2 = React.createClass({
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page2</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
   render() {
     <span class="hljs-keyword">return</span> (
       <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
@@ -378,18 +374,52 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
         <span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
     )</span>;
-  },
-});
+  }
+}
 
-ReactDom.render((
-  <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Router</span>&gt;</span>
-    <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"/"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{App}</span> <span class="hljs-attribute">ignoreScrollBehavior</span>&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"page1"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Page1}</span> /&gt;</span>
-      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"page2"</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">{Page2}</span> /&gt;</span>
-    <span class="hljs-tag">&lt;/<span class="hljs-title">Route</span>&gt;</span>
-  <span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>
-)</span>, <span class="hljs-built_in">document</span>.getElementById(<span class="hljs-string">'__react-content'</span>));
-</code></pre></div>
+
+<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">App</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
+
+  getChildren = (props) =&gt; {
+    <span class="hljs-keyword">const</span> { location } = { ...props };
+    <span class="hljs-keyword">const</span> compArray = [
+      { to: <span class="hljs-string">'/home'</span>, component: Home, name: <span class="hljs-string">'首页'</span> },
+      { to: <span class="hljs-string">'/page1'</span>, component: Page1, name: <span class="hljs-string">'Page1'</span> },
+      { to: <span class="hljs-string">'/page2'</span>, component: Page2, name: <span class="hljs-string">'Page2'</span> },
+    ];
+    <span class="hljs-keyword">const</span> component = compArray.map(item =&gt; {
+      <span class="hljs-keyword">if</span> (location.pathname === item.to) {
+        <span class="hljs-keyword">return</span> item.component;
+      }
+    }).filter(item =&gt; item)[<span class="hljs-number">0</span>];
+    <span class="hljs-keyword">const</span> homeRoute = () =&gt; (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Redirect</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">"/home"</span>/&gt;</span>
+    )</span>;
+    <span class="hljs-keyword">return</span> (
+      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">exact</span> <span class="hljs-attribute">path</span>=<span class="hljs-value">"/"</span> <span class="hljs-attribute">render</span>=<span class="hljs-value">{homeRoute}</span> /&gt;</span>
+        {compArray.map(item =&gt; (<span class="hljs-tag">&lt;<span class="hljs-title">Link</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">{item.to}</span> <span class="hljs-attribute">to</span>=<span class="hljs-value">{item.to}</span> <span class="hljs-attribute">replace</span>&gt;</span>{item.name}&amp;nbsp;<span class="hljs-tag">&lt;/<span class="hljs-title">Link</span>&gt;</span>)</span>)}
+        &lt;QueueAnim type={[<span class="hljs-string">'right'</span>, <span class="hljs-string">'left'</span>]} className=<span class="hljs-string">"router-wrap"</span>&gt;
+          <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Route</span>
+            <span class="hljs-attribute">location</span>=<span class="hljs-value">{location}</span>
+            <span class="hljs-attribute">key</span>=<span class="hljs-value">{location.pathname}</span>
+            <span class="hljs-attribute">path</span>=<span class="hljs-value">"/:url"</span>
+            <span class="hljs-attribute">component</span>=<span class="hljs-value">{component}</span>
+          /&gt;</span>
+        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    )</span>;
+  }
+
+  render() {
+    <span class="hljs-keyword">return</span> (<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Router</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">Route</span> <span class="hljs-attribute">render</span>=<span class="hljs-value">{this.getChildren}</span> /&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">Router</span>&gt;</span>)</span>;
+  }
+}
+
+ReactDom.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">App</span> /&gt;</span>, document.getElementById('__react-content'));
+</span></code></pre></div>
   </div>
   <a href="https://github.com/react-component/queue-anim">
     <img style="position: absolute; top: 0; right: 0; border: 0;"

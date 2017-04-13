@@ -3,34 +3,57 @@ webpackJsonp([8],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(321);
+	module.exports = __webpack_require__(355);
 
 
 /***/ },
 
-/***/ 321:
+/***/ 355:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _rcQueueAnim = __webpack_require__(2);
+	var _classCallCheck2 = __webpack_require__(2);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(3);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(72);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _rcQueueAnim = __webpack_require__(80);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _react = __webpack_require__(92);
+	var _react = __webpack_require__(99);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(123);
+	var _reactDom = __webpack_require__(138);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var App = _react2.default.createClass({
-	  displayName: 'App',
-	  getInitialState: function getInitialState() {
-	    return {
+	var App = function (_React$Component) {
+	  (0, _inherits3.default)(App, _React$Component);
+	
+	  function App(props) {
+	    (0, _classCallCheck3.default)(this, App);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call(this, props));
+	
+	    _this.toggle = function () {
+	      _this.setState({
+	        show: !_this.state.show
+	      });
+	    };
+	
+	    _this.state = {
 	      show: true,
 	      items: [{
 	        children: '依次进入1',
@@ -52,13 +75,10 @@ webpackJsonp([8],{
 	        key: 6
 	      }]
 	    };
-	  },
-	  toggle: function toggle() {
-	    this.setState({
-	      show: !this.state.show
-	    });
-	  },
-	  render: function render() {
+	    return _this;
+	  }
+	
+	  App.prototype.render = function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -84,8 +104,10 @@ webpackJsonp([8],{
 	        }) : null
 	      )
 	    );
-	  }
-	}); /* eslint-disable no-console,react/no-multi-comp */
+	  };
+	
+	  return App;
+	}(_react2.default.Component); /* eslint-disable no-console,react/no-multi-comp */
 	
 	
 	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));

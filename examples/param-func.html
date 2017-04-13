@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>param-func.js - example - rc-queue-anim@0.13.3</title>
+  <title>param-func.js - example - rc-queue-anim@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@0.13.3</h1>
+      <h1>rc-queue-anim@1.0.0</h1>
 
       <p>Queue animation component for react</p>
     </div>
@@ -274,42 +274,43 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-
-const Page1 = React.createClass({
-  getInitialState() {
-    return {
+class Page1 extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       show: true,
     };
-  },
-  onClick() {
+  }
+
+  onClick = () =&gt; {
     this.setState({
       show: !this.state.show,
     });
-  },
-  animConfigFunc(e) {
+  }
+  animConfigFunc = (e) =&gt; {
     if (e.key === '3') {
       return { opacity: [1, 0], translateX: [0, 30] };
     }
     return [{ opacity: [1, 0], translateX: [0, -30] }, { opacity: [1, 0], translateX: [0, 30] }];
-  },
-  durationFunc(e) {
+  }
+  durationFunc = (e) =&gt; {
     if (e.key === '3') {
       return [1500, 4000];
     }
     return 500;
-  },
-  easeFunc(e) {
+  }
+  easeFunc = (e) =&gt; {
     if (e.key === '3') {
       return ['easeOutBack', 'easeInBack'];
     }
     return 'easeInOutQuart';
-  },
-  delayFunc(e) {
+  }
+  delayFunc = (e) =&gt; {
     if (e.index &gt;= 3) {
       return [1500, 0];
     }
     return 0;
-  },
+  }
   render() {
     return (&lt;div&gt;
         &lt;button onClick={this.onClick}&gt;切换&lt;/button&gt;
@@ -325,8 +326,8 @@ const Page1 = React.createClass({
         &lt;/QueueAnim&gt;
       &lt;/div&gt;
     );
-  },
-});
+  }
+}
 
 ReactDom.render(&lt;Page1 /&gt;, document.getElementById('__react-content'));
 </code></pre></div>

@@ -3,25 +3,25 @@ webpackJsonp([3],{
 /***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(268);
+	module.exports = __webpack_require__(302);
 
 
 /***/ },
 
-/***/ 268:
+/***/ 302:
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
-	var _rcQueueAnim = __webpack_require__(2);
+	var _rcQueueAnim = __webpack_require__(80);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _react = __webpack_require__(92);
+	var _react = __webpack_require__(99);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(123);
+	var _reactDom = __webpack_require__(138);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
@@ -29,10 +29,10 @@ webpackJsonp([3],{
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  'div',
-	  null,
+	  { style: { height: 500 } },
 	  _react2.default.createElement(
 	    _rcQueueAnim2.default,
-	    { ease: [0.42, 0, 0.58, 1] },
+	    { ease: [0.175, 0.885, 0.32, 1.275] },
 	    _react2.default.createElement(
 	      'div',
 	      { key: '1' },

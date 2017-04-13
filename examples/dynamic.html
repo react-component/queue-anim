@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>dynamic.js - example - rc-queue-anim@0.13.3</title>
+  <title>dynamic.js - example - rc-queue-anim@1.0.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@0.13.3</h1>
+      <h1>rc-queue-anim@1.0.0</h1>
 
       <p>Queue animation component for react</p>
     </div>
@@ -274,10 +274,11 @@ import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
 
-const App = React.createClass({
-  getInitialState() {
+class App extends React.Component {
+  constructor(props) {
+    super(props);
     this.index = 100;
-    return {
+    this.state = {
       items: [{
         children: '依次进入1',
         key: 1,
@@ -298,16 +299,17 @@ const App = React.createClass({
         key: 6,
       }],
     };
-  },
-  add() {
+  }
+
+  add = () =&gt; {
     const items = this.state.items;
     items.push({
       children: '新节点',
       key: this.index++,
     });
     this.setState({ items });
-  },
-  addTwo() {
+  }
+  addTwo = () =&gt; {
     const items = this.state.items;
     items.push({
       children: '新节点',
@@ -318,8 +320,8 @@ const App = React.createClass({
       key: this.index++,
     });
     this.setState({ items });
-  },
-  remove(key, e) {
+  }
+  remove = (key, e) =&gt; {
     e.preventDefault();
     const items = this.state.items;
     const target = items.filter(item =&gt; item.key === key);
@@ -331,13 +333,13 @@ const App = React.createClass({
       items.splice(index, 1);
     }
     this.setState({ items });
-  },
-  removeAll() {
+  }
+  removeAll = () =&gt; {
     this.setState({
       items: [],
     });
-  },
-  removeAndAdd() {
+  }
+  removeAndAdd = () =&gt; {
     const items = this.state.items;
     items.splice(items.length - 1, 1);
     items.push({
@@ -345,8 +347,8 @@ const App = React.createClass({
       key: this.index++,
     });
     this.setState({ items });
-  },
-  removeAndAddTow() {
+  }
+  removeAndAddTow = () =&gt; {
     const items = this.state.items;
     items.splice(items.length - 1, 1);
     items.splice(items.length - 2, 1);
@@ -359,12 +361,13 @@ const App = React.createClass({
       key: this.index++,
     });
     this.setState({ items });
-  },
-  removeTwo() {
+  }
+  removeTwo = () =&gt; {
     const items = this.state.items;
     items.splice(1, 1);
     this.setState({ items });
-  },
+  }
+
   render() {
     return (
       &lt;div&gt;
@@ -381,8 +384,8 @@ const App = React.createClass({
         &lt;/QueueAnim&gt;
       &lt;/div&gt;
     );
-  },
-});
+  }
+}
 
 ReactDom.render(&lt;App /&gt;, document.getElementById('__react-content'));
 </code></pre></div>

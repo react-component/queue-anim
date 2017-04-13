@@ -13,27 +13,50 @@ webpackJsonp([0],{
 
 	'use strict';
 	
-	var _rcQueueAnim = __webpack_require__(2);
+	var _classCallCheck2 = __webpack_require__(2);
+	
+	var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
+	
+	var _possibleConstructorReturn2 = __webpack_require__(3);
+	
+	var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
+	
+	var _inherits2 = __webpack_require__(72);
+	
+	var _inherits3 = _interopRequireDefault(_inherits2);
+	
+	var _rcQueueAnim = __webpack_require__(80);
 	
 	var _rcQueueAnim2 = _interopRequireDefault(_rcQueueAnim);
 	
-	var _react = __webpack_require__(92);
+	var _react = __webpack_require__(99);
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDom = __webpack_require__(123);
+	var _reactDom = __webpack_require__(138);
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	__webpack_require__(265);
+	__webpack_require__(299);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	/* eslint-disable no-console,react/no-multi-comp */
-	var App = _react2.default.createClass({
-	  displayName: 'App',
-	  getInitialState: function getInitialState() {
-	    return {
+	var App = function (_React$Component) {
+	  (0, _inherits3.default)(App, _React$Component);
+	
+	  function App(props) {
+	    (0, _classCallCheck3.default)(this, App);
+	
+	    var _this = (0, _possibleConstructorReturn3.default)(this, _React$Component.call(this, props));
+	
+	    _this.removeAll = function () {
+	      _this.setState({
+	        items: []
+	      });
+	    };
+	
+	    _this.state = {
 	      items: [{
 	        children: '依次进入1',
 	        key: 1
@@ -54,13 +77,10 @@ webpackJsonp([0],{
 	        key: 6
 	      }]
 	    };
-	  },
-	  removeAll: function removeAll() {
-	    this.setState({
-	      items: []
-	    });
-	  },
-	  render: function render() {
+	    return _this;
+	  }
+	
+	  App.prototype.render = function render() {
 	    return _react2.default.createElement(
 	      'div',
 	      null,
@@ -81,14 +101,16 @@ webpackJsonp([0],{
 	        '\u79FB\u51FA\u6240\u6709'
 	      )
 	    );
-	  }
-	});
+	  };
+	
+	  return App;
+	}(_react2.default.Component);
 	
 	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));
 
 /***/ },
 
-/***/ 265:
+/***/ 299:
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
