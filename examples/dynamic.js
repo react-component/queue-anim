@@ -27,6 +27,7 @@ class App extends React.Component {
         children: '依次进入6',
         key: 6,
       }],
+      type: 'left',
     };
   }
 
@@ -106,7 +107,7 @@ class App extends React.Component {
         <button onClick={this.removeAll}>移出所有</button>
         <button onClick={this.removeAndAdd}>移出与添加</button>
         <button onClick={this.removeAndAddTow}>头尾添加与移出两个</button>
-        <QueueAnim>
+        <QueueAnim type={this.state.type}>
           {this.state.items.map((item) => <div key={item.key}>
             {item.children} <a href="#" onClick={this.remove.bind(this, item.key)}>删除</a>
           </div>)}

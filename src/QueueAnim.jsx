@@ -1,7 +1,6 @@
 import React, { createElement, cloneElement } from 'react';
 import PropTypes from 'prop-types';
-import TweenOne from 'rc-tween-one';
-import ticker from 'rc-tween-one/lib/ticker';
+import TweenOne, { ticker } from 'rc-tween-one';
 
 import {
   toArrayChildren,
@@ -11,7 +10,6 @@ import {
   getChildrenFromProps,
 } from './utils';
 import AnimTypes from './animTypes';
-
 
 const placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 
@@ -25,7 +23,8 @@ class QueueAnim extends React.Component {
     this.isEnterKey = {};
     this.keysToEnter = [];
     this.keysToLeave = [];
-    this.keysAnimating = {};
+    // 记录转换成 TweenOne 组件。
+    this.saveTweenTag = {};
     this.keysToEnterPaused = {};
     this.placeholderTimeoutIds = {};
 
@@ -79,7 +78,6 @@ class QueueAnim extends React.Component {
 
     this.keysToEnter = [];
     this.keysToLeave = [];
-    this.keysAnimating = {};
 
     // need render to avoid update
     this.setState({
@@ -96,6 +94,10 @@ class QueueAnim extends React.Component {
       if (!hasPrev && key) {
         this.keysToEnter.push(key);
       }
+      // 如果当前 key 已存在 saveTweenTag 里，，刷新 child;
+      if (this.saveTweenTag[key]) {
+        this.saveTweenTag[key] = React.cloneElement(this.saveTweenTag[key], {}, c);
+      }
     });
 
     currentChildren.forEach((c) => {
@@ -105,6 +107,8 @@ class QueueAnim extends React.Component {
       const key = c.key;
       const hasNext = findChildInChildrenByKey(nextChildren, key);
       if (!hasNext && key) {
+        // 出场时删出动画标签，render 时重新生成。
+        delete this.saveTweenTag[key];
         this.keysToLeave.push(key);
       }
     });
@@ -140,12 +144,10 @@ class QueueAnim extends React.Component {
     return obj;
   }
 
-  getTweenEnterData = (key) => {
-    // keysToEnter 会删掉， 回调用 keysToCallback, update 时更新；
-    const i = this.keysToEnterToCallback.indexOf(key);
+  getTweenEnterData = (key, i) => {
     const props = this.props;
-    let startAnim = this.getAnimData(key, i, 0, 1);
-    const enterAnim = this.getAnimData(key, i, 0, 0);
+    let startAnim = this.getAnimData(props, key, i, 0, 1);
+    const enterAnim = this.getAnimData(props, key, i, 0, 0);
     startAnim = props.enterForcedRePlay || !this.isEnterKey[key] ? startAnim : {};
     let ease = transformArguments(props.ease, key, i)[0];
     const duration = transformArguments(props.duration, key, i)[0];
@@ -168,12 +170,10 @@ class QueueAnim extends React.Component {
     ];
   }
 
-  getTweenLeaveData = (key) => {
-    // keysToLeave 为所有动画结束后删，这里可直接用。
-    const i = this.keysToLeave.indexOf(key);
+  getTweenLeaveData = (key, i) => {
     const props = this.props;
-    let startAnim = this.getAnimData(key, i, 1, 0);
-    const leaveAnim = this.getAnimData(key, i, 1, 1);
+    let startAnim = this.getAnimData(props, key, i, 1, 0);
+    const leaveAnim = this.getAnimData(props, key, i, 1, 1);
     startAnim = props.enterForcedRePlay || !this.isEnterKey[key] ? startAnim : {};
     const interval = transformArguments(props.interval, key, i)[1];
     const delay = transformArguments(props.delay, key, i)[1];
@@ -199,17 +199,17 @@ class QueueAnim extends React.Component {
     ];
   }
 
-  getAnimData = (key, i, enterOrLeave, startOrEnd) => {
+  getAnimData = (props, key, i, enterOrLeave, startOrEnd) => {
     /*
      * transformArguments 第一个为 enter, 第二个为 leave；
      * getTweenAnimConfig or getTweenType 第一个为到达的位置， 第二个为开始的位置。
      * 用 tween-one 的数组来实现老的动画逻辑。。。
      */
-    return this.props.animConfig ?
+    return props.animConfig ?
       this.getTweenAnimConfig(
-        transformArguments(this.props.animConfig, key, i)[enterOrLeave], startOrEnd
+        transformArguments(props.animConfig, key, i)[enterOrLeave], startOrEnd
       ) :
-      this.getTweenType(transformArguments(this.props.type, key, i)[enterOrLeave], startOrEnd);
+      this.getTweenType(transformArguments(props.type, key, i)[enterOrLeave], startOrEnd);
   }
 
   performEnter = (key, i) => {
@@ -273,6 +273,7 @@ class QueueAnim extends React.Component {
     delete childrenShow[key];
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
+      delete this.saveTweenTag[key];
       delete this.isEnterKey[key];
     }
     const needLeave = this.keysToLeave.some(c => childrenShow[c]);
@@ -297,28 +298,22 @@ class QueueAnim extends React.Component {
       const key = child.key;
       if ((this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])
         || this.state.childrenShow[key]) {
-        if (!this.keysAnimating[key]) {
+        if (!this.saveTweenTag[key]) {
           const animation = this.keysToLeave.indexOf(key) >= 0 ?
-            this.getTweenLeaveData(key) : this.getTweenEnterData(key);
+            this.getTweenLeaveData(key, this.keysToLeave.indexOf(key)) :
+            this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key));
 
-          this.keysAnimating[key] = typeof child.type === 'function' ?
-            createElement(TweenOne, {
-              key,
-              component: '',
-              animation,
-            }, child)
-            : createElement(TweenOne, {
-              key,
-              component: child.type,
-              ...child.props,
-              animation,
-            });
+          this.saveTweenTag[key] = createElement(TweenOne, {
+            key,
+            component: null,
+            animation,
+          }, child);
         }
         if (this.keysToEnterPaused[key]
           && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])) {
-          return cloneElement(this.keysAnimating[key], { paused: true });
+          return cloneElement(this.saveTweenTag[key], { paused: true });
         }
-        return this.keysAnimating[key];
+        return this.saveTweenTag[key];
       }
 
       return createElement('div', {
