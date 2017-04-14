@@ -1,15 +1,15 @@
 webpackJsonp([3],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(302);
 
 
-/***/ },
+/***/ }),
 
 /***/ 302:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -91,7 +91,7 @@ webpackJsonp([3],{
 	  )
 	), document.getElementById('__react-content')); /* eslint-disable no-console,react/no-multi-comp */
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=custom-ease.js.map

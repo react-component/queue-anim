@@ -1,15 +1,15 @@
 webpackJsonp([9],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(356);
 
 
-/***/ },
+/***/ }),
 
 /***/ 356:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -95,7 +95,7 @@ webpackJsonp([9],{
 	  )
 	), document.getElementById('__react-content')); /* eslint-disable no-console,react/no-multi-comp */
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=nested.js.map

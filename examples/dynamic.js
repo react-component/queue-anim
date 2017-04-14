@@ -1,15 +1,15 @@
 webpackJsonp([5],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(352);
 
 
-/***/ },
+/***/ }),
 
 /***/ 352:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -142,7 +142,8 @@ webpackJsonp([5],{
 	      }, {
 	        children: '依次进入6',
 	        key: 6
-	      }]
+	      }],
+	      type: 'left'
 	    };
 	    return _this;
 	  }
@@ -185,7 +186,7 @@ webpackJsonp([5],{
 	      ),
 	      _react2.default.createElement(
 	        _rcQueueAnim2.default,
-	        null,
+	        { type: this.state.type },
 	        this.state.items.map(function (item) {
 	          return _react2.default.createElement(
 	            'div',
@@ -209,7 +210,7 @@ webpackJsonp([5],{
 	
 	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=dynamic.js.map

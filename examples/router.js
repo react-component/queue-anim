@@ -1,15 +1,15 @@
 webpackJsonp([11],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(358);
 
 
-/***/ },
+/***/ }),
 
 /***/ 358:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -356,10 +356,10 @@ webpackJsonp([11],{
 	
 	_reactDom2.default.render(_react2.default.createElement(App, null), document.getElementById('__react-content'));
 
-/***/ },
+/***/ }),
 
 /***/ 359:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -434,10 +434,10 @@ webpackJsonp([11],{
 	exports.matchPath = _matchPath3.default;
 	exports.withRouter = _withRouter3.default;
 
-/***/ },
+/***/ }),
 
 /***/ 360:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -499,10 +499,10 @@ webpackJsonp([11],{
 	};
 	exports.default = BrowserRouter;
 
-/***/ },
+/***/ }),
 
 /***/ 361:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -813,10 +813,10 @@ webpackJsonp([11],{
 	
 	exports.default = createBrowserHistory;
 
-/***/ },
+/***/ }),
 
 /***/ 362:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2014-2015, Facebook, Inc.
@@ -881,10 +881,10 @@ webpackJsonp([11],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(101)))
 
-/***/ },
+/***/ }),
 
 /***/ 363:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
 	 * Copyright 2013-2015, Facebook, Inc.
@@ -940,10 +940,10 @@ webpackJsonp([11],{
 	
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(101)))
 
-/***/ },
+/***/ }),
 
 /***/ 364:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1009,10 +1009,10 @@ webpackJsonp([11],{
 	  return a.pathname === b.pathname && a.search === b.search && a.hash === b.hash && a.key === b.key && (0, _valueEqual2.default)(a.state, b.state);
 	};
 
-/***/ },
+/***/ }),
 
 /***/ 365:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -1085,10 +1085,10 @@ webpackJsonp([11],{
 	
 	module.exports = resolvePathname;
 
-/***/ },
+/***/ }),
 
 /***/ 366:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -1135,10 +1135,10 @@ webpackJsonp([11],{
 	
 	exports.default = valueEqual;
 
-/***/ },
+/***/ }),
 
 /***/ 367:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -1200,10 +1200,10 @@ webpackJsonp([11],{
 	  return path;
 	};
 
-/***/ },
+/***/ }),
 
 /***/ 368:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1291,10 +1291,10 @@ webpackJsonp([11],{
 	
 	exports.default = createTransitionManager;
 
-/***/ },
+/***/ }),
 
 /***/ 369:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	'use strict';
 	
@@ -1352,10 +1352,10 @@ webpackJsonp([11],{
 	  return event.state === undefined && navigator.userAgent.indexOf('CriOS') === -1;
 	};
 
-/***/ },
+/***/ }),
 
 /***/ 370:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1410,10 +1410,10 @@ webpackJsonp([11],{
 	exports.matchPath = _matchPath3.default;
 	exports.withRouter = _withRouter3.default;
 
-/***/ },
+/***/ }),
 
 /***/ 371:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1477,10 +1477,10 @@ webpackJsonp([11],{
 	};
 	exports.default = MemoryRouter;
 
-/***/ },
+/***/ }),
 
 /***/ 372:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1653,10 +1653,10 @@ webpackJsonp([11],{
 	
 	exports.default = createMemoryHistory;
 
-/***/ },
+/***/ }),
 
 /***/ 373:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1778,10 +1778,10 @@ webpackJsonp([11],{
 	};
 	exports.default = Router;
 
-/***/ },
+/***/ }),
 
 /***/ 374:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1868,10 +1868,10 @@ webpackJsonp([11],{
 	};
 	exports.default = Prompt;
 
-/***/ },
+/***/ }),
 
 /***/ 375:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -1958,10 +1958,10 @@ webpackJsonp([11],{
 	};
 	exports.default = Redirect;
 
-/***/ },
+/***/ }),
 
 /***/ 376:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2109,10 +2109,10 @@ webpackJsonp([11],{
 	};
 	exports.default = Route;
 
-/***/ },
+/***/ }),
 
 /***/ 377:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2190,10 +2190,10 @@ webpackJsonp([11],{
 	
 	exports.default = matchPath;
 
-/***/ },
+/***/ }),
 
 /***/ 378:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	var isarray = __webpack_require__(379)
 	
@@ -2623,20 +2623,20 @@ webpackJsonp([11],{
 	}
 
 
-/***/ },
+/***/ }),
 
 /***/ 379:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
 	  return Object.prototype.toString.call(arr) == '[object Array]';
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 380:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2816,10 +2816,10 @@ webpackJsonp([11],{
 	};
 	exports.default = StaticRouter;
 
-/***/ },
+/***/ }),
 
 /***/ 381:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2909,10 +2909,10 @@ webpackJsonp([11],{
 	};
 	exports.default = Switch;
 
-/***/ },
+/***/ }),
 
 /***/ 382:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -2923,6 +2923,10 @@ webpackJsonp([11],{
 	var _react = __webpack_require__(99);
 	
 	var _react2 = _interopRequireDefault(_react);
+	
+	var _propTypes = __webpack_require__(134);
+	
+	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
 	var _hoistNonReactStatics = __webpack_require__(383);
 	
@@ -2952,7 +2956,7 @@ webpackJsonp([11],{
 	  C.displayName = 'withRouter(' + (Component.displayName || Component.name) + ')';
 	  C.WrappedComponent = Component;
 	  C.propTypes = {
-	    wrappedComponentRef: _react.PropTypes.func
+	    wrappedComponentRef: _propTypes2.default.func
 	  };
 	
 	  return (0, _hoistNonReactStatics2.default)(C, Component);
@@ -2960,10 +2964,10 @@ webpackJsonp([11],{
 	
 	exports.default = withRouter;
 
-/***/ },
+/***/ }),
 
 /***/ 383:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	/**
 	 * Copyright 2015, Yahoo! Inc.
@@ -3017,10 +3021,10 @@ webpackJsonp([11],{
 	};
 
 
-/***/ },
+/***/ }),
 
 /***/ 384:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3081,10 +3085,10 @@ webpackJsonp([11],{
 	};
 	exports.default = HashRouter;
 
-/***/ },
+/***/ }),
 
 /***/ 385:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3409,10 +3413,10 @@ webpackJsonp([11],{
 	
 	exports.default = createHashHistory;
 
-/***/ },
+/***/ }),
 
 /***/ 386:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3517,10 +3521,10 @@ webpackJsonp([11],{
 	};
 	exports.default = Link;
 
-/***/ },
+/***/ }),
 
 /***/ 387:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3535,10 +3539,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 388:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3621,10 +3625,10 @@ webpackJsonp([11],{
 	
 	exports.default = NavLink;
 
-/***/ },
+/***/ }),
 
 /***/ 389:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3639,10 +3643,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 390:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3657,10 +3661,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 391:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3675,10 +3679,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 392:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3693,10 +3697,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 393:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3711,10 +3715,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 394:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3729,10 +3733,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 395:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3747,10 +3751,10 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 396:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -3765,14 +3769,14 @@ webpackJsonp([11],{
 	  }
 	});
 
-/***/ },
+/***/ }),
 
 /***/ 397:
-/***/ function(module, exports) {
+/***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=router.js.map

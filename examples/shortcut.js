@@ -1,15 +1,15 @@
 webpackJsonp([12],{
 
 /***/ 0:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__(398);
 
 
-/***/ },
+/***/ }),
 
 /***/ 398:
-/***/ function(module, exports, __webpack_require__) {
+/***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
@@ -338,7 +338,7 @@ webpackJsonp([12],{
 	  )
 	), document.getElementById('__react-content')); /* eslint-disable no-console,react/no-multi-comp */
 
-/***/ }
+/***/ })
 
 });
 //# sourceMappingURL=shortcut.js.map
