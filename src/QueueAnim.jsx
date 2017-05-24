@@ -1,5 +1,4 @@
 import React, { createElement, cloneElement } from 'react';
-import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TweenOne, { ticker } from 'rc-tween-one';
 
@@ -49,7 +48,6 @@ class QueueAnim extends React.Component {
   }
 
   componentDidMount() {
-    this.dom = ReactDOM.findDOMNode(this);
     if (this.props.appear) {
       this.componentDidUpdate();
     }
