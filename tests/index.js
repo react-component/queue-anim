@@ -298,7 +298,7 @@ describe('rc-queue-anim', () => {
         console.log('top:', getTop(children[2]));
         ticker.timeout(() => {
           children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-          expect(getTop(children[2])).to.be(100);
+          expect(getTop(children[2])).to.above(99.99);
           expect(isNaN(getLeft(children[2]))).to.be.ok();
           console.log('top_end:', getTop(children[2]));
           done();
@@ -306,7 +306,7 @@ describe('rc-queue-anim', () => {
       }, interval);
       ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        expect(getLeft(children[1])).to.be(100);
+        expect(getLeft(children[1])).to.above(99.99);
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left_end:', getLeft(children[1]));
       }, 517);
