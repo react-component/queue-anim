@@ -1665,8 +1665,6 @@
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
-	
 	var noop = function noop() {};
 	
 	var QueueAnim = function (_React$Component) {
@@ -1727,7 +1725,7 @@
 	    // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
 	    this.keysToLeave.forEach(function (key) {
 	      // 将所有在出场里的停止掉。避免间隔性出现
-	      // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
+	      // 进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
 	      _this2.keysToEnterPaused[key] = true;
 	      if (nextProps.enterForcedRePlay) {
 	        // 清掉所有出场的。
@@ -1816,27 +1814,23 @@
 	      }
 	      var key = child.key;
 	      if (_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key] || _this4.state.childrenShow[key]) {
+	        var animation = _this4.keysToLeave.indexOf(key) >= 0 ? _this4.getTweenLeaveData(key, _this4.keysToLeave.indexOf(key)) : _this4.getTweenEnterData(key, _this4.keysToEnterToCallback.indexOf(key));
+	        var props = {
+	          key: key,
+	          component: null,
+	          animation: animation
+	        };
 	        if (!_this4.saveTweenTag[key]) {
-	          var animation = _this4.keysToLeave.indexOf(key) >= 0 ? _this4.getTweenLeaveData(key, _this4.keysToLeave.indexOf(key)) : _this4.getTweenEnterData(key, _this4.keysToEnterToCallback.indexOf(key));
-	
-	          _this4.saveTweenTag[key] = (0, _react.createElement)(_rcTweenOne2.default, {
-	            key: key,
-	            component: null,
-	            animation: animation
-	          }, child);
+	          _this4.saveTweenTag[key] = (0, _react.createElement)(_rcTweenOne2.default, props, child);
+	        } else {
+	          _this4.saveTweenTag[key] = (0, _react.cloneElement)(_this4.saveTweenTag[key], props);
 	        }
 	        if (_this4.keysToEnterPaused[key] && !(_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key])) {
 	          return (0, _react.cloneElement)(_this4.saveTweenTag[key], { paused: true });
 	        }
 	        return _this4.saveTweenTag[key];
 	      }
-	
-	      return (0, _react.createElement)('div', {
-	        ref: placeholderKeyPrefix + child.key,
-	        key: placeholderKeyPrefix + child.key,
-	        className: child.props.className,
-	        style: child.props.style
-	      });
+	      return null;
 	    });
 	
 	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
