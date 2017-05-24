@@ -1,4 +1,5 @@
 import React, { createElement, cloneElement } from 'react';
+import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 import TweenOne, { ticker } from 'rc-tween-one';
 
@@ -10,8 +11,6 @@ import {
   getChildrenFromProps,
 } from './utils';
 import AnimTypes from './animTypes';
-
-const placeholderKeyPrefix = 'ant-queue-anim-placeholder-';
 
 const noop = () => {
 };
@@ -50,6 +49,7 @@ class QueueAnim extends React.Component {
   }
 
   componentDidMount() {
+    this.dom = ReactDOM.findDOMNode(this);
     if (this.props.appear) {
       this.componentDidUpdate();
     }
@@ -68,7 +68,7 @@ class QueueAnim extends React.Component {
     // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
     this.keysToLeave.forEach(key => {
       // 将所有在出场里的停止掉。避免间隔性出现
-      // 因为进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
+      // 进场是用的间隔性进入，这里不做 stop 处理将会在这间隔里继续出场的动画。。
       this.keysToEnterPaused[key] = true;
       if (nextProps.enterForcedRePlay) {
         // 清掉所有出场的。
@@ -298,16 +298,18 @@ class QueueAnim extends React.Component {
       const key = child.key;
       if ((this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])
         || this.state.childrenShow[key]) {
+        const animation = this.keysToLeave.indexOf(key) >= 0 ?
+          this.getTweenLeaveData(key, this.keysToLeave.indexOf(key)) :
+          this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key));
+        const props = {
+          key,
+          component: null,
+          animation,
+        };
         if (!this.saveTweenTag[key]) {
-          const animation = this.keysToLeave.indexOf(key) >= 0 ?
-            this.getTweenLeaveData(key, this.keysToLeave.indexOf(key)) :
-            this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key));
-
-          this.saveTweenTag[key] = createElement(TweenOne, {
-            key,
-            component: null,
-            animation,
-          }, child);
+          this.saveTweenTag[key] = createElement(TweenOne, props, child);
+        } else {
+          this.saveTweenTag[key] = cloneElement(this.saveTweenTag[key], props);
         }
         if (this.keysToEnterPaused[key]
           && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])) {
@@ -315,13 +317,7 @@ class QueueAnim extends React.Component {
         }
         return this.saveTweenTag[key];
       }
-
-      return createElement('div', {
-        ref: placeholderKeyPrefix + child.key,
-        key: placeholderKeyPrefix + child.key,
-        className: child.props.className,
-        style: child.props.style,
-      });
+      return null;
     });
 
     [
