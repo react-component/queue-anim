@@ -1,14 +1,14 @@
-webpackJsonp([2],{
+webpackJsonp([1],{
 
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(301);
+	module.exports = __webpack_require__(300);
 
 
 /***/ }),
 
-/***/ 301:
+/***/ 300:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29,7 +29,7 @@ webpackJsonp([2],{
 	
 	_reactDom2.default.render(_react2.default.createElement(
 	  _rcQueueAnim2.default,
-	  { interval: 100, delay: 1000, duration: 1000 },
+	  { appear: false },
 	  _react2.default.createElement(
 	    'div',
 	    { key: '1' },
@@ -60,4 +60,4 @@ webpackJsonp([2],{
 /***/ })
 
 });
-//# sourceMappingURL=config.js.map
+//# sourceMappingURL=appear.js.map

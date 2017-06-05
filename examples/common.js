@@ -53,7 +53,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		16:0
+/******/ 		17:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -99,7 +99,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"config","2":"custom","3":"custom-ease","4":"dialog-style","5":"dynamic","6":"empty-children","7":"enter-leave","8":"monkey-click","9":"nested","10":"param-func","11":"router","12":"shortcut","13":"simple","14":"switch","15":"switch-enterForcedRePlay"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"appear","2":"config","3":"custom","4":"custom-ease","5":"dialog-style","6":"dynamic","7":"empty-children","8":"enter-leave","9":"monkey-click","10":"nested","11":"param-func","12":"router","13":"shortcut","14":"simple","15":"switch","16":"switch-enterForcedRePlay"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -1804,38 +1804,12 @@
 	  };
 	
 	  QueueAnim.prototype.render = function render() {
-	    var _this4 = this;
-	
 	    var tagProps = (0, _objectWithoutProperties3.default)(this.props, []);
-	
-	    var childrenToRender = (0, _utils.toArrayChildren)(this.state.children).map(function (child) {
-	      if (!child || !child.key) {
-	        return child;
-	      }
-	      var key = child.key;
-	      if (_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key] || _this4.state.childrenShow[key]) {
-	        var animation = _this4.keysToLeave.indexOf(key) >= 0 ? _this4.getTweenLeaveData(key, _this4.keysToLeave.indexOf(key)) : _this4.getTweenEnterData(key, _this4.keysToEnterToCallback.indexOf(key));
-	        var props = {
-	          key: key,
-	          component: null,
-	          animation: animation
-	        };
-	        if (!_this4.saveTweenTag[key]) {
-	          _this4.saveTweenTag[key] = (0, _react.createElement)(_rcTweenOne2.default, props, child);
-	        } else {
-	          _this4.saveTweenTag[key] = (0, _react.cloneElement)(_this4.saveTweenTag[key], props);
-	        }
-	        if (_this4.keysToEnterPaused[key] && !(_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key])) {
-	          return (0, _react.cloneElement)(_this4.saveTweenTag[key], { paused: true });
-	        }
-	        return _this4.saveTweenTag[key];
-	      }
-	      return null;
-	    });
 	
 	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
 	      return delete tagProps[key];
 	    });
+	    var childrenToRender = (0, _utils.toArrayChildren)(this.state.children).map(this.getChildrenToRender);
 	    return (0, _react.createElement)(this.props.component, (0, _extends3.default)({}, tagProps), childrenToRender);
 	  };
 	
@@ -1843,13 +1817,13 @@
 	}(_react2.default.Component);
 	
 	var _initialiseProps = function _initialiseProps() {
-	  var _this5 = this;
+	  var _this4 = this;
 	
 	  this.getTweenEnterData = function (key, i) {
-	    var props = _this5.props;
-	    var startAnim = _this5.getAnimData(props, key, i, 0, 1);
-	    var enterAnim = _this5.getAnimData(props, key, i, 0, 0);
-	    startAnim = props.enterForcedRePlay || !_this5.isEnterKey[key] ? startAnim : {};
+	    var props = _this4.props;
+	    var startAnim = _this4.getAnimData(props, key, i, 0, 1);
+	    var enterAnim = _this4.getAnimData(props, key, i, 0, 0);
+	    startAnim = props.enterForcedRePlay || !_this4.isEnterKey[key] ? startAnim : {};
 	    var ease = (0, _utils.transformArguments)(props.ease, key, i)[0];
 	    var duration = (0, _utils.transformArguments)(props.duration, key, i)[0];
 	    if (Array.isArray(ease)) {
@@ -1860,21 +1834,21 @@
 	    }
 	
 	    return [(0, _extends3.default)({ duration: 0 }, startAnim), (0, _extends3.default)({
-	      onStart: _this5.enterBegin.bind(_this5, key),
-	      onComplete: _this5.enterComplete.bind(_this5, key),
+	      onStart: _this4.enterBegin.bind(_this4, key),
+	      onComplete: _this4.enterComplete.bind(_this4, key),
 	      duration: duration,
 	      ease: ease
 	    }, enterAnim)];
 	  };
 	
 	  this.getTweenLeaveData = function (key, i) {
-	    var props = _this5.props;
-	    var startAnim = _this5.getAnimData(props, key, i, 1, 0);
-	    var leaveAnim = _this5.getAnimData(props, key, i, 1, 1);
-	    startAnim = props.enterForcedRePlay || !_this5.isEnterKey[key] ? startAnim : {};
+	    var props = _this4.props;
+	    var startAnim = _this4.getAnimData(props, key, i, 1, 0);
+	    var leaveAnim = _this4.getAnimData(props, key, i, 1, 1);
+	    startAnim = props.enterForcedRePlay || !_this4.isEnterKey[key] ? startAnim : {};
 	    var interval = (0, _utils.transformArguments)(props.interval, key, i)[1];
 	    var delay = (0, _utils.transformArguments)(props.delay, key, i)[1];
-	    var order = props.leaveReverse ? _this5.keysToLeave.length - i - 1 : i;
+	    var order = props.leaveReverse ? _this4.keysToLeave.length - i - 1 : i;
 	    var ease = (0, _utils.transformArguments)(props.ease, key, i)[0];
 	    var duration = (0, _utils.transformArguments)(props.duration, key, i)[0];
 	    if (Array.isArray(ease)) {
@@ -1884,8 +1858,8 @@
 	      ease = _rcTweenOne2.default.easing.path('M0,100C' + ease[0] + ',' + (100 - ease[1]) + ',' + ease[2] + ',' + (100 - ease[3]) + ',100,0', { lengthPixel: duration / 16.6667 });
 	    }
 	    return [(0, _extends3.default)({ duration: 0 }, startAnim), (0, _extends3.default)({
-	      onStart: _this5.leaveBegin.bind(_this5, key),
-	      onComplete: _this5.leaveComplete.bind(_this5, key),
+	      onStart: _this4.leaveBegin.bind(_this4, key),
+	      onComplete: _this4.leaveComplete.bind(_this4, key),
 	      duration: (0, _utils.transformArguments)(props.duration, key, i)[0],
 	      ease: ease,
 	      delay: interval * order + delay
@@ -1898,52 +1872,77 @@
 	     * getTweenAnimConfig or getTweenType 第一个为到达的位置， 第二个为开始的位置。
 	     * 用 tween-one 的数组来实现老的动画逻辑。。。
 	     */
-	    return props.animConfig ? _this5.getTweenAnimConfig((0, _utils.transformArguments)(props.animConfig, key, i)[enterOrLeave], startOrEnd) : _this5.getTweenType((0, _utils.transformArguments)(props.type, key, i)[enterOrLeave], startOrEnd);
+	    return props.animConfig ? _this4.getTweenAnimConfig((0, _utils.transformArguments)(props.animConfig, key, i)[enterOrLeave], startOrEnd) : _this4.getTweenType((0, _utils.transformArguments)(props.type, key, i)[enterOrLeave], startOrEnd);
+	  };
+	
+	  this.getChildrenToRender = function (child) {
+	    if (!child || !child.key) {
+	      return child;
+	    }
+	    var key = child.key;
+	    if (_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key] || _this4.state.childrenShow[key]) {
+	      var animation = _this4.keysToLeave.indexOf(key) >= 0 ? _this4.getTweenLeaveData(key, _this4.keysToLeave.indexOf(key)) : _this4.keysToEnterToCallback.indexOf(key) >= 0 && _this4.getTweenEnterData(key, _this4.keysToEnterToCallback.indexOf(key)) || null;
+	      var props = {
+	        key: key,
+	        component: null,
+	        animation: animation
+	      };
+	      if (!_this4.saveTweenTag[key]) {
+	        _this4.saveTweenTag[key] = (0, _react.createElement)(_rcTweenOne2.default, props, child);
+	      } else {
+	        _this4.saveTweenTag[key] = (0, _react.cloneElement)(_this4.saveTweenTag[key], props);
+	      }
+	      if (_this4.keysToEnterPaused[key] && !(_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key])) {
+	        return (0, _react.cloneElement)(_this4.saveTweenTag[key], { paused: true });
+	      }
+	      return _this4.saveTweenTag[key];
+	    }
+	    return null;
 	  };
 	
 	  this.performEnter = function (key, i) {
-	    var interval = (0, _utils.transformArguments)(_this5.props.interval, key, i)[0];
-	    var delay = (0, _utils.transformArguments)(_this5.props.delay, key, i)[0];
-	    _this5.placeholderTimeoutIds[key] = _rcTweenOne.ticker.timeout(_this5.performEnterBegin.bind(_this5, key), interval * i + delay);
-	    if (_this5.keysToEnter.indexOf(key) >= 0) {
-	      _this5.keysToEnter.splice(_this5.keysToEnter.indexOf(key), 1);
+	    var interval = (0, _utils.transformArguments)(_this4.props.interval, key, i)[0];
+	    var delay = (0, _utils.transformArguments)(_this4.props.delay, key, i)[0];
+	    _this4.placeholderTimeoutIds[key] = _rcTweenOne.ticker.timeout(_this4.performEnterBegin.bind(_this4, key), interval * i + delay);
+	    if (_this4.keysToEnter.indexOf(key) >= 0) {
+	      _this4.keysToEnter.splice(_this4.keysToEnter.indexOf(key), 1);
 	    }
 	  };
 	
 	  this.performEnterBegin = function (key) {
-	    var childrenShow = _this5.state.childrenShow;
+	    var childrenShow = _this4.state.childrenShow;
 	    childrenShow[key] = true;
-	    delete _this5.keysToEnterPaused[key];
-	    _this5.setState({ childrenShow: childrenShow });
+	    delete _this4.keysToEnterPaused[key];
+	    _this4.setState({ childrenShow: childrenShow });
 	  };
 	
 	  this.performLeave = function (key) {
-	    _rcTweenOne.ticker.clear(_this5.placeholderTimeoutIds[key]);
-	    delete _this5.placeholderTimeoutIds[key];
+	    _rcTweenOne.ticker.clear(_this4.placeholderTimeoutIds[key]);
+	    delete _this4.placeholderTimeoutIds[key];
 	  };
 	
 	  this.enterBegin = function (key, e) {
 	    var elem = e.target;
-	    var animatingClassName = _this5.props.animatingClassName;
+	    var animatingClassName = _this4.props.animatingClassName;
 	    elem.className = elem.className.replace(animatingClassName[1], '');
 	    if (elem.className.indexOf(animatingClassName[0]) === -1) {
 	      elem.className += '' + (elem.className ? ' ' : '') + animatingClassName[0];
 	    }
-	    _this5.isEnterKey[key] = true;
+	    _this4.isEnterKey[key] = true;
 	  };
 	
 	  this.enterComplete = function (key, e) {
-	    if (_this5.keysToEnterPaused[key]) {
+	    if (_this4.keysToEnterPaused[key]) {
 	      return;
 	    }
 	    var elem = e.target;
-	    elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
-	    _this5.props.onEnd({ key: key, type: 'enter' });
+	    elem.className = elem.className.replace(_this4.props.animatingClassName[0], '').trim();
+	    _this4.props.onEnd({ key: key, type: 'enter' });
 	  };
 	
 	  this.leaveBegin = function (key, e) {
 	    var elem = e.target;
-	    var animatingClassName = _this5.props.animatingClassName;
+	    var animatingClassName = _this4.props.animatingClassName;
 	    elem.className = elem.className.replace(animatingClassName[0], '');
 	    if (elem.className.indexOf(animatingClassName[1]) === -1) {
 	      elem.className += ' ' + animatingClassName[1];
@@ -1952,29 +1951,29 @@
 	
 	  this.leaveComplete = function (key, e) {
 	    // 切换时同时触发 onComplete。 手动跳出。。。
-	    if (_this5.keysToEnterToCallback.indexOf(key) >= 0) {
+	    if (_this4.keysToEnterToCallback.indexOf(key) >= 0) {
 	      return;
 	    }
-	    var childrenShow = _this5.state.childrenShow;
+	    var childrenShow = _this4.state.childrenShow;
 	    delete childrenShow[key];
-	    if (_this5.keysToLeave.indexOf(key) >= 0) {
-	      _this5.keysToLeave.splice(_this5.keysToLeave.indexOf(key), 1);
-	      delete _this5.saveTweenTag[key];
-	      delete _this5.isEnterKey[key];
+	    if (_this4.keysToLeave.indexOf(key) >= 0) {
+	      _this4.keysToLeave.splice(_this4.keysToLeave.indexOf(key), 1);
+	      delete _this4.saveTweenTag[key];
+	      delete _this4.isEnterKey[key];
 	    }
-	    var needLeave = _this5.keysToLeave.some(function (c) {
+	    var needLeave = _this4.keysToLeave.some(function (c) {
 	      return childrenShow[c];
 	    });
 	    if (!needLeave) {
-	      var currentChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(_this5.props));
-	      _this5.setState({
+	      var currentChildren = (0, _utils.toArrayChildren)((0, _utils.getChildrenFromProps)(_this4.props));
+	      _this4.setState({
 	        children: currentChildren,
 	        childrenShow: childrenShow
 	      });
 	    }
 	    var elem = e.target;
-	    elem.className = elem.className.replace(_this5.props.animatingClassName[1], '').trim();
-	    _this5.props.onEnd({ key: key, type: 'leave' });
+	    elem.className = elem.className.replace(_this4.props.animatingClassName[1], '').trim();
+	    _this4.props.onEnd({ key: key, type: 'leave' });
 	  };
 	};
 	
@@ -2913,7 +2912,7 @@
 
 /***/ }),
 /* 104 */
-[403, 105],
+[404, 105],
 /* 105 */
 /***/ (function(module, exports) {
 
@@ -9288,7 +9287,7 @@
 
 /***/ }),
 /* 156 */
-[403, 141],
+[404, 141],
 /* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27420,7 +27419,8 @@
 /* 400 */,
 /* 401 */,
 /* 402 */,
-/* 403 */
+/* 403 */,
+/* 404 */
 /***/ (function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
