@@ -210,6 +210,36 @@ class QueueAnim extends React.Component {
       this.getTweenType(transformArguments(props.type, key, i)[enterOrLeave], startOrEnd);
   }
 
+  getChildrenToRender = child => {
+    if (!child || !child.key) {
+      return child;
+    }
+    const key = child.key;
+    if ((this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])
+      || this.state.childrenShow[key]) {
+      const animation = this.keysToLeave.indexOf(key) >= 0 ?
+        this.getTweenLeaveData(key, this.keysToLeave.indexOf(key)) :
+        this.keysToEnterToCallback.indexOf(key) >= 0
+        && this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key)) || null;
+      const props = {
+        key,
+        component: null,
+        animation,
+      };
+      if (!this.saveTweenTag[key]) {
+        this.saveTweenTag[key] = createElement(TweenOne, props, child);
+      } else {
+        this.saveTweenTag[key] = cloneElement(this.saveTweenTag[key], props);
+      }
+      if (this.keysToEnterPaused[key]
+        && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])) {
+        return cloneElement(this.saveTweenTag[key], { paused: true });
+      }
+      return this.saveTweenTag[key];
+    }
+    return null;
+  };
+
   performEnter = (key, i) => {
     const interval = transformArguments(this.props.interval, key, i)[0];
     const delay = transformArguments(this.props.delay, key, i)[0];
@@ -289,35 +319,6 @@ class QueueAnim extends React.Component {
 
   render() {
     const { ...tagProps } = this.props;
-    const childrenToRender = toArrayChildren(this.state.children).map(child => {
-      if (!child || !child.key) {
-        return child;
-      }
-      const key = child.key;
-      if ((this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])
-        || this.state.childrenShow[key]) {
-        const animation = this.keysToLeave.indexOf(key) >= 0 ?
-          this.getTweenLeaveData(key, this.keysToLeave.indexOf(key)) :
-          this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key));
-        const props = {
-          key,
-          component: null,
-          animation,
-        };
-        if (!this.saveTweenTag[key]) {
-          this.saveTweenTag[key] = createElement(TweenOne, props, child);
-        } else {
-          this.saveTweenTag[key] = cloneElement(this.saveTweenTag[key], props);
-        }
-        if (this.keysToEnterPaused[key]
-          && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])) {
-          return cloneElement(this.saveTweenTag[key], { paused: true });
-        }
-        return this.saveTweenTag[key];
-      }
-      return null;
-    });
-
     [
       'component',
       'interval',
@@ -332,6 +333,7 @@ class QueueAnim extends React.Component {
       'onEnd',
       'appear',
     ].forEach(key => delete tagProps[key]);
+    const childrenToRender = toArrayChildren(this.state.children).map(this.getChildrenToRender);
     return createElement(this.props.component, { ...tagProps }, childrenToRender);
   }
 }
