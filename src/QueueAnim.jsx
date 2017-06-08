@@ -217,10 +217,16 @@ class QueueAnim extends React.Component {
     const key = child.key;
     if ((this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key])
       || this.state.childrenShow[key]) {
-      const animation = this.keysToLeave.indexOf(key) >= 0 ?
-        this.getTweenLeaveData(key, this.keysToLeave.indexOf(key)) :
-        this.keysToEnterToCallback.indexOf(key) >= 0
-        && this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key)) || null;
+      let animation;
+      if (this.keysToLeave.indexOf(key) >= 0) {
+        animation = this.getTweenLeaveData(key, this.keysToLeave.indexOf(key));
+      } else {
+        if (!this.isEnterKey[key] && !this.props.appear) {
+          animation = null;
+        } else {
+          animation = this.getTweenEnterData(key, this.keysToEnterToCallback.indexOf(key));
+        }
+      }
       const props = {
         key,
         component: null,
