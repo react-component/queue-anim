@@ -1881,7 +1881,16 @@
 	    }
 	    var key = child.key;
 	    if (_this4.keysToLeave.indexOf(key) >= 0 && _this4.state.childrenShow[key] || _this4.state.childrenShow[key]) {
-	      var animation = _this4.keysToLeave.indexOf(key) >= 0 ? _this4.getTweenLeaveData(key, _this4.keysToLeave.indexOf(key)) : _this4.keysToEnterToCallback.indexOf(key) >= 0 && _this4.getTweenEnterData(key, _this4.keysToEnterToCallback.indexOf(key)) || null;
+	      var animation = void 0;
+	      if (_this4.keysToLeave.indexOf(key) >= 0) {
+	        animation = _this4.getTweenLeaveData(key, _this4.keysToLeave.indexOf(key));
+	      } else {
+	        if (!_this4.isEnterKey[key] && !_this4.props.appear) {
+	          animation = null;
+	        } else {
+	          animation = _this4.getTweenEnterData(key, _this4.keysToEnterToCallback.indexOf(key));
+	        }
+	      }
 	      var props = {
 	        key: key,
 	        component: null,
