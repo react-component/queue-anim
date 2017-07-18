@@ -113,6 +113,12 @@ describe('rc-queue-anim', () => {
     expect(children.length).to.be(1);
   });
 
+  it('should render all children', () => {
+    const instance = createQueueAnimInstance({ appear: false });
+    const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(children.length).to.be(4);
+  });
+
   it('should have queue animation', (done) => {
     const interval = defaultInterval;
     const instance = createQueueAnimInstance();
