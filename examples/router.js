@@ -3,12 +3,12 @@ webpackJsonp([12],{
 /***/ 0:
 /***/ (function(module, exports, __webpack_require__) {
 
-	module.exports = __webpack_require__(359);
+	module.exports = __webpack_require__(363);
 
 
 /***/ }),
 
-/***/ 359:
+/***/ 363:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -29,7 +29,7 @@ webpackJsonp([12],{
 	
 	var _inherits3 = _interopRequireDefault(_inherits2);
 	
-	var _reactRouterDom = __webpack_require__(360);
+	var _reactRouterDom = __webpack_require__(364);
 	
 	var _rcQueueAnim = __webpack_require__(80);
 	
@@ -43,7 +43,7 @@ webpackJsonp([12],{
 	
 	var _reactDom2 = _interopRequireDefault(_reactDom);
 	
-	__webpack_require__(398);
+	__webpack_require__(402);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -358,7 +358,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 360:
+/***/ 364:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -366,55 +366,55 @@ webpackJsonp([12],{
 	exports.__esModule = true;
 	exports.withRouter = exports.matchPath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.NavLink = exports.MemoryRouter = exports.Link = exports.HashRouter = exports.BrowserRouter = undefined;
 	
-	var _BrowserRouter2 = __webpack_require__(361);
+	var _BrowserRouter2 = __webpack_require__(365);
 	
 	var _BrowserRouter3 = _interopRequireDefault(_BrowserRouter2);
 	
-	var _HashRouter2 = __webpack_require__(385);
+	var _HashRouter2 = __webpack_require__(389);
 	
 	var _HashRouter3 = _interopRequireDefault(_HashRouter2);
 	
-	var _Link2 = __webpack_require__(387);
+	var _Link2 = __webpack_require__(391);
 	
 	var _Link3 = _interopRequireDefault(_Link2);
 	
-	var _MemoryRouter2 = __webpack_require__(388);
+	var _MemoryRouter2 = __webpack_require__(392);
 	
 	var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
 	
-	var _NavLink2 = __webpack_require__(389);
+	var _NavLink2 = __webpack_require__(393);
 	
 	var _NavLink3 = _interopRequireDefault(_NavLink2);
 	
-	var _Prompt2 = __webpack_require__(390);
+	var _Prompt2 = __webpack_require__(394);
 	
 	var _Prompt3 = _interopRequireDefault(_Prompt2);
 	
-	var _Redirect2 = __webpack_require__(391);
+	var _Redirect2 = __webpack_require__(395);
 	
 	var _Redirect3 = _interopRequireDefault(_Redirect2);
 	
-	var _Route2 = __webpack_require__(392);
+	var _Route2 = __webpack_require__(396);
 	
 	var _Route3 = _interopRequireDefault(_Route2);
 	
-	var _Router2 = __webpack_require__(393);
+	var _Router2 = __webpack_require__(397);
 	
 	var _Router3 = _interopRequireDefault(_Router2);
 	
-	var _StaticRouter2 = __webpack_require__(394);
+	var _StaticRouter2 = __webpack_require__(398);
 	
 	var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
 	
-	var _Switch2 = __webpack_require__(395);
+	var _Switch2 = __webpack_require__(399);
 	
 	var _Switch3 = _interopRequireDefault(_Switch2);
 	
-	var _matchPath2 = __webpack_require__(396);
+	var _matchPath2 = __webpack_require__(400);
 	
 	var _matchPath3 = _interopRequireDefault(_matchPath2);
 	
-	var _withRouter2 = __webpack_require__(397);
+	var _withRouter2 = __webpack_require__(401);
 	
 	var _withRouter3 = _interopRequireDefault(_withRouter2);
 	
@@ -436,7 +436,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 361:
+/***/ 365:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -451,11 +451,11 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _createBrowserHistory = __webpack_require__(362);
+	var _createBrowserHistory = __webpack_require__(366);
 	
 	var _createBrowserHistory2 = _interopRequireDefault(_createBrowserHistory);
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -501,7 +501,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 362:
+/***/ 366:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -512,23 +512,23 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(364);
+	var _invariant = __webpack_require__(368);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _LocationUtils = __webpack_require__(365);
+	var _LocationUtils = __webpack_require__(369);
 	
-	var _PathUtils = __webpack_require__(368);
+	var _PathUtils = __webpack_require__(372);
 	
-	var _createTransitionManager = __webpack_require__(369);
+	var _createTransitionManager = __webpack_require__(373);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _DOMUtils = __webpack_require__(370);
+	var _DOMUtils = __webpack_require__(374);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -580,12 +580,11 @@ webpackJsonp([12],{
 	
 	    var path = pathname + search + hash;
 	
-	    if (basename) path = (0, _PathUtils.stripPrefix)(path, basename);
+	    (0, _warning2.default)(!basename || (0, _PathUtils.hasBasename)(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
 	
-	    return _extends({}, (0, _PathUtils.parsePath)(path), {
-	      state: state,
-	      key: key
-	    });
+	    if (basename) path = (0, _PathUtils.stripBasename)(path, basename);
+	
+	    return (0, _LocationUtils.createLocation)(path, state, key);
 	  };
 	
 	  var createKey = function createKey() {
@@ -815,7 +814,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 363:
+/***/ 367:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -883,7 +882,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 364:
+/***/ 368:
 /***/ (function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
@@ -942,7 +941,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 365:
+/***/ 369:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -952,15 +951,15 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _resolvePathname = __webpack_require__(366);
+	var _resolvePathname = __webpack_require__(370);
 	
 	var _resolvePathname2 = _interopRequireDefault(_resolvePathname);
 	
-	var _valueEqual = __webpack_require__(367);
+	var _valueEqual = __webpack_require__(371);
 	
 	var _valueEqual2 = _interopRequireDefault(_valueEqual);
 	
-	var _PathUtils = __webpack_require__(368);
+	var _PathUtils = __webpack_require__(372);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -991,7 +990,17 @@ webpackJsonp([12],{
 	    if (state !== undefined && location.state === undefined) location.state = state;
 	  }
 	
-	  location.key = key;
+	  try {
+	    location.pathname = decodeURI(location.pathname);
+	  } catch (e) {
+	    if (e instanceof URIError) {
+	      throw new URIError('Pathname "' + location.pathname + '" could not be decoded. ' + 'This is likely caused by an invalid percent-encoding.');
+	    } else {
+	      throw e;
+	    }
+	  }
+	
+	  if (key) location.key = key;
 	
 	  if (currentLocation) {
 	    // Resolve incomplete/relative pathname relative to current location.
@@ -999,6 +1008,11 @@ webpackJsonp([12],{
 	      location.pathname = currentLocation.pathname;
 	    } else if (location.pathname.charAt(0) !== '/') {
 	      location.pathname = (0, _resolvePathname2.default)(location.pathname, currentLocation.pathname);
+	    }
+	  } else {
+	    // When there is no prior location and pathname is empty, set it to /
+	    if (!location.pathname) {
+	      location.pathname = '/';
 	    }
 	  }
 	
@@ -1011,7 +1025,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 366:
+/***/ 370:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1087,7 +1101,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 367:
+/***/ 371:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1133,7 +1147,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 368:
+/***/ 372:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1147,8 +1161,12 @@ webpackJsonp([12],{
 	  return path.charAt(0) === '/' ? path.substr(1) : path;
 	};
 	
-	var stripPrefix = exports.stripPrefix = function stripPrefix(path, prefix) {
-	  return path.indexOf(prefix) === 0 ? path.substr(prefix.length) : path;
+	var hasBasename = exports.hasBasename = function hasBasename(path, prefix) {
+	  return new RegExp('^' + prefix + '(\\/|\\?|#|$)', 'i').test(path);
+	};
+	
+	var stripBasename = exports.stripBasename = function stripBasename(path, prefix) {
+	  return hasBasename(path, prefix) ? path.substr(prefix.length) : path;
 	};
 	
 	var stripTrailingSlash = exports.stripTrailingSlash = function stripTrailingSlash(path) {
@@ -1172,8 +1190,6 @@ webpackJsonp([12],{
 	    pathname = pathname.substr(0, searchIndex);
 	  }
 	
-	  pathname = decodeURI(pathname);
-	
 	  return {
 	    pathname: pathname,
 	    search: search === '?' ? '' : search,
@@ -1187,7 +1203,7 @@ webpackJsonp([12],{
 	      hash = location.hash;
 	
 	
-	  var path = encodeURI(pathname || '/');
+	  var path = pathname || '/';
 	
 	  if (search && search !== '?') path += search.charAt(0) === '?' ? search : '?' + search;
 	
@@ -1198,14 +1214,14 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 369:
+/***/ 373:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -1289,7 +1305,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 370:
+/***/ 374:
 /***/ (function(module, exports) {
 
 	'use strict';
@@ -1350,7 +1366,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 371:
+/***/ 375:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1358,39 +1374,39 @@ webpackJsonp([12],{
 	exports.__esModule = true;
 	exports.withRouter = exports.matchPath = exports.Switch = exports.StaticRouter = exports.Router = exports.Route = exports.Redirect = exports.Prompt = exports.MemoryRouter = undefined;
 	
-	var _MemoryRouter2 = __webpack_require__(372);
+	var _MemoryRouter2 = __webpack_require__(376);
 	
 	var _MemoryRouter3 = _interopRequireDefault(_MemoryRouter2);
 	
-	var _Prompt2 = __webpack_require__(375);
+	var _Prompt2 = __webpack_require__(379);
 	
 	var _Prompt3 = _interopRequireDefault(_Prompt2);
 	
-	var _Redirect2 = __webpack_require__(376);
+	var _Redirect2 = __webpack_require__(380);
 	
 	var _Redirect3 = _interopRequireDefault(_Redirect2);
 	
-	var _Route2 = __webpack_require__(377);
+	var _Route2 = __webpack_require__(381);
 	
 	var _Route3 = _interopRequireDefault(_Route2);
 	
-	var _Router2 = __webpack_require__(374);
+	var _Router2 = __webpack_require__(378);
 	
 	var _Router3 = _interopRequireDefault(_Router2);
 	
-	var _StaticRouter2 = __webpack_require__(381);
+	var _StaticRouter2 = __webpack_require__(385);
 	
 	var _StaticRouter3 = _interopRequireDefault(_StaticRouter2);
 	
-	var _Switch2 = __webpack_require__(382);
+	var _Switch2 = __webpack_require__(386);
 	
 	var _Switch3 = _interopRequireDefault(_Switch2);
 	
-	var _matchPath2 = __webpack_require__(378);
+	var _matchPath2 = __webpack_require__(382);
 	
 	var _matchPath3 = _interopRequireDefault(_matchPath2);
 	
-	var _withRouter2 = __webpack_require__(383);
+	var _withRouter2 = __webpack_require__(387);
 	
 	var _withRouter3 = _interopRequireDefault(_withRouter2);
 	
@@ -1408,7 +1424,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 372:
+/***/ 376:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1423,11 +1439,11 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _createMemoryHistory = __webpack_require__(373);
+	var _createMemoryHistory = __webpack_require__(377);
 	
 	var _createMemoryHistory2 = _interopRequireDefault(_createMemoryHistory);
 	
-	var _Router = __webpack_require__(374);
+	var _Router = __webpack_require__(378);
 	
 	var _Router2 = _interopRequireDefault(_Router);
 	
@@ -1475,7 +1491,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 373:
+/***/ 377:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1486,15 +1502,15 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _PathUtils = __webpack_require__(368);
+	var _PathUtils = __webpack_require__(372);
 	
-	var _LocationUtils = __webpack_require__(365);
+	var _LocationUtils = __webpack_require__(369);
 	
-	var _createTransitionManager = __webpack_require__(369);
+	var _createTransitionManager = __webpack_require__(373);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
@@ -1651,7 +1667,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 374:
+/***/ 378:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1660,11 +1676,11 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(364);
+	var _invariant = __webpack_require__(368);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -1776,7 +1792,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 375:
+/***/ 379:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1866,7 +1882,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 376:
+/***/ 380:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1956,7 +1972,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 377:
+/***/ 381:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -1965,7 +1981,7 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
@@ -1977,7 +1993,7 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _matchPath = __webpack_require__(378);
+	var _matchPath = __webpack_require__(382);
 	
 	var _matchPath2 = _interopRequireDefault(_matchPath);
 	
@@ -2107,14 +2123,14 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 378:
+/***/ 382:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _pathToRegexp = __webpack_require__(379);
+	var _pathToRegexp = __webpack_require__(383);
 	
 	var _pathToRegexp2 = _interopRequireDefault(_pathToRegexp);
 	
@@ -2188,10 +2204,10 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 379:
+/***/ 383:
 /***/ (function(module, exports, __webpack_require__) {
 
-	var isarray = __webpack_require__(380)
+	var isarray = __webpack_require__(384)
 	
 	/**
 	 * Expose `pathToRegexp`.
@@ -2621,7 +2637,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 380:
+/***/ 384:
 /***/ (function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -2631,7 +2647,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 381:
+/***/ 385:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2640,7 +2656,7 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _invariant = __webpack_require__(364);
+	var _invariant = __webpack_require__(368);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
@@ -2652,9 +2668,9 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _PathUtils = __webpack_require__(368);
+	var _PathUtils = __webpack_require__(372);
 	
-	var _Router = __webpack_require__(374);
+	var _Router = __webpack_require__(378);
 	
 	var _Router2 = _interopRequireDefault(_Router);
 	
@@ -2814,7 +2830,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 382:
+/***/ 386:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2829,11 +2845,11 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _matchPath = __webpack_require__(378);
+	var _matchPath = __webpack_require__(382);
 	
 	var _matchPath2 = _interopRequireDefault(_matchPath);
 	
@@ -2907,7 +2923,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 383:
+/***/ 387:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -2924,11 +2940,11 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _hoistNonReactStatics = __webpack_require__(384);
+	var _hoistNonReactStatics = __webpack_require__(388);
 	
 	var _hoistNonReactStatics2 = _interopRequireDefault(_hoistNonReactStatics);
 	
-	var _Route = __webpack_require__(377);
+	var _Route = __webpack_require__(381);
 	
 	var _Route2 = _interopRequireDefault(_Route);
 	
@@ -2962,7 +2978,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 384:
+/***/ 388:
 /***/ (function(module, exports) {
 
 	/**
@@ -3019,7 +3035,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 385:
+/***/ 389:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3034,11 +3050,11 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _createHashHistory = __webpack_require__(386);
+	var _createHashHistory = __webpack_require__(390);
 	
 	var _createHashHistory2 = _interopRequireDefault(_createHashHistory);
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -3083,7 +3099,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 386:
+/***/ 390:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3092,23 +3108,23 @@ webpackJsonp([12],{
 	
 	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
-	var _warning = __webpack_require__(363);
+	var _warning = __webpack_require__(367);
 	
 	var _warning2 = _interopRequireDefault(_warning);
 	
-	var _invariant = __webpack_require__(364);
+	var _invariant = __webpack_require__(368);
 	
 	var _invariant2 = _interopRequireDefault(_invariant);
 	
-	var _LocationUtils = __webpack_require__(365);
+	var _LocationUtils = __webpack_require__(369);
 	
-	var _PathUtils = __webpack_require__(368);
+	var _PathUtils = __webpack_require__(372);
 	
-	var _createTransitionManager = __webpack_require__(369);
+	var _createTransitionManager = __webpack_require__(373);
 	
 	var _createTransitionManager2 = _interopRequireDefault(_createTransitionManager);
 	
-	var _DOMUtils = __webpack_require__(370);
+	var _DOMUtils = __webpack_require__(374);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -3174,9 +3190,11 @@ webpackJsonp([12],{
 	  var getDOMLocation = function getDOMLocation() {
 	    var path = decodePath(getHashPath());
 	
-	    if (basename) path = (0, _PathUtils.stripPrefix)(path, basename);
+	    (0, _warning2.default)(!basename || (0, _PathUtils.hasBasename)(path, basename), 'You are attempting to use a basename on a page whose URL path does not begin ' + 'with the basename. Expected path "' + path + '" to begin with "' + basename + '".');
 	
-	    return (0, _PathUtils.parsePath)(path);
+	    if (basename) path = (0, _PathUtils.stripBasename)(path, basename);
+	
+	    return (0, _LocationUtils.createLocation)(path);
 	  };
 	
 	  var transitionManager = (0, _createTransitionManager2.default)();
@@ -3411,7 +3429,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 387:
+/***/ 391:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3519,14 +3537,14 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 388:
+/***/ 392:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	exports.__esModule = true;
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
@@ -3537,7 +3555,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 389:
+/***/ 393:
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -3556,9 +3574,9 @@ webpackJsonp([12],{
 	
 	var _propTypes2 = _interopRequireDefault(_propTypes);
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
-	var _Link = __webpack_require__(387);
+	var _Link = __webpack_require__(391);
 	
 	var _Link2 = _interopRequireDefault(_Link);
 	
@@ -3623,78 +3641,6 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 390:
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _reactRouter = __webpack_require__(371);
-	
-	Object.defineProperty(exports, 'default', {
-	  enumerable: true,
-	  get: function get() {
-	    return _reactRouter.Prompt;
-	  }
-	});
-
-/***/ }),
-
-/***/ 391:
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _reactRouter = __webpack_require__(371);
-	
-	Object.defineProperty(exports, 'default', {
-	  enumerable: true,
-	  get: function get() {
-	    return _reactRouter.Redirect;
-	  }
-	});
-
-/***/ }),
-
-/***/ 392:
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _reactRouter = __webpack_require__(371);
-	
-	Object.defineProperty(exports, 'default', {
-	  enumerable: true,
-	  get: function get() {
-	    return _reactRouter.Route;
-	  }
-	});
-
-/***/ }),
-
-/***/ 393:
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	exports.__esModule = true;
-	
-	var _reactRouter = __webpack_require__(371);
-	
-	Object.defineProperty(exports, 'default', {
-	  enumerable: true,
-	  get: function get() {
-	    return _reactRouter.Router;
-	  }
-	});
-
-/***/ }),
-
 /***/ 394:
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -3702,12 +3648,12 @@ webpackJsonp([12],{
 	
 	exports.__esModule = true;
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
 	  get: function get() {
-	    return _reactRouter.StaticRouter;
+	    return _reactRouter.Prompt;
 	  }
 	});
 
@@ -3720,12 +3666,12 @@ webpackJsonp([12],{
 	
 	exports.__esModule = true;
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
 	  get: function get() {
-	    return _reactRouter.Switch;
+	    return _reactRouter.Redirect;
 	  }
 	});
 
@@ -3738,12 +3684,12 @@ webpackJsonp([12],{
 	
 	exports.__esModule = true;
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
 	
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
 	  get: function get() {
-	    return _reactRouter.matchPath;
+	    return _reactRouter.Route;
 	  }
 	});
 
@@ -3756,7 +3702,79 @@ webpackJsonp([12],{
 	
 	exports.__esModule = true;
 	
-	var _reactRouter = __webpack_require__(371);
+	var _reactRouter = __webpack_require__(375);
+	
+	Object.defineProperty(exports, 'default', {
+	  enumerable: true,
+	  get: function get() {
+	    return _reactRouter.Router;
+	  }
+	});
+
+/***/ }),
+
+/***/ 398:
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _reactRouter = __webpack_require__(375);
+	
+	Object.defineProperty(exports, 'default', {
+	  enumerable: true,
+	  get: function get() {
+	    return _reactRouter.StaticRouter;
+	  }
+	});
+
+/***/ }),
+
+/***/ 399:
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _reactRouter = __webpack_require__(375);
+	
+	Object.defineProperty(exports, 'default', {
+	  enumerable: true,
+	  get: function get() {
+	    return _reactRouter.Switch;
+	  }
+	});
+
+/***/ }),
+
+/***/ 400:
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _reactRouter = __webpack_require__(375);
+	
+	Object.defineProperty(exports, 'default', {
+	  enumerable: true,
+	  get: function get() {
+	    return _reactRouter.matchPath;
+	  }
+	});
+
+/***/ }),
+
+/***/ 401:
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	exports.__esModule = true;
+	
+	var _reactRouter = __webpack_require__(375);
 	
 	Object.defineProperty(exports, 'default', {
 	  enumerable: true,
@@ -3767,7 +3785,7 @@ webpackJsonp([12],{
 
 /***/ }),
 
-/***/ 398:
+/***/ 402:
 /***/ (function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

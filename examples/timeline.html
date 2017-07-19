@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>param-func.js - example - rc-queue-anim@1.1.0</title>
+  <title>timeline.js - example - rc-queue-anim@1.1.0</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -269,68 +269,48 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     </div>
     <div class="example" id="__react-content"></div>
 
-    <div class="highlight"><pre><code language="undefined">/* eslint-disable no-console,react/no-multi-comp */
-import QueueAnim from 'rc-queue-anim';
-import React from 'react';
-import ReactDom from 'react-dom';
-
-class Page1 extends React.Component {
+    <div class="highlight"><pre><code language="js"><span class="hljs-comment">/* eslint-disable no-console,react/no-multi-comp */</span>
+<span class="hljs-keyword">import</span> QueueAnim <span class="hljs-keyword">from</span> <span class="hljs-string">'rc-queue-anim'</span>;
+<span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
+<span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
+<span class="hljs-keyword">const</span> children = [<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+  <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>依次进入<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>,
+];
+class Demo extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      show: true,
+      children,
     };
   }
 
   onClick = () =&gt; {
-    this.setState({
-      show: !this.state.show,
-    });
-  }
-  animConfigFunc = (e) =&gt; {
-    if (e.key === '3') {
-      return { opacity: [1, 0], translateX: [0, 30] };
+    if (this.state.children) {
+      this.setState({ children: null });
+    } else {
+      this.setState({ children });
     }
-    return [{ opacity: [1, 0], translateX: [0, -30] }, { opacity: [1, 0], translateX: [0, 30] }];
   }
-  durationFunc = (e) =&gt; {
-    if (e.key === '3') {
-      return [1500, 4000];
-    }
-    return 500;
-  }
-  easeFunc = (e) =&gt; {
-    if (e.key === '3') {
-      return ['easeOutBack', 'easeInBack'];
-    }
-    return 'easeInOutQuart';
-  }
-  delayFunc = (e) =&gt; {
-    if (e.index &gt;= 3) {
-      return [1500, 0];
-    }
-    return 0;
-  }
+
   render() {
-    return (&lt;div&gt;
-        &lt;button onClick={this.onClick}&gt;切换&lt;/button&gt;
-        &lt;QueueAnim interval={300} animConfig={this.animConfigFunc}
-          duration={this.durationFunc} ease={this.easeFunc}
-          delay={this.delayFunc}
-        &gt;
-          {this.state.show ? [&lt;div key="1"&gt;依次进入&lt;/div&gt;,
-            &lt;div key="2"&gt;依次进入&lt;/div&gt;,
-            &lt;div key="3"&gt;改变type&lt;/div&gt;,
-            &lt;div key="4"&gt;依次进入&lt;/div&gt;,
-            &lt;div key="5"&gt;依次进入&lt;/div&gt;] : null}
-        &lt;/QueueAnim&gt;
-      &lt;/div&gt;
-    );
+    return (<span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">button</span> <span class="hljs-attribute">onClick</span>=<span class="hljs-value">{this.onClick}</span>&gt;</span>切换<span class="hljs-tag">&lt;/<span class="hljs-title">button</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>
+        <span class="hljs-attribute">animConfig</span>=<span class="hljs-value">{[</span>
+          [{ <span class="hljs-attribute">x:</span> [<span class="hljs-attribute">300</span>, <span class="hljs-attribute">20</span>], <span class="hljs-attribute">opacity:</span> [<span class="hljs-attribute">1</span>, <span class="hljs-attribute">0</span>] }, { <span class="hljs-attribute">y:</span> [<span class="hljs-attribute">100</span>, <span class="hljs-attribute">0</span>] }],
+          [{ <span class="hljs-attribute">x:</span> [<span class="hljs-attribute">300</span>, <span class="hljs-attribute">500</span>] }, { <span class="hljs-attribute">y:</span> [<span class="hljs-attribute">100</span>, <span class="hljs-attribute">-50</span>], <span class="hljs-attribute">opacity:</span> [<span class="hljs-attribute">1</span>, <span class="hljs-attribute">0</span>] }],
+        ]}
+        <span class="hljs-attribute">ease</span>=<span class="hljs-value">"easeInOutQuart"</span>
+      &gt;</span>
+        {this.state.children}
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>)</span>;
   }
 }
-
-ReactDom.render(&lt;Page1 /&gt;, document.getElementById('__react-content'));
-</code></pre></div>
+ReactDom.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Demo</span> /&gt;</span>, document.getElementById('__react-content'));
+</span></code></pre></div>
   </div>
   <a href="https://github.com/react-component/queue-anim">
     <img style="position: absolute; top: 0; right: 0; border: 0;"
@@ -340,7 +320,7 @@ ReactDom.render(&lt;Page1 /&gt;, document.getElementById('__react-content'));
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="common.js?nowrap"></script>
-  <script src="param-func.js?nowrap"></script>
+  <script src="timeline.js?nowrap"></script>
 </body>
 
 </html>
