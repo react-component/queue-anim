@@ -73,8 +73,11 @@ export function transformArguments(arg, key, i) {
   } else {
     result = arg;
   }
-  if (Array.isArray(result) && result.length === 2) {
-    return result;
+  if (Array.isArray(result)) {
+    if (result.length === 2) {
+      return result;
+    }
+    return [result[0], result[0]];
   }
   return [result, result];
 }
