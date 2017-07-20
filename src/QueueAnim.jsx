@@ -197,8 +197,8 @@ class QueueAnim extends React.Component {
      */
     startAnim = props.enterForcedRePlay || !this.tweenKeyType[key] || !this.saveTweenAnim[key] ?
       startAnim : {};
-    let ease = transformArguments(props.ease, key, i)[0];
-    const duration = transformArguments(props.duration, key, i)[0];
+    let ease = transformArguments(props.ease, key, i)[enterOrLeave];
+    const duration = transformArguments(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
       ease = ease.map(num => num * 100);
       ease = TweenOne.easing.path(
