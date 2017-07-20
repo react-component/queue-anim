@@ -1875,8 +1875,8 @@
 	     * 如果 this.tweenKeyType[key] 有值时，说明正在动画，此时切换不需要开始。
 	     */
 	    startAnim = props.enterForcedRePlay || !_this5.tweenKeyType[key] || !_this5.saveTweenAnim[key] ? startAnim : {};
-	    var ease = (0, _utils.transformArguments)(props.ease, key, i)[0];
-	    var duration = (0, _utils.transformArguments)(props.duration, key, i)[0];
+	    var ease = (0, _utils.transformArguments)(props.ease, key, i)[enterOrLeave];
+	    var duration = (0, _utils.transformArguments)(props.duration, key, i)[enterOrLeave];
 	    if (Array.isArray(ease)) {
 	      ease = ease.map(function (num) {
 	        return num * 100;
