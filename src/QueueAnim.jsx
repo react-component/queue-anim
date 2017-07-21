@@ -17,6 +17,7 @@ class QueueAnim extends React.Component {
 
   static propTypes = {
     component: PropTypes.any,
+    componentProps: PropTypes.object,
     interval: PropTypes.any,
     duration: PropTypes.any,
     delay: PropTypes.any,
@@ -32,6 +33,7 @@ class QueueAnim extends React.Component {
 
   static defaultProps = {
     component: 'div',
+    componentProps: {},
     interval: 100,
     duration: 450,
     delay: 0,
@@ -392,6 +394,7 @@ class QueueAnim extends React.Component {
     const { ...tagProps } = this.props;
     [
       'component',
+      'componentProps',
       'interval',
       'duration',
       'delay',
@@ -405,7 +408,8 @@ class QueueAnim extends React.Component {
       'appear',
     ].forEach(key => delete tagProps[key]);
     const childrenToRender = toArrayChildren(this.state.children).map(this.getChildrenToRender);
-    return createElement(this.props.component, { ...tagProps }, childrenToRender);
+    const props = { ...tagProps, ...this.props.componentProps };
+    return createElement(this.props.component, props, childrenToRender);
   }
 }
 
