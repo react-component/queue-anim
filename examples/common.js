@@ -1821,11 +1821,12 @@
 	  QueueAnim.prototype.render = function render() {
 	    var tagProps = (0, _objectWithoutProperties3.default)(this.props, []);
 	
-	    ['component', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
+	    ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
 	      return delete tagProps[key];
 	    });
 	    var childrenToRender = (0, _utils.toArrayChildren)(this.state.children).map(this.getChildrenToRender);
-	    return (0, _react.createElement)(this.props.component, (0, _extends3.default)({}, tagProps), childrenToRender);
+	    var props = (0, _extends3.default)({}, tagProps, this.props.componentProps);
+	    return (0, _react.createElement)(this.props.component, props, childrenToRender);
 	  };
 	
 	  return QueueAnim;
@@ -1833,6 +1834,7 @@
 	
 	QueueAnim.propTypes = {
 	  component: _propTypes2.default.any,
+	  componentProps: _propTypes2.default.object,
 	  interval: _propTypes2.default.any,
 	  duration: _propTypes2.default.any,
 	  delay: _propTypes2.default.any,
@@ -1847,6 +1849,7 @@
 	};
 	QueueAnim.defaultProps = {
 	  component: 'div',
+	  componentProps: {},
 	  interval: 100,
 	  duration: 450,
 	  delay: 0,
