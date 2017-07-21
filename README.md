@@ -60,7 +60,7 @@ ReactDom.render(
 | props      | type           | default | description    |
 |------------|----------------|---------|----------------|
 | type       | string / array | `right` | Animation Styles <br/>`alpha` `left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
-| animConfig | object / array | null    | Custom Velocity config, like `{opacity:[1, 0], translateY:[0, -30]}`, [velocity config](http://julian.com/research/velocity) |
+| animConfig | object / array | null    | Custom Velocity config, See below for more details [animConfig](#animConfig) |
 | delay      | number / array | 0       | delay of animation |
 | duration   | number / array | 450     | duration of animation  |
 | interval   | number / array | 100      | interval of duration |
@@ -74,6 +74,26 @@ ReactDom.render(
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
 
 You must provide the key attribute for all children of QueueAnim, children would not peform any animation without key.
+
+### animConfig
+
+**Data fall into three categories：**
+
+- Custom set start: `{ opacity:[1, 0] }` ；
+<br/> default；
+<br/>type: `{ opacity: Array<end, start> }`；
+<br/>leave automatic reverse: `{ opacity: Array<start, end> }`；
+<br/>
+<br/>
+
+- Custom: `{ opacity: 0 }`；
+<br/> Start position is not set。
+<br/>
+<br/>
+
+
+- Array: `[{ opacity:[1, 0] }, { opacity:[1, 0] }]`；
+<br/> type: `[{ opacity: Array<end, start> }, { opacity: Array<start, end>}]`
 
 ## Development
 
