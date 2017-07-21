@@ -84,13 +84,10 @@ You must provide the key attribute for all children of QueueAnim, children would
 <br/>type: `{ opacity: Array<end, start> }`；
 <br/>leave automatic reverse: `{ opacity: Array<start, end> }`；
 <br/>
-<br/>
 
 - Custom: `{ opacity: 0 }`；
 <br/> Start position is not set。
 <br/>
-<br/>
-
 
 - Array: `[{ opacity:[1, 0] }, { opacity:[1, 0] }]`；
 <br/> type: `[{ opacity: Array<end, start> }, { opacity: Array<start, end>}]`
