@@ -304,7 +304,8 @@ class QueueAnim extends React.Component {
       const paused = this.keysToEnterPaused[key]
         && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key]);
       animation = paused ? null : animation;
-      return createElement(TweenOne, { key, component: null, animation }, child);
+      return createElement(TweenOne,
+        { key, component: child.type, componentProps: child.props, animation });
     }
     return null;
   };
