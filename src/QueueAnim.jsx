@@ -13,6 +13,8 @@ import AnimTypes from './animTypes';
 const noop = () => {
 };
 
+const typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps'];
+
 class QueueAnim extends React.Component {
 
   static propTypes = {
@@ -304,8 +306,17 @@ class QueueAnim extends React.Component {
       const paused = this.keysToEnterPaused[key]
         && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key]);
       animation = paused ? null : animation;
+      const isFunc = typeof child.type === 'function';
+      const forcedJudg = isFunc ? {} : null;
+      if (isFunc) {
+        Object.keys(child.type).forEach(name => {
+          if (typeDefault.indexOf(name) === -1) {
+            forcedJudg[name] = child.type[name];
+          }
+        });
+      }
       return createElement(TweenOne,
-        { key, component: child.type, componentProps: child.props, animation });
+        { key, component: child.type, componentProps: child.props, forcedJudg, animation });
     }
     return null;
   };
