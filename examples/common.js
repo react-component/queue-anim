@@ -1667,6 +1667,8 @@
 	
 	var noop = function noop() {};
 	
+	var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps'];
+	
 	var QueueAnim = function (_React$Component) {
 	  (0, _inherits3.default)(QueueAnim, _React$Component);
 	
@@ -1975,7 +1977,16 @@
 	      }
 	      var paused = _this5.keysToEnterPaused[key] && !(_this5.keysToLeave.indexOf(key) >= 0 && _this5.state.childrenShow[key]);
 	      animation = paused ? null : animation;
-	      return (0, _react.createElement)(_rcTweenOne2.default, { key: key, component: child.type, componentProps: child.props, animation: animation });
+	      var isFunc = typeof child.type === 'function';
+	      var forcedJudg = isFunc ? {} : null;
+	      if (isFunc) {
+	        Object.keys(child.type).forEach(function (name) {
+	          if (typeDefault.indexOf(name) === -1) {
+	            forcedJudg[name] = child.type[name];
+	          }
+	        });
+	      }
+	      return (0, _react.createElement)(_rcTweenOne2.default, { key: key, component: child.type, componentProps: child.props, forcedJudg: forcedJudg, animation: animation });
 	    }
 	    return null;
 	  };
@@ -6739,94 +6750,27 @@
 	var TweenOne = function (_Component) {
 	  (0, _inherits3["default"])(TweenOne, _Component);
 	
-	  function TweenOne() {
+	  function TweenOne(props) {
 	    (0, _classCallCheck3["default"])(this, TweenOne);
 	
-	    var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.apply(this, arguments));
+	    var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.call(this, props));
 	
-	    _this.restart = function () {
-	      if (!_this.timeLine) {
-	        return;
-	      }
-	      _this.startMoment = _this.timeLine.progressTime;
-	      _this.startFrame = _ticker2["default"].frame;
-	      _this.play();
-	    };
-	
-	    _this.start = function () {
-	      _this.updateAnim = null;
-	      var props = _this.props;
-	      if (props.animation && Object.keys(props.animation).length) {
-	        _this.timeLine = new _TimeLine2["default"](_this.dom, (0, _util.dataToArray)(props.animation), { attr: props.attr });
-	        // 预先注册 raf, 初始动画数值。
-	        _this.raf();
-	        // 开始动画
-	        _this.play();
-	      }
-	    };
-	
-	    _this.play = function () {
-	      _this.cancelRequestAnimationFrame();
-	      if (_this.paused) {
-	        return;
-	      }
-	      _this.rafID = _ticker2["default"].add(_this.raf);
-	    };
-	
-	    _this.updateAnimFunc = function () {
-	      _this.cancelRequestAnimationFrame();
-	      _this.startFrame = _ticker2["default"].frame;
-	      if (_this.updateAnim === 'update') {
-	        if (_this.props.resetStyleBool && _this.timeLine) {
-	          _this.timeLine.resetDefaultStyle();
-	        }
-	        _this.startMoment = 0;
-	      }
-	    };
-	
-	    _this.frame = function () {
-	      var moment = (_ticker2["default"].frame - _this.startFrame) * perFrame + _this.startMoment;
-	      if (_this.reverse) {
-	        moment = (_this.startMoment || 0) - (_ticker2["default"].frame - _this.startFrame) * perFrame;
-	      }
-	      moment = moment > _this.timeLine.totalTime ? _this.timeLine.totalTime : moment;
-	      moment = moment <= 0 ? 0 : moment;
-	      if (moment < _this.moment && !_this.reverse) {
-	        _this.timeLine.resetDefaultStyle();
-	      }
-	      _this.moment = moment;
-	      _this.timeLine.onChange = _this.onChange;
-	      _this.timeLine.frame(moment);
-	    };
-	
-	    _this.raf = function () {
-	      _this.frame();
-	      if (_this.updateAnim) {
-	        if (_this.updateStartStyle) {
-	          _this.timeLine.reStart(_this.props.style);
-	        }
-	        _this.updateAnimFunc();
-	        _this.start();
-	      }
-	      if (_this.moment >= _this.timeLine.totalTime && !_this.reverse || _this.paused || _this.reverse && _this.moment === 0) {
-	        return _this.cancelRequestAnimationFrame();
-	      }
-	    };
-	
-	    _this.cancelRequestAnimationFrame = function () {
-	      _ticker2["default"].clear(_this.rafID);
-	      _this.rafID = -1;
-	    };
+	    _initialiseProps.call(_this);
 	
 	    _this.rafID = -1;
-	    _this.moment = _this.props.moment || 0;
-	    _this.startMoment = _this.props.moment || 0;
+	    _this.moment = props.moment || 0;
+	    _this.startMoment = props.moment || 0;
 	    _this.startFrame = _ticker2["default"].frame;
-	    _this.paused = _this.props.paused;
-	    _this.reverse = _this.props.reverse;
-	    _this.onChange = _this.props.onChange;
+	    _this.paused = props.paused;
+	    _this.reverse = props.reverse;
+	    _this.onChange = props.onChange;
 	    _this.newMomentAnim = false;
 	    _this.updateAnim = null;
+	    if (props.forcedJudg) {
+	      Object.keys(props.forcedJudg).forEach(function (key) {
+	        _this[key] = props.forcedJudg[key];
+	      });
+	    }
 	    return _this;
 	  }
 	
@@ -6925,7 +6869,7 @@
 	
 	  TweenOne.prototype.render = function render() {
 	    var props = (0, _extends3["default"])({}, this.props);
-	    ['animation', 'component', 'componentProps', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart'].forEach(function (key) {
+	    ['animation', 'component', 'componentProps', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart', 'forcedJudg'].forEach(function (key) {
 	      return delete props[key];
 	    });
 	    props.style = (0, _extends3["default"])({}, this.props.style);
@@ -6953,6 +6897,84 @@
 	  return TweenOne;
 	}(_react.Component);
 	
+	var _initialiseProps = function _initialiseProps() {
+	  var _this3 = this;
+	
+	  this.restart = function () {
+	    if (!_this3.timeLine) {
+	      return;
+	    }
+	    _this3.startMoment = _this3.timeLine.progressTime;
+	    _this3.startFrame = _ticker2["default"].frame;
+	    _this3.play();
+	  };
+	
+	  this.start = function () {
+	    _this3.updateAnim = null;
+	    var props = _this3.props;
+	    if (props.animation && Object.keys(props.animation).length) {
+	      _this3.timeLine = new _TimeLine2["default"](_this3.dom, (0, _util.dataToArray)(props.animation), { attr: props.attr });
+	      // 预先注册 raf, 初始动画数值。
+	      _this3.raf();
+	      // 开始动画
+	      _this3.play();
+	    }
+	  };
+	
+	  this.play = function () {
+	    _this3.cancelRequestAnimationFrame();
+	    if (_this3.paused) {
+	      return;
+	    }
+	    _this3.rafID = _ticker2["default"].add(_this3.raf);
+	  };
+	
+	  this.updateAnimFunc = function () {
+	    _this3.cancelRequestAnimationFrame();
+	    _this3.startFrame = _ticker2["default"].frame;
+	    if (_this3.updateAnim === 'update') {
+	      if (_this3.props.resetStyleBool && _this3.timeLine) {
+	        _this3.timeLine.resetDefaultStyle();
+	      }
+	      _this3.startMoment = 0;
+	    }
+	  };
+	
+	  this.frame = function () {
+	    var moment = (_ticker2["default"].frame - _this3.startFrame) * perFrame + _this3.startMoment;
+	    if (_this3.reverse) {
+	      moment = (_this3.startMoment || 0) - (_ticker2["default"].frame - _this3.startFrame) * perFrame;
+	    }
+	    moment = moment > _this3.timeLine.totalTime ? _this3.timeLine.totalTime : moment;
+	    moment = moment <= 0 ? 0 : moment;
+	    if (moment < _this3.moment && !_this3.reverse) {
+	      _this3.timeLine.resetDefaultStyle();
+	    }
+	    _this3.moment = moment;
+	    _this3.timeLine.onChange = _this3.onChange;
+	    _this3.timeLine.frame(moment);
+	  };
+	
+	  this.raf = function () {
+	    _this3.frame();
+	    if (_this3.updateAnim) {
+	      if (_this3.updateStartStyle) {
+	        _this3.timeLine.reStart(_this3.props.style);
+	      }
+	      _this3.updateAnimFunc();
+	      _this3.start();
+	    }
+	    if (_this3.moment >= _this3.timeLine.totalTime && !_this3.reverse || _this3.paused || _this3.reverse && _this3.moment === 0) {
+	      return _this3.cancelRequestAnimationFrame();
+	    }
+	  };
+	
+	  this.cancelRequestAnimationFrame = function () {
+	    _ticker2["default"].clear(_this3.rafID);
+	    _this3.rafID = -1;
+	  };
+	};
+	
 	var objectOrArray = _propTypes2["default"].oneOfType([_propTypes2["default"].object, _propTypes2["default"].array]);
 	
 	TweenOne.propTypes = {
@@ -6968,7 +6990,8 @@
 	  attr: _propTypes2["default"].string,
 	  onChange: _propTypes2["default"].func,
 	  resetStyleBool: _propTypes2["default"].bool,
-	  updateReStart: _propTypes2["default"].bool
+	  updateReStart: _propTypes2["default"].bool,
+	  forcedJudg: _propTypes2["default"].object
 	};
 	
 	TweenOne.defaultProps = {
