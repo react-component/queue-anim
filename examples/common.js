@@ -53,7 +53,7 @@
 /******/ 	// "0" means "already loaded"
 /******/ 	// Array means "loading", array contains callbacks
 /******/ 	var installedChunks = {
-/******/ 		18:0
+/******/ 		19:0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -99,7 +99,7 @@
 /******/ 			script.charset = 'utf-8';
 /******/ 			script.async = true;
 /******/
-/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"appear","2":"config","3":"custom","4":"custom-ease","5":"dialog-style","6":"dynamic","7":"empty-children","8":"enter-leave","9":"monkey-click","10":"nested","11":"param-func","12":"router","13":"shortcut","14":"simple","15":"switch","16":"switch-enterForcedRePlay","17":"timeline"}[chunkId]||chunkId) + ".js";
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + "." + ({"0":"animating-class","1":"appear","2":"component","3":"config","4":"custom","5":"custom-ease","6":"dialog-style","7":"dynamic","8":"empty-children","9":"enter-leave","10":"monkey-click","11":"nested","12":"param-func","13":"router","14":"shortcut","15":"simple","16":"switch","17":"switch-enterForcedRePlay","18":"timeline"}[chunkId]||chunkId) + ".js";
 /******/ 			head.appendChild(script);
 /******/ 		}
 /******/ 	};
@@ -1975,7 +1975,7 @@
 	      }
 	      var paused = _this5.keysToEnterPaused[key] && !(_this5.keysToLeave.indexOf(key) >= 0 && _this5.state.childrenShow[key]);
 	      animation = paused ? null : animation;
-	      return (0, _react.createElement)(_rcTweenOne2.default, { key: key, component: null, animation: animation }, child);
+	      return (0, _react.createElement)(_rcTweenOne2.default, { key: key, component: child.type, componentProps: child.props, animation: animation });
 	    }
 	    return null;
 	  };
@@ -2966,7 +2966,7 @@
 
 /***/ }),
 /* 104 */
-[409, 105],
+[449, 105],
 /* 105 */
 /***/ (function(module, exports) {
 
@@ -3479,45 +3479,43 @@
 	var warning = emptyFunction;
 	
 	if (process.env.NODE_ENV !== 'production') {
-	  (function () {
-	    var printWarning = function printWarning(format) {
-	      for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
-	        args[_key - 1] = arguments[_key];
+	  var printWarning = function printWarning(format) {
+	    for (var _len = arguments.length, args = Array(_len > 1 ? _len - 1 : 0), _key = 1; _key < _len; _key++) {
+	      args[_key - 1] = arguments[_key];
+	    }
+	
+	    var argIndex = 0;
+	    var message = 'Warning: ' + format.replace(/%s/g, function () {
+	      return args[argIndex++];
+	    });
+	    if (typeof console !== 'undefined') {
+	      console.error(message);
+	    }
+	    try {
+	      // --- Welcome to debugging React ---
+	      // This error was thrown as a convenience so that you can use this stack
+	      // to find the callsite that caused this warning to fire.
+	      throw new Error(message);
+	    } catch (x) {}
+	  };
+	
+	  warning = function warning(condition, format) {
+	    if (format === undefined) {
+	      throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
+	    }
+	
+	    if (format.indexOf('Failed Composite propType: ') === 0) {
+	      return; // Ignore CompositeComponent proptype check.
+	    }
+	
+	    if (!condition) {
+	      for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
+	        args[_key2 - 2] = arguments[_key2];
 	      }
 	
-	      var argIndex = 0;
-	      var message = 'Warning: ' + format.replace(/%s/g, function () {
-	        return args[argIndex++];
-	      });
-	      if (typeof console !== 'undefined') {
-	        console.error(message);
-	      }
-	      try {
-	        // --- Welcome to debugging React ---
-	        // This error was thrown as a convenience so that you can use this stack
-	        // to find the callsite that caused this warning to fire.
-	        throw new Error(message);
-	      } catch (x) {}
-	    };
-	
-	    warning = function warning(condition, format) {
-	      if (format === undefined) {
-	        throw new Error('`warning(condition, format, ...args)` requires a warning ' + 'message argument');
-	      }
-	
-	      if (format.indexOf('Failed Composite propType: ') === 0) {
-	        return; // Ignore CompositeComponent proptype check.
-	      }
-	
-	      if (!condition) {
-	        for (var _len2 = arguments.length, args = Array(_len2 > 2 ? _len2 - 2 : 0), _key2 = 2; _key2 < _len2; _key2++) {
-	          args[_key2 - 2] = arguments[_key2];
-	        }
-	
-	        printWarning.apply(undefined, [format].concat(args));
-	      }
-	    };
-	  })();
+	      printWarning.apply(undefined, [format].concat(args));
+	    }
+	  };
 	}
 	
 	module.exports = warning;
@@ -6927,7 +6925,7 @@
 	
 	  TweenOne.prototype.render = function render() {
 	    var props = (0, _extends3["default"])({}, this.props);
-	    ['animation', 'component', 'componentReplace', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart'].forEach(function (key) {
+	    ['animation', 'component', 'componentProps', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart'].forEach(function (key) {
 	      return delete props[key];
 	    });
 	    props.style = (0, _extends3["default"])({}, this.props.style);
@@ -6938,11 +6936,6 @@
 	        });
 	      }
 	    });
-	    // 子级是组件，生成组件需要替换的 component;
-	    props.component = typeof props.component === 'function' ? this.props.componentReplace : props.component;
-	    if (!props.component) {
-	      delete props.component;
-	    }
 	    // component 为空时调用子级的。。
 	    if (!this.props.component) {
 	      var childrenProps = this.props.children.props;
@@ -6954,7 +6947,7 @@
 	      var newClassName = props.className ? props.className + ' ' + className : className;
 	      return _react2["default"].cloneElement(this.props.children, { style: newStyle, className: newClassName });
 	    }
-	    return _react2["default"].createElement(this.props.component, props);
+	    return _react2["default"].createElement(this.props.component, (0, _extends3["default"])({}, props, this.props.componentProps));
 	  };
 	
 	  return TweenOne;
@@ -6964,7 +6957,7 @@
 	
 	TweenOne.propTypes = {
 	  component: _propTypes2["default"].any,
-	  componentReplace: _propTypes2["default"].string,
+	  componentProps: _propTypes2["default"].any,
 	  animation: objectOrArray,
 	  children: _propTypes2["default"].any,
 	  style: _propTypes2["default"].object,
@@ -6980,6 +6973,7 @@
 	
 	TweenOne.defaultProps = {
 	  component: 'div',
+	  componentProps: {},
 	  reverseDelay: 0,
 	  attr: 'style',
 	  onChange: noop,
@@ -9342,7 +9336,7 @@
 
 /***/ }),
 /* 156 */
-[409, 141],
+[449, 141],
 /* 157 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20792,18 +20786,11 @@
 	
 	/**
 	 * Copyright (c) 2013-present, Facebook, Inc.
+	 * All rights reserved.
 	 *
-	 * Licensed under the Apache License, Version 2.0 (the "License");
-	 * you may not use this file except in compliance with the License.
-	 * You may obtain a copy of the License at
-	 *
-	 * http://www.apache.org/licenses/LICENSE-2.0
-	 *
-	 * Unless required by applicable law or agreed to in writing, software
-	 * distributed under the License is distributed on an "AS IS" BASIS,
-	 * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-	 * See the License for the specific language governing permissions and
-	 * limitations under the License.
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
 	 *
 	 * @typechecks
 	 */
@@ -25983,7 +25970,7 @@
 	        _this6.start[i] = _this6.getAnimStartData(item.vars);
 	        if (progressTime < _this6.perFrame) {
 	          ratio = !item.duration && !item.delay ? item.ease(1, startData, endData, 1) : item.ease(0, startData, endData, 1);
-	          _this6.setRatio(ratio, item, i);
+	          _this6.setRatio((0, _styleUtils.toFixed)(ratio), item, i);
 	        } else if (progressTime > duration) {
 	          ratio = item.ease(1, startData, endData, 1);
 	          _this6.setRatio(ratio, item, i);
@@ -26006,7 +25993,7 @@
 	      var updateAnim = _this6.updateAnim === 'update';
 	      if (progressTime >= duration) {
 	        ratio = item.ease(1, startData, endData, 1);
-	        _this6.setRatio(ratio, item, i);
+	        _this6.setRatio((0, _styleUtils.toFixed)(ratio), item, i);
 	        if (item.mode !== 'reset' && !updateAnim) {
 	          item.onComplete(e);
 	        }
@@ -27459,7 +27446,47 @@
 /* 406 */,
 /* 407 */,
 /* 408 */,
-/* 409 */
+/* 409 */,
+/* 410 */,
+/* 411 */,
+/* 412 */,
+/* 413 */,
+/* 414 */,
+/* 415 */,
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */,
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */,
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */,
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */,
+/* 449 */
 /***/ (function(module, exports, __webpack_require__, __webpack_module_template_argument_0__) {
 
 	/* WEBPACK VAR INJECTION */(function(process) {/**
