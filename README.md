@@ -60,7 +60,7 @@ ReactDom.render(
 | props      | type           | default | description    |
 |------------|----------------|---------|----------------|
 | type       | string / array | `right` | Animation Styles <br/>`alpha` `left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
-| animConfig | object / array | null    | Custom Velocity config, See below for more details [animConfig](#animConfig) |
+| animConfig | object / array | null    | Custom config, See below for more details [animConfig](#animConfig) |
 | delay      | number / array | 0       | delay of animation |
 | duration   | number / array | 450     | duration of animation  |
 | interval   | number / array | 100      | interval of duration |
