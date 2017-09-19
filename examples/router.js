@@ -1,11 +1,5 @@
 /* eslint-disable no-console,react/no-multi-comp */
-import {
-  HashRouter as Router,
-  Route,
-  Link,
-  Redirect,
-} from 'react-router-dom';
-
+import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
@@ -122,7 +116,7 @@ class App extends React.Component {
       }
     }).filter(item => item)[0];
     const homeRoute = () => (
-      <Redirect to="/home"/>
+      <Redirect to="/home" />
     );
     return (
       <div>

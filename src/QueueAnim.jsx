@@ -13,7 +13,8 @@ import AnimTypes from './animTypes';
 const noop = () => {
 };
 
-const typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps'];
+const typeDefault = ['displayName', 'propTypes', 'getDefaultProps',
+  'defaultProps', 'childContextTypes', 'contextTypes'];
 
 class QueueAnim extends React.Component {
 
