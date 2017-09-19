@@ -1667,7 +1667,7 @@
 	
 	var noop = function noop() {};
 	
-	var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps'];
+	var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps', 'childContextTypes', 'contextTypes'];
 	
 	var QueueAnim = function (_React$Component) {
 	  (0, _inherits3.default)(QueueAnim, _React$Component);
@@ -6768,6 +6768,7 @@
 	    _this.updateAnim = null;
 	    if (props.forcedJudg) {
 	      Object.keys(props.forcedJudg).forEach(function (key) {
+	        console.log(key)
 	        _this[key] = props.forcedJudg[key];
 	      });
 	    }
@@ -6991,7 +6992,7 @@
 	  onChange: _propTypes2["default"].func,
 	  resetStyleBool: _propTypes2["default"].bool,
 	  updateReStart: _propTypes2["default"].bool,
-	  forcedJudg: _propTypes2["default"].object
+	  forcedJudg: _propTypes2["default"].any
 	};
 	
 	TweenOne.defaultProps = {
@@ -7000,7 +7001,8 @@
 	  reverseDelay: 0,
 	  attr: 'style',
 	  onChange: noop,
-	  updateReStart: true
+	  updateReStart: true,
+	  forcedJudg: null
 	};
 	exports["default"] = TweenOne;
 	module.exports = exports['default'];
