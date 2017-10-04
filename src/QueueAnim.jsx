@@ -32,6 +32,7 @@ class QueueAnim extends React.Component {
     animatingClassName: PropTypes.array,
     onEnd: PropTypes.func,
     appear: PropTypes.bool,
+    animationAttr: PropTypes.string,
   };
 
   static defaultProps = {
@@ -48,6 +49,7 @@ class QueueAnim extends React.Component {
     animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
     onEnd: noop,
     appear: true,
+    animationAttr: null,
   };
 
   constructor(props) {
@@ -63,13 +65,13 @@ class QueueAnim extends React.Component {
     const children = toArrayChildren(getChildrenFromProps(props));
     const childrenShow = {};
     children.forEach(child => {
-      if (!child || !child.key) {
+      if (!child || !this.checkChildAnimationAttr(child, props)) {
         return;
       }
       if (this.props.appear) {
-        this.keysToEnter.push(child.key);
+        this.keysToEnter.push(this.checkChildAnimationAttr(child, props));
       } else {
-        childrenShow[child.key] = true;
+        childrenShow[this.checkChildAnimationAttr(child)] = true;
       }
     });
     this.keysToEnterToCallback = [...this.keysToEnter];
@@ -274,10 +276,10 @@ class QueueAnim extends React.Component {
   }
 
   getChildrenToRender = child => {
-    if (!child || !child.key) {
+    if (!child || !this.checkChildAnimationAttr(child, this.props)) {
       return child;
     }
-    const key = child.key;
+    const key = this.checkChildAnimationAttr(child, this.props);
     let i = this.keysToLeave.indexOf(key);
     if ((i >= 0 && this.state.childrenShow[key])
       || this.state.childrenShow[key]) {
@@ -403,6 +405,10 @@ class QueueAnim extends React.Component {
     this.props.onEnd({ key, type: 'leave' });
   }
 
+  checkChildAnimationAttr(child, props) {
+    return props && props.animationAttr ? props.animationAttr : child.key;
+  }
+
   render() {
     const { ...tagProps } = this.props;
     [
@@ -419,6 +425,7 @@ class QueueAnim extends React.Component {
       'enterForcedRePlay',
       'onEnd',
       'appear',
+      'animationAttr',
     ].forEach(key => delete tagProps[key]);
     const childrenToRender = toArrayChildren(this.state.children).map(this.getChildrenToRender);
     const props = { ...tagProps, ...this.props.componentProps };

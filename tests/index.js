@@ -76,12 +76,15 @@ describe('rc-queue-anim', () => {
         return removeIndex;
       },
       render() {
+        const { unMount, show, items } = this.state;
+        const attr = 'animationAttr';
+        const itemProps = (key, i) => props[attr] ? { [props[attr]]: key, key: i } : { key };
         return (
           <section>
-            {!this.state.unMount ? <QueueAnim {...props}>
+            {!unMount ? <QueueAnim {...props}>
                 {
-                  this.state.show ?
-                    this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                  show ?
+                    items.map((item, i) => <div {...itemProps(item.key, i)}>{item.content}</div>) :
                     null
                 }
                 {null}
@@ -122,6 +125,25 @@ describe('rc-queue-anim', () => {
   it('should have queue animation', (done) => {
     const interval = defaultInterval;
     const instance = createQueueAnimInstance();
+    shouldAnimatingThisOne(instance, 0);
+    ticker.timeout(() => {
+      shouldAnimatingThisOne(instance, 1);
+      ticker.timeout(() => {
+        shouldAnimatingThisOne(instance, 2);
+        ticker.timeout(() => {
+          shouldAnimatingThisOne(instance, 3);
+          done();
+        }, interval);
+      }, interval);
+    }, 18);
+  });
+
+  it('should have queue animation with dynamic animation attribute', (done) => {
+    const interval = defaultInterval;
+    const animationAttr = 'foo';
+    const instance = createQueueAnimInstance({
+      animationAttr,
+    });
     shouldAnimatingThisOne(instance, 0);
     ticker.timeout(() => {
       shouldAnimatingThisOne(instance, 1);

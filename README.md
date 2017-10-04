@@ -51,7 +51,7 @@ ReactDom.render(
 
 ## Browser Support
 
-|![IE](https://raw.github.com/alrra/browser-logos/master/internet-explorer/internet-explorer_48x48.png) | ![Chrome](https://raw.github.com/alrra/browser-logos/master/chrome/chrome_48x48.png) | ![Firefox](https://raw.github.com/alrra/browser-logos/master/firefox/firefox_48x48.png) | ![Opera](https://raw.github.com/alrra/browser-logos/master/opera/opera_48x48.png) | ![Safari](https://raw.github.com/alrra/browser-logos/master/safari/safari_48x48.png)|
+|![IE](https://github.com/alrra/browser-logos/blob/master/src/edge/edge_48x48.png?raw=true) | ![Chrome](https://github.com/alrra/browser-logos/blob/master/src/chrome/chrome_48x48.png?raw=true) | ![Firefox](https://github.com/alrra/browser-logos/blob/master/src/firefox/firefox_48x48.png?raw=true) | ![Opera](https://github.com/alrra/browser-logos/blob/master/src/opera/opera_48x48.png?raw=true) | ![Safari](https://github.com/alrra/browser-logos/blob/master/src/safari/safari_48x48.png?raw=true)|
 | --- | --- | --- | --- | --- |
 | IE 8+ ✔ | Chrome 31.0+ ✔ | Firefox 31.0+ ✔ | Opera 30.0+ ✔ | Safari 7.0+ ✔ |
 
@@ -71,10 +71,11 @@ ReactDom.render(
 | componentProps | Object | null | component is React.Element, component tag props |
 | animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
 | onEnd      | function      |   null    |  animate end callback({ key, type }), type: `enter` or `leave` |
+| animationAttr      | string      |   null    | alternate animation attribute to replace `key` |
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
 
-You must provide the key attribute for all children of QueueAnim, children would not peform any animation without key.
+### **You must provide the key attribute or the `animationAttr` value you selected for all children of QueueAnim, children would not peform any animation without this attribute.**
 
 ### animConfig
 
