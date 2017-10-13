@@ -1,9 +1,11 @@
 /* eslint no-console:0 */
+import 'core-js/es6/map';
+import 'core-js/es6/set';
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
-import QueueAnim from '../index';
-import TestUtils from 'react-addons-test-utils';
+import QueueAnim from '../src';
+import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
 import $ from 'jquery';
 
@@ -41,55 +43,53 @@ describe('rc-queue-anim', () => {
   }
 
   function createQueueAnimInstance(props = {}) {
-    const QueueAnimExample = React.createClass({
-      getInitialState() {
-        return {
-          show: true,
-          unMount: false,
-          items: [{
-            key: 1,
-            content: 'div',
-          }, {
-            key: 2,
-            content: 'div',
-          }, {
-            key: 3,
-            content: 'div',
-          }],
-        };
-      },
-      toggle() {
+    class QueueAnimExample extends React.Component {
+      state = {
+        show: true,
+        unMount: false,
+        items: [{
+          key: 1,
+          content: 'div',
+        }, {
+          key: 2,
+          content: 'div',
+        }, {
+          key: 3,
+          content: 'div',
+        }],
+      }
+      toggle = () => {
         this.setState({
           show: !this.state.show,
         });
-      },
-      unMountQueue() {
+      }
+      unMountQueue = () => {
         this.setState({
           unMount: true,
         });
-      },
-      removeOne() {
+      }
+      removeOne = () => {
         const items = this.state.items;
         const removeIndex = 0;
         items.splice(removeIndex, 1);
         this.setState({ items });
         return removeIndex;
-      },
+      }
       render() {
         return (
           <section>
             {!this.state.unMount ? <QueueAnim {...props}>
-                {
-                  this.state.show ?
-                    this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
-                    null
-                }
-                {null}
-              </QueueAnim> : null}
+              {
+                this.state.show ?
+                  this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                  null
+              }
+              {null}
+            </QueueAnim> : null}
           </section>
         );
-      },
-    });
+      }
+    }
     return ReactDom.render(<QueueAnimExample />, div);
   }
 
@@ -221,6 +221,24 @@ describe('rc-queue-anim', () => {
       expect(getLeft(children[1])).to.above(0);
       done();
     }, 18);
+  });
+
+  it('should support custom animation config array', (done) => {
+    const instance = createQueueAnimInstance({
+      animConfig: [
+        [{ left: [100, 0] }, { top: [100, 0] }],
+      ],
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(isNaN(children[1])).to.be.ok();
+    ticker.timeout(() => {
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      console.log('left:', getLeft(children[1]));
+      console.log('top:', getTop(children[1]));
+      expect(getLeft(children[1])).to.be(100);
+      expect(getTop(children[1])).to.be(100);
+      done();
+    }, 917);
   });
 
   it('should support animation when change direction at animating', (done) => {
