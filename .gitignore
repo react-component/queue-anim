@@ -22,4 +22,6 @@ node_modules
 *.css
 build
 lib
+coverage
 dist
+es

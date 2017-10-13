@@ -1,9 +1,11 @@
 /* eslint no-console:0 */
+import 'core-js/es6/map';
+import 'core-js/es6/set';
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
-import QueueAnim from '../index';
-import TestUtils from 'react-addons-test-utils';
+import QueueAnim from '../src';
+import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
 import $ from 'jquery';
 
@@ -41,55 +43,53 @@ describe('rc-queue-anim', () => {
   }
 
   function createQueueAnimInstance(props = {}) {
-    const QueueAnimExample = React.createClass({
-      getInitialState() {
-        return {
-          show: true,
-          unMount: false,
-          items: [{
-            key: 1,
-            content: 'div',
-          }, {
-            key: 2,
-            content: 'div',
-          }, {
-            key: 3,
-            content: 'div',
-          }],
-        };
-      },
-      toggle() {
+    class QueueAnimExample extends React.Component {
+      state = {
+        show: true,
+        unMount: false,
+        items: [{
+          key: 1,
+          content: 'div',
+        }, {
+          key: 2,
+          content: 'div',
+        }, {
+          key: 3,
+          content: 'div',
+        }],
+      }
+      toggle = () => {
         this.setState({
           show: !this.state.show,
         });
-      },
-      unMountQueue() {
+      }
+      unMountQueue = () => {
         this.setState({
           unMount: true,
         });
-      },
-      removeOne() {
+      }
+      removeOne = () => {
         const items = this.state.items;
         const removeIndex = 0;
         items.splice(removeIndex, 1);
         this.setState({ items });
         return removeIndex;
-      },
+      }
       render() {
         return (
           <section>
             {!this.state.unMount ? <QueueAnim {...props}>
-                {
-                  this.state.show ?
-                    this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
-                    null
-                }
-                {null}
-              </QueueAnim> : null}
+              {
+                this.state.show ?
+                  this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                  null
+              }
+              {null}
+            </QueueAnim> : null}
           </section>
         );
-      },
-    });
+      }
+    }
     return ReactDom.render(<QueueAnimExample />, div);
   }
 

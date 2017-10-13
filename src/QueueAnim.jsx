@@ -425,5 +425,5 @@ class QueueAnim extends React.Component {
     return createElement(this.props.component, props, childrenToRender);
   }
 }
-
+QueueAnim.isQueueAnim = true;
 export default QueueAnim;
