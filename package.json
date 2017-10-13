@@ -58,7 +58,6 @@
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "antd": "^2.12.3",
-    "history": "^2.1.2",
     "jquery": "~1.11.3",
     "precommit-hook": "1.x",
     "rc-dialog": "~5.2.1",
