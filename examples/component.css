@@ -1,3 +1,6 @@
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 /*! normalize.css v7.0.0 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -569,825 +572,825 @@ samp {
   font-family: "anticon" !important;
 }
 .anticon-step-forward:before {
-  content: "\e600";
+  content: "\E600";
 }
 .anticon-step-backward:before {
-  content: "\e601";
+  content: "\E601";
 }
 .anticon-forward:before {
-  content: "\e602";
+  content: "\E602";
 }
 .anticon-backward:before {
-  content: "\e603";
+  content: "\E603";
 }
 .anticon-caret-right:before {
-  content: "\e604";
+  content: "\E604";
 }
 .anticon-caret-left:before {
-  content: "\e605";
+  content: "\E605";
 }
 .anticon-caret-down:before {
-  content: "\e606";
+  content: "\E606";
 }
 .anticon-caret-up:before {
-  content: "\e607";
+  content: "\E607";
 }
 .anticon-right-circle:before {
-  content: "\e608";
+  content: "\E608";
 }
 .anticon-circle-right:before {
-  content: "\e608";
+  content: "\E608";
 }
 .anticon-caret-circle-right:before {
-  content: "\e608";
+  content: "\E608";
 }
 .anticon-left-circle:before {
-  content: "\e609";
+  content: "\E609";
 }
 .anticon-circle-left:before {
-  content: "\e609";
+  content: "\E609";
 }
 .anticon-caret-circle-left:before {
-  content: "\e609";
+  content: "\E609";
 }
 .anticon-up-circle:before {
-  content: "\e60a";
+  content: "\E60A";
 }
 .anticon-circle-up:before {
-  content: "\e60a";
+  content: "\E60A";
 }
 .anticon-caret-circle-up:before {
-  content: "\e60a";
+  content: "\E60A";
 }
 .anticon-down-circle:before {
-  content: "\e60b";
+  content: "\E60B";
 }
 .anticon-circle-down:before {
-  content: "\e60b";
+  content: "\E60B";
 }
 .anticon-caret-circle-down:before {
-  content: "\e60b";
+  content: "\E60B";
 }
 .anticon-right-circle-o:before {
-  content: "\e60c";
+  content: "\E60C";
 }
 .anticon-circle-o-right:before {
-  content: "\e60c";
+  content: "\E60C";
 }
 .anticon-caret-circle-o-right:before {
-  content: "\e60c";
+  content: "\E60C";
 }
 .anticon-left-circle-o:before {
-  content: "\e60d";
+  content: "\E60D";
 }
 .anticon-circle-o-left:before {
-  content: "\e60d";
+  content: "\E60D";
 }
 .anticon-caret-circle-o-left:before {
-  content: "\e60d";
+  content: "\E60D";
 }
 .anticon-up-circle-o:before {
-  content: "\e60e";
+  content: "\E60E";
 }
 .anticon-circle-o-up:before {
-  content: "\e60e";
+  content: "\E60E";
 }
 .anticon-caret-circle-o-up:before {
-  content: "\e60e";
+  content: "\E60E";
 }
 .anticon-down-circle-o:before {
-  content: "\e60f";
+  content: "\E60F";
 }
 .anticon-circle-o-down:before {
-  content: "\e60f";
+  content: "\E60F";
 }
 .anticon-caret-circle-o-down:before {
-  content: "\e60f";
+  content: "\E60F";
 }
 .anticon-verticle-left:before {
-  content: "\e610";
+  content: "\E610";
 }
 .anticon-verticle-right:before {
-  content: "\e611";
+  content: "\E611";
 }
 .anticon-rollback:before {
-  content: "\e612";
+  content: "\E612";
 }
 .anticon-retweet:before {
-  content: "\e613";
+  content: "\E613";
 }
 .anticon-shrink:before {
-  content: "\e614";
+  content: "\E614";
 }
 .anticon-arrows-alt:before {
-  content: "\e615";
+  content: "\E615";
 }
 .anticon-arrow-salt:before {
-  content: "\e615";
+  content: "\E615";
 }
 .anticon-reload:before {
-  content: "\e616";
+  content: "\E616";
 }
 .anticon-double-right:before {
-  content: "\e617";
+  content: "\E617";
 }
 .anticon-double-left:before {
-  content: "\e618";
+  content: "\E618";
 }
 .anticon-arrow-down:before {
-  content: "\e619";
+  content: "\E619";
 }
 .anticon-arrow-up:before {
-  content: "\e61a";
+  content: "\E61A";
 }
 .anticon-arrow-right:before {
-  content: "\e61b";
+  content: "\E61B";
 }
 .anticon-arrow-left:before {
-  content: "\e61c";
+  content: "\E61C";
 }
 .anticon-down:before {
-  content: "\e61d";
+  content: "\E61D";
 }
 .anticon-up:before {
-  content: "\e61e";
+  content: "\E61E";
 }
 .anticon-right:before {
-  content: "\e61f";
+  content: "\E61F";
 }
 .anticon-left:before {
-  content: "\e620";
+  content: "\E620";
 }
 .anticon-minus-square-o:before {
-  content: "\e621";
+  content: "\E621";
 }
 .anticon-minus-circle:before {
-  content: "\e622";
+  content: "\E622";
 }
 .anticon-minus-circle-o:before {
-  content: "\e623";
+  content: "\E623";
 }
 .anticon-minus:before {
-  content: "\e624";
+  content: "\E624";
 }
 .anticon-plus-circle-o:before {
-  content: "\e625";
+  content: "\E625";
 }
 .anticon-plus-circle:before {
-  content: "\e626";
+  content: "\E626";
 }
 .anticon-plus:before {
-  content: "\e627";
+  content: "\E627";
 }
 .anticon-info-circle:before {
-  content: "\e628";
+  content: "\E628";
 }
 .anticon-info-circle-o:before {
-  content: "\e629";
+  content: "\E629";
 }
 .anticon-info:before {
-  content: "\e62a";
+  content: "\E62A";
 }
 .anticon-exclamation:before {
-  content: "\e62b";
+  content: "\E62B";
 }
 .anticon-exclamation-circle:before {
-  content: "\e62c";
+  content: "\E62C";
 }
 .anticon-exclamation-circle-o:before {
-  content: "\e62d";
+  content: "\E62D";
 }
 .anticon-close-circle:before {
-  content: "\e62e";
+  content: "\E62E";
 }
 .anticon-cross-circle:before {
-  content: "\e62e";
+  content: "\E62E";
 }
 .anticon-close-circle-o:before {
-  content: "\e62f";
+  content: "\E62F";
 }
 .anticon-cross-circle-o:before {
-  content: "\e62f";
+  content: "\E62F";
 }
 .anticon-check-circle:before {
-  content: "\e630";
+  content: "\E630";
 }
 .anticon-check-circle-o:before {
-  content: "\e631";
+  content: "\E631";
 }
 .anticon-check:before {
-  content: "\e632";
+  content: "\E632";
 }
 .anticon-close:before {
-  content: "\e633";
+  content: "\E633";
 }
 .anticon-cross:before {
-  content: "\e633";
+  content: "\E633";
 }
 .anticon-customer-service:before {
-  content: "\e634";
+  content: "\E634";
 }
 .anticon-customerservice:before {
-  content: "\e634";
+  content: "\E634";
 }
 .anticon-credit-card:before {
-  content: "\e635";
+  content: "\E635";
 }
 .anticon-code-o:before {
-  content: "\e636";
+  content: "\E636";
 }
 .anticon-book:before {
-  content: "\e637";
+  content: "\E637";
 }
 .anticon-bar-chart:before {
-  content: "\e638";
+  content: "\E638";
 }
 .anticon-bars:before {
-  content: "\e639";
+  content: "\E639";
 }
 .anticon-question:before {
-  content: "\e63a";
+  content: "\E63A";
 }
 .anticon-question-circle:before {
-  content: "\e63b";
+  content: "\E63B";
 }
 .anticon-question-circle-o:before {
-  content: "\e63c";
+  content: "\E63C";
 }
 .anticon-pause:before {
-  content: "\e63d";
+  content: "\E63D";
 }
 .anticon-pause-circle:before {
-  content: "\e63e";
+  content: "\E63E";
 }
 .anticon-pause-circle-o:before {
-  content: "\e63f";
+  content: "\E63F";
 }
 .anticon-clock-circle:before {
-  content: "\e640";
+  content: "\E640";
 }
 .anticon-clock-circle-o:before {
-  content: "\e641";
+  content: "\E641";
 }
 .anticon-swap:before {
-  content: "\e642";
+  content: "\E642";
 }
 .anticon-swap-left:before {
-  content: "\e643";
+  content: "\E643";
 }
 .anticon-swap-right:before {
-  content: "\e644";
+  content: "\E644";
 }
 .anticon-plus-square-o:before {
-  content: "\e645";
+  content: "\E645";
 }
 .anticon-frown:before {
-  content: "\e646";
+  content: "\E646";
 }
 .anticon-frown-circle:before {
-  content: "\e646";
+  content: "\E646";
 }
 .anticon-ellipsis:before {
-  content: "\e647";
+  content: "\E647";
 }
 .anticon-copy:before {
-  content: "\e648";
+  content: "\E648";
 }
 .anticon-menu-fold:before {
-  content: "\e658";
+  content: "\E658";
 }
 .anticon-mail:before {
-  content: "\e659";
+  content: "\E659";
 }
 .anticon-logout:before {
-  content: "\e65a";
+  content: "\E65A";
 }
 .anticon-link:before {
-  content: "\e65b";
+  content: "\E65B";
 }
 .anticon-area-chart:before {
-  content: "\e65c";
+  content: "\E65C";
 }
 .anticon-line-chart:before {
-  content: "\e65d";
+  content: "\E65D";
 }
 .anticon-home:before {
-  content: "\e65e";
+  content: "\E65E";
 }
 .anticon-laptop:before {
-  content: "\e65f";
+  content: "\E65F";
 }
 .anticon-star:before {
-  content: "\e660";
+  content: "\E660";
 }
 .anticon-star-o:before {
-  content: "\e661";
+  content: "\E661";
 }
 .anticon-folder:before {
-  content: "\e662";
+  content: "\E662";
 }
 .anticon-filter:before {
-  content: "\e663";
+  content: "\E663";
 }
 .anticon-file:before {
-  content: "\e664";
+  content: "\E664";
 }
 .anticon-exception:before {
-  content: "\e665";
+  content: "\E665";
 }
 .anticon-meh:before {
-  content: "\e666";
+  content: "\E666";
 }
 .anticon-meh-circle:before {
-  content: "\e666";
+  content: "\E666";
 }
 .anticon-meh-o:before {
-  content: "\e667";
+  content: "\E667";
 }
 .anticon-shopping-cart:before {
-  content: "\e668";
+  content: "\E668";
 }
 .anticon-save:before {
-  content: "\e669";
+  content: "\E669";
 }
 .anticon-user:before {
-  content: "\e66a";
+  content: "\E66A";
 }
 .anticon-video-camera:before {
-  content: "\e66b";
+  content: "\E66B";
 }
 .anticon-to-top:before {
-  content: "\e66c";
+  content: "\E66C";
 }
 .anticon-team:before {
-  content: "\e66d";
+  content: "\E66D";
 }
 .anticon-tablet:before {
-  content: "\e66e";
+  content: "\E66E";
 }
 .anticon-solution:before {
-  content: "\e66f";
+  content: "\E66F";
 }
 .anticon-search:before {
-  content: "\e670";
+  content: "\E670";
 }
 .anticon-share-alt:before {
-  content: "\e671";
+  content: "\E671";
 }
 .anticon-setting:before {
-  content: "\e672";
+  content: "\E672";
 }
 .anticon-poweroff:before {
-  content: "\e6d5";
+  content: "\E6D5";
 }
 .anticon-picture:before {
-  content: "\e674";
+  content: "\E674";
 }
 .anticon-phone:before {
-  content: "\e675";
+  content: "\E675";
 }
 .anticon-paper-clip:before {
-  content: "\e676";
+  content: "\E676";
 }
 .anticon-notification:before {
-  content: "\e677";
+  content: "\E677";
 }
 .anticon-mobile:before {
-  content: "\e678";
+  content: "\E678";
 }
 .anticon-menu-unfold:before {
-  content: "\e679";
+  content: "\E679";
 }
 .anticon-inbox:before {
-  content: "\e67a";
+  content: "\E67A";
 }
 .anticon-lock:before {
-  content: "\e67b";
+  content: "\E67B";
 }
 .anticon-qrcode:before {
-  content: "\e67c";
+  content: "\E67C";
 }
 .anticon-play-circle:before {
-  content: "\e6d0";
+  content: "\E6D0";
 }
 .anticon-play-circle-o:before {
-  content: "\e6d1";
+  content: "\E6D1";
 }
 .anticon-tag:before {
-  content: "\e6d2";
+  content: "\E6D2";
 }
 .anticon-tag-o:before {
-  content: "\e6d3";
+  content: "\E6D3";
 }
 .anticon-tags:before {
-  content: "\e67d";
+  content: "\E67D";
 }
 .anticon-tags-o:before {
-  content: "\e67e";
+  content: "\E67E";
 }
 .anticon-cloud-o:before {
-  content: "\e67f";
+  content: "\E67F";
 }
 .anticon-cloud:before {
-  content: "\e680";
+  content: "\E680";
 }
 .anticon-cloud-upload:before {
-  content: "\e681";
+  content: "\E681";
 }
 .anticon-cloud-download:before {
-  content: "\e682";
+  content: "\E682";
 }
 .anticon-cloud-download-o:before {
-  content: "\e683";
+  content: "\E683";
 }
 .anticon-cloud-upload-o:before {
-  content: "\e684";
+  content: "\E684";
 }
 .anticon-environment:before {
-  content: "\e685";
+  content: "\E685";
 }
 .anticon-environment-o:before {
-  content: "\e686";
+  content: "\E686";
 }
 .anticon-eye:before {
-  content: "\e687";
+  content: "\E687";
 }
 .anticon-eye-o:before {
-  content: "\e688";
+  content: "\E688";
 }
 .anticon-camera:before {
-  content: "\e689";
+  content: "\E689";
 }
 .anticon-camera-o:before {
-  content: "\e68a";
+  content: "\E68A";
 }
 .anticon-windows:before {
-  content: "\e68b";
+  content: "\E68B";
 }
 .anticon-apple:before {
-  content: "\e68c";
+  content: "\E68C";
 }
 .anticon-apple-o:before {
-  content: "\e6d4";
+  content: "\E6D4";
 }
 .anticon-android:before {
-  content: "\e938";
+  content: "\E938";
 }
 .anticon-android-o:before {
-  content: "\e68d";
+  content: "\E68D";
 }
 .anticon-aliwangwang:before {
-  content: "\e68e";
+  content: "\E68E";
 }
 .anticon-aliwangwang-o:before {
-  content: "\e68f";
+  content: "\E68F";
 }
 .anticon-export:before {
-  content: "\e691";
+  content: "\E691";
 }
 .anticon-edit:before {
-  content: "\e692";
+  content: "\E692";
 }
 .anticon-circle-down-o:before {
-  content: "\e693";
+  content: "\E693";
 }
 .anticon-circle-down-:before {
-  content: "\e694";
+  content: "\E694";
 }
 .anticon-appstore-o:before {
-  content: "\e695";
+  content: "\E695";
 }
 .anticon-appstore:before {
-  content: "\e696";
+  content: "\E696";
 }
 .anticon-scan:before {
-  content: "\e697";
+  content: "\E697";
 }
 .anticon-file-text:before {
-  content: "\e698";
+  content: "\E698";
 }
 .anticon-folder-open:before {
-  content: "\e699";
+  content: "\E699";
 }
 .anticon-hdd:before {
-  content: "\e69a";
+  content: "\E69A";
 }
 .anticon-ie:before {
-  content: "\e69b";
+  content: "\E69B";
 }
 .anticon-file-jpg:before {
-  content: "\e69c";
+  content: "\E69C";
 }
 .anticon-like:before {
-  content: "\e64c";
+  content: "\E64C";
 }
 .anticon-like-o:before {
-  content: "\e69d";
+  content: "\E69D";
 }
 .anticon-dislike:before {
-  content: "\e64b";
+  content: "\E64B";
 }
 .anticon-dislike-o:before {
-  content: "\e69e";
+  content: "\E69E";
 }
 .anticon-delete:before {
-  content: "\e69f";
+  content: "\E69F";
 }
 .anticon-enter:before {
-  content: "\e6a0";
+  content: "\E6A0";
 }
 .anticon-pushpin-o:before {
-  content: "\e6a1";
+  content: "\E6A1";
 }
 .anticon-pushpin:before {
-  content: "\e6a2";
+  content: "\E6A2";
 }
 .anticon-heart:before {
-  content: "\e6a3";
+  content: "\E6A3";
 }
 .anticon-heart-o:before {
-  content: "\e6a4";
+  content: "\E6A4";
 }
 .anticon-pay-circle:before {
-  content: "\e6a5";
+  content: "\E6A5";
 }
 .anticon-pay-circle-o:before {
-  content: "\e6a6";
+  content: "\E6A6";
 }
 .anticon-smile:before {
-  content: "\e6a7";
+  content: "\E6A7";
 }
 .anticon-smile-circle:before {
-  content: "\e6a7";
+  content: "\E6A7";
 }
 .anticon-smile-o:before {
-  content: "\e6a8";
+  content: "\E6A8";
 }
 .anticon-frown-o:before {
-  content: "\e6a9";
+  content: "\E6A9";
 }
 .anticon-calculator:before {
-  content: "\e6aa";
+  content: "\E6AA";
 }
 .anticon-message:before {
-  content: "\e6ab";
+  content: "\E6AB";
 }
 .anticon-chrome:before {
-  content: "\e6ac";
+  content: "\E6AC";
 }
 .anticon-github:before {
-  content: "\e6ad";
+  content: "\E6AD";
 }
 .anticon-file-unknown:before {
-  content: "\e6af";
+  content: "\E6AF";
 }
 .anticon-file-excel:before {
-  content: "\e6b0";
+  content: "\E6B0";
 }
 .anticon-file-ppt:before {
-  content: "\e6b1";
+  content: "\E6B1";
 }
 .anticon-file-word:before {
-  content: "\e6b2";
+  content: "\E6B2";
 }
 .anticon-file-pdf:before {
-  content: "\e6b3";
+  content: "\E6B3";
 }
 .anticon-desktop:before {
-  content: "\e6b4";
+  content: "\E6B4";
 }
 .anticon-upload:before {
-  content: "\e6b6";
+  content: "\E6B6";
 }
 .anticon-download:before {
-  content: "\e6b7";
+  content: "\E6B7";
 }
 .anticon-pie-chart:before {
-  content: "\e6b8";
+  content: "\E6B8";
 }
 .anticon-unlock:before {
-  content: "\e6ba";
+  content: "\E6BA";
 }
 .anticon-calendar:before {
-  content: "\e6bb";
+  content: "\E6BB";
 }
 .anticon-windows-o:before {
-  content: "\e6bc";
+  content: "\E6BC";
 }
 .anticon-dot-chart:before {
-  content: "\e6bd";
+  content: "\E6BD";
 }
 .anticon-bar-chart:before {
-  content: "\e6be";
+  content: "\E6BE";
 }
 .anticon-code:before {
-  content: "\e6bf";
+  content: "\E6BF";
 }
 .anticon-api:before {
-  content: "\e951";
+  content: "\E951";
 }
 .anticon-plus-square:before {
-  content: "\e6c0";
+  content: "\E6C0";
 }
 .anticon-minus-square:before {
-  content: "\e6c1";
+  content: "\E6C1";
 }
 .anticon-close-square:before {
-  content: "\e6c2";
+  content: "\E6C2";
 }
 .anticon-close-square-o:before {
-  content: "\e6c3";
+  content: "\E6C3";
 }
 .anticon-check-square:before {
-  content: "\e6c4";
+  content: "\E6C4";
 }
 .anticon-check-square-o:before {
-  content: "\e6c5";
+  content: "\E6C5";
 }
 .anticon-fast-backward:before {
-  content: "\e6c6";
+  content: "\E6C6";
 }
 .anticon-fast-forward:before {
-  content: "\e6c7";
+  content: "\E6C7";
 }
 .anticon-up-square:before {
-  content: "\e6c8";
+  content: "\E6C8";
 }
 .anticon-down-square:before {
-  content: "\e6c9";
+  content: "\E6C9";
 }
 .anticon-left-square:before {
-  content: "\e6ca";
+  content: "\E6CA";
 }
 .anticon-right-square:before {
-  content: "\e6cb";
+  content: "\E6CB";
 }
 .anticon-right-square-o:before {
-  content: "\e6cc";
+  content: "\E6CC";
 }
 .anticon-left-square-o:before {
-  content: "\e6cd";
+  content: "\E6CD";
 }
 .anticon-down-square-o:before {
-  content: "\e6ce";
+  content: "\E6CE";
 }
 .anticon-up-square-o:before {
-  content: "\e6cf";
+  content: "\E6CF";
 }
 .anticon-loading:before {
-  content: "\e64d";
+  content: "\E64D";
 }
 .anticon-loading-3-quarters:before {
-  content: "\e6ae";
+  content: "\E6AE";
 }
 .anticon-bulb:before {
-  content: "\e649";
+  content: "\E649";
 }
 .anticon-select:before {
-  content: "\e64a";
+  content: "\E64A";
 }
 .anticon-addfile:before,
 .anticon-file-add:before {
-  content: "\e910";
+  content: "\E910";
 }
 .anticon-addfolder:before,
 .anticon-folder-add:before {
-  content: "\e914";
+  content: "\E914";
 }
 .anticon-switcher:before {
-  content: "\e913";
+  content: "\E913";
 }
 .anticon-rocket:before {
-  content: "\e90f";
+  content: "\E90F";
 }
 .anticon-dingding:before {
-  content: "\e923";
+  content: "\E923";
 }
 .anticon-dingding-o:before {
-  content: "\e925";
+  content: "\E925";
 }
 .anticon-bell:before {
-  content: "\e64e";
+  content: "\E64E";
 }
 .anticon-disconnect:before {
-  content: "\e64f";
+  content: "\E64F";
 }
 .anticon-database:before {
-  content: "\e650";
+  content: "\E650";
 }
 .anticon-compass:before {
-  content: "\e6db";
+  content: "\E6DB";
 }
 .anticon-barcode:before {
-  content: "\e652";
+  content: "\E652";
 }
 .anticon-hourglass:before {
-  content: "\e653";
+  content: "\E653";
 }
 .anticon-key:before {
-  content: "\e654";
+  content: "\E654";
 }
 .anticon-flag:before {
-  content: "\e655";
+  content: "\E655";
 }
 .anticon-layout:before {
-  content: "\e656";
+  content: "\E656";
 }
 .anticon-login:before {
-  content: "\e657";
+  content: "\E657";
 }
 .anticon-printer:before {
-  content: "\e673";
+  content: "\E673";
 }
 .anticon-sound:before {
-  content: "\e6e9";
+  content: "\E6E9";
 }
 .anticon-usb:before {
-  content: "\e6d7";
+  content: "\E6D7";
 }
 .anticon-skin:before {
-  content: "\e6d8";
+  content: "\E6D8";
 }
 .anticon-tool:before {
-  content: "\e6d9";
+  content: "\E6D9";
 }
 .anticon-sync:before {
-  content: "\e6da";
+  content: "\E6DA";
 }
 .anticon-wifi:before {
-  content: "\e6d6";
+  content: "\E6D6";
 }
 .anticon-car:before {
-  content: "\e6dc";
+  content: "\E6DC";
 }
 .anticon-copyright:before {
-  content: "\e6de";
+  content: "\E6DE";
 }
 .anticon-schedule:before {
-  content: "\e6df";
+  content: "\E6DF";
 }
 .anticon-user-add:before {
-  content: "\e6ed";
+  content: "\E6ED";
 }
 .anticon-user-delete:before {
-  content: "\e6e0";
+  content: "\E6E0";
 }
 .anticon-usergroup-add:before {
-  content: "\e6dd";
+  content: "\E6DD";
 }
 .anticon-usergroup-delete:before {
-  content: "\e6e1";
+  content: "\E6E1";
 }
 .anticon-man:before {
-  content: "\e6e2";
+  content: "\E6E2";
 }
 .anticon-woman:before {
-  content: "\e6ec";
+  content: "\E6EC";
 }
 .anticon-shop:before {
-  content: "\e6e3";
+  content: "\E6E3";
 }
 .anticon-gift:before {
-  content: "\e6e4";
+  content: "\E6E4";
 }
 .anticon-idcard:before {
-  content: "\e6e5";
+  content: "\E6E5";
 }
 .anticon-medicine-box:before {
-  content: "\e6e6";
+  content: "\E6E6";
 }
 .anticon-red-envelope:before {
-  content: "\e6e7";
+  content: "\E6E7";
 }
 .anticon-coffee:before {
-  content: "\e6e8";
+  content: "\E6E8";
 }
 .anticon-trademark:before {
-  content: "\e651";
+  content: "\E651";
 }
 .anticon-safety:before {
-  content: "\e6ea";
+  content: "\E6EA";
 }
 .anticon-wallet:before {
-  content: "\e6eb";
+  content: "\E6EB";
 }
 .anticon-bank:before {
-  content: "\e6ee";
+  content: "\E6EE";
 }
 .anticon-trophy:before {
-  content: "\e6ef";
+  content: "\E6EF";
 }
 .anticon-contacts:before {
-  content: "\e6f0";
+  content: "\E6F0";
 }
 .anticon-global:before {
-  content: "\e6f1";
+  content: "\E6F1";
 }
 .anticon-shake:before {
-  content: "\e94f";
+  content: "\E94F";
 }
 .anticon-fork:before {
-  content: "\e6f2";
+  content: "\E6F2";
 }
 .anticon-spin:before {
   display: inline-block;
@@ -3027,6 +3030,9 @@ samp {
 .ant-motion-collapse-active {
   transition: height 0.15s cubic-bezier(0.645, 0.045, 0.355, 1), opacity 0.15s cubic-bezier(0.645, 0.045, 0.355, 1) !important;
 }
+/* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
+/* stylelint-disable declaration-bang-space-before */
+/* stylelint-disable declaration-bang-space-before */
 .ant-menu {
   outline: none;
   margin-bottom: 0;
@@ -3037,7 +3043,7 @@ samp {
   color: rgba(0, 0, 0, 0.65);
   background: #fff;
   line-height: 46px;
-  transition: background 0.3s cubic-bezier(0.645, 0.045, 0.355, 1), width 0.15s cubic-bezier(0.645, 0.045, 0.355, 1);
+  transition: background .3s, width .2s;
 }
 .ant-menu-hidden {
   display: none;
@@ -3051,6 +3057,7 @@ samp {
   font-size: 12px;
   line-height: 1.5;
   padding: 8px 16px;
+  transition: all .3s;
 }
 .ant-menu-item,
 .ant-menu-submenu,
@@ -3193,52 +3200,6 @@ samp {
   -webkit-transform: scaleY(1);
           transform: scaleY(1);
 }
-.ant-menu-vertical.ant-menu-inline-collapsed,
-.ant-menu-inline-collapsed {
-  width: 64px;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item,
-.ant-menu-inline-collapsed > .ant-menu-item,
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title,
-.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
-  left: 0;
-  text-overflow: clip;
-  padding: 0 24px;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item:after,
-.ant-menu-inline-collapsed > .ant-menu-item:after,
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title:after,
-.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title:after {
-  display: none;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item .anticon,
-.ant-menu-inline-collapsed > .ant-menu-item .anticon,
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon,
-.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
-  font-size: 16px;
-  line-height: 42px;
-  margin: 0;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-item .anticon + span,
-.ant-menu-inline-collapsed > .ant-menu-item .anticon + span,
-.ant-menu-vertical.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon + span,
-.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon + span {
-  max-width: 0;
-  display: inline-block;
-  opacity: 0;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed-tooltip,
-.ant-menu-inline-collapsed-tooltip {
-  pointer-events: none;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed-tooltip .anticon,
-.ant-menu-inline-collapsed-tooltip .anticon {
-  display: none;
-}
-.ant-menu-vertical.ant-menu-inline-collapsed-tooltip a,
-.ant-menu-inline-collapsed-tooltip a {
-  color: rgba(255, 255, 255, 0.91);
-}
 .ant-menu-submenu-horizontal > .ant-menu {
   top: 100%;
   left: 0;
@@ -3305,7 +3266,7 @@ samp {
   text-transform: none;
   text-rendering: auto;
   position: absolute;
-  content: "\e61d";
+  content: "\E61D";
   right: 16px;
   -ms-filter: "progid:DXImageTransform.Microsoft.BasicImage(rotation=3)";
   -webkit-transform: rotate(270deg) scale(0.75);
@@ -3319,7 +3280,7 @@ samp {
   text-transform: none;
   text-rendering: auto;
   position: absolute;
-  content: "\e61d";
+  content: "\E61D";
   right: 16px;
   top: 0;
   display: inline-block;
@@ -3383,7 +3344,7 @@ samp {
   color: #108ee9;
 }
 .ant-menu-horizontal:after {
-  content: "\20";
+  content: " ";
   display: block;
   height: 0;
   clear: both;
@@ -3398,6 +3359,51 @@ samp {
   height: 42px;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.ant-menu-inline-collapsed {
+  width: 64px;
+}
+.ant-menu-inline-collapsed > .ant-menu-item,
+.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item,
+.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
+  left: 0;
+  text-overflow: clip;
+  padding: 0 24px !important;
+}
+.ant-menu-inline-collapsed > .ant-menu-item:after,
+.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item:after,
+.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title:after {
+  display: none;
+}
+.ant-menu-inline-collapsed > .ant-menu-item .anticon,
+.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .anticon,
+.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon {
+  font-size: 16px;
+  line-height: 42px;
+  margin: 0;
+}
+.ant-menu-inline-collapsed > .ant-menu-item .anticon + span,
+.ant-menu-inline-collapsed > .ant-menu-item-group > .ant-menu-item-group-list > .ant-menu-item .anticon + span,
+.ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title .anticon + span {
+  max-width: 0;
+  display: inline-block;
+  opacity: 0;
+}
+.ant-menu-inline-collapsed-tooltip {
+  pointer-events: none;
+}
+.ant-menu-inline-collapsed-tooltip .anticon {
+  display: none;
+}
+.ant-menu-inline-collapsed-tooltip a {
+  color: rgba(255, 255, 255, 0.91);
+}
+.ant-menu-inline-collapsed .ant-menu-item-group-title {
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  padding-left: 4px;
+  padding-right: 4px;
 }
 .ant-menu-item-group-list .ant-menu-item,
 .ant-menu-item-group-list .ant-menu-submenu-title {
@@ -3490,7 +3496,6 @@ samp {
 .ant-menu-dark .ant-menu-submenu-active,
 .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open,
 .ant-menu-dark .ant-menu-submenu-selected,
-.ant-menu-dark .ant-menu-submenu:hover,
 .ant-menu-dark .ant-menu-submenu-title:hover {
   background-color: transparent;
   color: #fff;
@@ -3500,7 +3505,6 @@ samp {
 .ant-menu-dark .ant-menu-submenu-active > a,
 .ant-menu-dark:not(.ant-menu-inline) .ant-menu-submenu-open > a,
 .ant-menu-dark .ant-menu-submenu-selected > a,
-.ant-menu-dark .ant-menu-submenu:hover > a,
 .ant-menu-dark .ant-menu-submenu-title:hover > a {
   color: #fff;
 }
