@@ -223,6 +223,24 @@ describe('rc-queue-anim', () => {
     }, 18);
   });
 
+  it('should support custom animation config array', (done) => {
+    const instance = createQueueAnimInstance({
+      animConfig: [
+        [{ left: [100, 0] }, { top: [100, 0] }],
+      ],
+    });
+    let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+    expect(isNaN(children[1])).to.be.ok();
+    ticker.timeout(() => {
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      console.log('left:', getLeft(children[1]));
+      console.log('top:', getTop(children[1]));
+      expect(getLeft(children[1])).to.be(100);
+      expect(getTop(children[1])).to.be(100);
+      done();
+    }, 917);
+  });
+
   it('should support animation when change direction at animating', (done) => {
     const instance = createQueueAnimInstance({
       leaveReverse: true,
