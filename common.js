@@ -270,6 +270,39 @@ exports.default = function (instance, Constructor) {
 
 exports.__esModule = true;
 
+var _defineProperty = __webpack_require__(55);
+
+var _defineProperty2 = _interopRequireDefault(_defineProperty);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
+    }
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+/***/ }),
+/* 5 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+exports.__esModule = true;
+
 var _setPrototypeOf = __webpack_require__(163);
 
 var _setPrototypeOf2 = _interopRequireDefault(_setPrototypeOf);
@@ -301,7 +334,7 @@ exports.default = function (subClass, superClass) {
 };
 
 /***/ }),
-/* 5 */
+/* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -324,7 +357,7 @@ exports.default = function (self, call) {
 };
 
 /***/ }),
-/* 6 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -351,39 +384,6 @@ exports.default = _assign2.default || function (target) {
 
   return target;
 };
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-exports.__esModule = true;
-
-var _defineProperty = __webpack_require__(55);
-
-var _defineProperty2 = _interopRequireDefault(_defineProperty);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = function () {
-  function defineProperties(target, props) {
-    for (var i = 0; i < props.length; i++) {
-      var descriptor = props[i];
-      descriptor.enumerable = descriptor.enumerable || false;
-      descriptor.configurable = true;
-      if ("value" in descriptor) descriptor.writable = true;
-      (0, _defineProperty2.default)(target, descriptor.key, descriptor);
-    }
-  }
-
-  return function (Constructor, protoProps, staticProps) {
-    if (protoProps) defineProperties(Constructor.prototype, protoProps);
-    if (staticProps) defineProperties(Constructor, staticProps);
-    return Constructor;
-  };
-}();
 
 /***/ }),
 /* 8 */
@@ -1144,43 +1144,32 @@ module.exports = warning;
 /* 39 */,
 /* 40 */,
 /* 41 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (immutable) */ __webpack_exports__["b"] = toArrayChildren;
+/* harmony export (immutable) */ __webpack_exports__["f"] = dataToArray;
+/* harmony export (immutable) */ __webpack_exports__["h"] = objectEqual;
+/* harmony export (immutable) */ __webpack_exports__["e"] = findChildInChildrenByKey;
+/* harmony export (immutable) */ __webpack_exports__["d"] = mergeChildren;
+/* harmony export (immutable) */ __webpack_exports__["g"] = transformArguments;
+/* harmony export (immutable) */ __webpack_exports__["c"] = getChildrenFromProps;
+/* harmony export (immutable) */ __webpack_exports__["i"] = startConvertToEndUnit;
+/* harmony export (immutable) */ __webpack_exports__["a"] = parsePath;
+/* harmony export (immutable) */ __webpack_exports__["j"] = getTransformValue;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(18);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql__ = __webpack_require__(208);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_deep_eql___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_deep_eql__);
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _typeof2 = __webpack_require__(18);
-
-var _typeof3 = _interopRequireDefault(_typeof2);
-
-exports.toArrayChildren = toArrayChildren;
-exports.dataToArray = dataToArray;
-exports.objectEqual = objectEqual;
-exports.findChildInChildrenByKey = findChildInChildrenByKey;
-exports.mergeChildren = mergeChildren;
-exports.transformArguments = transformArguments;
-exports.getChildrenFromProps = getChildrenFromProps;
-exports.startConvertToEndUnit = startConvertToEndUnit;
-exports.parsePath = parsePath;
-exports.getTransformValue = getTransformValue;
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _deepEql = __webpack_require__(208);
-
-var _deepEql2 = _interopRequireDefault(_deepEql);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function toArrayChildren(children) {
   var ret = [];
-  _react2["default"].Children.forEach(children, function (c) {
+  __WEBPACK_IMPORTED_MODULE_1_react___default.a.Children.forEach(children, function (c) {
     ret.push(c);
   });
   return ret;
@@ -1197,7 +1186,7 @@ function dataToArray(vars) {
 }
 
 function objectEqual(obj1, obj2) {
-  if (obj1 === obj2 || (0, _deepEql2["default"])(obj1, obj2)) {
+  if (obj1 === obj2 || __WEBPACK_IMPORTED_MODULE_2_deep_eql___default()(obj1, obj2)) {
     return true;
   }
   if (!obj1 || !obj2) {
@@ -1214,7 +1203,7 @@ function objectEqual(obj1, obj2) {
       var nextObj = obj2[i];
       for (var p in currentObj) {
         if (currentObj[p] !== nextObj[p]) {
-          if ((0, _typeof3["default"])(currentObj[p]) === 'object' && (0, _typeof3["default"])(nextObj[p]) === 'object') {
+          if (__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(currentObj[p]) === 'object' && __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(nextObj[p]) === 'object') {
             equalBool = objectEqual(currentObj[p], nextObj[p]);
           } else if (typeof currentObj[p] === 'function' && typeof nextObj[p] === 'function') {
             if (currentObj[p].name !== nextObj[p].name) {
@@ -1235,7 +1224,7 @@ function objectEqual(obj1, obj2) {
         equalBool = false;
       }
 
-      if ((0, _typeof3["default"])(objA[key]) === 'object' && (0, _typeof3["default"])(objB[key]) === 'object') {
+      if (__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(objA[key]) === 'object' && __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(objB[key]) === 'object') {
         equalBool = objectEqual(objA[key], objB[key]);
       } else if (typeof objA[key] === 'function' && typeof objB[key] === 'function') {
         if (objA[key].name !== objB[key].name) {
@@ -1835,22 +1824,16 @@ module.exports = ReactPropTypesSecret;
 /* 92 */,
 /* 93 */,
 /* 94 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 /* eslint-disable func-names */
 var Plugins = function Plugins() {};
 var p = Plugins.prototype;
 p.push = function (plugin) {
   this[plugin.prototype.name] = plugin;
 };
-exports["default"] = new Plugins();
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (new Plugins());
 
 /***/ }),
 /* 95 */,
@@ -2827,75 +2810,61 @@ module.exports = shallowEqual;
 /* 118 */,
 /* 119 */,
 /* 120 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react_dom___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react_dom__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_style_utils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__Tween__ = __webpack_require__(263);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__ticker__ = __webpack_require__(122);
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _extends2 = __webpack_require__(6);
 
-var _extends3 = _interopRequireDefault(_extends2);
 
-var _classCallCheck2 = __webpack_require__(3);
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _possibleConstructorReturn2 = __webpack_require__(5);
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(4);
 
-var _inherits3 = _interopRequireDefault(_inherits2);
 
-var _react = __webpack_require__(0);
 
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _reactDom = __webpack_require__(2);
-
-var _reactDom2 = _interopRequireDefault(_reactDom);
-
-var _util = __webpack_require__(41);
-
-var _styleUtils = __webpack_require__(98);
-
-var _Tween = __webpack_require__(263);
-
-var _Tween2 = _interopRequireDefault(_Tween);
-
-var _ticker = __webpack_require__(122);
-
-var _ticker2 = _interopRequireDefault(_ticker);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function noop() {}
 
 var perFrame = Math.round(1000 / 60);
 
 var TweenOne = function (_Component) {
-  (0, _inherits3["default"])(TweenOne, _Component);
+  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(TweenOne, _Component);
 
   function TweenOne(props) {
-    (0, _classCallCheck3["default"])(this, TweenOne);
+    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, TweenOne);
 
-    var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.call(this, props));
+    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (TweenOne.__proto__ || Object.getPrototypeOf(TweenOne)).call(this, props));
 
     _initialiseProps.call(_this);
 
     _this.rafID = -1;
     _this.moment = props.moment || 0;
     _this.startMoment = props.moment || 0;
-    _this.startFrame = _ticker2["default"].frame;
+    _this.startFrame = __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame;
     _this.paused = props.paused;
     _this.reverse = props.reverse;
     _this.onChange = props.onChange;
@@ -2906,147 +2875,155 @@ var TweenOne = function (_Component) {
     return _this;
   }
 
-  TweenOne.prototype.componentDidMount = function componentDidMount() {
-    this.dom = _reactDom2["default"].findDOMNode(this);
-    this.start();
-  };
-
-  TweenOne.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _this2 = this;
-
-    if (nextProps.resetStyleBool && this.tween && this.rafID === -1) {
-      this.tween.resetDefaultStyle();
-    }
-    this.onChange = nextProps.onChange;
-    // 跳帧事件 moment;
-    var newMoment = nextProps.moment;
-    this.newMomentAnim = false;
-    if (typeof newMoment === 'number' && newMoment !== this.moment) {
-      this.startMoment = newMoment;
-      this.startFrame = _ticker2["default"].frame;
-      if (this.rafID === -1 && !nextProps.paused) {
-        this.tween.resetAnimData();
-        var style = nextProps.style;
-        this.dom.setAttribute('style', '');
-        if (style) {
-          Object.keys(style).forEach(function (key) {
-            _this2.dom.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
-          });
-        }
-        this.play();
-      } else {
-        this.newMomentAnim = true;
-      }
-    }
-    // 动画处理
-    var newAnimation = nextProps.animation;
-    var currentAnimation = this.props.animation;
-    var equal = (0, _util.objectEqual)(currentAnimation, newAnimation);
-    var styleEqual = (0, _util.objectEqual)(this.props.style, nextProps.style);
-    // 如果 animation 不同， 在下一帧重新动画
-    if (!equal) {
-      if (this.rafID !== -1) {
-        this.updateAnim = 'update';
-      } else if (nextProps.updateReStart) {
-        this.startFrame = _ticker2["default"].frame;
-        this.updateAnim = 'start';
-      }
-      // 只做动画，不做回调处理。。。
-      if (this.tween) {
-        this.tween.updateAnim = this.updateAnim;
-      }
-    }
-
-    if (!styleEqual) {
-      // 在动画时更改了 style, 作为更改开始数值。
-      if (this.rafID !== -1) {
-        this.updateStartStyle = true;
-      }
-    }
-
-    // 暂停倒放
-    if (this.paused !== nextProps.paused || this.reverse !== nextProps.reverse) {
-      this.paused = nextProps.paused;
-      this.reverse = nextProps.reverse;
-      if (this.paused) {
-        this.cancelRequestAnimationFrame();
-      } else {
-        if (this.reverse && nextProps.reverseDelay) {
-          this.cancelRequestAnimationFrame();
-          _ticker2["default"].timeout(this.restart, nextProps.reverseDelay);
-        } else {
-          this.restart();
-        }
-      }
-    }
-
-    this.setForcedJudg(nextProps);
-  };
-
-  TweenOne.prototype.componentDidUpdate = function componentDidUpdate() {
-    if (this.updateStartStyle && !this.updateAnim) {
-      this.tween.reStart(this.props.style);
-      this.updateStartStyle = false;
-    }
-
-    if (this.newMomentAnim) {
-      this.raf();
-    }
-
-    // 样式更新了后再执行动画；
-    if (this.updateAnim === 'start') {
+  __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(TweenOne, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.dom = __WEBPACK_IMPORTED_MODULE_7_react_dom___default.a.findDOMNode(this);
       this.start();
     }
-  };
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
 
-  TweenOne.prototype.componentWillUnmount = function componentWillUnmount() {
-    this.cancelRequestAnimationFrame();
-  };
-
-  /**
-   * @method setForcedJudg
-   * @param props
-   * QueueAnim 套在组件下面后导至子级变化。
-   * <QueueAnim component={Menu} >
-   *   <SubMenu key="a" title="导航">
-   *     <Item />
-   *   </SubMenu>
-   * </QueueAnim>
-   * rc-Menu 里是以 isXXX 来判断是 rc-Menu 的子级;
-   * 如: 用 isSubMenu 来处理 hover 事件
-   * 地址: https://github.com/react-component/menu/blob/master/src/MenuMixin.js#L172
-   * 暂时方案: 在组件里添加判断用的值。
-   */
-
-  TweenOne.prototype.render = function render() {
-    var props = (0, _extends3["default"])({}, this.props);
-    ['animation', 'component', 'componentProps', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart', 'forcedJudg'].forEach(function (key) {
-      return delete props[key];
-    });
-    props.style = (0, _extends3["default"])({}, this.props.style);
-    Object.keys(props.style).forEach(function (p) {
-      if (p.match(/filter/i)) {
-        ['Webkit', 'Moz', 'Ms', 'ms'].forEach(function (prefix) {
-          return props.style[prefix + 'Filter'] = props.style[p];
-        });
+      if (nextProps.resetStyleBool && this.tween && this.rafID === -1) {
+        this.tween.resetDefaultStyle();
       }
-    });
-    // component 为空时调用子级的。。
-    if (!this.props.component) {
-      var childrenProps = this.props.children.props;
-      var style = childrenProps.style,
-          className = childrenProps.className;
-      // 合并 style 与 className。
+      this.onChange = nextProps.onChange;
+      // 跳帧事件 moment;
+      var newMoment = nextProps.moment;
+      this.newMomentAnim = false;
+      if (typeof newMoment === 'number' && newMoment !== this.moment) {
+        this.startMoment = newMoment;
+        this.startFrame = __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame;
+        if (this.rafID === -1 && !nextProps.paused) {
+          this.tween.resetAnimData();
+          var style = nextProps.style;
+          this.dom.setAttribute('style', '');
+          if (style) {
+            Object.keys(style).forEach(function (key) {
+              _this2.dom.style[key] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_9_style_utils__["stylesToCss"])(key, style[key]);
+            });
+          }
+          this.play();
+        } else {
+          this.newMomentAnim = true;
+        }
+      }
+      // 动画处理
+      var newAnimation = nextProps.animation;
+      var currentAnimation = this.props.animation;
+      var equal = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["h" /* objectEqual */])(currentAnimation, newAnimation);
+      var styleEqual = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["h" /* objectEqual */])(this.props.style, nextProps.style);
+      // 如果 animation 不同， 在下一帧重新动画
+      if (!equal) {
+        if (this.rafID !== -1) {
+          this.updateAnim = 'update';
+        } else if (nextProps.updateReStart) {
+          this.startFrame = __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame;
+          this.updateAnim = 'start';
+        }
+        // 只做动画，不做回调处理。。。
+        if (this.tween) {
+          this.tween.updateAnim = this.updateAnim;
+        }
+      }
 
-      var newStyle = (0, _extends3["default"])({}, style, props.style);
-      var newClassName = props.className ? props.className + ' ' + className : className;
-      return _react2["default"].cloneElement(this.props.children, { style: newStyle, className: newClassName });
+      if (!styleEqual) {
+        // 在动画时更改了 style, 作为更改开始数值。
+        if (this.rafID !== -1) {
+          this.updateStartStyle = true;
+        }
+      }
+
+      // 暂停倒放
+      if (this.paused !== nextProps.paused || this.reverse !== nextProps.reverse) {
+        this.paused = nextProps.paused;
+        this.reverse = nextProps.reverse;
+        if (this.paused) {
+          this.cancelRequestAnimationFrame();
+        } else {
+          if (this.reverse && nextProps.reverseDelay) {
+            this.cancelRequestAnimationFrame();
+            __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].timeout(this.restart, nextProps.reverseDelay);
+          } else {
+            this.restart();
+          }
+        }
+      }
+
+      this.setForcedJudg(nextProps);
     }
-    return _react2["default"].createElement(this.props.component, (0, _extends3["default"])({}, props, this.props.componentProps));
-  };
+  }, {
+    key: 'componentDidUpdate',
+    value: function componentDidUpdate() {
+      if (this.updateStartStyle && !this.updateAnim) {
+        this.tween.reStart(this.props.style);
+        this.updateStartStyle = false;
+      }
+
+      if (this.newMomentAnim) {
+        this.raf();
+      }
+
+      // 样式更新了后再执行动画；
+      if (this.updateAnim === 'start') {
+        this.start();
+      }
+    }
+  }, {
+    key: 'componentWillUnmount',
+    value: function componentWillUnmount() {
+      this.cancelRequestAnimationFrame();
+    }
+
+    /**
+     * @method setForcedJudg
+     * @param props
+     * QueueAnim 套在组件下面后导至子级变化。
+     * <QueueAnim component={Menu} >
+     *   <SubMenu key="a" title="导航">
+     *     <Item />
+     *   </SubMenu>
+     * </QueueAnim>
+     * rc-Menu 里是以 isXXX 来判断是 rc-Menu 的子级;
+     * 如: 用 isSubMenu 来处理 hover 事件
+     * 地址: https://github.com/react-component/menu/blob/master/src/MenuMixin.js#L172
+     * 暂时方案: 在组件里添加判断用的值。
+     */
+
+  }, {
+    key: 'render',
+    value: function render() {
+      var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props);
+      ['animation', 'component', 'componentProps', 'reverseDelay', 'attr', 'paused', 'reverse', 'moment', 'resetStyleBool', 'updateReStart', 'forcedJudg'].forEach(function (key) {
+        return delete props[key];
+      });
+      props.style = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props.style);
+      Object.keys(props.style).forEach(function (p) {
+        if (p.match(/filter/i)) {
+          ['Webkit', 'Moz', 'Ms', 'ms'].forEach(function (prefix) {
+            return props.style[prefix + 'Filter'] = props.style[p];
+          });
+        }
+      });
+      // component 为空时调用子级的。。
+      if (!this.props.component) {
+        var childrenProps = this.props.children.props;
+        var style = childrenProps.style,
+            className = childrenProps.className;
+        // 合并 style 与 className。
+
+        var newStyle = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, style, props.style);
+        var newClassName = props.className ? props.className + ' ' + className : className;
+        return __WEBPACK_IMPORTED_MODULE_5_react___default.a.cloneElement(this.props.children, { style: newStyle, className: newClassName });
+      }
+      return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(this.props.component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, this.props.componentProps));
+    }
+  }]);
 
   return TweenOne;
-}(_react.Component);
+}(__WEBPACK_IMPORTED_MODULE_5_react__["Component"]);
 
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
@@ -3071,7 +3048,7 @@ var _initialiseProps = function _initialiseProps() {
       return;
     }
     _this3.startMoment = _this3.tween.progressTime;
-    _this3.startFrame = _ticker2["default"].frame;
+    _this3.startFrame = __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame;
     _this3.tween.reverse = _this3.reverse;
     _this3.tween.reverseStartTime = _this3.startMoment;
     _this3.play();
@@ -3081,7 +3058,7 @@ var _initialiseProps = function _initialiseProps() {
     _this3.updateAnim = null;
     var props = _this3.props;
     if (props.animation && Object.keys(props.animation).length) {
-      _this3.tween = new _Tween2["default"](_this3.dom, (0, _util.dataToArray)(props.animation), { attr: props.attr });
+      _this3.tween = new __WEBPACK_IMPORTED_MODULE_10__Tween__["a" /* default */](_this3.dom, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["f" /* dataToArray */])(props.animation), { attr: props.attr });
       // 预先注册 raf, 初始动画数值。
       _this3.raf();
       // 开始动画
@@ -3094,12 +3071,12 @@ var _initialiseProps = function _initialiseProps() {
     if (_this3.paused) {
       return;
     }
-    _this3.rafID = _ticker2["default"].add(_this3.raf);
+    _this3.rafID = __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].add(_this3.raf);
   };
 
   this.updateAnimFunc = function () {
     _this3.cancelRequestAnimationFrame();
-    _this3.startFrame = _ticker2["default"].frame;
+    _this3.startFrame = __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame;
     if (_this3.updateAnim === 'update') {
       if (_this3.props.resetStyleBool && _this3.tween) {
         _this3.tween.resetDefaultStyle();
@@ -3109,9 +3086,9 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.frame = function () {
-    var moment = (_ticker2["default"].frame - _this3.startFrame) * perFrame + _this3.startMoment;
+    var moment = (__WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame - _this3.startFrame) * perFrame + _this3.startMoment;
     if (_this3.reverse) {
-      moment = (_this3.startMoment || 0) - (_ticker2["default"].frame - _this3.startFrame) * perFrame;
+      moment = (_this3.startMoment || 0) - (__WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].frame - _this3.startFrame) * perFrame;
     }
     moment = moment > _this3.tween.totalTime ? _this3.tween.totalTime : moment;
     moment = moment <= 0 ? 0 : moment;
@@ -3138,28 +3115,28 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.cancelRequestAnimationFrame = function () {
-    _ticker2["default"].clear(_this3.rafID);
+    __WEBPACK_IMPORTED_MODULE_11__ticker__["a" /* default */].clear(_this3.rafID);
     _this3.rafID = -1;
   };
 };
 
-var objectOrArray = _propTypes2["default"].oneOfType([_propTypes2["default"].object, _propTypes2["default"].array]);
+var objectOrArray = __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.oneOfType([__WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object, __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.array]);
 
 TweenOne.propTypes = {
-  component: _propTypes2["default"].any,
-  componentProps: _propTypes2["default"].any,
+  component: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  componentProps: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
   animation: objectOrArray,
-  children: _propTypes2["default"].any,
-  style: _propTypes2["default"].object,
-  paused: _propTypes2["default"].bool,
-  reverse: _propTypes2["default"].bool,
-  reverseDelay: _propTypes2["default"].number,
-  moment: _propTypes2["default"].number,
-  attr: _propTypes2["default"].string,
-  onChange: _propTypes2["default"].func,
-  resetStyleBool: _propTypes2["default"].bool,
-  updateReStart: _propTypes2["default"].bool,
-  forcedJudg: _propTypes2["default"].object
+  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  style: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object,
+  paused: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  reverse: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  reverseDelay: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.number,
+  moment: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.number,
+  attr: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.string,
+  onChange: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func,
+  resetStyleBool: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  updateReStart: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  forcedJudg: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object
 };
 
 TweenOne.defaultProps = {
@@ -3170,31 +3147,23 @@ TweenOne.defaultProps = {
   onChange: noop,
   updateReStart: true
 };
-exports["default"] = TweenOne;
-module.exports = exports['default'];
+TweenOne.isTweenOne = true;
+/* harmony default export */ __webpack_exports__["a"] = (TweenOne);
 
 /***/ }),
 /* 121 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions__ = __webpack_require__(303);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_tween_functions___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_tween_functions__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__util__ = __webpack_require__(41);
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _tweenFunctions = __webpack_require__(303);
-
-var _tweenFunctions2 = _interopRequireDefault(_tweenFunctions);
-
-var _util = __webpack_require__(41);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-_tweenFunctions2["default"].path = function (_path, _param) {
+__WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a.path = function (_path, _param) {
   var param = _param || {};
-  var pathNode = (0, _util.parsePath)(_path);
+  var pathNode = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__util__["a" /* parsePath */])(_path);
   var pathLength = pathNode.getTotalLength();
   var rect = param.rect || 100; // path 的大小，100 * 100，
   var lengthPixel = param.lengthPixel || 200; // 线上取点像素，默认分为 200 段。。
@@ -3204,7 +3173,7 @@ _tweenFunctions2["default"].path = function (_path, _param) {
   }
   points.push(pathNode.getPointAtLength(lengthPixel));
   return function path(t, b, _c, d) {
-    var p = _tweenFunctions2["default"].linear(t, b, _c, d);
+    var p = __WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a.linear(t, b, _c, d);
     var timePointX = rect * p; // X 轴的百分比;
     // 取出 x 轴百分比上的点;
     var point = points.filter(function (item) {
@@ -3214,30 +3183,21 @@ _tweenFunctions2["default"].path = function (_path, _param) {
   };
 };
 
-exports["default"] = _tweenFunctions2["default"];
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (__WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a);
 
 /***/ }),
 /* 122 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf__ = __webpack_require__(243);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_raf___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_raf__);
+/* eslint-disable func-names */
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _raf = __webpack_require__(243);
-
-var _raf2 = _interopRequireDefault(_raf);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var getTime = Date.now || function () {
   return new Date().getTime();
-}; /* eslint-disable func-names */
-
+};
 var Ticker = function Ticker() {};
 
 var p = Ticker.prototype = {
@@ -3264,7 +3224,7 @@ p.wake = function (key, fn) {
     return _this.tickKeyObject[k];
   });
   if (this.id === -1) {
-    this.id = (0, _raf2["default"])(this.tick);
+    this.id = __WEBPACK_IMPORTED_MODULE_0_raf___default()(this.tick);
   }
 };
 p.clear = function (key) {
@@ -3276,7 +3236,7 @@ p.clear = function (key) {
   });
 };
 p.sleep = function () {
-  _raf2["default"].cancel(this.id);
+  __WEBPACK_IMPORTED_MODULE_0_raf___default.a.cancel(this.id);
   this.id = -1;
   this.frame = 0;
 };
@@ -3297,7 +3257,7 @@ p.tick = function (a) {
   } else {
     ticker.frame += Math.round(ticker.elapsed / ticker.perFrame);
   }
-  ticker.id = (0, _raf2["default"])(ticker.tick);
+  ticker.id = __WEBPACK_IMPORTED_MODULE_0_raf___default()(ticker.tick);
 };
 var timeoutIdNumber = 0;
 p.timeout = function (fn, time) {
@@ -3338,8 +3298,7 @@ p.interval = function (fn, time) {
   intervalIdNumber++;
   return intervalID;
 };
-exports["default"] = ticker;
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (ticker);
 
 /***/ }),
 /* 123 */,
@@ -3406,7 +3365,7 @@ module.exports = g;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties__);
@@ -3414,18 +3373,17 @@ module.exports = g;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8_prop_types__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__ = __webpack_require__(265);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9_rc_tween_one___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9_rc_tween_one__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__utils__ = __webpack_require__(159);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__animTypes__ = __webpack_require__(158);
 
@@ -3567,7 +3525,7 @@ var QueueAnim = function (_React$Component) {
       var _this3 = this;
 
       Object.keys(this.placeholderTimeoutIds).forEach(function (key) {
-        __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].clear(_this3.placeholderTimeoutIds[key]);
+        __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* ticker */].clear(_this3.placeholderTimeoutIds[key]);
       });
       this.keysToEnter = [];
       this.keysToLeave = [];
@@ -3672,7 +3630,7 @@ var _initialiseProps = function _initialiseProps() {
       ease = ease.map(function (num) {
         return num * 100;
       });
-      ease = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one___default.a.easing.path('M0,100C' + ease[0] + ',' + (100 - ease[1]) + ',' + ease[2] + ',' + (100 - ease[3]) + ',100,0', { lengthPixel: duration / 16.6667 });
+      ease = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["b" /* default */].easing.path('M0,100C' + ease[0] + ',' + (100 - ease[1]) + ',' + ease[2] + ',' + (100 - ease[3]) + ',100,0', { lengthPixel: duration / 16.6667 });
     }
     return { startAnim: startAnim, animate: animate, ease: ease, duration: duration, isArray: Array.isArray(animate) };
   };
@@ -3772,7 +3730,7 @@ var _initialiseProps = function _initialiseProps() {
           }
         });
       }
-      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_9_rc_tween_one___default.a, { key: key, component: child.type, componentProps: child.props, forcedJudg: forcedJudg, animation: animation });
+      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["b" /* default */], { key: key, component: child.type, componentProps: child.props, forcedJudg: forcedJudg, animation: animation });
     }
     return null;
   };
@@ -3780,7 +3738,7 @@ var _initialiseProps = function _initialiseProps() {
   this.performEnter = function (key, i) {
     var interval = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[0];
     var delay = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[0];
-    _this5.placeholderTimeoutIds[key] = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].timeout(_this5.performEnterBegin.bind(_this5, key), interval * i + delay);
+    _this5.placeholderTimeoutIds[key] = __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* ticker */].timeout(_this5.performEnterBegin.bind(_this5, key), interval * i + delay);
     if (_this5.keysToEnter.indexOf(key) >= 0) {
       _this5.keysToEnter.splice(_this5.keysToEnter.indexOf(key), 1);
     }
@@ -3791,13 +3749,13 @@ var _initialiseProps = function _initialiseProps() {
     var childrenShow = _this5.state.childrenShow;
     childrenShow[key] = true;
     delete _this5.keysToEnterPaused[key];
-    __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].clear(_this5.placeholderTimeoutIds[key]);
+    __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
     _this5.setState({ childrenShow: childrenShow });
   };
 
   this.performLeave = function (key) {
-    __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["ticker"].clear(_this5.placeholderTimeoutIds[key]);
+    __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
     _this5.tweenKeyType[key] = 'leave';
   };
@@ -6548,52 +6506,38 @@ module.exports.polyfill = function() {
 /* 261 */,
 /* 262 */,
 /* 263 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__easing__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__plugins__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugin_StylePlugin__ = __webpack_require__(266);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_style_utils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__util_js__ = __webpack_require__(41);
 
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _extends2 = __webpack_require__(6);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _easing = __webpack_require__(121);
-
-var _easing2 = _interopRequireDefault(_easing);
-
-var _plugins = __webpack_require__(94);
-
-var _plugins2 = _interopRequireDefault(_plugins);
-
-var _StylePlugin = __webpack_require__(266);
-
-var _StylePlugin2 = _interopRequireDefault(_StylePlugin);
-
-var _styleUtils = __webpack_require__(98);
-
-var _util = __webpack_require__(41);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
-
-var DEFAULT_EASING = 'easeInOutQuad'; /* eslint-disable func-names */
+/* eslint-disable func-names */
 /**
  * Created by jljsj on 16/1/27.
  */
 
+
+
+
+
+var DEFAULT_EASING = 'easeInOutQuad';
 var DEFAULT_DURATION = 450;
 var DEFAULT_DELAY = 0;
 function noop() {}
-_plugins2["default"].push(_StylePlugin2["default"]);
+__WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */].push(__WEBPACK_IMPORTED_MODULE_3__plugin_StylePlugin__["a" /* default */]);
 // 设置默认数据
 function defaultData(vars, now) {
   return {
     duration: vars.duration || vars.duration === 0 ? vars.duration : DEFAULT_DURATION,
     delay: vars.delay || DEFAULT_DELAY,
-    ease: typeof vars.ease === 'function' ? vars.ease : _easing2["default"][vars.ease || DEFAULT_EASING],
+    ease: typeof vars.ease === 'function' ? vars.ease : __WEBPACK_IMPORTED_MODULE_1__easing__["a" /* default */][vars.ease || DEFAULT_EASING],
     onUpdate: vars.onUpdate || noop,
     onComplete: vars.onComplete || noop,
     onStart: vars.onStart || noop,
@@ -6641,7 +6585,7 @@ p.setAttrIsStyle = function () {
 
   var data = [];
   this.data.forEach(function (d, i) {
-    var _d = (0, _extends3["default"])({}, d);
+    var _d = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, d);
     if (_this.attr === 'style') {
       data[i] = {};
       Object.keys(_d).forEach(function (key) {
@@ -6658,7 +6602,7 @@ p.setAttrIsStyle = function () {
           throw new Error('Style should be the object.');
         }
         if (key === 'bezier') {
-          _d.style = (0, _extends3["default"])({}, _d.style, { bezier: _d[key] });
+          _d.style = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, _d.style, { bezier: _d[key] });
           delete _d[key];
           _this.startDefaultData.style = _this.target.getAttribute('style');
         } else {
@@ -6688,17 +6632,17 @@ p.setDefaultData = function (_vars) {
     Object.keys(item).forEach(function (_key) {
       if (!(_key in tweenData)) {
         var _data = item[_key];
-        if (_key in _plugins2["default"]) {
-          tweenData.vars[_key] = new _plugins2["default"][_key](_this2.target, _data, tweenData.type);
+        if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */]) {
+          tweenData.vars[_key] = new __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */][_key](_this2.target, _data, tweenData.type);
         } else if (_key.match(/color/i) || _key === 'stroke' || _key === 'fill') {
-          tweenData.vars[_key] = { type: 'color', vars: (0, _styleUtils.parseColor)(_data) };
+          tweenData.vars[_key] = { type: 'color', vars: __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["parseColor"])(_data) };
         } else if (typeof _data === 'number' || _data.split(/[,|\s]/g).length <= 1) {
           var vars = parseFloat(_data);
           var unit = _data.toString().replace(/[^a-z|%]/g, '');
           var count = _data.toString().replace(/[^+|=|-]/g, '');
           tweenData.vars[_key] = { unit: unit, vars: vars, count: count };
-        } else if ((_key === 'd' || _key === 'points') && 'SVGMorph' in _plugins2["default"]) {
-          tweenData.vars[_key] = new _plugins2["default"].SVGMorph(_this2.target, _data, _key);
+        } else if ((_key === 'd' || _key === 'points') && 'SVGMorph' in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */]) {
+          tweenData.vars[_key] = new __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */].SVGMorph(_this2.target, _data, _key);
         }
       }
     });
@@ -6737,7 +6681,7 @@ p.getAnimStartData = function (item) {
   var start = {};
   this.computedStyle = this.computedStyle || this.getComputedStyle();
   Object.keys(item).forEach(function (_key) {
-    if (_key in _plugins2["default"] || _this3.attr === 'attr' && (_key === 'd' || _key === 'points')) {
+    if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this3.attr === 'attr' && (_key === 'd' || _key === 'points')) {
       start[_key] = item[_key].getAnimStart(_this3.computedStyle);
       return;
     }
@@ -6747,11 +6691,11 @@ p.getAnimStartData = function (item) {
       var data = attribute === 'null' || !attribute ? 0 : attribute;
       if (_key.match(/color/i) || _key === 'stroke' || _key === 'fill') {
         data = !data && _key === 'stroke' ? 'rgba(255, 255, 255, 0)' : data;
-        data = (0, _styleUtils.parseColor)(data);
+        data = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["parseColor"])(data);
         start[_key] = data;
       } else if (parseFloat(data) || parseFloat(data) === 0 || data === 0) {
         var unit = data.toString().replace(/[^a-z|%]/g, '');
-        start[_key] = unit !== item[_key].unit ? (0, _util.startConvertToEndUnit)(_this3.target, _key, parseFloat(data), unit, item[_key].unit) : parseFloat(data);
+        start[_key] = unit !== item[_key].unit ? __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__util_js__["i" /* startConvertToEndUnit */])(_this3.target, _key, parseFloat(data), unit, item[_key].unit) : parseFloat(data);
       }
       return;
     }
@@ -6763,7 +6707,7 @@ p.setAnimData = function (data) {
   var _this4 = this;
 
   Object.keys(data).forEach(function (key) {
-    if (key in _plugins2["default"] || _this4.attr === 'attr' && (key === 'd' || key === 'points')) {
+    if (key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this4.attr === 'attr' && (key === 'd' || key === 'points')) {
       return;
     }
     _this4.target[key] = data[key];
@@ -6773,7 +6717,7 @@ p.setRatio = function (ratio, endData, i) {
   var _this5 = this;
 
   Object.keys(endData.vars).forEach(function (_key) {
-    if (_key in _plugins2["default"] || _this5.attr === 'attr' && (_key === 'd' || _key === 'points')) {
+    if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this5.attr === 'attr' && (_key === 'd' || _key === 'points')) {
       endData.vars[_key].setRatio(ratio, _this5.tween);
       return;
     }
@@ -6793,7 +6737,7 @@ p.setRatio = function (ratio, endData, i) {
           var startData = startVars[_i] || 0;
           return (_endData - startData) * ratio + startData;
         });
-        _this5.target.setAttribute(_key, (0, _styleUtils.getColor)(data));
+        _this5.target.setAttribute(_key, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["getColor"])(data));
       }
     }
   });
@@ -6805,7 +6749,7 @@ p.render = function () {
   var reverse = this.reverse;
   this.defaultData.forEach(function (item, i) {
     var initTime = item.initTime;
-    var duration = (0, _styleUtils.toFixed)(item.duration);
+    var duration = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["toFixed"])(item.duration);
     // 处理 yoyo 和 repeat; yoyo 是在时间轴上的, 并不是倒放
     var repeatNum = Math.ceil((_this6.progressTime - initTime) / (duration + item.repeatDelay)) - 1;
     repeatNum = repeatNum < 0 ? 0 : repeatNum;
@@ -6822,7 +6766,7 @@ p.render = function () {
     startData = item.type === 'from' ? 1 - startData : startData;
     endData = item.type === 'from' ? 1 - endData : endData;
     //  精度损失，只取小数点后10位。
-    var progressTime = (0, _styleUtils.toFixed)(_this6.progressTime - initTime);
+    var progressTime = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["toFixed"])(_this6.progressTime - initTime);
 
     var ratio = void 0;
 
@@ -6835,7 +6779,7 @@ p.render = function () {
         _this6.start[i] = _this6.getAnimStartData(item.vars);
         if (progressTime < _this6.perFrame) {
           ratio = !item.duration && !item.delay ? item.ease(1, startData, endData, 1) : item.ease(0, startData, endData, 1);
-          _this6.setRatio((0, _styleUtils.toFixed)(ratio), item, i);
+          _this6.setRatio(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["toFixed"])(ratio), item, i);
         } else if (progressTime > duration) {
           ratio = item.ease(1, startData, endData, 1);
           _this6.setRatio(ratio, item, i);
@@ -6859,7 +6803,7 @@ p.render = function () {
       if (progressTime >= duration && !reverse || reverse && progressTime <= 0) {
         // onReveresComplete 和 onComplete 统一用 onComplete;
         ratio = item.ease(reverse ? 0 : 1, startData, endData, 1);
-        _this6.setRatio((0, _styleUtils.toFixed)(ratio), item, i);
+        _this6.setRatio(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["toFixed"])(ratio), item, i);
         if (item.mode !== 'reset' && !updateAnim) {
           item.onComplete(e);
         }
@@ -6871,20 +6815,20 @@ p.render = function () {
           if (item.repeat && repeatNum > 0 && item.currentRepeat !== repeatNum) {
             item.mode = 'onRepeat';
             item.currentRepeat = repeatNum;
-            item.onRepeat((0, _extends3["default"])({}, e, { repeatNum: repeatNum }));
+            item.onRepeat(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, e, { repeatNum: repeatNum }));
           } else if (!item.perTime || reverse && item.perTime >= _this6.reverseStartTime - initTime) {
             // onReveresStart 和 onStart 统一用 onStart;
             item.mode = 'onStart';
             item.onStart(e);
           } else {
             item.mode = 'onUpdate';
-            item.onUpdate((0, _extends3["default"])({ ratio: ratio }, e));
+            item.onUpdate(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({ ratio: ratio }, e));
           }
         }
       }
 
       if (!updateAnim) {
-        _this6.onChange((0, _extends3["default"])({
+        _this6.onChange(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({
           moment: _this6.progressTime,
           mode: item.mode
         }, e));
@@ -6923,68 +6867,55 @@ p.reStart = function (style) {
 
   this.start = {};
   Object.keys(style).forEach(function (key) {
-    _this8.target.style[key] = (0, _styleUtils.stylesToCss)(key, style[key]);
+    _this8.target.style[key] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_4_style_utils__["stylesToCss"])(key, style[key]);
   });
   this.setAttrIsStyle();
   this.resetDefaultStyle();
 };
 
 p.onChange = noop;
-exports["default"] = Tween;
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (Tween);
 
 /***/ }),
 /* 264 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TweenOne__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(41);
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _extends2 = __webpack_require__(6);
 
-var _extends3 = _interopRequireDefault(_extends2);
 
-var _classCallCheck2 = __webpack_require__(3);
 
-var _classCallCheck3 = _interopRequireDefault(_classCallCheck2);
 
-var _possibleConstructorReturn2 = __webpack_require__(5);
 
-var _possibleConstructorReturn3 = _interopRequireDefault(_possibleConstructorReturn2);
 
-var _inherits2 = __webpack_require__(4);
-
-var _inherits3 = _interopRequireDefault(_inherits2);
-
-var _react = __webpack_require__(0);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _propTypes = __webpack_require__(1);
-
-var _propTypes2 = _interopRequireDefault(_propTypes);
-
-var _TweenOne = __webpack_require__(120);
-
-var _TweenOne2 = _interopRequireDefault(_TweenOne);
-
-var _util = __webpack_require__(41);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function noop() {}
 
 var TweenOneGroup = function (_Component) {
-  (0, _inherits3["default"])(TweenOneGroup, _Component);
+  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(TweenOneGroup, _Component);
 
   function TweenOneGroup() {
-    (0, _classCallCheck3["default"])(this, TweenOneGroup);
+    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, TweenOneGroup);
 
-    var _this = (0, _possibleConstructorReturn3["default"])(this, _Component.apply(this, arguments));
+    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (TweenOneGroup.__proto__ || Object.getPrototypeOf(TweenOneGroup)).apply(this, arguments));
 
     _initialiseProps.call(_this);
 
@@ -6994,77 +6925,82 @@ var TweenOneGroup = function (_Component) {
     _this.onEnterBool = false;
     _this.isTween = {};
     // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
-    var children = (0, _util.toArrayChildren)((0, _util.getChildrenFromProps)(_this.props));
+    var children = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* toArrayChildren */])(__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["c" /* getChildrenFromProps */])(_this.props));
     _this.state = {
       children: children
     };
     return _this;
   }
 
-  TweenOneGroup.prototype.componentDidMount = function componentDidMount() {
-    this.onEnterBool = true;
-  };
-
-  TweenOneGroup.prototype.componentWillReceiveProps = function componentWillReceiveProps(nextProps) {
-    var _this2 = this;
-
-    var nextChildren = (0, _util.toArrayChildren)(nextProps.children);
-    var currentChildren = (0, _util.toArrayChildren)(this.state.children);
-    var newChildren = (0, _util.mergeChildren)(currentChildren, nextChildren);
-
-    this.keysToEnter = [];
-    this.keysToLeave = [];
-    nextChildren.forEach(function (c) {
-      if (!c) {
-        return;
-      }
-      var key = c.key;
-      var hasPrev = (0, _util.findChildInChildrenByKey)(currentChildren, key);
-      // 如果当前 key 已存在 saveTweenTag 里，，刷新 child;
-      if (_this2.saveTweenTag[key]) {
-        _this2.saveTweenTag[key] = _react2["default"].cloneElement(_this2.saveTweenTag[key], {}, c);
-      }
-      if (!hasPrev && key) {
-        _this2.keysToEnter.push(key);
-      }
-    });
-
-    currentChildren.forEach(function (c) {
-      if (!c) {
-        return;
-      }
-      var key = c.key;
-      var hasNext = (0, _util.findChildInChildrenByKey)(nextChildren, key);
-      if (!hasNext && key) {
-        _this2.keysToLeave.push(key);
-        delete _this2.saveTweenTag[key];
-      }
-    });
-    this.setState({
-      children: newChildren
-    });
-  };
-
-  TweenOneGroup.prototype.render = function render() {
-    var childrenToRender = this.getChildrenToRender(this.state.children);
-    if (!this.props.component) {
-      return childrenToRender[0] || null;
+  __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(TweenOneGroup, [{
+    key: 'componentDidMount',
+    value: function componentDidMount() {
+      this.onEnterBool = true;
     }
-    var componentProps = (0, _extends3["default"])({}, this.props);
-    ['component', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
-      return delete componentProps[key];
-    });
-    return (0, _react.createElement)(this.props.component, componentProps, childrenToRender);
-  };
+  }, {
+    key: 'componentWillReceiveProps',
+    value: function componentWillReceiveProps(nextProps) {
+      var _this2 = this;
+
+      var nextChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* toArrayChildren */])(nextProps.children);
+      var currentChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* toArrayChildren */])(this.state.children);
+      var newChildren = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["d" /* mergeChildren */])(currentChildren, nextChildren);
+
+      this.keysToEnter = [];
+      this.keysToLeave = [];
+      nextChildren.forEach(function (c) {
+        if (!c) {
+          return;
+        }
+        var key = c.key;
+        var hasPrev = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["e" /* findChildInChildrenByKey */])(currentChildren, key);
+        // 如果当前 key 已存在 saveTweenTag 里，，刷新 child;
+        if (_this2.saveTweenTag[key]) {
+          _this2.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_5_react___default.a.cloneElement(_this2.saveTweenTag[key], {}, c);
+        }
+        if (!hasPrev && key) {
+          _this2.keysToEnter.push(key);
+        }
+      });
+
+      currentChildren.forEach(function (c) {
+        if (!c) {
+          return;
+        }
+        var key = c.key;
+        var hasNext = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["e" /* findChildInChildrenByKey */])(nextChildren, key);
+        if (!hasNext && key) {
+          _this2.keysToLeave.push(key);
+          delete _this2.saveTweenTag[key];
+        }
+      });
+      this.setState({
+        children: newChildren
+      });
+    }
+  }, {
+    key: 'render',
+    value: function render() {
+      var childrenToRender = this.getChildrenToRender(this.state.children);
+      if (!this.props.component) {
+        return childrenToRender[0] || null;
+      }
+      var componentProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props);
+      ['component', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
+        return delete componentProps[key];
+      });
+      return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(this.props.component, componentProps, childrenToRender);
+    }
+  }]);
 
   return TweenOneGroup;
-}(_react.Component);
+}(__WEBPACK_IMPORTED_MODULE_5_react__["Component"]);
 
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
   this.onChange = function (animation, key, type, obj) {
-    var length = (0, _util.dataToArray)(animation).length;
+    var length = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["f" /* dataToArray */])(animation).length;
     var animatingClassName = _this3.props.animatingClassName;
     var tag = obj.target;
     var isEnter = type === 'enter' || type === 'appear';
@@ -7097,7 +7033,7 @@ var _initialiseProps = function _initialiseProps() {
     var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var key = child.key;
-    _this3.saveTweenTag[key] = _react2["default"].createElement(_TweenOne2["default"], (0, _extends3["default"])({}, props, {
+    _this3.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TweenOne__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, {
       key: key,
       component: null
     }), child);
@@ -7109,11 +7045,11 @@ var _initialiseProps = function _initialiseProps() {
     var onChange = void 0;
     animation = type === 'leave' ? _this3.props.leave : _this3.props.enter;
     if (type === 'appear') {
-      var appear = (0, _util.transformArguments)(_this3.props.appear, child.key, i);
+      var appear = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["g" /* transformArguments */])(_this3.props.appear, child.key, i);
       animation = appear && _this3.props.enter || null;
     }
     onChange = _this3.onChange.bind(_this3, animation, child.key, type);
-    var animate = (0, _util.transformArguments)(animation, child.key, i);
+    var animate = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_8__util__["g" /* transformArguments */])(animation, child.key, i);
     var props = {
       key: child.key,
       animation: animate,
@@ -7147,15 +7083,15 @@ var _initialiseProps = function _initialiseProps() {
 };
 
 TweenOneGroup.propTypes = {
-  component: _propTypes2["default"].any,
-  children: _propTypes2["default"].any,
-  style: _propTypes2["default"].object,
-  appear: _propTypes2["default"].bool,
-  enter: _propTypes2["default"].any,
-  leave: _propTypes2["default"].any,
-  animatingClassName: _propTypes2["default"].array,
-  onEnd: _propTypes2["default"].func,
-  resetStyleBool: _propTypes2["default"].bool
+  component: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  style: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object,
+  appear: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  enter: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  leave: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
+  animatingClassName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.array,
+  onEnd: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func,
+  resetStyleBool: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool
 };
 
 TweenOneGroup.defaultProps = {
@@ -7168,50 +7104,60 @@ TweenOneGroup.defaultProps = {
   resetStyleBool: true
 };
 TweenOneGroup.isTweenOneGroup = true;
-exports["default"] = TweenOneGroup;
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (TweenOneGroup);
 
 /***/ }),
 /* 265 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* unused harmony export TweenOneGroup */
+/* unused harmony export easing */
+/* unused harmony export plugins */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ticker; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__TweenOne__ = __webpack_require__(120);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__ = __webpack_require__(264);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__easing__ = __webpack_require__(121);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__ticker__ = __webpack_require__(122);
+// export this package's api
 
 
-var TweenOne = __webpack_require__(120);
-TweenOne.TweenOneGroup = __webpack_require__(264);
-TweenOne.easing = __webpack_require__(121);
-TweenOne.plugins = __webpack_require__(94);
-TweenOne.ticker = __webpack_require__(122);
-TweenOne.isTweenOne = true;
-module.exports = TweenOne;
+
+
+
+
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].TweenOneGroup = __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].easing = __WEBPACK_IMPORTED_MODULE_2__easing__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].plugins = __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */];
+__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */].ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
+
+/* harmony default export */ __webpack_exports__["b"] = (__WEBPACK_IMPORTED_MODULE_0__TweenOne__["a" /* default */]);
+
+var TweenOneGroup = __WEBPACK_IMPORTED_MODULE_1__TweenOneGroup__["a" /* default */];
+
+var easing = __WEBPACK_IMPORTED_MODULE_2__easing__["a" /* default */];
+
+var plugins = __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */];
+
+var ticker = __WEBPACK_IMPORTED_MODULE_4__ticker__["a" /* default */];
 
 /***/ }),
 /* 266 */
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils__ = __webpack_require__(98);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_style_utils___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_style_utils__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__util_js__ = __webpack_require__(41);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__plugins__ = __webpack_require__(94);
+
+/* eslint-disable func-names, no-console */
 
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
 
-var _extends2 = __webpack_require__(6);
-
-var _extends3 = _interopRequireDefault(_extends2);
-
-var _styleUtils = __webpack_require__(98);
-
-var _styleUtils2 = _interopRequireDefault(_styleUtils);
-
-var _util = __webpack_require__(41);
-
-var _plugins = __webpack_require__(94);
-
-var _plugins2 = _interopRequireDefault(_plugins);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var StylePlugin = function StylePlugin(target, vars, type) {
   this.target = target;
@@ -7219,8 +7165,7 @@ var StylePlugin = function StylePlugin(target, vars, type) {
   this.type = type;
   this.propsData = {};
   this.setDefaultData();
-}; /* eslint-disable func-names, no-console */
-
+};
 var p = StylePlugin.prototype = {
   name: 'style'
 };
@@ -7233,10 +7178,10 @@ p.getTweenData = function (key, vars) {
     dataSplitStr: {}
   };
   if (key.match(/colo|fill|storker/i)) {
-    data.data[key] = (0, _styleUtils.parseColor)(vars);
+    data.data[key] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["parseColor"])(vars);
     data.dataType[key] = 'color';
   } else if (key.match(/shadow/i)) {
-    data.data[key] = (0, _styleUtils.parseShadow)(vars);
+    data.data[key] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["parseShadow"])(vars);
     data.dataType[key] = 'shadow';
   } else if (typeof vars === 'string' && vars.split(/[\s|,]/).length > 1) {
     data.data[key] = vars.split(/[\s|,]/);
@@ -7274,11 +7219,11 @@ p.setDefaultData = function () {
   this.propsData.dataCount = {};
   this.propsData.dataSplitStr = {};
   Object.keys(this.vars).forEach(function (_key) {
-    if (_key in _plugins2["default"]) {
-      _this.propsData.data[_key] = new _plugins2["default"][_key](_this.target, _this.vars[_key]);
+    if (_key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
+      _this.propsData.data[_key] = new __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */][_key](_this.target, _this.vars[_key]);
       return;
     }
-    var key = (0, _styleUtils.getGsapType)(_key);
+    var key = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getGsapType"])(_key);
     var _data = _this.getTweenData(key, _this.vars[_key]);
     _this.propsData.data[key] = _data.data[key];
     _this.propsData.dataType[key] = _data.dataType[key];
@@ -7297,15 +7242,15 @@ p.convertToMarksArray = function (unit, key, data, i) {
   } else if (!parseFloat(data) && parseFloat(data) !== 0) {
     return data;
   }
-  return (0, _util.startConvertToEndUnit)(this.target, key, data, startUnit, endUnit, null, key === 'transformOrigin' && !i);
+  return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["i" /* startConvertToEndUnit */])(this.target, key, data, startUnit, endUnit, null, key === 'transformOrigin' && !i);
 };
 p.getAnimStart = function (computedStyle) {
   var _this2 = this;
 
   var style = {};
-  this.supports3D = (0, _styleUtils.checkStyleName)('perspective');
+  this.supports3D = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('perspective');
   Object.keys(this.propsData.data).forEach(function (key) {
-    var cssName = (0, _styleUtils.isConvert)(key);
+    var cssName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["isConvert"])(key);
     var startData = computedStyle[cssName];
     var fixed = computedStyle.position === 'fixed';
     if (!startData || startData === 'none' || startData === 'auto') {
@@ -7314,40 +7259,40 @@ p.getAnimStart = function (computedStyle) {
     var transform = void 0;
     var endUnit = void 0;
     var startUnit = void 0;
-    if (key in _plugins2["default"]) {
+    if (key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
       if (key === 'bezier') {
-        _this2.transform = (0, _styleUtils.checkStyleName)('transform');
+        _this2.transform = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('transform');
         startData = computedStyle[_this2.transform];
-        style.transform = style.transform || (0, _styleUtils.getTransform)(startData);
+        style.transform = style.transform || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getTransform"])(startData);
       }
       _this2.propsData.data[key].getAnimStart(computedStyle);
     } else if (cssName === 'transform') {
-      _this2.transform = (0, _styleUtils.checkStyleName)('transform');
+      _this2.transform = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('transform');
       startData = computedStyle[_this2.transform];
       endUnit = _this2.propsData.dataUnit[key];
-      transform = style.transform || (0, _styleUtils.getTransform)(startData);
+      transform = style.transform || __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getTransform"])(startData);
       if (endUnit && endUnit.match(/%|vw|vh|em|rem/i)) {
         var percent = key === 'translateX' ? 'xPercent' : 'yPercent';
-        transform[percent] = (0, _util.startConvertToEndUnit)(_this2.target, key, transform[key], null, endUnit);
+        transform[percent] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["i" /* startConvertToEndUnit */])(_this2.target, key, transform[key], null, endUnit);
         transform[key] = 0;
       }
       style.transform = transform;
     } else if (cssName === 'filter') {
-      _this2.filterName = (0, _styleUtils.checkStyleName)('filter') || 'filter';
+      _this2.filterName = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('filter') || 'filter';
       startData = computedStyle[_this2.filterName];
-      _this2.filterObject = (0, _extends3["default"])({}, _this2.filterObject, (0, _styleUtils.splitFilterToObject)(startData));
+      _this2.filterObject = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, _this2.filterObject, __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["splitFilterToObject"])(startData));
       startData = _this2.filterObject[key] || 0;
       startUnit = startData.toString().replace(/[^a-z|%]/g, '');
       endUnit = _this2.propsData.dataUnit[key];
       if (endUnit !== startUnit) {
-        startData = (0, _util.startConvertToEndUnit)(_this2.target, cssName, parseFloat(startData), startUnit, endUnit, fixed);
+        startData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["i" /* startConvertToEndUnit */])(_this2.target, cssName, parseFloat(startData), startUnit, endUnit, fixed);
       }
       style[key] = parseFloat(startData);
     } else if (key.match(/color|fill/i) || key === 'stroke') {
       startData = !startData && key === 'stroke' ? 'rgba(255, 255, 255, 0)' : startData;
-      style[cssName] = (0, _styleUtils.parseColor)(startData);
+      style[cssName] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["parseColor"])(startData);
     } else if (key.match(/shadow/i)) {
-      startData = (0, _styleUtils.parseShadow)(startData);
+      startData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["parseShadow"])(startData);
       endUnit = _this2.propsData.dataUnit[key];
       startData = startData.map(_this2.convertToMarksArray.bind(_this2, endUnit, key));
       style[cssName] = startData;
@@ -7361,7 +7306,7 @@ p.getAnimStart = function (computedStyle) {
       endUnit = _this2.propsData.dataUnit[cssName];
       startUnit = startData.toString().replace(/[^a-z|%]/g, '');
       if (endUnit !== startUnit) {
-        startData = (0, _util.startConvertToEndUnit)(_this2.target, cssName, parseFloat(startData), startUnit, endUnit, fixed);
+        startData = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["i" /* startConvertToEndUnit */])(_this2.target, cssName, parseFloat(startData), startUnit, endUnit, fixed);
       }
       style[cssName] = parseFloat(startData || 0);
     }
@@ -7394,7 +7339,7 @@ p.setArrayRatio = function (ratio, start, vars, unit, type) {
     return (endData - startData) * ratio + startData + (unit[i] || 0);
   });
   if (type === 'color') {
-    return (0, _styleUtils.getColor)(_vars);
+    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getColor"])(_vars);
   } else if (type === 'shadow') {
     var l = _vars.length === length ? 4 : 3;
     var s = _vars.slice(0, l).map(function (item) {
@@ -7404,7 +7349,7 @@ p.setArrayRatio = function (ratio, start, vars, unit, type) {
       return item;
     });
     var c = _vars.slice(l, endInset ? _vars.length - 1 : _vars.length);
-    var color = (0, _styleUtils.getColor)(c);
+    var color = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getColor"])(c);
     return (s.join(' ') + ' ' + color + ' ' + (endInset ? 'inset' : '')).trim();
   }
   return _vars;
@@ -7415,19 +7360,19 @@ p.setRatio = function (ratio, tween) {
 
   tween.style = tween.style || {};
   if (this.start.transform) {
-    tween.style.transform = tween.style.transform || (0, _extends3["default"])({}, this.start.transform);
+    tween.style.transform = tween.style.transform || __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.start.transform);
   }
   var style = this.target.style;
   Object.keys(this.propsData.data).forEach(function (key) {
-    var _isTransform = (0, _styleUtils.isTransform)(key) === 'transform';
+    var _isTransform = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["isTransform"])(key) === 'transform';
     var startVars = _isTransform ? _this3.start.transform[key] : _this3.start[key];
     var endVars = _this3.propsData.data[key];
     var unit = _this3.propsData.dataUnit[key];
     var count = _this3.propsData.dataCount[key];
-    if (key in _plugins2["default"]) {
+    if (key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
       _this3.propsData.data[key].setRatio(ratio, tween);
       if (key === 'bezier') {
-        style[_this3.transform] = (0, _util.getTransformValue)(tween.style.transform, _this3.supports3D);
+        style[_this3.transform] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["j" /* getTransformValue */])(tween.style.transform, _this3.supports3D);
       } else {
         Object.keys(tween.style).forEach(function (css) {
           return style[css] = tween.style[css];
@@ -7459,7 +7404,7 @@ p.setRatio = function (ratio, tween) {
       } else {
         tween.style.transform[key] = (endVars - startVars) * ratio + startVars;
       }
-      style[_this3.transform] = (0, _util.getTransformValue)(tween.style.transform, _this3.supports3D);
+      style[_this3.transform] = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__util_js__["j" /* getTransformValue */])(tween.style.transform, _this3.supports3D);
       return;
     } else if (Array.isArray(endVars)) {
       var _type = _this3.propsData.dataType[key];
@@ -7468,9 +7413,9 @@ p.setRatio = function (ratio, tween) {
         tween.style[key] = tween.style[key].join(_this3.propsData.dataSplitStr[key]);
       }
     } else {
-      var styleUnit = (0, _styleUtils.stylesToCss)(key, 0);
+      var styleUnit = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1_style_utils__["stylesToCss"])(key, 0);
       styleUnit = typeof styleUnit === 'number' ? '' : styleUnit.replace(/[^a-z|%]/g, '');
-      unit = unit || (_styleUtils2["default"].filter.indexOf(key) >= 0 ? '' : styleUnit);
+      unit = unit || (__WEBPACK_IMPORTED_MODULE_1_style_utils___default.a.filter.indexOf(key) >= 0 ? '' : styleUnit);
       if (typeof endVars === 'string') {
         tween.style[key] = endVars;
       } else {
@@ -7482,7 +7427,7 @@ p.setRatio = function (ratio, tween) {
         }
       }
     }
-    if (_styleUtils2["default"].filter.indexOf(key) >= 0) {
+    if (__WEBPACK_IMPORTED_MODULE_1_style_utils___default.a.filter.indexOf(key) >= 0) {
       if (!_this3.filterObject) {
         return;
       }
@@ -7497,8 +7442,7 @@ p.setRatio = function (ratio, tween) {
     style[key] = tween.style[key];
   });
 };
-exports["default"] = StylePlugin;
-module.exports = exports['default'];
+/* harmony default export */ __webpack_exports__["a"] = (StylePlugin);
 
 /***/ }),
 /* 267 */,
