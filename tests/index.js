@@ -238,7 +238,7 @@ describe('rc-queue-anim', () => {
       expect(getLeft(children[1])).to.be(100);
       expect(getTop(children[1])).to.be(100);
       done();
-    }, 917);
+    }, 1000);
   });
 
   it('should support animation when change direction at animating', (done) => {
@@ -285,14 +285,17 @@ describe('rc-queue-anim', () => {
       let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(children[1].className).to.contain('queue-anim-entering');
       ticker.timeout(() => {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(children[1].className).not.to.contain('queue-anim-entering');
         const removeIndex = instance.removeOne();
-        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        expect(children[removeIndex + 1].className).to.contain('queue-anim-leaving');
         ticker.timeout(() => {
-          expect(children[removeIndex + 1].className).not.to.contain('queue-anim-leaving');
-          done();
-        }, 550);
+          children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+          expect(children[removeIndex + 1].className).to.contain('queue-anim-leaving');
+          ticker.timeout(() => {
+            expect(children[removeIndex + 1].className).not.to.contain('queue-anim-leaving');
+            done();
+          }, 550);
+        }, 18);
       }, 550);
     }, 18);
   });
@@ -326,14 +329,14 @@ describe('rc-queue-anim', () => {
           expect(isNaN(getLeft(children[2]))).to.be.ok();
           console.log('top_end:', getTop(children[2]));
           done();
-        }, 517);// +17 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
+        }, 518);// +18 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
       }, interval);
       ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getLeft(children[1])).to.above(99.99);
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left_end:', getLeft(children[1]));
-      }, 517);
+      }, 518);
     }, 18);
   });
 
@@ -373,7 +376,7 @@ describe('rc-queue-anim', () => {
             done();
           }, 500);
         }, 110);
-      }, 17);
+      }, 18);
     }, 1000);
   });
 });

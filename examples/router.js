@@ -3,7 +3,7 @@ import { HashRouter as Router, Route, Link, Redirect } from 'react-router-dom';
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
-import '../assets/router.less';
+import './assets/router.less';
 
 class Home extends React.Component {
   render() {

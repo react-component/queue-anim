@@ -53,10 +53,9 @@ class QueueAnim extends React.Component {
   constructor(props) {
     super(props);
     this.oneEnter = false;
-    this.tweenKeyType = {};
+    this.tweenToShow = {};
     this.keysToEnter = [];
     this.keysToLeave = [];
-    this.saveTweenAnim = {};
     this.keysToEnterPaused = {};
     this.placeholderTimeoutIds = {};
     // 第一次进入，默认进场
@@ -196,11 +195,7 @@ class QueueAnim extends React.Component {
     const end = type === 'enter' ? 0 : 1;
     let startAnim = this.getAnimData(props, key, i, enterOrLeave, start);
     const animate = this.getAnimData(props, key, i, enterOrLeave, end);
-    /**
-     * 如果 this.tweenKeyType[key] 为空时，为第一次触发，需要设置开始。
-     * 如果 this.tweenKeyType[key] 有值时，说明正在动画，此时切换不需要开始。
-     */
-    startAnim = props.enterForcedRePlay || !this.tweenKeyType[key] || !this.saveTweenAnim[key] ?
+    startAnim = (type === 'enter' && props.enterForcedRePlay) || !this.tweenToShow[key] ?
       startAnim : {};
     let ease = transformArguments(props.ease, key, i)[enterOrLeave];
     const duration = transformArguments(props.duration, key, i)[enterOrLeave];
@@ -278,48 +273,40 @@ class QueueAnim extends React.Component {
       return child;
     }
     const key = child.key;
-    let i = this.keysToLeave.indexOf(key);
-    if ((i >= 0 && this.state.childrenShow[key])
-      || this.state.childrenShow[key]) {
-      let animation;
-      if (i >= 0) {
-        if (this.tweenKeyType[key] === 'leave' && this.saveTweenAnim[key]) {
-          animation = this.saveTweenAnim[key];
-        } else {
-          const interval = transformArguments(this.props.interval, key, i)[1];
-          let delay = transformArguments(this.props.delay, key, i)[1];
-          const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
-          delay = interval * order + delay;
-          animation = this.getTweenEnterOrLeaveData(key, i, delay, 'leave');
-          this.saveTweenAnim[key] = animation;
-        }
-      } else {
-        i = this.keysToEnterToCallback.indexOf(key);
-        if (!this.oneEnter && !this.props.appear) {
-          animation = this.getTweenAppearData(key, i);
-        } else if (this.tweenKeyType[key] === 'enter' && this.saveTweenAnim[key]) {
-          animation = this.saveTweenAnim[key];
-        } else {
-          animation = this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
-          this.saveTweenAnim[key] = animation;
-        }
-      }
-      const paused = this.keysToEnterPaused[key]
-        && !(this.keysToLeave.indexOf(key) >= 0 && this.state.childrenShow[key]);
-      animation = paused ? null : animation;
-      const isFunc = typeof child.type === 'function';
-      const forcedJudg = isFunc ? {} : null;
-      if (isFunc) {
-        Object.keys(child.type).forEach(name => {
-          if (typeDefault.indexOf(name) === -1) {
-            forcedJudg[name] = child.type[name];
-          }
-        });
-      }
-      return createElement(TweenOne,
-        { key, component: child.type, componentProps: child.props, forcedJudg, animation });
+    if (!this.state.childrenShow[key]) {
+      return null;
     }
-    return null;
+    let i = this.keysToLeave.indexOf(key);
+    let animation;
+    // 处理出场
+    if (i >= 0) {
+      const interval = transformArguments(this.props.interval, key, i)[1];
+      let delay = transformArguments(this.props.delay, key, i)[1];
+      const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
+      delay = interval * order + delay;
+      animation = this.getTweenEnterOrLeaveData(key, i, delay, 'leave');
+    } else {
+      // 处理进场;
+      i = this.keysToEnterToCallback.indexOf(key);
+      if (!this.oneEnter && !this.props.appear) {
+        animation = this.getTweenAppearData(key, i);
+      } else {
+        animation = this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
+      }
+    }
+    const paused = this.keysToEnterPaused[key] && !this.keysToLeave.indexOf(key) >= 0;
+    animation = paused ? null : animation;
+    const isFunc = typeof child.type === 'function';
+    const forcedJudg = isFunc ? {} : null;
+    if (isFunc) {
+      Object.keys(child.type).forEach(name => {
+        if (typeDefault.indexOf(name) === -1) {
+          forcedJudg[name] = child.type[name];
+        }
+      });
+    }
+    return createElement(TweenOne,
+      { key, component: child.type, componentProps: child.props, forcedJudg, animation });
   };
 
   performEnter = (key, i) => {
@@ -332,7 +319,6 @@ class QueueAnim extends React.Component {
     if (this.keysToEnter.indexOf(key) >= 0) {
       this.keysToEnter.splice(this.keysToEnter.indexOf(key), 1);
     }
-    this.tweenKeyType[key] = 'enter';
   }
 
   performEnterBegin = (key) => {
@@ -347,7 +333,6 @@ class QueueAnim extends React.Component {
   performLeave = (key) => {
     ticker.clear(this.placeholderTimeoutIds[key]);
     delete this.placeholderTimeoutIds[key];
-    this.tweenKeyType[key] = 'leave';
   }
 
   enterBegin = (key, e) => {
@@ -355,18 +340,18 @@ class QueueAnim extends React.Component {
     const animatingClassName = this.props.animatingClassName;
     elem.className = elem.className.replace(animatingClassName[1], '');
     if (elem.className.indexOf(animatingClassName[0]) === -1) {
-      elem.className += (`${elem.className ? ' ' : ''}${animatingClassName[0]}`);
+      elem.className = (`${elem.className} ${animatingClassName[0]}`).trim();
     }
+    this.tweenToShow[key] = true;
   }
 
   enterComplete = (key, e) => {
-    if (this.keysToEnterPaused[key]) {
+    if (this.keysToEnterPaused[key] || this.keysToLeave.indexOf(key) >= 0) {
       return;
     }
     const elem = e.target;
     elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     this.props.onEnd({ key, type: 'enter' });
-    delete this.tweenKeyType[key];
   }
 
   leaveBegin = (key, e) => {
@@ -374,7 +359,7 @@ class QueueAnim extends React.Component {
     const animatingClassName = this.props.animatingClassName;
     elem.className = elem.className.replace(animatingClassName[0], '');
     if (elem.className.indexOf(animatingClassName[1]) === -1) {
-      elem.className += (` ${animatingClassName[1]}`);
+      elem.className = (`${elem.className} ${animatingClassName[1]}`).trim();
     }
   }
 
@@ -387,8 +372,7 @@ class QueueAnim extends React.Component {
     delete childrenShow[key];
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
-      delete this.saveTweenAnim[key];
-      delete this.tweenKeyType[key];
+      delete this.tweenToShow[key];
     }
     const needLeave = this.keysToLeave.some(c => childrenShow[c]);
     if (!needLeave) {

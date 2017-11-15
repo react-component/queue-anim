@@ -2,7 +2,7 @@
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
-import '../assets/switch.less';
+import './assets/switch.less';
 
 class Demo extends React.Component {
   constructor() {
@@ -40,17 +40,19 @@ class Demo extends React.Component {
 
   render() {
     const childrenToRender = this.getChildren();
-    return (<div className="switch" onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
+    return (<div>
       <h2>鼠标经过当前区域，再移出区域查看</h2>
-      <QueueAnim component="ul" leaveReverse delay={[0, 300]} type="scale">
-        {childrenToRender}
-      </QueueAnim>
-      <QueueAnim component="ul" leaveReverse delay={150} type="scale">
-        {childrenToRender}
-      </QueueAnim>
-      <QueueAnim component="ul" leaveReverse delay={[300, 0]} type="scale">
-        {childrenToRender}
-      </QueueAnim>
+      <div className="switch" onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
+        <QueueAnim component="ul" leaveReverse delay={[0, 300]} type="scale">
+          {childrenToRender}
+        </QueueAnim>
+        <QueueAnim component="ul" leaveReverse delay={150} type="scale">
+          {childrenToRender}
+        </QueueAnim>
+        <QueueAnim component="ul" leaveReverse delay={[300, 0]} type="scale">
+          {childrenToRender}
+        </QueueAnim>
+      </div>
     </div>);
   }
 }

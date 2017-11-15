@@ -2,7 +2,7 @@
 import QueueAnim from 'rc-queue-anim';
 import React from 'react';
 import ReactDom from 'react-dom';
-import '../assets/animating-class.less';
+import './assets/animating-class.less';
 
 class App extends React.Component {
   constructor(props) {
