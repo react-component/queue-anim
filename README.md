@@ -65,7 +65,7 @@ ReactDom.render(
 | duration   | number / array | 450     | duration of animation  |
 | interval   | number / array | 100      | interval of duration |
 | leaveReverse | boolean      | false   | reverse animation order at leave |
-| ease       | string / array | `easeOutQuart` | animation easing config like `'ease'`, `['easeIn', 'easeOut']`, `[[.42,0,.58,1]`, [.42,0,.58,1]]: [more](http://julian.com/research/velocity/#easing) |
+| ease       | string / array | `easeOutQuart` | animation easing config like `'ease'`, `['easeIn', 'easeOut']`, `[[.42,0,.58,1]`, [.42,0,.58,1]]: [more](http://easings.net/en) |
 | appear     | boolean        |  true   | whether support appear anim |
 | component  | string / React.Element | `div` | component tag |
 | componentProps | Object | null | component is React.Element, component tag props |
