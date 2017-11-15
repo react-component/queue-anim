@@ -469,6 +469,10 @@ textarea {
   line-height: inherit;
   color: inherit;
 }
+input[type="text"],
+textarea {
+  -webkit-appearance: none;
+}
 ul,
 ol {
   list-style: none;

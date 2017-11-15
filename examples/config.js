@@ -47,7 +47,7 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 308:
+/***/ 306:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(133);
@@ -55,5 +55,5 @@ module.exports = __webpack_require__(133);
 
 /***/ })
 
-},[308]);
+},[306]);
 //# sourceMappingURL=config.js.map

@@ -69,26 +69,30 @@ var Demo = function (_React$Component) {
       var childrenToRender = this.getChildren();
       return __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
         'div',
-        { className: 'switch', onMouseEnter: this.onEnter, onMouseLeave: this.onLeave },
+        null,
         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
           'h2',
           null,
           '\u9F20\u6807\u7ECF\u8FC7\u5F53\u524D\u533A\u57DF\uFF0C\u518D\u79FB\u51FA\u533A\u57DF\u67E5\u770B'
         ),
         __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_4_rc_queue_anim__["a" /* default */],
-          { component: 'ul', leaveReverse: true, delay: [0, 300], type: 'scale' },
-          childrenToRender
-        ),
-        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_4_rc_queue_anim__["a" /* default */],
-          { component: 'ul', leaveReverse: true, delay: 150, type: 'scale' },
-          childrenToRender
-        ),
-        __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
-          __WEBPACK_IMPORTED_MODULE_4_rc_queue_anim__["a" /* default */],
-          { component: 'ul', leaveReverse: true, delay: [300, 0], type: 'scale' },
-          childrenToRender
+          'div',
+          { className: 'switch', onMouseEnter: this.onEnter, onMouseLeave: this.onLeave },
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_4_rc_queue_anim__["a" /* default */],
+            { component: 'ul', leaveReverse: true, delay: [0, 300], type: 'scale' },
+            childrenToRender
+          ),
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_4_rc_queue_anim__["a" /* default */],
+            { component: 'ul', leaveReverse: true, delay: 150, type: 'scale' },
+            childrenToRender
+          ),
+          __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
+            __WEBPACK_IMPORTED_MODULE_4_rc_queue_anim__["a" /* default */],
+            { component: 'ul', leaveReverse: true, delay: [300, 0], type: 'scale' },
+            childrenToRender
+          )
         )
       );
     }
@@ -101,7 +105,7 @@ __WEBPACK_IMPORTED_MODULE_6_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 
 /***/ }),
 
-/***/ 322:
+/***/ 320:
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(147);
@@ -116,5 +120,5 @@ module.exports = __webpack_require__(147);
 
 /***/ })
 
-},[322]);
+},[320]);
 //# sourceMappingURL=switch.js.map
