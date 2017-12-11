@@ -1,11 +1,19 @@
 webpackJsonp([16],{
 
-/***/ 134:
+/***/ 232:
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(233);
+
+
+/***/ }),
+
+/***/ 233:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rc_queue_anim__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_rc_queue_anim__ = __webpack_require__(7);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_react__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_react_dom__ = __webpack_require__(2);
@@ -20,7 +28,7 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
   { style: { height: 500 } },
   __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
     __WEBPACK_IMPORTED_MODULE_0_rc_queue_anim__["a" /* default */],
-    { ease: [0.175, 0.885, 0.32, 1.275] },
+    { ease: [[0.175, 0.885, 0.32, 1.275]] },
     __WEBPACK_IMPORTED_MODULE_1_react___default.a.createElement(
       'div',
       { key: '1' },
@@ -79,15 +87,7 @@ __WEBPACK_IMPORTED_MODULE_2_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
   )
 ), document.getElementById('__react-content'));
 
-/***/ }),
-
-/***/ 307:
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports = __webpack_require__(134);
-
-
 /***/ })
 
-},[307]);
+},[232]);
 //# sourceMappingURL=custom-ease.js.map
