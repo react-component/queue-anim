@@ -6,7 +6,14 @@
     "react",
     "react-component",
     "react-queue-anim",
-    "queue-anim"
+    "queue-anim",
+    "animation",
+    "animate",
+    "rc-animation",
+    "rc-animate",
+    "motion",
+    "rc-motion",
+    "ant-motion"
   ],
   "homepage": "https://github.com/react-component/queue-anim",
   "author": "afc163@gmail.com",
@@ -68,7 +75,7 @@
   ],
   "dependencies": {
     "babel-runtime": "6.x",
-    "prop-types": "^15.5.0",
-    "rc-tween-one": "^1.5.0"
+    "prop-types": "^15.6.0",
+    "rc-tween-one": "^1.7.0"
   }
 }
