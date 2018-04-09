@@ -7,7 +7,6 @@ import expect from 'expect.js';
 import QueueAnim from '../src';
 import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
-import $ from 'jquery';
 
 const defaultInterval = 100;
 
@@ -15,14 +14,23 @@ describe('rc-queue-anim', () => {
   let div;
 
   function getOpacity(node) {
-    return parseFloat($(node).css('opacity'));
+    if (!node) {
+      return null;
+    }
+    return parseFloat(window.getComputedStyle(node).opacity);
   }
 
   function getLeft(node) {
+    if (!node) {
+      return null;
+    }
     return parseFloat(node.style.left);
   }
 
   function getTop(node) {
+    if (!node) {
+      return null;
+    }
     return parseFloat(node.style.top);
   }
 
@@ -81,7 +89,13 @@ describe('rc-queue-anim', () => {
             {!this.state.unMount ? <QueueAnim {...props}>
               {
                 this.state.show ?
-                  this.state.items.map((item) => <div key={item.key}>{item.content}</div>) :
+                  this.state.items.map((item) =>
+                    <div key={item.key}
+                      style={{ position: 'relative' }}
+                    >
+                      {item.content}
+                    </div>
+                  ) :
                   null
               }
               {null}
@@ -238,7 +252,7 @@ describe('rc-queue-anim', () => {
       expect(getLeft(children[1])).to.be(100);
       expect(getTop(children[1])).to.be(100);
       done();
-    }, 1000);
+    }, 1030);
   });
 
   it('should support animation when change direction at animating', (done) => {
@@ -352,31 +366,31 @@ describe('rc-queue-anim', () => {
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     ticker.timeout(() => {
       instance.toggle();
+      children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+      console.log('left:', getLeft(children[1]));
+      console.log('top:', getTop(children[2]));
+      expect(getLeft(children[1])).to.be(100);
+      expect(getTop(children[2])).to.be(100);
+      expect(isNaN(getTop(children[1]))).to.be.ok();
       ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-        expect(getLeft(children[1])).to.below(100);
+        expect(getLeft(children[1])).to.be(0);
         expect(isNaN(getTop(children[1]))).to.be.ok();
-        console.log('left:', getLeft(children[1]));
+        console.log('left_end:', getLeft(children[1]));
+      }, 500);
+      ticker.timeout(() => {
+        children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
+        expect(getTop(children[2])).to.below(100);
+        expect(isNaN(getLeft(children[2]))).to.be.ok();
+        console.log('top:', getTop(children[2]));
         ticker.timeout(() => {
           children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-          expect(getLeft(children[1])).to.be(0);
-          expect(isNaN(getTop(children[1]))).to.be.ok();
-          console.log('left_end:', getLeft(children[1]));
-        }, 500);
-        ticker.timeout(() => {
-          children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-          expect(getTop(children[2])).to.below(100);
+          console.log('top_end:', getTop(children[2]));
+          expect(getTop(children[2])).to.be(0);
           expect(isNaN(getLeft(children[2]))).to.be.ok();
-          console.log('top:', getTop(children[2]));
-          ticker.timeout(() => {
-            children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
-            console.log('top_end:', getTop(children[2]));
-            expect(getTop(children[2])).to.be(0);
-            expect(isNaN(getLeft(children[2]))).to.be.ok();
-            done();
-          }, 500);
-        }, 110);
-      }, 18);
-    }, 1000);
+          done();
+        }, 500);
+      }, 118);
+    }, 1018);
   });
 });
