@@ -89,13 +89,15 @@ class QueueAnim extends React.Component {
   componentWillReceiveProps(nextProps) {
     const nextChildren = toArrayChildren(nextProps.children).filter(item => item);
     let currentChildren = this.originalChildren.filter(item => item);
-    const emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
-    if (emptyBool) {
+    if (this.state.children.length) {
       /**
-       * 多次刷新空子级处理
-       * 如果 state.children 里还有元素，元素还在动画，当前子级设回 state.children;
+       * 多次刷新处理
+       * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
        */
-      currentChildren = this.state.children;
+      const leaveChild = this.state.children.filter(item =>
+        this.keysToLeave.indexOf(item.key) >= 0
+      );
+      currentChildren = mergeChildren(currentChildren, leaveChild);
     }
     const newChildren = mergeChildren(
       currentChildren,
@@ -104,14 +106,24 @@ class QueueAnim extends React.Component {
 
     const childrenShow = !newChildren.length ? {} : this.state.childrenShow;
     this.keysToEnterPaused = {};
-    // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+    const emptyBool = !nextChildren.length
+      && !currentChildren.length
+      && this.state.children.length;
+    /**
+     * 在出场没结束时，childrenShow 里的值将不会清除。
+     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+     */
     if (!emptyBool) {// 空子级状态下刷新不做处理
+      const nextKeys = nextChildren.map(c => c.key);
       this.keysToLeave.forEach(key => {
         // 将所有在出场里的停止掉。避免间隔性出现
-        this.keysToEnterPaused[key] = true;
-        if (nextProps.enterForcedRePlay) {
-          // 清掉所有出场的。
-          delete childrenShow[key];
+        if (nextKeys.indexOf(key) >= 0) {
+          this.keysToEnterPaused[key] = true;
+          currentChildren = currentChildren.filter(item => item.key !== key);
+          if (nextProps.enterForcedRePlay) {
+            // 清掉所有出场的。
+            delete childrenShow[key];
+          }
         }
       });
     }

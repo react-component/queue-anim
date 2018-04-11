@@ -1,12 +1,15 @@
 {
   "name": "rc-queue-anim",
-  "version": "1.4.1",
+  "version": "1.5.0",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
     "react-component",
+    "queue",
     "react-queue-anim",
     "queue-anim",
+    "queue-animte",
+    "queue-animation",
     "animation",
     "animate",
     "rc-animation",
