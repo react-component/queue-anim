@@ -95,7 +95,7 @@ class QueueAnim extends React.Component {
        * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
        */
       const leaveChild = this.state.children.filter(item =>
-        this.keysToLeave.indexOf(item.key) >= 0
+        item && this.keysToLeave.indexOf(item.key) >= 0
       );
       currentChildren = mergeChildren(currentChildren, leaveChild);
     }
