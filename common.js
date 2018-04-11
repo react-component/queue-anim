@@ -34,7 +34,7 @@
 /******/
 /******/ 	// objects to store loaded and loading chunks
 /******/ 	var installedChunks = {
-/******/ 		19: 0
+/******/ 		20: 0
 /******/ 	};
 /******/
 /******/ 	// The require function
@@ -61,55 +61,6 @@
 /******/ 		return module.exports;
 /******/ 	}
 /******/
-/******/ 	// This file contains only the entry chunk.
-/******/ 	// The chunk loading function for additional chunks
-/******/ 	__webpack_require__.e = function requireEnsure(chunkId) {
-/******/ 		var installedChunkData = installedChunks[chunkId];
-/******/ 		if(installedChunkData === 0) {
-/******/ 			return new Promise(function(resolve) { resolve(); });
-/******/ 		}
-/******/
-/******/ 		// a Promise means "currently loading".
-/******/ 		if(installedChunkData) {
-/******/ 			return installedChunkData[2];
-/******/ 		}
-/******/
-/******/ 		// setup Promise in chunk cache
-/******/ 		var promise = new Promise(function(resolve, reject) {
-/******/ 			installedChunkData = installedChunks[chunkId] = [resolve, reject];
-/******/ 		});
-/******/ 		installedChunkData[2] = promise;
-/******/
-/******/ 		// start chunk loading
-/******/ 		var head = document.getElementsByTagName('head')[0];
-/******/ 		var script = document.createElement('script');
-/******/ 		script.type = 'text/javascript';
-/******/ 		script.charset = 'utf-8';
-/******/ 		script.async = true;
-/******/ 		script.timeout = 120000;
-/******/
-/******/ 		if (__webpack_require__.nc) {
-/******/ 			script.setAttribute("nonce", __webpack_require__.nc);
-/******/ 		}
-/******/ 		script.src = __webpack_require__.p + "" + chunkId + ".js";
-/******/ 		var timeout = setTimeout(onScriptComplete, 120000);
-/******/ 		script.onerror = script.onload = onScriptComplete;
-/******/ 		function onScriptComplete() {
-/******/ 			// avoid mem leaks in IE.
-/******/ 			script.onerror = script.onload = null;
-/******/ 			clearTimeout(timeout);
-/******/ 			var chunk = installedChunks[chunkId];
-/******/ 			if(chunk !== 0) {
-/******/ 				if(chunk) {
-/******/ 					chunk[1](new Error('Loading chunk ' + chunkId + ' failed.'));
-/******/ 				}
-/******/ 				installedChunks[chunkId] = undefined;
-/******/ 			}
-/******/ 		};
-/******/ 		head.appendChild(script);
-/******/
-/******/ 		return promise;
-/******/ 	};
 /******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -769,7 +720,7 @@ module.exports = emptyFunction;
 /* 18 */
 /***/ (function(module, exports) {
 
-var core = module.exports = { version: '2.5.2' };
+var core = module.exports = { version: '2.5.4' };
 if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
@@ -883,6 +834,7 @@ var global = __webpack_require__(15);
 var core = __webpack_require__(18);
 var ctx = __webpack_require__(80);
 var hide = __webpack_require__(24);
+var has = __webpack_require__(21);
 var PROTOTYPE = 'prototype';
 
 var $export = function (type, name, source) {
@@ -900,7 +852,7 @@ var $export = function (type, name, source) {
   for (key in source) {
     // contains in native
     own = !IS_FORCED && target && target[key] !== undefined;
-    if (own && key in exports) continue;
+    if (own && has(exports, key)) continue;
     // export native or passed
     out = own ? target[key] : source[key];
     // prevent global pollution for namespaces
@@ -1853,7 +1805,14 @@ function createMatrix(style) {
   if (typeof document === 'undefined') {
     return null;
   }
-  return window.WebKitCSSMatrix && new window.WebKitCSSMatrix(style) || window.MozCSSMatrix && new window.MozCSSMatrix(style) || window.DOMMatrix && new window.DOMMatrix(style) || window.MsCSSMatrix && new window.MsCSSMatrix(style) || window.OCSSMatrix && new window.OCSSMatrix(style) || window.CSSMatrix && new window.CSSMatrix(style) || null;
+  var matrixs = ['WebKitCSS', 'MozCSS', 'DOM', 'MsCSS', 'MSCSS', 'OCSS', 'CSS'].filter(function (key) {
+    return key + 'Matrix' in window;
+  });
+  if (matrixs.length) {
+    return new window[matrixs[0] + 'Matrix'](style);
+  }
+  console.warn('Browsers do not support matrix.');
+  return '';
 }
 
 function checkStyleName(p) {
@@ -2029,7 +1988,7 @@ function getMatrix(t) {
 }
 
 function getTransform(transform) {
-  var _transform = transform === 'none' || transform === '' ? 'matrix(1, 0, 0, 1, 0, 0)' : transform;
+  var _transform = !transform || transform === 'none' || transform === '' ? 'matrix(1, 0, 0, 1, 0, 0)' : transform;
   var m = getMatrix(_transform);
   var m11 = m.m11;
   var m12 = m.m12;
@@ -2233,7 +2192,6 @@ var LIBRARY = __webpack_require__(50);
 var $export = __webpack_require__(23);
 var redefine = __webpack_require__(83);
 var hide = __webpack_require__(24);
-var has = __webpack_require__(21);
 var Iterators = __webpack_require__(52);
 var $iterCreate = __webpack_require__(122);
 var setToStringTag = __webpack_require__(57);
@@ -2271,7 +2229,7 @@ module.exports = function (Base, NAME, Constructor, next, DEFAULT, IS_SET, FORCE
       // Set @@toStringTag to native iterators
       setToStringTag(IteratorPrototype, TAG, true);
       // fix for some old engines
-      if (!LIBRARY && !has(IteratorPrototype, ITERATOR)) hide(IteratorPrototype, ITERATOR, returnThis);
+      if (!LIBRARY && typeof IteratorPrototype[ITERATOR] != 'function') hide(IteratorPrototype, ITERATOR, returnThis);
     }
   }
   // fix Array#{values, @@iterator}.name in V8 / FF
@@ -3136,6 +3094,9 @@ module.exports = g;
 
 __WEBPACK_IMPORTED_MODULE_0_tween_functions___default.a.path = function (_path, _param) {
   var param = _param || {};
+  if (typeof window === 'undefined') {
+    return 'linear';
+  }
   var pathNode = Object(__WEBPACK_IMPORTED_MODULE_1__util__["g" /* parsePath */])(_path);
   var pathLength = pathNode.getTotalLength();
   var rect = param.rect || 100; // path 的大小，100 * 100，
@@ -3804,7 +3765,7 @@ $JSON && $export($export.S + $export.F * (!USE_NATIVE || $fails(function () {
     $replacer = replacer = args[1];
     if (!isObject(replacer) && it === undefined || isSymbol(it)) return; // IE8 returns string on undefined
     if (!isArray(replacer)) replacer = function (key, value) {
-      if ($replacer) value = $replacer.call(this, key, value);
+      if (typeof $replacer == 'function') value = $replacer.call(this, key, value);
       if (!isSymbol(value)) return value;
     };
     args[1] = replacer;
@@ -4129,27 +4090,41 @@ var QueueAnim = function (_React$Component) {
     var currentChildren = this.originalChildren.filter(function (item) {
       return item;
     });
-    var emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
-    if (emptyBool) {
+    if (this.state.children.length) {
       /**
-       * 多次刷新空子级处理
-       * 如果 state.children 里还有元素，元素还在动画，当前子级设回 state.children;
+       * 多次刷新处理
+       * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
        */
-      currentChildren = this.state.children;
+      var leaveChild = this.state.children.filter(function (item) {
+        return item && _this2.keysToLeave.indexOf(item.key) >= 0;
+      });
+      currentChildren = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["c" /* mergeChildren */])(currentChildren, leaveChild);
     }
     var newChildren = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["c" /* mergeChildren */])(currentChildren, nextChildren);
 
     var childrenShow = !newChildren.length ? {} : this.state.childrenShow;
     this.keysToEnterPaused = {};
-    // 在出场没结束时，childrenShow 里的值将不会清除。再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+    var emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
+    /**
+     * 在出场没结束时，childrenShow 里的值将不会清除。
+     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+     */
     if (!emptyBool) {
       // 空子级状态下刷新不做处理
+      var nextKeys = nextChildren.map(function (c) {
+        return c.key;
+      });
       this.keysToLeave.forEach(function (key) {
         // 将所有在出场里的停止掉。避免间隔性出现
-        _this2.keysToEnterPaused[key] = true;
-        if (nextProps.enterForcedRePlay) {
-          // 清掉所有出场的。
-          delete childrenShow[key];
+        if (nextKeys.indexOf(key) >= 0) {
+          _this2.keysToEnterPaused[key] = true;
+          currentChildren = currentChildren.filter(function (item) {
+            return item.key !== key;
+          });
+          if (nextProps.enterForcedRePlay) {
+            // 清掉所有出场的。
+            delete childrenShow[key];
+          }
         }
       });
     }
@@ -22461,57 +22436,33 @@ module.exports = camelize;
 
 "use strict";
 
-/* globals Symbol: true, Uint8Array: true, WeakMap: true */
+/* globals Symbol: false, Uint8Array: false, WeakMap: false */
 /*!
  * deep-eql
  * Copyright(c) 2013 Jake Luer <jake@alogicalparadox.com>
  * MIT Licensed
  */
 
-/*!
- * Module dependencies
- */
-
 var type = __webpack_require__(171);
 function FakeMap() {
-  this.clear();
+  this._key = 'chai/deep-eql__' + Math.random() + Date.now();
 }
+
 FakeMap.prototype = {
-  clear: function clearMap() {
-    this.keys = [];
-    this.values = [];
-    return this;
+  get: function getMap(key) {
+    return key[this._key];
   },
   set: function setMap(key, value) {
-    var index = this.keys.indexOf(key);
-    if (index >= 0) {
-      this.values[index] = value;
-    } else {
-      this.keys.push(key);
-      this.values.push(value);
+    if (Object.isExtensible(key)) {
+      Object.defineProperty(key, this._key, {
+        value: value,
+        configurable: true,
+      });
     }
-    return this;
-  },
-  get: function getMap(key) {
-    return this.values[this.keys.indexOf(key)];
-  },
-  delete: function deleteMap(key) {
-    var index = this.keys.indexOf(key);
-    if (index >= 0) {
-      this.values = this.values.slice(0, index).concat(this.values.slice(index + 1));
-      this.keys = this.keys.slice(0, index).concat(this.keys.slice(index + 1));
-    }
-    return this;
   },
 };
 
-var MemoizeMap = null;
-if (typeof WeakMap === 'function') {
-  MemoizeMap = WeakMap;
-} else {
-  MemoizeMap = FakeMap;
-}
-
+var MemoizeMap = typeof WeakMap === 'function' ? WeakMap : FakeMap;
 /*!
  * Check to see if the MemoizeMap has recorded a result of the two operands
  *
@@ -22945,19 +22896,22 @@ function isPrimitive(value) {
 /* 171 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(global) {
+/* WEBPACK VAR INJECTION */(function(global) {(function (global, factory) {
+	 true ? module.exports = factory() :
+	typeof define === 'function' && define.amd ? define(factory) :
+	(global.typeDetect = factory());
+}(this, (function () { 'use strict';
+
 /* !
  * type-detect
  * Copyright(c) 2013 jake luer <jake@alogicalparadox.com>
  * MIT Licensed
  */
-var getPrototypeOfExists = typeof Object.getPrototypeOf === 'function';
 var promiseExists = typeof Promise === 'function';
-var globalObject = typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : self; // eslint-disable-line
-var isDom = 'location' in globalObject && 'document' in globalObject;
-var htmlElementExists = typeof HTMLElement !== 'undefined';
-var isArrayExists = typeof Array.isArray === 'function';
+
+/* eslint-disable no-undef */
+var globalObject = typeof self === 'object' ? self : global; // eslint-disable-line id-blacklist
+
 var symbolExists = typeof Symbol !== 'undefined';
 var mapExists = typeof Map !== 'undefined';
 var setExists = typeof Set !== 'undefined';
@@ -22968,11 +22922,11 @@ var symbolIteratorExists = symbolExists && typeof Symbol.iterator !== 'undefined
 var symbolToStringTagExists = symbolExists && typeof Symbol.toStringTag !== 'undefined';
 var setEntriesExists = setExists && typeof Set.prototype.entries === 'function';
 var mapEntriesExists = mapExists && typeof Map.prototype.entries === 'function';
-var setIteratorPrototype = getPrototypeOfExists && setEntriesExists && Object.getPrototypeOf(new Set().entries());
-var mapIteratorPrototype = getPrototypeOfExists && mapEntriesExists && Object.getPrototypeOf(new Map().entries());
+var setIteratorPrototype = setEntriesExists && Object.getPrototypeOf(new Set().entries());
+var mapIteratorPrototype = mapEntriesExists && Object.getPrototypeOf(new Map().entries());
 var arrayIteratorExists = symbolIteratorExists && typeof Array.prototype[Symbol.iterator] === 'function';
 var arrayIteratorPrototype = arrayIteratorExists && Object.getPrototypeOf([][Symbol.iterator]());
-var stringIteratorExists = symbolIteratorExists && typeof Array.prototype[Symbol.iterator] === 'function';
+var stringIteratorExists = symbolIteratorExists && typeof String.prototype[Symbol.iterator] === 'function';
 var stringIteratorPrototype = stringIteratorExists && Object.getPrototypeOf(''[Symbol.iterator]());
 var toStringLeftSliceLength = 8;
 var toStringRightSliceLength = -1;
@@ -22986,7 +22940,7 @@ var toStringRightSliceLength = -1;
  * @return {String} object type
  * @api public
  */
-module.exports = function typeDetect(obj) {
+function typeDetect(obj) {
   /* ! Speed optimisation
    * Pre:
    *   string literal     x 3,039,035 ops/sec ±1.62% (78 runs sampled)
@@ -23042,11 +22996,16 @@ module.exports = function typeDetect(obj) {
    * Post:
    *   array literal      x 22,479,650 ops/sec ±0.96% (81 runs sampled)
    */
-  if (isArrayExists && Array.isArray(obj)) {
+  if (
+    Array.isArray(obj) &&
+    (symbolToStringTagExists === false || !(Symbol.toStringTag in obj))
+  ) {
     return 'Array';
   }
 
-  if (isDom) {
+  // Not caching existence of `window` and related properties due to potential
+  // for `window` to be unset before tests in quasi-browser environments.
+  if (typeof window === 'object' && window !== null) {
     /* ! Spec Conformance
      * (https://html.spec.whatwg.org/multipage/browsers.html#location)
      * WhatWG HTML$7.7.3 - The `Location` interface
@@ -23054,7 +23013,7 @@ module.exports = function typeDetect(obj) {
      *  - IE <=11 === "[object Object]"
      *  - IE Edge <=13 === "[object Object]"
      */
-    if (obj === globalObject.location) {
+    if (typeof window.location === 'object' && obj === window.location) {
       return 'Location';
     }
 
@@ -23077,70 +23036,78 @@ module.exports = function typeDetect(obj) {
      *  - IE 11 === "[object HTMLDocument]"
      *  - IE Edge <=13 === "[object HTMLDocument]"
      */
-    if (obj === globalObject.document) {
+    if (typeof window.document === 'object' && obj === window.document) {
       return 'Document';
     }
 
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/webappapis.html#mimetypearray)
-     * WhatWG HTML$8.6.1.5 - Plugins - Interface MimeTypeArray
-     * Test: `Object.prototype.toString.call(navigator.mimeTypes)``
-     *  - IE <=10 === "[object MSMimeTypesCollection]"
-     */
-    if (obj === (globalObject.navigator || {}).mimeTypes) {
-      return 'MimeTypeArray';
+    if (typeof window.navigator === 'object') {
+      /* ! Spec Conformance
+       * (https://html.spec.whatwg.org/multipage/webappapis.html#mimetypearray)
+       * WhatWG HTML$8.6.1.5 - Plugins - Interface MimeTypeArray
+       * Test: `Object.prototype.toString.call(navigator.mimeTypes)``
+       *  - IE <=10 === "[object MSMimeTypesCollection]"
+       */
+      if (typeof window.navigator.mimeTypes === 'object' &&
+          obj === window.navigator.mimeTypes) {
+        return 'MimeTypeArray';
+      }
+
+      /* ! Spec Conformance
+       * (https://html.spec.whatwg.org/multipage/webappapis.html#pluginarray)
+       * WhatWG HTML$8.6.1.5 - Plugins - Interface PluginArray
+       * Test: `Object.prototype.toString.call(navigator.plugins)``
+       *  - IE <=10 === "[object MSPluginsCollection]"
+       */
+      if (typeof window.navigator.plugins === 'object' &&
+          obj === window.navigator.plugins) {
+        return 'PluginArray';
+      }
     }
 
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/webappapis.html#pluginarray)
-     * WhatWG HTML$8.6.1.5 - Plugins - Interface PluginArray
-     * Test: `Object.prototype.toString.call(navigator.plugins)``
-     *  - IE <=10 === "[object MSPluginsCollection]"
-     */
-    if (obj === (globalObject.navigator || {}).plugins) {
-      return 'PluginArray';
-    }
+    if ((typeof window.HTMLElement === 'function' ||
+        typeof window.HTMLElement === 'object') &&
+        obj instanceof window.HTMLElement) {
+      /* ! Spec Conformance
+      * (https://html.spec.whatwg.org/multipage/webappapis.html#pluginarray)
+      * WhatWG HTML$4.4.4 - The `blockquote` element - Interface `HTMLQuoteElement`
+      * Test: `Object.prototype.toString.call(document.createElement('blockquote'))``
+      *  - IE <=10 === "[object HTMLBlockElement]"
+      */
+      if (obj.tagName === 'BLOCKQUOTE') {
+        return 'HTMLQuoteElement';
+      }
 
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/multipage/webappapis.html#pluginarray)
-     * WhatWG HTML$4.4.4 - The `blockquote` element - Interface `HTMLQuoteElement`
-     * Test: `Object.prototype.toString.call(document.createElement('blockquote'))``
-     *  - IE <=10 === "[object HTMLBlockElement]"
-     */
-    if (htmlElementExists && obj instanceof HTMLElement && obj.tagName === 'BLOCKQUOTE') {
-      return 'HTMLQuoteElement';
-    }
+      /* ! Spec Conformance
+       * (https://html.spec.whatwg.org/#htmltabledatacellelement)
+       * WhatWG HTML$4.9.9 - The `td` element - Interface `HTMLTableDataCellElement`
+       * Note: Most browsers currently adher to the W3C DOM Level 2 spec
+       *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-82915075)
+       *       which suggests that browsers should use HTMLTableCellElement for
+       *       both TD and TH elements. WhatWG separates these.
+       * Test: Object.prototype.toString.call(document.createElement('td'))
+       *  - Chrome === "[object HTMLTableCellElement]"
+       *  - Firefox === "[object HTMLTableCellElement]"
+       *  - Safari === "[object HTMLTableCellElement]"
+       */
+      if (obj.tagName === 'TD') {
+        return 'HTMLTableDataCellElement';
+      }
 
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/#htmltabledatacellelement)
-     * WhatWG HTML$4.9.9 - The `td` element - Interface `HTMLTableDataCellElement`
-     * Note: Most browsers currently adher to the W3C DOM Level 2 spec
-     *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-82915075)
-     *       which suggests that browsers should use HTMLTableCellElement for
-     *       both TD and TH elements. WhatWG separates these.
-     * Test: Object.prototype.toString.call(document.createElement('td'))
-     *  - Chrome === "[object HTMLTableCellElement]"
-     *  - Firefox === "[object HTMLTableCellElement]"
-     *  - Safari === "[object HTMLTableCellElement]"
-     */
-    if (htmlElementExists && obj instanceof HTMLElement && obj.tagName === 'TD') {
-      return 'HTMLTableDataCellElement';
-    }
-
-    /* ! Spec Conformance
-     * (https://html.spec.whatwg.org/#htmltableheadercellelement)
-     * WhatWG HTML$4.9.9 - The `td` element - Interface `HTMLTableHeaderCellElement`
-     * Note: Most browsers currently adher to the W3C DOM Level 2 spec
-     *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-82915075)
-     *       which suggests that browsers should use HTMLTableCellElement for
-     *       both TD and TH elements. WhatWG separates these.
-     * Test: Object.prototype.toString.call(document.createElement('th'))
-     *  - Chrome === "[object HTMLTableCellElement]"
-     *  - Firefox === "[object HTMLTableCellElement]"
-     *  - Safari === "[object HTMLTableCellElement]"
-     */
-    if (htmlElementExists && obj instanceof HTMLElement && obj.tagName === 'TH') {
-      return 'HTMLTableHeaderCellElement';
+      /* ! Spec Conformance
+       * (https://html.spec.whatwg.org/#htmltableheadercellelement)
+       * WhatWG HTML$4.9.9 - The `td` element - Interface `HTMLTableHeaderCellElement`
+       * Note: Most browsers currently adher to the W3C DOM Level 2 spec
+       *       (https://www.w3.org/TR/DOM-Level-2-HTML/html.html#ID-82915075)
+       *       which suggests that browsers should use HTMLTableCellElement for
+       *       both TD and TH elements. WhatWG separates these.
+       * Test: Object.prototype.toString.call(document.createElement('th'))
+       *  - Chrome === "[object HTMLTableCellElement]"
+       *  - Firefox === "[object HTMLTableCellElement]"
+       *  - Safari === "[object HTMLTableCellElement]"
+       */
+      if (obj.tagName === 'TH') {
+        return 'HTMLTableHeaderCellElement';
+      }
     }
   }
 
@@ -23171,142 +23138,140 @@ module.exports = function typeDetect(obj) {
     return stringTag;
   }
 
-  if (getPrototypeOfExists) {
-    var objPrototype = Object.getPrototypeOf(obj);
-    /* ! Speed optimisation
-    * Pre:
-    *   regex literal      x 1,772,385 ops/sec ±1.85% (77 runs sampled)
-    *   regex constructor  x 2,143,634 ops/sec ±2.46% (78 runs sampled)
-    * Post:
-    *   regex literal      x 3,928,009 ops/sec ±0.65% (78 runs sampled)
-    *   regex constructor  x 3,931,108 ops/sec ±0.58% (84 runs sampled)
-    */
-    if (objPrototype === RegExp.prototype) {
-      return 'RegExp';
-    }
+  var objPrototype = Object.getPrototypeOf(obj);
+  /* ! Speed optimisation
+  * Pre:
+  *   regex literal      x 1,772,385 ops/sec ±1.85% (77 runs sampled)
+  *   regex constructor  x 2,143,634 ops/sec ±2.46% (78 runs sampled)
+  * Post:
+  *   regex literal      x 3,928,009 ops/sec ±0.65% (78 runs sampled)
+  *   regex constructor  x 3,931,108 ops/sec ±0.58% (84 runs sampled)
+  */
+  if (objPrototype === RegExp.prototype) {
+    return 'RegExp';
+  }
 
-    /* ! Speed optimisation
-    * Pre:
-    *   date               x 2,130,074 ops/sec ±4.42% (68 runs sampled)
-    * Post:
-    *   date               x 3,953,779 ops/sec ±1.35% (77 runs sampled)
-    */
-    if (objPrototype === Date.prototype) {
-      return 'Date';
-    }
+  /* ! Speed optimisation
+  * Pre:
+  *   date               x 2,130,074 ops/sec ±4.42% (68 runs sampled)
+  * Post:
+  *   date               x 3,953,779 ops/sec ±1.35% (77 runs sampled)
+  */
+  if (objPrototype === Date.prototype) {
+    return 'Date';
+  }
 
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-promise.prototype-@@tostringtag)
-     * ES6$25.4.5.4 - Promise.prototype[@@toStringTag] should be "Promise":
-     * Test: `Object.prototype.toString.call(Promise.resolve())``
-     *  - Chrome <=47 === "[object Object]"
-     *  - Edge <=20 === "[object Object]"
-     *  - Firefox 29-Latest === "[object Promise]"
-     *  - Safari 7.1-Latest === "[object Promise]"
-     */
-    if (promiseExists && objPrototype === Promise.prototype) {
-      return 'Promise';
-    }
+  /* ! Spec Conformance
+   * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-promise.prototype-@@tostringtag)
+   * ES6$25.4.5.4 - Promise.prototype[@@toStringTag] should be "Promise":
+   * Test: `Object.prototype.toString.call(Promise.resolve())``
+   *  - Chrome <=47 === "[object Object]"
+   *  - Edge <=20 === "[object Object]"
+   *  - Firefox 29-Latest === "[object Promise]"
+   *  - Safari 7.1-Latest === "[object Promise]"
+   */
+  if (promiseExists && objPrototype === Promise.prototype) {
+    return 'Promise';
+  }
 
-    /* ! Speed optimisation
-    * Pre:
-    *   set                x 2,222,186 ops/sec ±1.31% (82 runs sampled)
-    * Post:
-    *   set                x 4,545,879 ops/sec ±1.13% (83 runs sampled)
-    */
-    if (setExists && objPrototype === Set.prototype) {
-      return 'Set';
-    }
+  /* ! Speed optimisation
+  * Pre:
+  *   set                x 2,222,186 ops/sec ±1.31% (82 runs sampled)
+  * Post:
+  *   set                x 4,545,879 ops/sec ±1.13% (83 runs sampled)
+  */
+  if (setExists && objPrototype === Set.prototype) {
+    return 'Set';
+  }
 
-    /* ! Speed optimisation
-    * Pre:
-    *   map                x 2,396,842 ops/sec ±1.59% (81 runs sampled)
-    * Post:
-    *   map                x 4,183,945 ops/sec ±6.59% (82 runs sampled)
-    */
-    if (mapExists && objPrototype === Map.prototype) {
-      return 'Map';
-    }
+  /* ! Speed optimisation
+  * Pre:
+  *   map                x 2,396,842 ops/sec ±1.59% (81 runs sampled)
+  * Post:
+  *   map                x 4,183,945 ops/sec ±6.59% (82 runs sampled)
+  */
+  if (mapExists && objPrototype === Map.prototype) {
+    return 'Map';
+  }
 
-    /* ! Speed optimisation
-    * Pre:
-    *   weakset            x 1,323,220 ops/sec ±2.17% (76 runs sampled)
-    * Post:
-    *   weakset            x 4,237,510 ops/sec ±2.01% (77 runs sampled)
-    */
-    if (weakSetExists && objPrototype === WeakSet.prototype) {
-      return 'WeakSet';
-    }
+  /* ! Speed optimisation
+  * Pre:
+  *   weakset            x 1,323,220 ops/sec ±2.17% (76 runs sampled)
+  * Post:
+  *   weakset            x 4,237,510 ops/sec ±2.01% (77 runs sampled)
+  */
+  if (weakSetExists && objPrototype === WeakSet.prototype) {
+    return 'WeakSet';
+  }
 
-    /* ! Speed optimisation
-    * Pre:
-    *   weakmap            x 1,500,260 ops/sec ±2.02% (78 runs sampled)
-    * Post:
-    *   weakmap            x 3,881,384 ops/sec ±1.45% (82 runs sampled)
-    */
-    if (weakMapExists && objPrototype === WeakMap.prototype) {
-      return 'WeakMap';
-    }
+  /* ! Speed optimisation
+  * Pre:
+  *   weakmap            x 1,500,260 ops/sec ±2.02% (78 runs sampled)
+  * Post:
+  *   weakmap            x 3,881,384 ops/sec ±1.45% (82 runs sampled)
+  */
+  if (weakMapExists && objPrototype === WeakMap.prototype) {
+    return 'WeakMap';
+  }
 
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-dataview.prototype-@@tostringtag)
-     * ES6$24.2.4.21 - DataView.prototype[@@toStringTag] should be "DataView":
-     * Test: `Object.prototype.toString.call(new DataView(new ArrayBuffer(1)))``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (dataViewExists && objPrototype === DataView.prototype) {
-      return 'DataView';
-    }
+  /* ! Spec Conformance
+   * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-dataview.prototype-@@tostringtag)
+   * ES6$24.2.4.21 - DataView.prototype[@@toStringTag] should be "DataView":
+   * Test: `Object.prototype.toString.call(new DataView(new ArrayBuffer(1)))``
+   *  - Edge <=13 === "[object Object]"
+   */
+  if (dataViewExists && objPrototype === DataView.prototype) {
+    return 'DataView';
+  }
 
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%mapiteratorprototype%-@@tostringtag)
-     * ES6$23.1.5.2.2 - %MapIteratorPrototype%[@@toStringTag] should be "Map Iterator":
-     * Test: `Object.prototype.toString.call(new Map().entries())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (mapExists && objPrototype === mapIteratorPrototype) {
-      return 'Map Iterator';
-    }
+  /* ! Spec Conformance
+   * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%mapiteratorprototype%-@@tostringtag)
+   * ES6$23.1.5.2.2 - %MapIteratorPrototype%[@@toStringTag] should be "Map Iterator":
+   * Test: `Object.prototype.toString.call(new Map().entries())``
+   *  - Edge <=13 === "[object Object]"
+   */
+  if (mapExists && objPrototype === mapIteratorPrototype) {
+    return 'Map Iterator';
+  }
 
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%setiteratorprototype%-@@tostringtag)
-     * ES6$23.2.5.2.2 - %SetIteratorPrototype%[@@toStringTag] should be "Set Iterator":
-     * Test: `Object.prototype.toString.call(new Set().entries())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (setExists && objPrototype === setIteratorPrototype) {
-      return 'Set Iterator';
-    }
+  /* ! Spec Conformance
+   * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%setiteratorprototype%-@@tostringtag)
+   * ES6$23.2.5.2.2 - %SetIteratorPrototype%[@@toStringTag] should be "Set Iterator":
+   * Test: `Object.prototype.toString.call(new Set().entries())``
+   *  - Edge <=13 === "[object Object]"
+   */
+  if (setExists && objPrototype === setIteratorPrototype) {
+    return 'Set Iterator';
+  }
 
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%arrayiteratorprototype%-@@tostringtag)
-     * ES6$22.1.5.2.2 - %ArrayIteratorPrototype%[@@toStringTag] should be "Array Iterator":
-     * Test: `Object.prototype.toString.call([][Symbol.iterator]())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (arrayIteratorExists && objPrototype === arrayIteratorPrototype) {
-      return 'Array Iterator';
-    }
+  /* ! Spec Conformance
+   * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%arrayiteratorprototype%-@@tostringtag)
+   * ES6$22.1.5.2.2 - %ArrayIteratorPrototype%[@@toStringTag] should be "Array Iterator":
+   * Test: `Object.prototype.toString.call([][Symbol.iterator]())``
+   *  - Edge <=13 === "[object Object]"
+   */
+  if (arrayIteratorExists && objPrototype === arrayIteratorPrototype) {
+    return 'Array Iterator';
+  }
 
-    /* ! Spec Conformance
-     * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%stringiteratorprototype%-@@tostringtag)
-     * ES6$21.1.5.2.2 - %StringIteratorPrototype%[@@toStringTag] should be "String Iterator":
-     * Test: `Object.prototype.toString.call(''[Symbol.iterator]())``
-     *  - Edge <=13 === "[object Object]"
-     */
-    if (stringIteratorExists && objPrototype === stringIteratorPrototype) {
-      return 'String Iterator';
-    }
+  /* ! Spec Conformance
+   * (http://www.ecma-international.org/ecma-262/6.0/index.html#sec-%stringiteratorprototype%-@@tostringtag)
+   * ES6$21.1.5.2.2 - %StringIteratorPrototype%[@@toStringTag] should be "String Iterator":
+   * Test: `Object.prototype.toString.call(''[Symbol.iterator]())``
+   *  - Edge <=13 === "[object Object]"
+   */
+  if (stringIteratorExists && objPrototype === stringIteratorPrototype) {
+    return 'String Iterator';
+  }
 
-    /* ! Speed optimisation
-    * Pre:
-    *   object from null   x 2,424,320 ops/sec ±1.67% (76 runs sampled)
-    * Post:
-    *   object from null   x 5,838,000 ops/sec ±0.99% (84 runs sampled)
-    */
-    if (objPrototype === null) {
-      return 'Object';
-    }
+  /* ! Speed optimisation
+  * Pre:
+  *   object from null   x 2,424,320 ops/sec ±1.67% (76 runs sampled)
+  * Post:
+  *   object from null   x 5,838,000 ops/sec ±0.99% (84 runs sampled)
+  */
+  if (objPrototype === null) {
+    return 'Object';
   }
 
   return Object
@@ -23314,9 +23279,11 @@ module.exports = function typeDetect(obj) {
     .toString
     .call(obj)
     .slice(toStringLeftSliceLength, toStringRightSliceLength);
-};
+}
 
-module.exports.typeDetect = module.exports;
+return typeDetect;
+
+})));
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(97)))
 
@@ -23390,6 +23357,8 @@ var Tween = function Tween(target, toData, props) {
   this.perFrame = Math.round(1000 / 60);
   // 注册，第一次进入执行注册
   this.register = false;
+  // svg元素
+  this.isSvg = this.target.ownerSVGElement;
   // 设置 style
   var data = this.setAttrIsStyle();
   // 设置默认动画数据;
@@ -23489,7 +23458,26 @@ p.setDefaultData = function (_vars) {
   this.defaultData = data;
 };
 p.getComputedStyle = function () {
-  return document.defaultView ? document.defaultView.getComputedStyle(this.target) : {};
+  var style = typeof window !== 'undefined' && document.defaultView ? document.defaultView.getComputedStyle(this.target) : {};
+  // 如果是 SVG, 样式全部提出为 transformSVG, 兼容 safari 不能获取 transform;
+  if (this.isSvg) {
+    var transform = style[Object(__WEBPACK_IMPORTED_MODULE_4_style_utils__["checkStyleName"])('transform')] || 'none';
+    if (transform === 'none') {
+      var attrStyle = this.target.getAttribute('style');
+      if (attrStyle && attrStyle.indexOf('transform:') >= 0) {
+        transform = attrStyle.split(';').filter(function (k) {
+          return k.indexOf('transform:') >= 0;
+        }).map(function (item) {
+          return Object(__WEBPACK_IMPORTED_MODULE_4_style_utils__["createMatrix"])(item.split(':')[1].trim()).toString();
+        })[0];
+      } else if (this.target.getAttribute('transform')) {
+        // 暂时不支持标签上的 transform，后期增加;
+        console.warn('Do not add transform on the label, otherwise it will be invalid.');
+      }
+    }
+    style.transformSVG = transform;
+  }
+  return style;
 };
 p.getAnimStartData = function (item) {
   var _this3 = this;
@@ -23498,7 +23486,7 @@ p.getAnimStartData = function (item) {
   this.computedStyle = this.computedStyle || this.getComputedStyle();
   Object.keys(item).forEach(function (_key) {
     if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this3.attr === 'attr' && (_key === 'd' || _key === 'points')) {
-      start[_key] = item[_key].getAnimStart(_this3.computedStyle);
+      start[_key] = item[_key].getAnimStart(_this3.computedStyle, _this3.isSvg);
       return;
     }
     if (_this3.attr === 'attr') {
@@ -23534,7 +23522,7 @@ p.setRatio = function (ratio, endData, i) {
 
   Object.keys(endData.vars).forEach(function (_key) {
     if (_key in __WEBPACK_IMPORTED_MODULE_2__plugins__["a" /* default */] || _this5.attr === 'attr' && (_key === 'd' || _key === 'points')) {
-      endData.vars[_key].setRatio(ratio, _this5.tween);
+      endData.vars[_key].setRatio(ratio, _this5.tween, _this5.isSvg && _this5.computedStyle);
       return;
     }
     var endVars = endData.vars[_key];
@@ -23602,7 +23590,7 @@ p.render = function () {
         }
         if (!_this6.register) {
           _this6.register = true;
-          if (progressTime === 0) {
+          if (progressTime === 0 && item.duration) {
             return;
           }
         }
@@ -24050,7 +24038,7 @@ p.convertToMarksArray = function (unit, key, data, i) {
   }
   return Object(__WEBPACK_IMPORTED_MODULE_2__util_js__["h" /* startConvertToEndUnit */])(this.target, key, data, startUnit, endUnit, null, key === 'transformOrigin' && !i);
 };
-p.getAnimStart = function (computedStyle) {
+p.getAnimStart = function (computedStyle, isSvg) {
   var _this2 = this;
 
   var style = {};
@@ -24068,13 +24056,13 @@ p.getAnimStart = function (computedStyle) {
     if (key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
       if (key === 'bezier') {
         _this2.transform = Object(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('transform');
-        startData = computedStyle[_this2.transform];
+        startData = computedStyle[isSvg ? 'transformSVG' : _this2.transform];
         style.transform = style.transform || Object(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getTransform"])(startData);
       }
-      _this2.propsData.data[key].getAnimStart(computedStyle);
+      _this2.propsData.data[key].getAnimStart(computedStyle, isSvg);
     } else if (cssName === 'transform') {
       _this2.transform = Object(__WEBPACK_IMPORTED_MODULE_1_style_utils__["checkStyleName"])('transform');
-      startData = computedStyle[_this2.transform];
+      startData = computedStyle[isSvg ? 'transformSVG' : _this2.transform];
       endUnit = _this2.propsData.dataUnit[key];
       transform = style.transform || Object(__WEBPACK_IMPORTED_MODULE_1_style_utils__["getTransform"])(startData);
       if (endUnit && endUnit.match(/%|vw|vh|em|rem/i)) {
@@ -24161,7 +24149,7 @@ p.setArrayRatio = function (ratio, start, vars, unit, type) {
   return _vars;
 };
 
-p.setRatio = function (ratio, tween) {
+p.setRatio = function (ratio, tween, computedStyle) {
   var _this3 = this;
 
   tween.style = tween.style || {};
@@ -24176,7 +24164,7 @@ p.setRatio = function (ratio, tween) {
     var unit = _this3.propsData.dataUnit[key];
     var count = _this3.propsData.dataCount[key];
     if (key in __WEBPACK_IMPORTED_MODULE_3__plugins__["a" /* default */]) {
-      _this3.propsData.data[key].setRatio(ratio, tween);
+      _this3.propsData.data[key].setRatio(ratio, tween, computedStyle);
       if (key === 'bezier') {
         style[_this3.transform] = Object(__WEBPACK_IMPORTED_MODULE_2__util_js__["d" /* getTransformValue */])(tween.style.transform, _this3.supports3D);
       } else {
@@ -24211,6 +24199,9 @@ p.setRatio = function (ratio, tween) {
         tween.style.transform[key] = (endVars - startVars) * ratio + startVars;
       }
       style[_this3.transform] = Object(__WEBPACK_IMPORTED_MODULE_2__util_js__["d" /* getTransformValue */])(tween.style.transform, _this3.supports3D);
+      if (computedStyle) {
+        computedStyle.transformSVG = Object(__WEBPACK_IMPORTED_MODULE_1_style_utils__["createMatrix"])(style[_this3.transform]).toString();
+      }
       return;
     } else if (Array.isArray(endVars)) {
       var _type = _this3.propsData.dataType[key];
@@ -24322,9 +24313,12 @@ module.exports = function(fn) {
 module.exports.cancel = function() {
   caf.apply(root, arguments)
 }
-module.exports.polyfill = function() {
-  root.requestAnimationFrame = raf
-  root.cancelAnimationFrame = caf
+module.exports.polyfill = function(object) {
+  if (!object) {
+    object = root;
+  }
+  object.requestAnimationFrame = raf
+  object.cancelAnimationFrame = caf
 }
 
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(97)))
@@ -24377,22 +24371,25 @@ module.exports.polyfill = function() {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__ = __webpack_require__(5);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_react__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_prop_types__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__TweenOne__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__util__ = __webpack_require__(34);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__ = __webpack_require__(14);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__ = __webpack_require__(10);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__ = __webpack_require__(5);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6_react__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7_prop_types___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7_prop_types__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__TweenOne__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__util__ = __webpack_require__(34);
+
 
 
 
@@ -24406,12 +24403,12 @@ module.exports.polyfill = function() {
 function noop() {}
 
 var TweenOneGroup = function (_Component) {
-  __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_inherits___default()(TweenOneGroup, _Component);
+  __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_inherits___default()(TweenOneGroup, _Component);
 
   function TweenOneGroup() {
-    __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_classCallCheck___default()(this, TweenOneGroup);
+    __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_classCallCheck___default()(this, TweenOneGroup);
 
-    var _this = __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_possibleConstructorReturn___default()(this, (TweenOneGroup.__proto__ || Object.getPrototypeOf(TweenOneGroup)).apply(this, arguments));
+    var _this = __WEBPACK_IMPORTED_MODULE_4_babel_runtime_helpers_possibleConstructorReturn___default()(this, (TweenOneGroup.__proto__ || Object.getPrototypeOf(TweenOneGroup)).apply(this, arguments));
 
     _initialiseProps.call(_this);
 
@@ -24421,14 +24418,14 @@ var TweenOneGroup = function (_Component) {
     _this.onEnterBool = false;
     _this.isTween = {};
     // 第一进入，appear 为 true 时默认用 enter 或 tween-one 上的效果
-    var children = Object(__WEBPACK_IMPORTED_MODULE_8__util__["i" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_8__util__["c" /* getChildrenFromProps */])(_this.props));
+    var children = Object(__WEBPACK_IMPORTED_MODULE_9__util__["i" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_9__util__["c" /* getChildrenFromProps */])(_this.props));
     _this.state = {
       children: children
     };
     return _this;
   }
 
-  __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_createClass___default()(TweenOneGroup, [{
+  __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_createClass___default()(TweenOneGroup, [{
     key: 'componentDidMount',
     value: function componentDidMount() {
       this.onEnterBool = true;
@@ -24438,9 +24435,9 @@ var TweenOneGroup = function (_Component) {
     value: function componentWillReceiveProps(nextProps) {
       var _this2 = this;
 
-      var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_8__util__["i" /* toArrayChildren */])(nextProps.children);
-      var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_8__util__["i" /* toArrayChildren */])(this.state.children);
-      var newChildren = Object(__WEBPACK_IMPORTED_MODULE_8__util__["e" /* mergeChildren */])(currentChildren, nextChildren);
+      var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_9__util__["i" /* toArrayChildren */])(nextProps.children);
+      var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_9__util__["i" /* toArrayChildren */])(this.state.children);
+      var newChildren = Object(__WEBPACK_IMPORTED_MODULE_9__util__["e" /* mergeChildren */])(currentChildren, nextChildren);
 
       this.keysToEnter = [];
       this.keysToLeave = [];
@@ -24449,10 +24446,10 @@ var TweenOneGroup = function (_Component) {
           return;
         }
         var key = c.key;
-        var hasPrev = Object(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* findChildInChildrenByKey */])(currentChildren, key);
+        var hasPrev = Object(__WEBPACK_IMPORTED_MODULE_9__util__["b" /* findChildInChildrenByKey */])(currentChildren, key);
         // 如果当前 key 已存在 saveTweenTag 里，，刷新 child;
         if (_this2.saveTweenTag[key]) {
-          _this2.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_5_react___default.a.cloneElement(_this2.saveTweenTag[key], {}, c);
+          _this2.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_6_react___default.a.cloneElement(_this2.saveTweenTag[key], {}, c);
         }
         if (!hasPrev && key) {
           _this2.keysToEnter.push(key);
@@ -24464,7 +24461,7 @@ var TweenOneGroup = function (_Component) {
           return;
         }
         var key = c.key;
-        var hasNext = Object(__WEBPACK_IMPORTED_MODULE_8__util__["b" /* findChildInChildrenByKey */])(nextChildren, key);
+        var hasNext = Object(__WEBPACK_IMPORTED_MODULE_9__util__["b" /* findChildInChildrenByKey */])(nextChildren, key);
         if (!hasNext && key) {
           _this2.keysToLeave.push(key);
           delete _this2.saveTweenTag[key];
@@ -24481,29 +24478,30 @@ var TweenOneGroup = function (_Component) {
       if (!this.props.component) {
         return childrenToRender[0] || null;
       }
-      var componentProps = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, this.props);
-      ['component', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
+      var componentProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, this.props);
+      ['component', 'componentProps', 'appear', 'enter', 'leave', 'animatingClassName', 'onEnd', 'resetStyleBool'].forEach(function (key) {
         return delete componentProps[key];
       });
-      return Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(this.props.component, componentProps, childrenToRender);
+      return Object(__WEBPACK_IMPORTED_MODULE_6_react__["createElement"])(this.props.component, __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, componentProps, this.props.componentProps), childrenToRender);
     }
   }]);
 
   return TweenOneGroup;
-}(__WEBPACK_IMPORTED_MODULE_5_react__["Component"]);
+}(__WEBPACK_IMPORTED_MODULE_6_react__["Component"]);
 
 var _initialiseProps = function _initialiseProps() {
   var _this3 = this;
 
   this.onChange = function (animation, key, type, obj) {
-    var length = Object(__WEBPACK_IMPORTED_MODULE_8__util__["a" /* dataToArray */])(animation).length;
-    var animatingClassName = _this3.props.animatingClassName;
+    var length = Object(__WEBPACK_IMPORTED_MODULE_9__util__["a" /* dataToArray */])(animation).length;
     var tag = obj.target;
+    var classIsSvg = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_typeof___default()(tag.className) === 'object' && 'baseVal' in tag.className;
     var isEnter = type === 'enter' || type === 'appear';
     if (obj.mode === 'onStart') {
-      tag.className = tag.className.replace(animatingClassName[isEnter ? 1 : 0], '').trim();
-      if (tag.className.indexOf(animatingClassName[isEnter ? 0 : 1]) === -1) {
-        tag.className = (tag.className + ' ' + animatingClassName[isEnter ? 0 : 1]).trim();
+      if (classIsSvg) {
+        tag.className.baseVal = _this3.setClassName(tag.className.baseVal, isEnter);
+      } else {
+        tag.className = _this3.setClassName(tag.className, isEnter);
       }
     } else if (obj.index === length - 1 && obj.mode === 'onComplete') {
       if (type === 'enter') {
@@ -24518,18 +24516,30 @@ var _initialiseProps = function _initialiseProps() {
           children: children
         });
       }
-      tag.className = tag.className.replace(animatingClassName[isEnter ? 0 : 1], '').trim();
+      if (classIsSvg) {
+        tag.className.baseVal = tag.className.baseVal.replace(_this3.props.animatingClassName[isEnter ? 0 : 1], '').trim();
+      } else {
+        tag.className = tag.className.replace(_this3.props.animatingClassName[isEnter ? 0 : 1], '').trim();
+      }
       delete _this3.isTween[key];
       var _obj = { key: key, type: type };
       _this3.props.onEnd(_obj);
     }
   };
 
+  this.setClassName = function (name, isEnter) {
+    var className = name.replace(_this3.props.animatingClassName[isEnter ? 1 : 0], '').trim();
+    if (className.indexOf(_this3.props.animatingClassName[isEnter ? 0 : 1]) === -1) {
+      className = (className + ' ' + _this3.props.animatingClassName[isEnter ? 0 : 1]).trim();
+    }
+    return className;
+  };
+
   this.getTweenChild = function (child) {
     var props = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
 
     var key = child.key;
-    _this3.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_7__TweenOne__["a" /* default */], __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, props, {
+    _this3.saveTweenTag[key] = __WEBPACK_IMPORTED_MODULE_6_react___default.a.createElement(__WEBPACK_IMPORTED_MODULE_8__TweenOne__["a" /* default */], __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_extends___default()({}, props, {
       key: key,
       component: null
     }), child);
@@ -24541,11 +24551,11 @@ var _initialiseProps = function _initialiseProps() {
     var onChange = void 0;
     animation = type === 'leave' ? _this3.props.leave : _this3.props.enter;
     if (type === 'appear') {
-      var appear = Object(__WEBPACK_IMPORTED_MODULE_8__util__["j" /* transformArguments */])(_this3.props.appear, child.key, i);
+      var appear = Object(__WEBPACK_IMPORTED_MODULE_9__util__["j" /* transformArguments */])(_this3.props.appear, child.key, i);
       animation = appear && _this3.props.enter || null;
     }
     onChange = _this3.onChange.bind(_this3, animation, child.key, type);
-    var animate = Object(__WEBPACK_IMPORTED_MODULE_8__util__["j" /* transformArguments */])(animation, child.key, i);
+    var animate = Object(__WEBPACK_IMPORTED_MODULE_9__util__["j" /* transformArguments */])(animation, child.key, i);
     var props = {
       key: child.key,
       animation: animate,
@@ -24584,19 +24594,21 @@ var _initialiseProps = function _initialiseProps() {
 };
 
 TweenOneGroup.propTypes = {
-  component: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  children: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  style: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.object,
-  appear: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
-  enter: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  leave: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
-  animatingClassName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.array,
-  onEnd: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func,
-  resetStyleBool: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool
+  component: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  componentProps: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
+  children: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  style: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.object,
+  appear: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.bool,
+  enter: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  leave: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.any,
+  animatingClassName: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.array,
+  onEnd: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.func,
+  resetStyleBool: __WEBPACK_IMPORTED_MODULE_7_prop_types___default.a.bool
 };
 
 TweenOneGroup.defaultProps = {
   component: 'div',
+  componentProps: {},
   appear: true,
   animatingClassName: ['tween-one-entering', 'tween-one-leaving'],
   enter: { x: 50, opacity: 0, type: 'from' },
