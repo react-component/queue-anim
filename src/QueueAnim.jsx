@@ -1,3 +1,4 @@
+
 import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import TweenOne, { ticker } from 'rc-tween-one';
@@ -49,14 +50,58 @@ class QueueAnim extends React.Component {
     onEnd: noop,
     appear: true,
   };
-
   constructor(props) {
     super(props);
+    /**
+     * @param oneEnter
+     * 记录第一次进入;
+     */
     this.oneEnter = false;
-    this.tweenToShow = {};
+    /**
+     * @param tweenToEnter;
+     * 记录强制切换时是否需要添加 animation;
+     * 如 enter 后, leave -> enter，样式是没有发生变化，就不需要添加 animation 属性。
+     */
+    this.tweenToEnter = {};
+    /**
+     * @param leaveUnfinishedChild;
+     * 记录多次切换，出场没完成动画的 key。
+     */
+    this.leaveUnfinishedChild = [];
+    /**
+     * @param saveTweenOneTag;
+     * 记录 TweenOne 标签，在 leaveUnfinishedChild 里使用，残留的元素不需要考虑 props 的变更。
+     */
+    this.saveTweenOneTag = {};
+    /**
+     * @param unwantedStart;
+     * 记录 animation 里是否需要 startAnim;
+     * 修复进场时, 时间不准的问题；
+     * -> 进: 需要；
+     * -> 进 -> 进: 需要；
+     * -> 进 -> 出: 不需要;
+     * -> 进 -> 出 -> 进: 不需要;
+     */
+    this.unwantedStart = {};
+    /**
+     * @param keysToEnter;
+     * 记录进场的 key;
+     */
     this.keysToEnter = [];
+    /**
+     * @param keysToLeave;
+     * 记录出场的 key;
+     */
     this.keysToLeave = [];
+    /**
+     * @param keysToEnterPaused;
+     * 记录在进入时是否处理暂停状态
+     */
     this.keysToEnterPaused = {};
+    /**
+     * @param placeholderTimeoutIds;
+     * 进场时 deley 的 timeout 记录;
+     */
     this.placeholderTimeoutIds = {};
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(props));
@@ -97,6 +142,7 @@ class QueueAnim extends React.Component {
       const leaveChild = this.state.children.filter(item =>
         item && this.keysToLeave.indexOf(item.key) >= 0
       );
+      this.leaveUnfinishedChild = leaveChild.map(item => item.key);
       currentChildren = mergeChildren(currentChildren, leaveChild);
     }
     const newChildren = mergeChildren(
@@ -210,8 +256,9 @@ class QueueAnim extends React.Component {
     const end = type === 'enter' ? 0 : 1;
     let startAnim = this.getAnimData(props, key, i, enterOrLeave, start);
     const animate = this.getAnimData(props, key, i, enterOrLeave, end);
-    startAnim = (type === 'enter' && props.enterForcedRePlay) || !this.tweenToShow[key] ?
-      startAnim : {};
+    startAnim = type === 'enter' && (props.enterForcedRePlay
+      || !this.unwantedStart[key]) ?
+      startAnim : null;
     let ease = transformArguments(props.ease, key, i)[enterOrLeave];
     const duration = transformArguments(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
@@ -293,8 +340,20 @@ class QueueAnim extends React.Component {
     }
     let i = this.keysToLeave.indexOf(key);
     let animation;
+    const isFunc = typeof child.type === 'function';
+    const forcedJudg = isFunc ? {} : null;
+    if (isFunc) {
+      Object.keys(child.type).forEach(name => {
+        if (typeDefault.indexOf(name) === -1) {
+          forcedJudg[name] = child.type[name];
+        }
+      });
+    }
     // 处理出场
     if (i >= 0) {
+      if (this.leaveUnfinishedChild.indexOf(key) >= 0) {
+        return this.saveTweenOneTag[key];
+      }
       const interval = transformArguments(this.props.interval, key, i)[1];
       let delay = transformArguments(this.props.delay, key, i)[1];
       const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
@@ -308,21 +367,18 @@ class QueueAnim extends React.Component {
       } else {
         animation = this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
       }
+      if (this.tweenToEnter[key]) {
+        // 如果是已进入的，将直接返回标签。。
+        return createElement(TweenOne,
+          { key, component: child.type, forcedJudg, componentProps: child.props });
+      }
     }
     const paused = this.keysToEnterPaused[key] && !this.keysToLeave.indexOf(key) >= 0;
-
     animation = paused ? null : animation;
-    const isFunc = typeof child.type === 'function';
-    const forcedJudg = isFunc ? {} : null;
-    if (isFunc) {
-      Object.keys(child.type).forEach(name => {
-        if (typeDefault.indexOf(name) === -1) {
-          forcedJudg[name] = child.type[name];
-        }
-      });
-    }
-    return createElement(TweenOne,
-      { key, component: child.type, componentProps: child.props, forcedJudg, animation });
+    const tag = createElement(TweenOne,
+      { key, component: child.type, id: key, forcedJudg, componentProps: child.props, animation });
+    this.saveTweenOneTag[key] = tag;
+    return tag;
   };
 
   performEnter = (key, i) => {
@@ -358,7 +414,6 @@ class QueueAnim extends React.Component {
     if (elem.className.indexOf(animatingClassName[0]) === -1) {
       elem.className = (`${elem.className} ${animatingClassName[0]}`).trim();
     }
-    this.tweenToShow[key] = true;
   }
 
   enterComplete = (key, e) => {
@@ -367,6 +422,8 @@ class QueueAnim extends React.Component {
     }
     const elem = e.target;
     elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
+    this.tweenToEnter[key] = true;
+    this.unwantedStart[key] = true;
     this.props.onEnd({ key, type: 'enter' });
   }
 
@@ -377,6 +434,8 @@ class QueueAnim extends React.Component {
     if (elem.className.indexOf(animatingClassName[1]) === -1) {
       elem.className = (`${elem.className} ${animatingClassName[1]}`).trim();
     }
+    this.unwantedStart[key] = true;
+    delete this.tweenToEnter[key];
   }
 
   leaveComplete = (key, e) => {
@@ -388,7 +447,8 @@ class QueueAnim extends React.Component {
     delete childrenShow[key];
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
-      delete this.tweenToShow[key];
+      delete this.saveTweenOneTag[key];
+      delete this.unwantedStart[key];
     }
     const needLeave = this.keysToLeave.some(c => childrenShow[c]);
     if (!needLeave) {

@@ -6,7 +6,6 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
-[![gemnasium deps][gemnasium-image]][gemnasium-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
@@ -16,8 +15,6 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [travis-url]: https://travis-ci.org/react-component/queue-anim
 [coveralls-image]: https://img.shields.io/coveralls/react-component/queue-anim.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/react-component/queue-anim?branch=master
-[gemnasium-image]: http://img.shields.io/gemnasium/react-component/queue-anim.svg?style=flat-square
-[gemnasium-url]: https://gemnasium.com/react-component/queue-anim
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/rc-queue-anim.svg?style=flat-square
@@ -57,6 +54,8 @@ ReactDom.render(
 
 ## API
 
+> You must provide the key attribute for all children of QueueAnim, children would not peform any animation without key.
+
 | props      | type           | default | description    |
 |------------|----------------|---------|----------------|
 | type       | string / array | `right` | Animation Styles <br/>`alpha` `left` `right` `top` `bottom` `scale` `scaleBig` `scaleX` `scaleY`|
@@ -73,8 +72,6 @@ ReactDom.render(
 | onEnd      | function      |   null    |  animate end callback({ key, type }), type: `enter` or `leave` |
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)
-
-You must provide the key attribute for all children of QueueAnim, children would not peform any animation without key.
 
 ### animConfig
 
