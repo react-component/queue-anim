@@ -69,6 +69,7 @@ ReactDom.render(
 | component  | string / React.Element | `div` | component tag |
 | componentProps | Object | null | component is React.Element, component tag props |
 | animatingClassName | array | `['queue-anim-entering', 'queue-anim-leaving']` | className to every element of animating |
+| forcedReplay | boolean | false | `leave` animate moment trigger `enter`, forced replay. |
 | onEnd      | function      |   null    |  animate end callback({ key, type }), type: `enter` or `leave` |
 
 > Above props support array format, like `['left', 'top']`, the secord item is leave config. [Demo](http://react-component.github.io/queue-anim/examples/enter-leave.html)

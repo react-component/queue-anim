@@ -29,7 +29,7 @@ class QueueAnim extends React.Component {
     animConfig: PropTypes.any,
     ease: PropTypes.any,
     leaveReverse: PropTypes.bool,
-    enterForcedRePlay: PropTypes.bool,
+    forcedReplay: PropTypes.bool,
     animatingClassName: PropTypes.array,
     onEnd: PropTypes.func,
     appear: PropTypes.bool,
@@ -45,7 +45,7 @@ class QueueAnim extends React.Component {
     animConfig: null,
     ease: 'easeOutQuart',
     leaveReverse: false,
-    enterForcedRePlay: false,
+    forcedReplay: false,
     animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
     onEnd: noop,
     appear: true,
@@ -157,7 +157,7 @@ class QueueAnim extends React.Component {
       && this.state.children.length;
     /**
      * 在出场没结束时，childrenShow 里的值将不会清除。
-     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 forcedReplay 将重新播放进场。
      */
     if (!emptyBool) {// 空子级状态下刷新不做处理
       const nextKeys = nextChildren.map(c => c.key);
@@ -166,7 +166,7 @@ class QueueAnim extends React.Component {
         if (nextKeys.indexOf(key) >= 0) {
           this.keysToEnterPaused[key] = true;
           currentChildren = currentChildren.filter(item => item.key !== key);
-          if (nextProps.enterForcedRePlay) {
+          if (nextProps.forcedReplay) {
             // 清掉所有出场的。
             delete childrenShow[key];
           }
@@ -256,7 +256,7 @@ class QueueAnim extends React.Component {
     const end = type === 'enter' ? 0 : 1;
     let startAnim = this.getAnimData(props, key, i, enterOrLeave, start);
     const animate = this.getAnimData(props, key, i, enterOrLeave, end);
-    startAnim = type === 'enter' && (props.enterForcedRePlay
+    startAnim = type === 'enter' && (props.forcedReplay
       || !this.unwantedStart[key]) ?
       startAnim : null;
     let ease = transformArguments(props.ease, key, i)[enterOrLeave];
@@ -331,6 +331,7 @@ class QueueAnim extends React.Component {
   }
 
   getChildrenToRender = child => {
+    const { forcedReplay, leaveReverse, appear, delay, interval } = this.props;
     if (!child || !child.key) {
       return child;
     }
@@ -354,20 +355,20 @@ class QueueAnim extends React.Component {
       if (this.leaveUnfinishedChild.indexOf(key) >= 0) {
         return this.saveTweenOneTag[key];
       }
-      const interval = transformArguments(this.props.interval, key, i)[1];
-      let delay = transformArguments(this.props.delay, key, i)[1];
-      const order = this.props.leaveReverse ? (this.keysToLeave.length - i - 1) : i;
-      delay = interval * order + delay;
-      animation = this.getTweenEnterOrLeaveData(key, i, delay, 'leave');
+      const $interval = transformArguments(interval, key, i)[1];
+      let $delay = transformArguments(delay, key, i)[1];
+      const order = leaveReverse ? (this.keysToLeave.length - i - 1) : i;
+      $delay = $interval * order + $delay;
+      animation = this.getTweenEnterOrLeaveData(key, i, $delay, 'leave');
     } else {
       // 处理进场;
       i = this.keysToEnterToCallback.indexOf(key);
-      if (!this.oneEnter && !this.props.appear) {
+      if (!this.oneEnter && !appear) {
         animation = this.getTweenAppearData(key, i);
       } else {
         animation = this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
       }
-      if (this.tweenToEnter[key]) {
+      if (this.tweenToEnter[key] && !forcedReplay) {
         // 如果是已进入的，将直接返回标签。。
         return createElement(TweenOne,
           { key, component: child.type, forcedJudg, componentProps: child.props });
@@ -476,7 +477,7 @@ class QueueAnim extends React.Component {
       'ease',
       'leaveReverse',
       'animatingClassName',
-      'enterForcedRePlay',
+      'forcedReplay',
       'onEnd',
       'appear',
     ].forEach(key => delete tagProps[key]);

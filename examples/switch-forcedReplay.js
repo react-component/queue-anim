@@ -44,13 +44,13 @@ class Demo extends React.Component {
       <h2>鼠标经过当前区域，再移出区域查看</h2>
       <p>清除所有还在动画的参素并设置切换时的初始参数</p>
       <div className="switch" onMouseEnter={this.onEnter} onMouseLeave={this.onLeave}>
-        <QueueAnim component="ul" leaveReverse delay={[0, 300]} type="scale" enterForcedRePlay>
+        <QueueAnim component="ul" leaveReverse delay={[0, 300]} type="scale" forcedReplay>
           {childrenToRender}
         </QueueAnim>
-        <QueueAnim component="ul" leaveReverse delay={150} type="scale" enterForcedRePlay>
+        <QueueAnim component="ul" leaveReverse delay={150} type="scale" forcedReplay>
           {childrenToRender}
         </QueueAnim>
-        <QueueAnim component="ul" leaveReverse delay={[300, 0]} type="scale" enterForcedRePlay>
+        <QueueAnim component="ul" leaveReverse delay={[300, 0]} type="scale" forcedReplay>
           {childrenToRender}
         </QueueAnim>
       </div>
