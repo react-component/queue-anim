@@ -88,17 +88,17 @@ var Demo = function (_React$Component) {
         { className: 'switch', onMouseEnter: this.onEnter, onMouseLeave: this.onLeave },
         __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_3_rc_queue_anim__["a" /* default */],
-          { component: 'ul', leaveReverse: true, delay: [0, 300], type: 'scale', enterForcedRePlay: true },
+          { component: 'ul', leaveReverse: true, delay: [0, 300], type: 'scale', forcedReplay: true },
           childrenToRender
         ),
         __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_3_rc_queue_anim__["a" /* default */],
-          { component: 'ul', leaveReverse: true, delay: 150, type: 'scale', enterForcedRePlay: true },
+          { component: 'ul', leaveReverse: true, delay: 150, type: 'scale', forcedReplay: true },
           childrenToRender
         ),
         __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(
           __WEBPACK_IMPORTED_MODULE_3_rc_queue_anim__["a" /* default */],
-          { component: 'ul', leaveReverse: true, delay: [300, 0], type: 'scale', enterForcedRePlay: true },
+          { component: 'ul', leaveReverse: true, delay: [300, 0], type: 'scale', forcedReplay: true },
           childrenToRender
         )
       )
@@ -120,4 +120,4 @@ __WEBPACK_IMPORTED_MODULE_5_react_dom___default.a.render(__WEBPACK_IMPORTED_MODU
 /***/ })
 
 },[296]);
-//# sourceMappingURL=switch-enterForcedRePlay.js.map
+//# sourceMappingURL=switch-forcedReplay.js.map

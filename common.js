@@ -4082,7 +4082,7 @@ var QueueAnim = function (_React$Component) {
     var emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
     /**
      * 在出场没结束时，childrenShow 里的值将不会清除。
-     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 enterForcedRePlay 将重新播放进场。
+     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 forcedReplay 将重新播放进场。
      */
     if (!emptyBool) {
       // 空子级状态下刷新不做处理
@@ -4096,7 +4096,7 @@ var QueueAnim = function (_React$Component) {
           currentChildren = currentChildren.filter(function (item) {
             return item.key !== key;
           });
-          if (nextProps.enterForcedRePlay) {
+          if (nextProps.forcedReplay) {
             // 清掉所有出场的。
             delete childrenShow[key];
           }
@@ -4186,7 +4186,7 @@ var QueueAnim = function (_React$Component) {
   QueueAnim.prototype.render = function render() {
     var tagProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(this.props, []);
 
-    ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'enterForcedRePlay', 'onEnd', 'appear'].forEach(function (key) {
+    ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'forcedReplay', 'onEnd', 'appear'].forEach(function (key) {
       return delete tagProps[key];
     });
     var childrenToRender = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["d" /* toArrayChildren */])(this.state.children).map(this.getChildrenToRender);
@@ -4207,7 +4207,7 @@ QueueAnim.propTypes = {
   animConfig: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
   ease: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.any,
   leaveReverse: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
-  enterForcedRePlay: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
+  forcedReplay: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool,
   animatingClassName: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.array,
   onEnd: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.func,
   appear: __WEBPACK_IMPORTED_MODULE_6_prop_types___default.a.bool
@@ -4222,7 +4222,7 @@ QueueAnim.defaultProps = {
   animConfig: null,
   ease: 'easeOutQuart',
   leaveReverse: false,
-  enterForcedRePlay: false,
+  forcedReplay: false,
   animatingClassName: ['queue-anim-entering', 'queue-anim-leaving'],
   onEnd: noop,
   appear: true
@@ -4238,7 +4238,7 @@ var _initialiseProps = function _initialiseProps() {
     var end = type === 'enter' ? 0 : 1;
     var startAnim = _this5.getAnimData(props, key, i, enterOrLeave, start);
     var animate = _this5.getAnimData(props, key, i, enterOrLeave, end);
-    startAnim = type === 'enter' && (props.enterForcedRePlay || !_this5.unwantedStart[key]) ? startAnim : null;
+    startAnim = type === 'enter' && (props.forcedReplay || !_this5.unwantedStart[key]) ? startAnim : null;
     var ease = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(props.ease, key, i)[enterOrLeave];
     var duration = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
@@ -4305,6 +4305,13 @@ var _initialiseProps = function _initialiseProps() {
   };
 
   this.getChildrenToRender = function (child) {
+    var _props = _this5.props,
+        forcedReplay = _props.forcedReplay,
+        leaveReverse = _props.leaveReverse,
+        appear = _props.appear,
+        delay = _props.delay,
+        interval = _props.interval;
+
     if (!child || !child.key) {
       return child;
     }
@@ -4328,20 +4335,20 @@ var _initialiseProps = function _initialiseProps() {
       if (_this5.leaveUnfinishedChild.indexOf(key) >= 0) {
         return _this5.saveTweenOneTag[key];
       }
-      var interval = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(_this5.props.interval, key, i)[1];
-      var delay = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(_this5.props.delay, key, i)[1];
-      var order = _this5.props.leaveReverse ? _this5.keysToLeave.length - i - 1 : i;
-      delay = interval * order + delay;
-      animation = _this5.getTweenEnterOrLeaveData(key, i, delay, 'leave');
+      var $interval = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(interval, key, i)[1];
+      var $delay = Object(__WEBPACK_IMPORTED_MODULE_8__utils__["e" /* transformArguments */])(delay, key, i)[1];
+      var order = leaveReverse ? _this5.keysToLeave.length - i - 1 : i;
+      $delay = $interval * order + $delay;
+      animation = _this5.getTweenEnterOrLeaveData(key, i, $delay, 'leave');
     } else {
       // 处理进场;
       i = _this5.keysToEnterToCallback.indexOf(key);
-      if (!_this5.oneEnter && !_this5.props.appear) {
+      if (!_this5.oneEnter && !appear) {
         animation = _this5.getTweenAppearData(key, i);
       } else {
         animation = _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
       }
-      if (_this5.tweenToEnter[key]) {
+      if (_this5.tweenToEnter[key] && !forcedReplay) {
         // 如果是已进入的，将直接返回标签。。
         return Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["a" /* default */], { key: key, component: child.type, forcedJudg: forcedJudg, componentProps: child.props });
       }

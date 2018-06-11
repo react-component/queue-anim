@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>switch-enterForcedRePlay.js - example - rc-queue-anim@1.6.0</title>
+  <title>switch-forcedReplay.js - example - rc-queue-anim@1.6.1</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -257,13 +257,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
     document.writeln('<script src="https://as.alipayobjects.com/g/component/es6-promise/3.2.2/es6-promise.min.js"'+'>'+'<'+'/'+'script>');
   }
   </script>
-  <link rel="stylesheet" href="switch-enterForcedRePlay.css" />
+  <link rel="stylesheet" href="switch-forcedReplay.css" />
 </head>
 
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@1.6.0</h1>
+      <h1>rc-queue-anim@1.6.1</h1>
 
       <p>Queue animation component for react</p>
     </div>
@@ -315,13 +315,13 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
       <span class="hljs-tag">&lt;<span class="hljs-title">h2</span>&gt;</span>鼠标经过当前区域，再移出区域查看<span class="hljs-tag">&lt;/<span class="hljs-title">h2</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">p</span>&gt;</span>清除所有还在动画的参素并设置切换时的初始参数<span class="hljs-tag">&lt;/<span class="hljs-title">p</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">className</span>=<span class="hljs-value">"switch"</span> <span class="hljs-attribute">onMouseEnter</span>=<span class="hljs-value">{this.onEnter}</span> <span class="hljs-attribute">onMouseLeave</span>=<span class="hljs-value">{this.onLeave}</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">"ul"</span> <span class="hljs-attribute">leaveReverse</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{[0,</span> <span class="hljs-attribute">300</span>]} <span class="hljs-attribute">type</span>=<span class="hljs-value">"scale"</span> <span class="hljs-attribute">enterForcedRePlay</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">"ul"</span> <span class="hljs-attribute">leaveReverse</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{[0,</span> <span class="hljs-attribute">300</span>]} <span class="hljs-attribute">type</span>=<span class="hljs-value">"scale"</span> <span class="hljs-attribute">forcedReplay</span>&gt;</span>
           {childrenToRender}
         <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">"ul"</span> <span class="hljs-attribute">leaveReverse</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{150}</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"scale"</span> <span class="hljs-attribute">enterForcedRePlay</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">"ul"</span> <span class="hljs-attribute">leaveReverse</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{150}</span> <span class="hljs-attribute">type</span>=<span class="hljs-value">"scale"</span> <span class="hljs-attribute">forcedReplay</span>&gt;</span>
           {childrenToRender}
         <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">"ul"</span> <span class="hljs-attribute">leaveReverse</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{[300,</span> <span class="hljs-attribute">0</span>]} <span class="hljs-attribute">type</span>=<span class="hljs-value">"scale"</span> <span class="hljs-attribute">enterForcedRePlay</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">component</span>=<span class="hljs-value">"ul"</span> <span class="hljs-attribute">leaveReverse</span> <span class="hljs-attribute">delay</span>=<span class="hljs-value">{[300,</span> <span class="hljs-attribute">0</span>]} <span class="hljs-attribute">type</span>=<span class="hljs-value">"scale"</span> <span class="hljs-attribute">forcedReplay</span>&gt;</span>
           {childrenToRender}
         <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
@@ -340,7 +340,7 @@ ReactDom.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-t
   </a>
   <script>FastClick.attach(document.body);</script>
   <script src="../common.js?nowrap"></script>
-  <script src="switch-enterForcedRePlay.js?nowrap"></script>
+  <script src="switch-forcedReplay.js?nowrap"></script>
 </body>
 
 </html>
