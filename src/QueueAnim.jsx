@@ -290,7 +290,6 @@ class QueueAnim extends React.Component {
     const animate = animateData.animate;
     const onStart = (type === 'enter' ? this.enterBegin : this.leaveBegin).bind(this, key);
     const onComplete = (type === 'enter' ? this.enterComplete : this.leaveComplete).bind(this, key);
-    console.log(animateData)
     if (animateData.isArray) {
       const length = animate.length - 1;
       const animation = [];
