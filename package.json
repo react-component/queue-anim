@@ -79,6 +79,6 @@
   "dependencies": {
     "babel-runtime": "6.x",
     "prop-types": "^15.6.0",
-    "rc-tween-one": "^2.0.2"
+    "rc-tween-one": "^2.0.3"
   }
 }
