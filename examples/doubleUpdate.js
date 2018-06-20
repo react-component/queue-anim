@@ -92,7 +92,7 @@ class App extends React.Component {
         <button onClick={this.exchange}>多次切换同样子级</button>
         <QueueAnim type={this.state.type}>
           {this.state.items.map((item) => <div key={item.key}>
-            {item.children} <a href="#" onClick={this.remove.bind(this, item.key)}>删除</a>
+            {item.children} <a href="#" onClick={() => { this.remove(item.key); }}>删除</a>
           </div>)}
         </QueueAnim>
       </div>

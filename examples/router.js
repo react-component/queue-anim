@@ -5,100 +5,93 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import './assets/router.less';
 
-class Home extends React.Component {
-  render() {
-    return (
-      <div>
-        <h1>HOME</h1>
-      </div>
-    );
-  }
+function Home() {
+  return (
+    <div>
+      <h1>HOME</h1>
+    </div>
+  );
 }
 
-class Page3 extends React.Component {
-  render() {
-    return (
-      <QueueAnim>
-        <p key="1">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          Page3
-        </p>
-        <p key="2">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          Page3
-        </p>
-        <p key="3">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          Page3
-        </p>
-        <p key="4">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          Page3
-        </p>
-        <p key="5">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          Page3
-        </p>
-        <p key="6">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          Page3
-        </p>
-      </QueueAnim>
-    );
-  }
+function Page3() {
+  return (
+    <QueueAnim>
+      <p key="1">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        Page3
+      </p>
+      <p key="2">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        Page3
+      </p>
+      <p key="3">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        Page3
+      </p>
+      <p key="4">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        Page3
+      </p>
+      <p key="5">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        Page3
+      </p>
+      <p key="6">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        Page3
+      </p>
+    </QueueAnim>
+  );
 }
 
-class Page1 extends React.Component {
-  render() {
-    return (
-      <QueueAnim>
-        <h1 key="1">Page 1</h1>
-        <p key="2">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          依次进场</p>
-        <p key="3">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          依次进场</p>
-        <p key="4">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          依次进场</p>
-        <p key="5">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          依次进场</p>
-        <p key="6">
-          <Link to="/page2">A link to page 2 should be active</Link>
-          改变样式</p>
-        <Page3 key="7">1</Page3>
-      </QueueAnim>
-    );
-  }
+function Page1() {
+  return (
+    <QueueAnim>
+      <h1 key="1">Page 1</h1>
+      <p key="2">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        依次进场</p>
+      <p key="3">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        依次进场</p>
+      <p key="4">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        依次进场</p>
+      <p key="5">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        依次进场</p>
+      <p key="6">
+        <Link to="/page2">A link to page 2 should be active</Link>
+        改变样式</p>
+      <Page3 key="7">1</Page3>
+    </QueueAnim>
+  );
 }
 
-class Page2 extends React.Component {
-  render() {
-    return (
-      <QueueAnim>
-        <h1 key="1">Page 2</h1>
-        <p key="2">
-          <Link to="/page1">a link to page 1 </Link>
-          我是页面2.
-        </p>
-        <p key="3">
-          <Link to="/page1">a link to page 1 </Link>
-          我是页面2.
-        </p>
-        <p key="4">
-          <Link to="/page1">a link to page 1 </Link>
-          我是页面2.
-        </p>
-        <p key="5">
-          <Link to="/page1">a link to page 1 </Link>
-          我是页面2.
-        </p>
-      </QueueAnim>
-    );
-  }
+function Page2() {
+  return (
+    <QueueAnim>
+      <h1 key="1">Page 2</h1>
+      <p key="2">
+        <Link to="/page1">a link to page 1 </Link>
+        我是页面2.
+      </p>
+      <p key="3">
+        <Link to="/page1">a link to page 1 </Link>
+        我是页面2.
+      </p>
+      <p key="4">
+        <Link to="/page1">a link to page 1 </Link>
+        我是页面2.
+      </p>
+      <p key="5">
+        <Link to="/page1">a link to page 1 </Link>
+        我是页面2.
+      </p>
+    </QueueAnim>
+  );
 }
+
 
 
 class App extends React.Component {
@@ -114,6 +107,7 @@ class App extends React.Component {
       if (location.pathname === item.to) {
         return item.component;
       }
+      return null;
     }).filter(item => item)[0];
     const homeRoute = () => (
       <Redirect to="/home" />

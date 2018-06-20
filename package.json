@@ -1,6 +1,6 @@
 {
   "name": "rc-queue-anim",
-  "version": "1.6.2",
+  "version": "1.6.3",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
@@ -64,7 +64,7 @@
     "expect.js": "0.3.x",
     "pre-commit": "1.x",
     "rc-test": "6.x",
-    "rc-tools": "7.x",
+    "rc-tools": "8.x",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "antd": "^2.12.3",

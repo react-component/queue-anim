@@ -20,6 +20,7 @@ const typeDefault = ['displayName', 'propTypes', 'getDefaultProps',
 class QueueAnim extends React.Component {
 
   static propTypes = {
+    children: PropTypes.any,
     component: PropTypes.any,
     componentProps: PropTypes.object,
     interval: PropTypes.any,
@@ -143,7 +144,28 @@ class QueueAnim extends React.Component {
         item && this.keysToLeave.indexOf(item.key) >= 0
       );
       this.leaveUnfinishedChild = leaveChild.map(item => item.key);
-      currentChildren = mergeChildren(currentChildren, leaveChild);
+      /**
+       * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
+       * 避逸 state.children 在 leaveComplete 里没全部完成不触发，
+       * leaveComplete 里如果动画完成了是会删除 keyToLeave，但 state.children 是在全部出场后才触发清除，
+       * 所以这里需要处理出场完成的元素做清除。
+       */
+      const stateChildrens = mergeChildren(currentChildren, this.state.children);
+      const currentChild = [];
+      const childReOrder = (child) => {
+        child.forEach(item => {
+          const order = stateChildrens.indexOf(item);
+          // -1 不应该出现的情况，直接插入数组后面.
+          if (order === -1) {
+            currentChild.push(item);
+          } else {
+            currentChild.splice(order, 0, item);
+          }
+        })
+      };
+      childReOrder(leaveChild);
+      childReOrder(currentChildren);
+      currentChildren = currentChild.filter(c => c);
     }
     const newChildren = mergeChildren(
       currentChildren,
@@ -228,7 +250,7 @@ class QueueAnim extends React.Component {
     return this.getTweenAnimConfig(data, num);
   }
 
-  getTweenSingleConfig(data, num, enterOrLeave) {
+  getTweenSingleConfig = (data, num, enterOrLeave) => {
     const obj = {};
     Object.keys(data).forEach(key => {
       if (Array.isArray(data[key])) {
@@ -357,7 +379,9 @@ class QueueAnim extends React.Component {
       }
       const $interval = transformArguments(interval, key, i)[1];
       let $delay = transformArguments(delay, key, i)[1];
-      const order = leaveReverse ? (this.keysToLeave.length - i - 1) : i;
+      // 减掉 leaveUnfinishedChild 里的个数，因为 leaveUnfinishedChild 是旧的出场，不应该计录在队列里。
+      const order = (leaveReverse ? (this.keysToLeave.length - i - 1) : i)
+        - this.leaveUnfinishedChild.length;
       $delay = $interval * order + $delay;
       animation = this.getTweenEnterOrLeaveData(key, i, $delay, 'leave');
     } else {

@@ -1,12 +1,12 @@
-/* eslint no-console:0 */
+/* eslint no-console:0 no-restricted-globals:0 */
 import 'core-js/es6/map';
 import 'core-js/es6/set';
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
-import QueueAnim from '../src';
 import TestUtils from 'react-dom/test-utils';
 import ticker from 'rc-tween-one/lib/ticker';
+import QueueAnim from '../src';
 
 const defaultInterval = 100;
 

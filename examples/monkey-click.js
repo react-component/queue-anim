@@ -43,8 +43,8 @@ class App extends React.Component {
         <span>{this.state.show ? '显示' : '隐藏'}</span>
         <QueueAnim leaveReverse>
           {this.state.show ? this.state.items.map((item) => <div key={item.key}>
-              {item.children}
-            </div>) : null}
+            {item.children}
+          </div>) : null}
         </QueueAnim>
       </div>
     );

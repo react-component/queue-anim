@@ -21,4 +21,4 @@ ReactDom.render(
       <div key="5">div 2</div>
     </QueueAnim>
   </div>
-, document.getElementById('__react-content'));
+  , document.getElementById('__react-content'));

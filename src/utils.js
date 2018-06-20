@@ -1,3 +1,4 @@
+/* eslint no-prototype-builtins: 0 */
 import React from 'react';
 
 export function toArrayChildren(children) {

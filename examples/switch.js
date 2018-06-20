@@ -5,8 +5,8 @@ import ReactDom from 'react-dom';
 import './assets/switch.less';
 
 class Demo extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(props) {
+    super(props);
     this.childrenKey = [
       { key: 1 },
       { key: 2 },
