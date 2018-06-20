@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>empty-children.js - example - rc-queue-anim@1.6.2</title>
+  <title>empty-children.js - example - rc-queue-anim@1.6.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@1.6.2</h1>
+      <h1>rc-queue-anim@1.6.3</h1>
 
       <p>Queue animation component for react</p>
     </div>
@@ -274,46 +274,40 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <span class="hljs-keyword">import</span> React <span class="hljs-keyword">from</span> <span class="hljs-string">'react'</span>;
 <span class="hljs-keyword">import</span> ReactDom <span class="hljs-keyword">from</span> <span class="hljs-string">'react-dom'</span>;
 
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">QueueItem</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">QueueItem</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">div</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+  )</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Item</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  )</span>;
+}
+
+<span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Page1</span>(<span class="hljs-params"></span>) </span>{
+  <span class="hljs-keyword">return</span> (
+    <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{1500}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span> /&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span> /&gt;</span>
       <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-    )</span>;
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Item</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>Item<span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>;
-  }
-}
-
-<span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Page1</span> <span class="hljs-keyword">extends</span> <span class="hljs-title">React</span>.<span class="hljs-title">Component</span> </span>{
-  render() {
-    <span class="hljs-keyword">return</span> (
-      <span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">div</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{1500}</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span> /&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">Item</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span> /&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">hr</span> /&gt;</span>
-        <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{1500}</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
-          <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
-        <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
-      <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
-    )</span>;
-  }
+      <span class="hljs-tag">&lt;<span class="hljs-title">hr</span> /&gt;</span>
+      <span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> <span class="hljs-attribute">interval</span>=<span class="hljs-value">{1500}</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"1"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"2"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"3"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+        <span class="hljs-tag">&lt;<span class="hljs-title">QueueItem</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"4"</span>&gt;</span>11<span class="hljs-tag">&lt;/<span class="hljs-title">QueueItem</span>&gt;</span>
+      <span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span>
+    <span class="hljs-tag">&lt;/<span class="hljs-title">div</span>&gt;</span>
+  )</span>;
 }
 
 ReactDom.render(<span class="xml"><span class="hljs-tag">&lt;<span class="hljs-title">Page1</span> /&gt;</span>, document.getElementById('__react-content'));

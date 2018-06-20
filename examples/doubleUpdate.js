@@ -151,7 +151,9 @@ var App = function (_React$Component) {
             ' ',
             __WEBPACK_IMPORTED_MODULE_4_react___default.a.createElement(
               'a',
-              { href: '#', onClick: _this2.remove.bind(_this2, item.key) },
+              { href: '#', onClick: function onClick() {
+                  _this2.remove(item.key);
+                } },
               '\u5220\u9664'
             )
           );

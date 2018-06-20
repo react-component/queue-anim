@@ -2,7 +2,7 @@
 <html>
 
 <head>
-  <title>param-func.js - example - rc-queue-anim@1.6.2</title>
+  <title>param-func.js - example - rc-queue-anim@1.6.3</title>
   <meta name="viewport"
         content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
   <meta charset="utf-8"/>
@@ -263,7 +263,7 @@ Monokai Sublime style. Derived from Monokai by noformnocontent http://nn.mit-lic
 <body>
   <div class="container">
     <div class="header">
-      <h1>rc-queue-anim@1.6.2</h1>
+      <h1>rc-queue-anim@1.6.3</h1>
 
       <p>Queue animation component for react</p>
     </div>
@@ -313,18 +313,18 @@ class Page1 extends React.Component {
   }
   render() {
     return (&lt;div&gt;
-        &lt;button onClick={this.onClick}&gt;切换&lt;/button&gt;
-        &lt;QueueAnim interval={300} animConfig={this.animConfigFunc}
-          duration={this.durationFunc} ease={this.easeFunc}
-          delay={this.delayFunc}
-        &gt;
-          {this.state.show ? [&lt;div key="1"&gt;依次进入&lt;/div&gt;,
-            &lt;div key="2"&gt;依次进入&lt;/div&gt;,
-            &lt;div key="3"&gt;改变type&lt;/div&gt;,
-            &lt;div key="4"&gt;依次进入&lt;/div&gt;,
-            &lt;div key="5"&gt;依次进入&lt;/div&gt;] : null}
-        &lt;/QueueAnim&gt;
-      &lt;/div&gt;
+      &lt;button onClick={this.onClick}&gt;切换&lt;/button&gt;
+      &lt;QueueAnim interval={300} animConfig={this.animConfigFunc}
+        duration={this.durationFunc} ease={this.easeFunc}
+        delay={this.delayFunc}
+      &gt;
+        {this.state.show ? [&lt;div key="1"&gt;依次进入&lt;/div&gt;,
+          &lt;div key="2"&gt;依次进入&lt;/div&gt;,
+          &lt;div key="3"&gt;改变type&lt;/div&gt;,
+          &lt;div key="4"&gt;依次进入&lt;/div&gt;,
+          &lt;div key="5"&gt;依次进入&lt;/div&gt;] : null}
+      &lt;/QueueAnim&gt;
+    &lt;/div&gt;
     );
   }
 }
