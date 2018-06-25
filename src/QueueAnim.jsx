@@ -470,10 +470,10 @@ class QueueAnim extends React.Component {
     }
     const childrenShow = this.state.childrenShow;
     delete childrenShow[key];
+    delete this.saveTweenOneTag[key];
+    delete this.unwantedStart[key];
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
-      delete this.saveTweenOneTag[key];
-      delete this.unwantedStart[key];
     }
     const needLeave = this.keysToLeave.some(c => childrenShow[c]);
     if (!needLeave) {
