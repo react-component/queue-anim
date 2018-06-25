@@ -4478,10 +4478,10 @@ var _initialiseProps = function _initialiseProps() {
     }
     var childrenShow = _this5.state.childrenShow;
     delete childrenShow[key];
+    delete _this5.saveTweenOneTag[key];
+    delete _this5.unwantedStart[key];
     if (_this5.keysToLeave.indexOf(key) >= 0) {
       _this5.keysToLeave.splice(_this5.keysToLeave.indexOf(key), 1);
-      delete _this5.saveTweenOneTag[key];
-      delete _this5.unwantedStart[key];
     }
     var needLeave = _this5.keysToLeave.some(function (c) {
       return childrenShow[c];
