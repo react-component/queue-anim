@@ -4412,7 +4412,7 @@ var _initialiseProps = function _initialiseProps() {
     }
     var paused = _this5.keysToEnterPaused[key] && !_this5.keysToLeave.indexOf(key) >= 0;
     animation = paused ? null : animation;
-    var tag = Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["a" /* default */], { key: key, component: child.type, id: key, forcedJudg: forcedJudg, componentProps: child.props, animation: animation });
+    var tag = Object(__WEBPACK_IMPORTED_MODULE_5_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_7_rc_tween_one__["a" /* default */], { key: key, component: child.type, forcedJudg: forcedJudg, componentProps: child.props, animation: animation });
     _this5.saveTweenOneTag[key] = tag;
     return tag;
   };
