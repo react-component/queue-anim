@@ -146,7 +146,7 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 18);
+    }, 50);// tweenone 更新规则，去除 ticker 的 0 帧，改用直接运行，从原来的 18ms 调整为 50ms； 
   });
 
   it('should have interval', (done) => {
@@ -164,7 +164,7 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 18);
+    }, 50);
   });
 
   it('should have delay', (done) => {
@@ -184,7 +184,7 @@ describe('rc-queue-anim', () => {
           }, interval);
         }, interval);
       }, delay);
-    }, 18);
+    }, 50);
   });
 
   it('should have duration', (done) => {
@@ -201,7 +201,7 @@ describe('rc-queue-anim', () => {
         expect(getOpacity(children[1])).to.above(0.99);
         done();
       }, duration);
-    }, 18);
+    }, 50);
   });
 
   it('should have leave animation', (done) => {
@@ -218,7 +218,7 @@ describe('rc-queue-anim', () => {
           expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div').length).to.be(3);
           done();
         }, 500);
-      }, 18);
+      }, 50);
     }, interval * 3 + 500);
   });
 
@@ -234,7 +234,7 @@ describe('rc-queue-anim', () => {
       children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getLeft(children[1])).to.above(0);
       done();
-    }, 18);
+    }, 50);
   });
 
   it('should support custom animation config array', (done) => {
@@ -262,32 +262,35 @@ describe('rc-queue-anim', () => {
     let index = 0;
     let maxOpacity;
     const opacityArray = [];
-    const interval = ticker.interval(() => {
-      index += 1;
-      // 取第一个， 时间为 450 加间隔 100 ，，应该 550 为最高点。10不是最高点
-      const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-      const opacity = getOpacity(children);
-      if (!isNaN(opacity)) {
-        opacityArray.push(opacity);
-      }
-      console.log('time: ', index * 50, 'opacity: ',
-        opacity || 0, 'children is remove:', !children);
-      if (index === 10) {
-        instance.toggle();
-        console.log('toggle');
-      }
-      if (index === 11) {
-        // tweenOne 在改变动画后是在下一帧再启动改变后的动画，，
-        maxOpacity = opacity;
-      }
-      if (opacity >= 1 || opacity <= 0 || isNaN(opacity)) {
-        ticker.clear(interval);
-        console.log(maxOpacity);
-        opacityArray.forEach((o) => {
-          expect(maxOpacity >= o).to.be.ok();
-        });
-        done();
-      }
+    //
+    ticker.timeout(() => {
+      const interval = ticker.interval(() => {
+        index += 1;
+        // 取第一个， 时间为 450 加间隔 100 ，，应该 550 为最高点。10不是最高点
+        const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+        const opacity = getOpacity(children);
+        if (!isNaN(opacity)) {
+          opacityArray.push(opacity);
+        }
+        console.log('time: ', index * 50, 'opacity: ',
+          opacity || 0, 'children is remove:', !children);
+        if (index === 10) {
+          instance.toggle();
+          console.log('toggle');
+        }
+        if (index === 11) {
+          // tweenOne 在改变动画后是在下一帧再启动改变后的动画，，
+          maxOpacity = opacity;
+        }
+        if (opacity >= 1 || opacity <= 0 || isNaN(opacity)) {
+          ticker.clear(interval);
+          console.log(maxOpacity);
+          opacityArray.forEach((o) => {
+            expect(maxOpacity >= o).to.be.ok();
+          });
+          done();
+        }
+      }, 18);
     }, 18);
   });
 
@@ -309,9 +312,9 @@ describe('rc-queue-anim', () => {
             expect(children[removeIndex + 1].className).not.to.contain('queue-anim-leaving');
             done();
           }, 550);
-        }, 18);
+        }, 50);
       }, 550);
-    }, 18);
+    }, 50);
   });
 
   it('should has animating config is func enter', (done) => {
@@ -343,15 +346,15 @@ describe('rc-queue-anim', () => {
           expect(isNaN(getLeft(children[2]))).to.be.ok();
           console.log('top_end:', getTop(children[2]));
           done();
-        }, 518);// +18 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
+        }, 550);// +18 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
       }, interval);
       ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
         expect(getLeft(children[1])).to.above(99.99);
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left_end:', getLeft(children[1]));
-      }, 518);
-    }, 18);
+      }, 550);
+    }, 50);
   });
 
   it('should has animating config is func leave', (done) => {
@@ -391,6 +394,6 @@ describe('rc-queue-anim', () => {
           done();
         }, 500);
       }, 118);
-    }, 1018);
+    }, 1050);
   });
 });
