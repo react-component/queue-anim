@@ -4,7 +4,7 @@
 // Definitions: https://github.com/react-component/queue-anim
 import * as React from 'react';
 
-export type IQueueType = 'alpha' | 'left' | 'right' | 'top' | 'bottom' | 'scale' | 'scaleBig' | 'scaleX' | 'scaleY';
+export type IQueueType = 'alpha' | 'left' | 'right' | 'top' | 'bottom' | 'scale' | 'scaleBig' | 'scaleX' | 'scaleY'|[string, string];
 export type INumberOrArrayOrFunc = number | [number, number] | ((e: { key: string, index: number }) => number | [number, number]);
 export type IEaseType = 'linear' |
   'easeInSine' | 'easeOutSine' | 'easeInOutSine' |
