@@ -4,7 +4,7 @@
 // Definitions: https://github.com/react-component/queue-anim
 import * as React from 'react';
 
-export type IQueueType = 'alpha' | 'left' | 'right' | 'top' | 'bottom' | 'scale' | 'scaleBig' | 'scaleX' | 'scaleY'|[string, string];
+export type IQueueType = 'alpha' | 'left' | 'right' | 'top' | 'bottom' | 'scale' | 'scaleBig' | 'scaleX' | 'scaleY';
 export type INumberOrArrayOrFunc = number | [number, number] | ((e: { key: string, index: number }) => number | [number, number]);
 export type IEaseType = 'linear' |
   'easeInSine' | 'easeOutSine' | 'easeInOutSine' |
@@ -16,17 +16,20 @@ export type IEaseType = 'linear' |
   'easeInCirc' | 'easeOutCirc' | 'easeInOutCirc' |
   'easeInBack' | 'easeOutBack' | 'easeInOutBack' |
   'easeInElastic' | 'easeOutElastic' | 'easeInOutElastic' |
-  'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce' |
+  'easeInBounce' | 'easeOutBounce' | 'easeInOutBounce' | [number, number, number, number] |
   ((t: number, b: number, c: number, d: number) => number); // TweenOne ease path;
 
+export type IQueueTypeOrArrayOrFunc = IQueueType | [IQueueType, IQueueType] | ((e: { key: string, index: number }) => IQueueType | [IQueueType, IQueueType]);
+export type IEaseTypeOrArrayOrFunc = IEaseType | [IEaseType, IEaseType] | ((e: { key: string, index: number }) => IEaseType | [IEaseType, IEaseType]);
+export type IAnimConfigOrArrayOrFunc = {} | [{}] | ((e: { key: string, index: number }) => {} | [{}, {}]);
 export interface IProps {
-  type?: IQueueType;
-  animConfig?: {} | [{}];
+  type?: IQueueTypeOrArrayOrFunc;
+  animConfig?: IAnimConfigOrArrayOrFunc;
   delay?: INumberOrArrayOrFunc;
   duration?: INumberOrArrayOrFunc;
   interval?: INumberOrArrayOrFunc;
   leaveReverse?: boolean;
-  ease?: IEaseType;
+  ease?: IEaseTypeOrArrayOrFunc;
   appear?: boolean;
   component?: string | React.ReactNode;
   componentProps?: {};
