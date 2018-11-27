@@ -4267,7 +4267,7 @@ var _initialiseProps = function _initialiseProps() {
     elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
     _this5.tweenToEnter[key] = true;
     _this5.unwantedStart[key] = true;
-    _this5.props.onEnd({ key: key, type: 'enter' });
+    _this5.props.onEnd({ key: key, type: 'enter', target: elem });
   };
 
   this.leaveBegin = function (key, e) {
@@ -4305,7 +4305,7 @@ var _initialiseProps = function _initialiseProps() {
     }
     var elem = e.target;
     elem.className = elem.className.replace(_this5.props.animatingClassName[1], '').trim();
-    _this5.props.onEnd({ key: key, type: 'leave' });
+    _this5.props.onEnd({ key: key, type: 'leave', target: elem });
   };
 };
 

@@ -193,8 +193,8 @@ var App = function (_React$Component) {
               ' ',
               __WEBPACK_IMPORTED_MODULE_5_react___default.a.createElement(
                 'a',
-                { href: '#', onClick: function onClick() {
-                    _this2.remove(item.key);
+                { href: '#', onClick: function onClick(e) {
+                    _this2.remove(item.key, e);
                   } },
                 '\u5220\u9664'
               )
