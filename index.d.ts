@@ -35,7 +35,7 @@ export interface IProps {
   componentProps?: {};
   animatingClassName?: [string, string];
   forcedReplay?: boolean;
-  onEnd?: (e: { key: string, type: string }) => void;
+  onEnd?: (e: { key: string, type: string, target: HTMLElement }) => void;
 }
 
 export default class RcQueueAnim extends React.Component<IProps> { }

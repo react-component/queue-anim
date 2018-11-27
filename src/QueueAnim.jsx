@@ -449,7 +449,7 @@ class QueueAnim extends React.Component {
     elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     this.tweenToEnter[key] = true;
     this.unwantedStart[key] = true;
-    this.props.onEnd({ key, type: 'enter' });
+    this.props.onEnd({ key, type: 'enter', target: elem });
   }
 
   leaveBegin = (key, e) => {
@@ -485,7 +485,7 @@ class QueueAnim extends React.Component {
     }
     const elem = e.target;
     elem.className = elem.className.replace(this.props.animatingClassName[1], '').trim();
-    this.props.onEnd({ key, type: 'leave' });
+    this.props.onEnd({ key, type: 'leave', target: elem });
   }
 
   render() {
