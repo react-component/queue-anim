@@ -35,9 +35,9 @@ class App extends React.Component {
   }
 
   switch = () => {
-    this.setState({
-      items: this.state.items.length ? [] : this.items,
-    });
+    this.setState(state => ({
+      items: state.items.length ? [] : this.items,
+    }));
   }
   remove = () => {
     console.log('remove: 1');
