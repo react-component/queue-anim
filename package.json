@@ -1,6 +1,6 @@
 {
   "name": "rc-queue-anim",
-  "version": "1.6.9",
+  "version": "1.6.10",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
@@ -60,7 +60,6 @@
     "prettier": "rc-tools run prettier",
     "chrome-test": "rc-test run chrome-test",
     "coverage": "rc-test run coverage",
-    "postinstall": "rc-tools run init-tslint && rc-tools run init-eslint",
     "validate": "npm ls"
   },
   "devDependencies": {
