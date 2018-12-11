@@ -78,15 +78,12 @@ class QueueAnim extends React.Component {
      */
     this.saveTweenOneTag = {};
     /**
-     * @param unwantedStart;
+     * @param childrenShow;
      * 记录 animation 里是否需要 startAnim;
-     * 修复进场时, 时间不准的问题；
-     * -> 进: 需要；
-     * -> 进 -> 进: 需要；
-     * -> 进 -> 出: 不需要;
-     * -> 进 -> 出 -> 进: 不需要;
+     * 当前元素是否处在显示状态
+     * enterBegin 到 leaveComplete 之前都处于显示状态
      */
-    this.unwantedStart = {};
+    this.childrenShow = {};
     /**
      * @param keysToEnter;
      * 记录进场的 key;
@@ -223,6 +220,8 @@ class QueueAnim extends React.Component {
       const hasNext = findChildInChildrenByKey(nextChildren, key);
       if (!hasNext && key) {
         this.keysToLeave.push(key);
+        ticker.clear(this.placeholderTimeoutIds[key]);
+        delete this.placeholderTimeoutIds[key];
       }
     });
     this.keysToEnterToCallback = [...this.keysToEnter];
@@ -242,6 +241,7 @@ class QueueAnim extends React.Component {
     });
     this.keysToEnter = [];
     this.keysToLeave = [];
+    this.childrenShow = {};
   }
 
   getTweenType(type, num) {
@@ -291,7 +291,7 @@ class QueueAnim extends React.Component {
     return { startAnim, animate, ease, duration, isArray: Array.isArray(animate) };
   };
 
-  getTweenSingleData = (key, startAnim, animate, ease, duration, delay, onStart, onComplete) => {
+  getTweenSingleData = (startAnim, animate, ease, duration, delay, onStart, onComplete) => {
     const startLength = Object.keys(startAnim || {}).length;
     const animation = {
       onStart,
@@ -417,7 +417,7 @@ class QueueAnim extends React.Component {
         });
       }
     }
-    const paused = this.keysToEnterPaused[key] && !this.keysToLeave.indexOf(key) >= 0;
+    const paused = this.keysToEnterPaused[key] && this.keysToLeave.indexOf(key) === -1;
     animation = paused ? null : animation;
     const tag = createElement(TweenOne, {
       key,
@@ -463,7 +463,8 @@ class QueueAnim extends React.Component {
     if (elem.className.indexOf(animatingClassName[0]) === -1) {
       elem.className = `${elem.className} ${animatingClassName[0]}`.trim();
     }
-  };
+    this.childrenShow[key] = true;
+  }
 
   enterComplete = (key, e) => {
     if (this.keysToEnterPaused[key] || this.keysToLeave.indexOf(key) >= 0) {
@@ -472,7 +473,6 @@ class QueueAnim extends React.Component {
     const elem = e.target;
     elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     this.tweenToEnter[key] = true;
-    this.unwantedStart[key] = true;
     this.props.onEnd({ key, type: 'enter', target: elem });
   };
 
@@ -483,7 +483,6 @@ class QueueAnim extends React.Component {
     if (elem.className.indexOf(animatingClassName[1]) === -1) {
       elem.className = `${elem.className} ${animatingClassName[1]}`.trim();
     }
-    this.unwantedStart[key] = true;
     delete this.tweenToEnter[key];
   };
 
@@ -495,7 +494,7 @@ class QueueAnim extends React.Component {
     const childrenShow = this.state.childrenShow;
     delete childrenShow[key];
     delete this.saveTweenOneTag[key];
-    delete this.unwantedStart[key];
+    delete this.childrenShow[key];
     if (this.keysToLeave.indexOf(key) >= 0) {
       this.keysToLeave.splice(this.keysToLeave.indexOf(key), 1);
     }
