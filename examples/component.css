@@ -1,11 +1,11 @@
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
-/* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */
+/* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
 /* stylelint-disable at-rule-no-unknown */
 @font-face {
-  font-family: "Chinese Quote";
-  src: local("PingFang SC"), local("SimSun");
+  font-family: 'Chinese Quote';
+  src: local('PingFang SC'), local('SimSun');
   unicode-range: U+2018, U+2019, U+201c, U+201d;
 }
 html,
@@ -55,7 +55,7 @@ body {
   color: rgba(0, 0, 0, 0.65);
   background-color: #fff;
 }
-[tabindex="-1"]:focus {
+[tabindex='-1']:focus {
   outline: none !important;
 }
 hr {
@@ -70,7 +70,7 @@ h4,
 h5,
 h6 {
   margin-top: 0;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   color: rgba(0, 0, 0, 0.85);
   font-weight: 500;
 }
@@ -90,9 +90,9 @@ address {
   font-style: normal;
   line-height: inherit;
 }
-input[type="text"],
-input[type="password"],
-input[type="number"],
+input[type='text'],
+input[type='password'],
+input[type='number'],
 textarea {
   -webkit-appearance: none;
 }
@@ -112,7 +112,7 @@ dt {
   font-weight: 500;
 }
 dd {
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   margin-left: 0;
 }
 blockquote {
@@ -147,7 +147,7 @@ a {
   text-decoration: none;
   outline: none;
   cursor: pointer;
-  transition: color .3s;
+  transition: color 0.3s;
   -webkit-text-decoration-skip: objects;
 }
 a:focus {
@@ -196,8 +196,8 @@ svg:not(:root) {
 a,
 area,
 button,
-[role="button"],
-input:not([type=range]),
+[role='button'],
+input:not([type='range']),
 label,
 select,
 summary,
@@ -209,8 +209,8 @@ table {
   border-collapse: collapse;
 }
 caption {
-  padding-top: .75em;
-  padding-bottom: .3em;
+  padding-top: 0.75em;
+  padding-bottom: 0.3em;
   color: rgba(0, 0, 0, 0.45);
   text-align: left;
   caption-side: bottom;
@@ -244,21 +244,21 @@ html [type="button"],
   -webkit-appearance: button;
 }
 button::-moz-focus-inner,
-[type="button"]::-moz-focus-inner,
-[type="reset"]::-moz-focus-inner,
-[type="submit"]::-moz-focus-inner {
+[type='button']::-moz-focus-inner,
+[type='reset']::-moz-focus-inner,
+[type='submit']::-moz-focus-inner {
   padding: 0;
   border-style: none;
 }
-input[type="radio"],
-input[type="checkbox"] {
+input[type='radio'],
+input[type='checkbox'] {
   box-sizing: border-box;
   padding: 0;
 }
-input[type="date"],
-input[type="time"],
-input[type="datetime-local"],
-input[type="month"] {
+input[type='date'],
+input[type='time'],
+input[type='datetime-local'],
+input[type='month'] {
   -webkit-appearance: listbox;
 }
 textarea {
@@ -276,7 +276,7 @@ legend {
   width: 100%;
   max-width: 100%;
   padding: 0;
-  margin-bottom: .5em;
+  margin-bottom: 0.5em;
   font-size: 1.5em;
   line-height: inherit;
   color: inherit;
@@ -285,16 +285,16 @@ legend {
 progress {
   vertical-align: baseline;
 }
-[type="number"]::-webkit-inner-spin-button,
-[type="number"]::-webkit-outer-spin-button {
+[type='number']::-webkit-inner-spin-button,
+[type='number']::-webkit-outer-spin-button {
   height: auto;
 }
-[type="search"] {
+[type='search'] {
   outline-offset: -2px;
   -webkit-appearance: none;
 }
-[type="search"]::-webkit-search-cancel-button,
-[type="search"]::-webkit-search-decoration {
+[type='search']::-webkit-search-cancel-button,
+[type='search']::-webkit-search-decoration {
   -webkit-appearance: none;
 }
 ::-webkit-file-upload-button {
@@ -314,7 +314,7 @@ template {
   display: none !important;
 }
 mark {
-  padding: .2em;
+  padding: 0.2em;
   background-color: #feffe6;
 }
 ::-moz-selection {
@@ -330,7 +330,7 @@ mark {
 }
 .clearfix:before,
 .clearfix:after {
-  content: "";
+  content: '';
   display: table;
 }
 .clearfix:after {
@@ -342,13 +342,16 @@ mark {
   vertical-align: -0.125em;
   text-align: center;
   text-transform: none;
-  line-height: 1;
+  line-height: 0;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+.anticon > * {
+  line-height: 1;
+}
 .anticon svg {
-  display: block;
+  display: inline-block;
 }
 .anticon:before {
   display: none;
@@ -1237,7 +1240,7 @@ mark {
 }
 /* stylelint-disable at-rule-empty-line-before,at-rule-name-space-after,at-rule-no-unknown */
 /* stylelint-disable no-duplicate-selectors */
-/* stylelint-disable declaration-bang-space-before,no-duplicate-selectors */
+/* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
 .ant-menu {
   font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
@@ -1255,12 +1258,12 @@ mark {
   color: rgba(0, 0, 0, 0.65);
   background: #fff;
   line-height: 0;
-  transition: background .3s, width .2s;
+  transition: background 0.3s, width 0.2s;
   zoom: 1;
 }
 .ant-menu:before,
 .ant-menu:after {
-  content: "";
+  content: '';
   display: table;
 }
 .ant-menu:after {
@@ -1280,7 +1283,7 @@ mark {
   font-size: 14px;
   line-height: 1.5;
   padding: 8px 16px;
-  transition: all .3s;
+  transition: all 0.3s;
 }
 .ant-menu-submenu,
 .ant-menu-submenu-inline {
@@ -1420,6 +1423,7 @@ mark {
   position: absolute;
   border-radius: 4px;
   z-index: 1050;
+  background: #fff;
 }
 .ant-menu-submenu-popup .submenu-title-wrapper {
   padding-right: 20px;
@@ -1427,11 +1431,11 @@ mark {
 .ant-menu-submenu-popup:before {
   position: absolute;
   top: -7px;
-  left: -6px;
-  right: -6px;
+  left: 0;
+  right: 0;
   bottom: 0;
   content: ' ';
-  opacity: .0001;
+  opacity: 0.0001;
 }
 .ant-menu-submenu > .ant-menu {
   background-color: #fff;
@@ -1555,7 +1559,7 @@ mark {
   color: #1890ff;
 }
 .ant-menu-horizontal:after {
-  content: " ";
+  content: ' ';
   display: block;
   height: 0;
   clear: both;
@@ -1570,7 +1574,7 @@ mark {
 .ant-menu-vertical-left .ant-menu-item:after,
 .ant-menu-vertical-right .ant-menu-item:after,
 .ant-menu-inline .ant-menu-item:after {
-  content: "";
+  content: '';
   position: absolute;
   right: 0;
   top: 0;
@@ -1745,8 +1749,8 @@ mark {
 }
 .ant-menu-dark .ant-menu-submenu-title .ant-menu-submenu-arrow,
 .ant-menu-dark .ant-menu-sub .ant-menu-submenu-title .ant-menu-submenu-arrow {
-  opacity: .45;
-  transition: all .3s;
+  opacity: 0.45;
+  transition: all 0.3s;
 }
 .ant-menu-dark .ant-menu-submenu-title .ant-menu-submenu-arrow:after,
 .ant-menu-dark .ant-menu-sub .ant-menu-submenu-title .ant-menu-submenu-arrow:after,

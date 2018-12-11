@@ -44,8 +44,10 @@ var App = function (_React$Component) {
     var _this = __WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_possibleConstructorReturn___default()(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this, props));
 
     _this['switch'] = function () {
-      _this.setState({
-        items: _this.state.items.length ? [] : _this.items
+      _this.setState(function (state) {
+        return {
+          items: state.items.length ? [] : _this.items
+        };
       });
     };
 
