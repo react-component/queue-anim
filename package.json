@@ -53,7 +53,7 @@
     "start": "rc-tools run server",
     "compile": "rc-tools run compile --babel-runtime",
     "pub": "rc-tools run pub --babel-runtime",
-    "lint": "rc-tools run lint",
+    "lint": "rc-tools run lint -fix",
     "karma": "rc-test run karma",
     "saucelabs": "rc-test run saucelabs",
     "test": "rc-test run test",

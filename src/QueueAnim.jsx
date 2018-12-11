@@ -278,7 +278,7 @@ class QueueAnim extends React.Component {
     let startAnim = this.getAnimData(props, key, i, enterOrLeave, start);
     const animate = this.getAnimData(props, key, i, enterOrLeave, end);
     startAnim =
-      type === 'enter' && (props.forcedReplay || !this.unwantedStart[key]) ? startAnim : null;
+      type === 'enter' && (props.forcedReplay || !this.childrenShow[key]) ? startAnim : null;
     let ease = transformArguments(props.ease, key, i)[enterOrLeave];
     const duration = transformArguments(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
@@ -318,7 +318,6 @@ class QueueAnim extends React.Component {
       animate.forEach((leave, ii) => {
         const start = startAnim && startAnim[ii];
         const animObj = this.getTweenSingleData(
-          key,
           start,
           leave,
           animateData.ease,
@@ -335,7 +334,6 @@ class QueueAnim extends React.Component {
       return startArray.concat(animation);
     }
     animateData = this.getTweenSingleData(
-      key,
       startAnim,
       animate,
       animateData.ease,
