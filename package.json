@@ -77,6 +77,8 @@
     "react-router": "~4.1.0",
     "react-router-dom": "^4.1.0",
     "react-test-renderer": "^16.0.0",
+    "tslint-config-prettier": "^1.17.0",
+    "tslint-react": "^3.6.0",
     "typescript": "3.x"
   },
   "dependencies": {

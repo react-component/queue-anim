@@ -148,7 +148,7 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 50); // tweenone 更新规则，去除 ticker 的 0 帧，改用直接运行，从原来的 18ms 调整为 50ms；
+    }, 55); // tweenone 更新规则，去除 ticker 的 0 帧，改用直接运行，从原来的 18ms 调整为 55ms；
   });
 
   it('should have interval', done => {
@@ -166,7 +166,7 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 50);
+    }, 55);
   });
 
   it('should have delay', done => {
@@ -186,7 +186,7 @@ describe('rc-queue-anim', () => {
           }, interval);
         }, interval);
       }, delay);
-    }, 50);
+    }, 55);
   });
 
   it('should have duration', done => {
@@ -203,7 +203,7 @@ describe('rc-queue-anim', () => {
         expect(getOpacity(children[1])).to.above(0.99);
         done();
       }, duration);
-    }, 50);
+    }, 55);
   });
 
   it('should have leave animation', done => {
@@ -220,7 +220,7 @@ describe('rc-queue-anim', () => {
           expect(TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div').length).to.be(3);
           done();
         }, 500);
-      }, 50);
+      }, 55);
     }, interval * 3 + 500);
   });
 
@@ -236,7 +236,7 @@ describe('rc-queue-anim', () => {
       children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
       expect(getLeft(children[1])).to.above(0);
       done();
-    }, 50);
+    }, 55);
   });
 
   it('should support custom animation config array', done => {
@@ -318,9 +318,9 @@ describe('rc-queue-anim', () => {
             expect(children[removeIndex + 1].className).not.to.contain('queue-anim-leaving');
             done();
           }, 550);
-        }, 50);
+        }, 55);
       }, 550);
-    }, 50);
+    }, 55);
   });
 
   it('should has animating config is func enter', done => {
@@ -360,7 +360,7 @@ describe('rc-queue-anim', () => {
         expect(isNaN(getTop(children[1]))).to.be.ok();
         console.log('left_end:', getLeft(children[1]));
       }, 550);
-    }, 50);
+    }, 55);
   });
 
   it('should has animating config is func leave', done => {
@@ -400,6 +400,6 @@ describe('rc-queue-anim', () => {
           done();
         }, 500);
       }, 118);
-    }, 1050);
+    }, 1055);
   });
 });
