@@ -6,6 +6,8 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [![NPM version][npm-image]][npm-url]
 [![build status][travis-image]][travis-url]
 [![Test coverage][coveralls-image]][coveralls-url]
+[![Total alerts][lgtm-alerts-image]][lgtm-alerts-url]
+[![Language grade: JavaScript][lgtm-grade-image]][lgtm-grade-url]
 [![node version][node-image]][node-url]
 [![npm download][download-image]][download-url]
 
@@ -15,6 +17,10 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [travis-url]: https://travis-ci.org/react-component/queue-anim
 [coveralls-image]: https://img.shields.io/coveralls/react-component/queue-anim.svg?style=flat-square
 [coveralls-url]: https://coveralls.io/r/react-component/queue-anim?branch=master
+[lgtm-alerts-image]: https://img.shields.io/lgtm/alerts/g/react-component/queue-anim.svg?logo=lgtm&logoWidth=18&style=flat-square
+[lgtm-alerts-url]: https://lgtm.com/projects/g/react-component/queue-anim/alerts/
+[lgtm-grade-image]: https://img.shields.io/lgtm/grade/javascript/g/react-component/queue-anim.svg?logo=lgtm&logoWidth=18&style=flat-square
+[lgtm-grade-url]: https://lgtm.com/projects/g/react-component/queue-anim/context:javascript
 [node-image]: https://img.shields.io/badge/node.js-%3E=_0.10-green.svg?style=flat-square
 [node-url]: http://nodejs.org/download/
 [download-image]: https://img.shields.io/npm/dm/rc-queue-anim.svg?style=flat-square
