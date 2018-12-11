@@ -1,9 +1,31 @@
 {
   "compilerOptions": {
-    "strictNullChecks": true,
-    "moduleResolution": "node",
+    "outDir": "build/dist",
+    "module": "esnext",
+    "target": "es2016",
+    "lib": ["es6", "dom"],
+    "sourceMap": true,
     "jsx": "react",
-    "target": "es6",
-    "noImplicitAny": true
-  }
+    "allowSyntheticDefaultImports": true,
+    "moduleResolution": "node",
+    "rootDirs": ["/src", "./typings"],
+    "forceConsistentCasingInFileNames": true,
+    "noImplicitReturns": true,
+    "suppressImplicitAnyIndexErrors": true,
+    "noUnusedLocals": true,
+    "allowJs": true,
+    "experimentalDecorators": true
+  },
+  "include": ["./src"],
+  "exclude": [
+    "node_modules",
+    "build",
+    "scripts",
+    "acceptance-tests",
+    "webpack",
+    "jest",
+    "src/setupTests.ts",
+    "tslint:latest",
+    "tslint-config-prettier"
+  ]
 }

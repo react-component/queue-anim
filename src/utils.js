@@ -3,7 +3,7 @@ import React from 'react';
 
 export function toArrayChildren(children) {
   const ret = [];
-  React.Children.forEach(children, (c) => {
+  React.Children.forEach(children, c => {
     ret.push(c);
   });
   return ret;
@@ -12,7 +12,7 @@ export function toArrayChildren(children) {
 export function findChildInChildrenByKey(children, key) {
   let ret = null;
   if (children) {
-    children.forEach((c) => {
+    children.forEach(c => {
       if (ret || !c) {
         return;
       }
@@ -31,7 +31,7 @@ export function mergeChildren(prev, next) {
   const nextChildrenPending = {};
   let pendingChildren = [];
   let followChildrenKey;
-  prev.forEach((c) => {
+  prev.forEach(c => {
     if (!c) {
       return;
     }
@@ -48,7 +48,7 @@ export function mergeChildren(prev, next) {
   if (!followChildrenKey) {
     ret = ret.concat(pendingChildren);
   }
-  next.forEach((c) => {
+  next.forEach(c => {
     if (!c) {
       return;
     }

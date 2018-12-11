@@ -20,7 +20,7 @@ export default () => (
     ease="easeInOutCirc"
     leaveReverse={false}
     componentProps={{ id: 'Test' }}
-    onEnd={({ key, type, target }) => { }}
+    onEnd={() => null}
   >
     <div key="0">test</div>
     <div key="1">test</div>

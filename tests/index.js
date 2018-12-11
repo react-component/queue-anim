@@ -55,51 +55,53 @@ describe('rc-queue-anim', () => {
       state = {
         show: true,
         unMount: false,
-        items: [{
-          key: 1,
-          content: 'div',
-        }, {
-          key: 2,
-          content: 'div',
-        }, {
-          key: 3,
-          content: 'div',
-        }],
-      }
+        items: [
+          {
+            key: 1,
+            content: 'div',
+          },
+          {
+            key: 2,
+            content: 'div',
+          },
+          {
+            key: 3,
+            content: 'div',
+          },
+        ],
+      };
       toggle = () => {
         this.setState({
           show: !this.state.show,
         });
-      }
+      };
       unMountQueue = () => {
         this.setState({
           unMount: true,
         });
-      }
+      };
       removeOne = () => {
         const items = this.state.items;
         const removeIndex = 0;
         items.splice(removeIndex, 1);
         this.setState({ items });
         return removeIndex;
-      }
+      };
       render() {
         return (
           <section>
-            {!this.state.unMount ? <QueueAnim {...props}>
-              {
-                this.state.show ?
-                  this.state.items.map((item) =>
-                    <div key={item.key}
-                      style={{ position: 'relative' }}
-                    >
-                      {item.content}
-                    </div>
-                  ) :
-                  null
-              }
-              {null}
-            </QueueAnim> : null}
+            {!this.state.unMount ? (
+              <QueueAnim {...props}>
+                {this.state.show
+                  ? this.state.items.map(item => (
+                      <div key={item.key} style={{ position: 'relative' }}>
+                        {item.content}
+                      </div>
+                    ))
+                  : null}
+                {null}
+              </QueueAnim>
+            ) : null}
           </section>
         );
       }
@@ -133,7 +135,7 @@ describe('rc-queue-anim', () => {
     expect(children.length).to.be(4);
   });
 
-  it('should have queue animation', (done) => {
+  it('should have queue animation', done => {
     const interval = defaultInterval;
     const instance = createQueueAnimInstance();
     shouldAnimatingThisOne(instance, 0);
@@ -146,10 +148,10 @@ describe('rc-queue-anim', () => {
           done();
         }, interval);
       }, interval);
-    }, 50);// tweenone 更新规则，去除 ticker 的 0 帧，改用直接运行，从原来的 18ms 调整为 50ms； 
+    }, 50); // tweenone 更新规则，去除 ticker 的 0 帧，改用直接运行，从原来的 18ms 调整为 50ms；
   });
 
-  it('should have interval', (done) => {
+  it('should have interval', done => {
     const interval = 300;
     const instance = createQueueAnimInstance({
       interval,
@@ -167,7 +169,7 @@ describe('rc-queue-anim', () => {
     }, 50);
   });
 
-  it('should have delay', (done) => {
+  it('should have delay', done => {
     const interval = defaultInterval;
     const delay = 1000;
     const instance = createQueueAnimInstance({ delay });
@@ -187,7 +189,7 @@ describe('rc-queue-anim', () => {
     }, 50);
   });
 
-  it('should have duration', (done) => {
+  it('should have duration', done => {
     const duration = 600;
     const instance = createQueueAnimInstance({
       duration,
@@ -204,7 +206,7 @@ describe('rc-queue-anim', () => {
     }, 50);
   });
 
-  it('should have leave animation', (done) => {
+  it('should have leave animation', done => {
     const interval = defaultInterval;
     const instance = createQueueAnimInstance();
     ticker.timeout(() => {
@@ -222,7 +224,7 @@ describe('rc-queue-anim', () => {
     }, interval * 3 + 500);
   });
 
-  it('should support custom animation config', (done) => {
+  it('should support custom animation config', done => {
     const instance = createQueueAnimInstance({
       animConfig: {
         left: [100, 0],
@@ -237,11 +239,9 @@ describe('rc-queue-anim', () => {
     }, 50);
   });
 
-  it('should support custom animation config array', (done) => {
+  it('should support custom animation config array', done => {
     const instance = createQueueAnimInstance({
-      animConfig: [
-        [{ left: [100, 0] }, { top: [100, 0] }],
-      ],
+      animConfig: [[{ left: [100, 0] }, { top: [100, 0] }]],
     });
     let children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
     expect(isNaN(children[1])).to.be.ok();
@@ -255,7 +255,7 @@ describe('rc-queue-anim', () => {
     }, 1030);
   });
 
-  it('should support animation when change direction at animating', (done) => {
+  it('should support animation when change direction at animating', done => {
     const instance = createQueueAnimInstance({
       leaveReverse: true,
     });
@@ -272,8 +272,14 @@ describe('rc-queue-anim', () => {
         if (!isNaN(opacity)) {
           opacityArray.push(opacity);
         }
-        console.log('time: ', index * 50, 'opacity: ',
-          opacity || 0, 'children is remove:', !children);
+        console.log(
+          'time: ',
+          index * 50,
+          'opacity: ',
+          opacity || 0,
+          'children is remove:',
+          !children,
+        );
         if (index === 10) {
           instance.toggle();
           console.log('toggle');
@@ -285,7 +291,7 @@ describe('rc-queue-anim', () => {
         if (opacity >= 1 || opacity <= 0 || isNaN(opacity)) {
           ticker.clear(interval);
           console.log(maxOpacity);
-          opacityArray.forEach((o) => {
+          opacityArray.forEach(o => {
             expect(maxOpacity >= o).to.be.ok();
           });
           done();
@@ -294,7 +300,7 @@ describe('rc-queue-anim', () => {
     }, 18);
   });
 
-  it('should has animating className', (done) => {
+  it('should has animating className', done => {
     const instance = createQueueAnimInstance({
       ease: 'easeInElastic',
     });
@@ -317,7 +323,7 @@ describe('rc-queue-anim', () => {
     }, 50);
   });
 
-  it('should has animating config is func enter', (done) => {
+  it('should has animating config is func enter', done => {
     const interval = defaultInterval;
     const instance = createQueueAnimInstance({
       animConfig(e) {
@@ -346,7 +352,7 @@ describe('rc-queue-anim', () => {
           expect(isNaN(getLeft(children[2]))).to.be.ok();
           console.log('top_end:', getTop(children[2]));
           done();
-        }, 550);// +18 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
+        }, 550); // +18 帧为 tween-one 补帧。。。。complete 在时间结束后下一帧跟上。
       }, interval);
       ticker.timeout(() => {
         children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div');
@@ -357,7 +363,7 @@ describe('rc-queue-anim', () => {
     }, 50);
   });
 
-  it('should has animating config is func leave', (done) => {
+  it('should has animating config is func leave', done => {
     const instance = createQueueAnimInstance({
       animConfig(e) {
         if (e.index === 1) {

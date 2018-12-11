@@ -57,16 +57,18 @@
     "karma": "rc-test run karma",
     "saucelabs": "rc-test run saucelabs",
     "test": "rc-test run test",
+    "prettier": "rc-tools run prettier",
     "chrome-test": "rc-test run chrome-test",
-    "coverage": "rc-test run coverage"
+    "coverage": "rc-test run coverage",
+    "postinstall": "rc-tools run init-tslint && rc-tools run init-eslint",
+    "validate": "npm ls"
   },
   "devDependencies": {
     "@types/react": "^16.0.0",
     "antd": "3.x",
     "core-js": "^2.5.1",
     "expect.js": "0.3.x",
-    "pre-commit": "1.x",
-    "precommit-hook": "1.x",
+    "precommit-hook": "^3.0.0",
     "rc-dialog": "~7.0.4",
     "rc-test": "6.x",
     "rc-tools": "8.x",
@@ -77,13 +79,14 @@
     "react-test-renderer": "^16.0.0",
     "typescript": "3.x"
   },
-  "precommit": [
-    "lint"
-  ],
   "dependencies": {
     "babel-runtime": "6.x",
     "prop-types": "^15.6.0",
     "rc-tween-one": "^2.2.8"
   },
-  "types": "index.d.ts"
+  "types": "index.d.ts",
+  "pre-commit": [
+    "lint",
+    "test"
+  ]
 }
