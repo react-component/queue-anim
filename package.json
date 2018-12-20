@@ -70,7 +70,7 @@
     "precommit-hook": "^3.0.0",
     "rc-dialog": "~7.0.4",
     "rc-test": "6.x",
-    "rc-tools": "8.x",
+    "rc-tools": "9.x",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
     "react-router": "~4.1.0",
