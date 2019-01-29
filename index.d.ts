@@ -22,7 +22,7 @@ export type IEaseType = 'linear' |
 export type IQueueTypeOrArrayOrFunc = IQueueType | [IQueueType, IQueueType] | ((e: { key: string, index: number }) => IQueueType | [IQueueType, IQueueType]);
 export type IEaseTypeOrArrayOrFunc = IEaseType | [IEaseType, IEaseType] | ((e: { key: string, index: number }) => IEaseType | [IEaseType, IEaseType]);
 export type IAnimConfigOrArrayOrFunc = {} | [{}] | ((e: { key: string, index: number }) => {} | [{}, {}]);
-export interface IProps {
+export interface IProps<T> extends React.HTMLAttributes<T> {
   type?: IQueueTypeOrArrayOrFunc;
   animConfig?: IAnimConfigOrArrayOrFunc;
   delay?: INumberOrArrayOrFunc;
@@ -39,4 +39,4 @@ export interface IProps {
   onEnd?: (e: { key: string, type: string, target: HTMLElement }) => void;
 }
 
-export default class RcQueueAnim extends React.Component<IProps> { }
+export default class RcQueueAnim<T> extends React.Component<IProps<T>> { }
