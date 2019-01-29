@@ -152,8 +152,7 @@ a {
 }
 a:focus {
   text-decoration: underline;
-  -webkit-text-decoration-skip: ink;
-          text-decoration-skip: ink;
+  text-decoration-skip-ink: auto;
 }
 a:hover {
   color: #40a9ff;
@@ -358,6 +357,9 @@ mark {
 }
 .anticon .anticon-icon {
   display: block;
+}
+.anticon[tabindex] {
+  cursor: pointer;
 }
 .anticon-spin:before {
   display: inline-block;
@@ -629,11 +631,11 @@ mark {
     transform: rotate(360deg);
   }
 }
-[ant-click-animating],
-[ant-click-animating-without-extra-node] {
+[ant-click-animating='true'],
+[ant-click-animating-without-extra-node='true'] {
   position: relative;
 }
-[ant-click-animating-without-extra-node]:after,
+[ant-click-animating-without-extra-node='true']:after,
 .ant-click-animating-node {
   content: '';
   position: absolute;
@@ -1243,7 +1245,6 @@ mark {
 /* stylelint-disable */
 /* stylelint-disable declaration-bang-space-before,no-duplicate-selectors,string-no-newline */
 .ant-menu {
-  font-family: "Chinese Quote", -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", "Helvetica Neue", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   font-variant: tabular-nums;
   line-height: 1.5;
