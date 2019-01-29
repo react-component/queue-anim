@@ -34,6 +34,7 @@ export interface IProps {
   component?: string | React.ReactNode;
   componentProps?: {};
   animatingClassName?: [string, string];
+  className?: string;
   forcedReplay?: boolean;
   onEnd?: (e: { key: string, type: string, target: HTMLElement }) => void;
 }
