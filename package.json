@@ -83,7 +83,7 @@
   "dependencies": {
     "babel-runtime": "6.x",
     "prop-types": "^15.6.0",
-    "rc-tween-one": "^2.2.8"
+    "rc-tween-one": "^2.3.2"
   },
   "types": "index.d.ts",
   "pre-commit": [
