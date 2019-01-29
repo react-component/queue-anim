@@ -34,7 +34,6 @@ export interface IProps<T> extends React.HTMLAttributes<T> {
   component?: string | React.ReactNode;
   componentProps?: {};
   animatingClassName?: [string, string];
-  className?: string;
   forcedReplay?: boolean;
   onEnd?: (e: { key: string, type: string, target: HTMLElement }) => void;
 }
