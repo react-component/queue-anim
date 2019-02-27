@@ -5,7 +5,6 @@ import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
 import TestUtils from 'react-dom/test-utils';
-import ticker from 'rc-tween-one/lib/ticker';
 import QueueAnim from '../src';
 
 const defaultInterval = 100;
@@ -15,21 +14,21 @@ describe('rc-queue-anim', () => {
 
   function getOpacity(node) {
     if (!node) {
-      return null;
+      return NaN;
     }
     return parseFloat(window.getComputedStyle(node).opacity);
   }
 
   function getLeft(node) {
     if (!node) {
-      return null;
+      return NaN;
     }
     return parseFloat(node.style.left);
   }
 
   function getTop(node) {
     if (!node) {
-      return null;
+      return NaN;
     }
     return parseFloat(node.style.top);
   }
@@ -262,42 +261,36 @@ describe('rc-queue-anim', () => {
     let index = 0;
     let maxOpacity;
     const opacityArray = [];
-    //
-    setTimeout(() => {
-      const interval = ticker.interval(() => {
-        index += 1;
-        // 取第一个， 时间为 450 加间隔 100 ，，应该 550 为最高点。10不是最高点
-        const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
-        const opacity = getOpacity(children);
-        if (!isNaN(opacity)) {
-          opacityArray.push(opacity);
-        }
-        console.log(
-          'time: ',
-          index * 50,
-          'opacity: ',
-          opacity || 0,
-          'children is remove:',
-          !children,
-        );
-        if (index === 10) {
-          instance.toggle();
-          console.log('toggle');
-        }
-        if (index === 11) {
-          // tweenOne 在改变动画后是在下一帧再启动改变后的动画，，
-          maxOpacity = opacity;
-        }
-        if (opacity >= 1 || opacity <= 0 || isNaN(opacity)) {
-          ticker.clear(interval);
-          console.log(maxOpacity);
-          opacityArray.forEach(o => {
-            expect(maxOpacity >= o).to.be.ok();
-          });
-          done();
-        }
-      }, 18);
-    }, 18);
+    const interval = setInterval(() => {
+      index += 1;
+      // 取第一个， 时间为 450 加间隔 100 ，，应该 550 为最高点。10不是最高点
+      const children = TestUtils.scryRenderedDOMComponentsWithTag(instance, 'div')[1];
+      const opacity = getOpacity(children);
+      if (!isNaN(opacity)) {
+        opacityArray.push(opacity);
+      }
+      console.log(
+        'time: ',
+        index * 50,
+        'opacity: ',
+        opacity || 0,
+        'children is remove:',
+        !children,
+      );
+      if (index === 9) {
+        instance.toggle();
+        maxOpacity = opacity;
+        console.log('toggle');
+      }
+      if (opacity >= 1 || opacity <= 0 || isNaN(opacity)) {
+        clearInterval(interval);
+        console.log(maxOpacity);
+        opacityArray.forEach(o => {
+          expect(maxOpacity >= o).to.be.ok();
+        });
+        done();
+      }
+    }, 50);
   });
 
   it('should has animating className', done => {

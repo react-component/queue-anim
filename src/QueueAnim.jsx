@@ -57,11 +57,6 @@ class QueueAnim extends React.Component {
   constructor(props) {
     super(props);
     /**
-     * @param oneEnter
-     * 记录第一次进入;
-     */
-    this.oneEnter = false;
-    /**
      * @param tweenToEnter;
      * 记录强制切换时是否需要添加 animation;
      * 如 enter 后, leave -> enter，样式是没有发生变化，就不需要添加 animation 属性。
@@ -77,6 +72,11 @@ class QueueAnim extends React.Component {
      * 记录 TweenOne 标签，在 leaveUnfinishedChild 里使用，残留的元素不需要考虑 props 的变更。
      */
     this.saveTweenOneTag = {};
+    /**
+     * @param enterAnimation;
+     * 记录进场的动画, 在没进场完成, 将进场的动画保存，免得重新生成。
+     */
+    this.enterAnimation = {};
     /**
      * @param childrenShow;
      * 记录 animation 里是否需要 startAnim;
@@ -115,6 +115,7 @@ class QueueAnim extends React.Component {
         this.keysToEnter.push(child.key);
       } else {
         childrenShow[child.key] = true;
+        this.tweenToEnter[child.key] = true;
       }
     });
     this.keysToEnterToCallback = [...this.keysToEnter];
@@ -129,7 +130,6 @@ class QueueAnim extends React.Component {
     if (this.props.appear) {
       this.componentDidUpdate();
     }
-    this.oneEnter = true;
   }
 
   componentWillReceiveProps(nextProps) {
@@ -275,10 +275,11 @@ class QueueAnim extends React.Component {
     const enterOrLeave = type === 'enter' ? 0 : 1;
     const start = type === 'enter' ? 1 : 0;
     const end = type === 'enter' ? 0 : 1;
-    let startAnim = this.getAnimData(props, key, i, enterOrLeave, start);
     const animate = this.getAnimData(props, key, i, enterOrLeave, end);
-    startAnim =
-      type === 'enter' && (props.forcedReplay || !this.childrenShow[key]) ? startAnim : null;
+    const startAnim =
+      type === 'enter' && (props.forcedReplay || !this.childrenShow[key]) ?
+        this.getAnimData(props, key, i, enterOrLeave, start)
+        : null;
     let ease = transformArguments(props.ease, key, i)[enterOrLeave];
     const duration = transformArguments(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
@@ -345,11 +346,6 @@ class QueueAnim extends React.Component {
     return [animateData.startAnimate, animateData.animation].filter(item => item);
   };
 
-  getTweenAppearData = (key, i) => ({
-    ...this.getAnimData(this.props, key, i, 0, 0),
-    duration: 0,
-  });
-
   getAnimData = (props, key, i, enterOrLeave, startOrEnd) => {
     /**
      * transformArguments 第一个为 enter, 第二个为 leave；
@@ -358,15 +354,15 @@ class QueueAnim extends React.Component {
      */
     return props.animConfig
       ? this.getTweenAnimConfig(
-          transformArguments(props.animConfig, key, i)[enterOrLeave],
-          startOrEnd,
-          enterOrLeave,
-        )
+        transformArguments(props.animConfig, key, i)[enterOrLeave],
+        startOrEnd,
+        enterOrLeave,
+      )
       : this.getTweenType(transformArguments(props.type, key, i)[enterOrLeave], startOrEnd);
   };
 
   getChildrenToRender = child => {
-    const { forcedReplay, leaveReverse, appear, delay, interval } = this.props;
+    const { forcedReplay, leaveReverse, delay, interval } = this.props;
     if (!child || !child.key) {
       return child;
     }
@@ -400,11 +396,7 @@ class QueueAnim extends React.Component {
     } else {
       // 处理进场;
       i = this.keysToEnterToCallback.indexOf(key);
-      if (!this.oneEnter && !appear) {
-        animation = this.getTweenAppearData(key, i);
-      } else {
-        animation = this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
-      }
+      // appear=false 时，设定 childrenShow 和 tweenToEnter 都为 true, 这里不渲染 animation;
       if (this.tweenToEnter[key] && !forcedReplay) {
         // 如果是已进入的，将直接返回标签。。
         return createElement(TweenOne, {
@@ -413,6 +405,9 @@ class QueueAnim extends React.Component {
           forcedJudg,
           componentProps: child.props,
         });
+      } else if (!this.tweenToEnter[key]) {
+        animation = this.enterAnimation[key] || this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
+        this.enterAnimation[key] = animation;
       }
     }
     const paused = this.keysToEnterPaused[key] && this.keysToLeave.indexOf(key) === -1;
@@ -471,6 +466,7 @@ class QueueAnim extends React.Component {
     const elem = e.target;
     elem.className = elem.className.replace(this.props.animatingClassName[0], '').trim();
     this.tweenToEnter[key] = true;
+    delete this.enterAnimation[key];
     this.props.onEnd({ key, type: 'enter', target: elem });
   };
 
