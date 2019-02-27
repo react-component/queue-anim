@@ -3904,19 +3904,14 @@ var QueueAnim = function (_React$Component) {
     __WEBPACK_IMPORTED_MODULE_3_babel_runtime_helpers_classCallCheck___default()(this, QueueAnim);
 
     /**
-     * @param oneEnter
-     * 记录第一次进入;
+     * @param tweenToEnter;
+     * 记录强制切换时是否需要添加 animation;
+     * 如 enter 后, leave -> enter，样式是没有发生变化，就不需要添加 animation 属性。
      */
     var _this = __WEBPACK_IMPORTED_MODULE_5_babel_runtime_helpers_possibleConstructorReturn___default()(this, (QueueAnim.__proto__ || Object.getPrototypeOf(QueueAnim)).call(this, props));
 
     _initialiseProps.call(_this);
 
-    _this.oneEnter = false;
-    /**
-     * @param tweenToEnter;
-     * 记录强制切换时是否需要添加 animation;
-     * 如 enter 后, leave -> enter，样式是没有发生变化，就不需要添加 animation 属性。
-     */
     _this.tweenToEnter = {};
     /**
      * @param leaveUnfinishedChild;
@@ -3928,6 +3923,11 @@ var QueueAnim = function (_React$Component) {
      * 记录 TweenOne 标签，在 leaveUnfinishedChild 里使用，残留的元素不需要考虑 props 的变更。
      */
     _this.saveTweenOneTag = {};
+    /**
+     * @param enterAnimation;
+     * 记录进场的动画, 在没进场完成, 将进场的动画保存，免得重新生成。
+     */
+    _this.enterAnimation = {};
     /**
      * @param childrenShow;
      * 记录 animation 里是否需要 startAnim;
@@ -3966,6 +3966,7 @@ var QueueAnim = function (_React$Component) {
         _this.keysToEnter.push(child.key);
       } else {
         childrenShow[child.key] = true;
+        _this.tweenToEnter[child.key] = true;
       }
     });
     _this.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(_this.keysToEnter));
@@ -3983,7 +3984,6 @@ var QueueAnim = function (_React$Component) {
       if (this.props.appear) {
         this.componentDidUpdate();
       }
-      this.oneEnter = true;
     }
   }, {
     key: 'componentWillReceiveProps',
@@ -4203,9 +4203,8 @@ var _initialiseProps = function _initialiseProps() {
     var enterOrLeave = type === 'enter' ? 0 : 1;
     var start = type === 'enter' ? 1 : 0;
     var end = type === 'enter' ? 0 : 1;
-    var startAnim = _this5.getAnimData(props, key, i, enterOrLeave, start);
     var animate = _this5.getAnimData(props, key, i, enterOrLeave, end);
-    startAnim = type === 'enter' && (props.forcedReplay || !_this5.childrenShow[key]) ? startAnim : null;
+    var startAnim = type === 'enter' && (props.forcedReplay || !_this5.childrenShow[key]) ? _this5.getAnimData(props, key, i, enterOrLeave, start) : null;
     var ease = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.ease, key, i)[enterOrLeave];
     var duration = Object(__WEBPACK_IMPORTED_MODULE_10__utils__["e" /* transformArguments */])(props.duration, key, i)[enterOrLeave];
     if (Array.isArray(ease)) {
@@ -4256,12 +4255,6 @@ var _initialiseProps = function _initialiseProps() {
     });
   };
 
-  this.getTweenAppearData = function (key, i) {
-    return __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, _this5.getAnimData(_this5.props, key, i, 0, 0), {
-      duration: 0
-    });
-  };
-
   this.getAnimData = function (props, key, i, enterOrLeave, startOrEnd) {
     /**
      * transformArguments 第一个为 enter, 第二个为 leave；
@@ -4275,7 +4268,6 @@ var _initialiseProps = function _initialiseProps() {
     var _props = _this5.props,
         forcedReplay = _props.forcedReplay,
         leaveReverse = _props.leaveReverse,
-        appear = _props.appear,
         delay = _props.delay,
         interval = _props.interval;
 
@@ -4311,11 +4303,7 @@ var _initialiseProps = function _initialiseProps() {
     } else {
       // 处理进场;
       i = _this5.keysToEnterToCallback.indexOf(key);
-      if (!_this5.oneEnter && !appear) {
-        animation = _this5.getTweenAppearData(key, i);
-      } else {
-        animation = _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
-      }
+      // appear=false 时，设定 childrenShow 和 tweenToEnter 都为 true, 这里不渲染 animation;
       if (_this5.tweenToEnter[key] && !forcedReplay) {
         // 如果是已进入的，将直接返回标签。。
         return Object(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(__WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["a" /* default */], {
@@ -4324,6 +4312,9 @@ var _initialiseProps = function _initialiseProps() {
           forcedJudg: forcedJudg,
           componentProps: child.props
         });
+      } else if (!_this5.tweenToEnter[key]) {
+        animation = _this5.enterAnimation[key] || _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
+        _this5.enterAnimation[key] = animation;
       }
     }
     var paused = _this5.keysToEnterPaused[key] && _this5.keysToLeave.indexOf(key) === -1;
@@ -4379,6 +4370,7 @@ var _initialiseProps = function _initialiseProps() {
     var elem = e.target;
     elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
     _this5.tweenToEnter[key] = true;
+    delete _this5.enterAnimation[key];
     _this5.props.onEnd({ key: key, type: 'enter', target: elem });
   };
 
