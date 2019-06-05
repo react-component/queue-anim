@@ -73,7 +73,7 @@
     "rc-tools": "8.x",
     "react": "^16.0.0",
     "react-dom": "^16.0.0",
-    "react-router": "~4.3.1",
+    "react-router": "~5.0.1",
     "react-router-dom": "^4.1.0",
     "react-test-renderer": "^16.0.0",
     "tslint-config-prettier": "^1.17.0",
