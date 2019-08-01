@@ -7,7 +7,7 @@
   <meta charset="utf-8"/>
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <link href="//cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.css" rel="stylesheet"/>
-  <title>rc-queue-anim@1.6.12 - Queue animation component for react</title>
+  <title>rc-queue-anim@1.7.0 - Queue animation component for react</title>
   <style>
     @font-face {
       font-family: octicons-anchor;
@@ -737,7 +737,7 @@
 
 <body>
 <div class="header">
-  <h1>rc-queue-anim@1.6.12</h1>
+  <h1>rc-queue-anim@1.7.0</h1>
 </div>
 <div class="examples">
   <h3>EXAMPLES</h3>
@@ -832,7 +832,18 @@ ReactDom.render(
 </tr>
 </tbody>
 </table>
-<h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><blockquote>
+<h3>1.7.x add childRefs and currentRef;<a id="user-content-1.7.x-add-childrefs-and-currentref;" name="1.7.x-add-childrefs-and-currentref;" class="anchor" aria-hidden="true" href="#1.7.x-add-childrefs-and-currentref;"><span class="octicon octicon-link"></span></a></h3><div class="highlight"><pre><code language="xml"><span class="hljs-tag">&lt;<span class="hljs-title">QueueAnim</span> 
+  <span class="hljs-attribute">component</span>=<span class="hljs-value">{Row}</span> 
+  <span class="hljs-attribute">ref</span>=<span class="hljs-value">{(c)</span> =&gt;</span> {
+    this.ref = c;
+  }}
+  onEnd={() =&gt; {
+    // this..currentRef = <span class="hljs-tag">&lt;<span class="hljs-title">Row</span> /&gt;</span>
+    // this..childRefs.a = <span class="hljs-tag">&lt;<span class="hljs-title">Col</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"a"</span>&gt;</span>1212<span class="hljs-tag">&lt;/<span class="hljs-title">Col</span>&gt;</span>
+  }}
+&gt;
+  <span class="hljs-tag">&lt;<span class="hljs-title">Col</span> <span class="hljs-attribute">key</span>=<span class="hljs-value">"a"</span>&gt;</span>1212<span class="hljs-tag">&lt;/<span class="hljs-title">Col</span>&gt;</span>
+<span class="hljs-tag">&lt;/<span class="hljs-title">QueueAnim</span>&gt;</span></code></pre></div><h2>API<a id="user-content-api" name="api" class="anchor" aria-hidden="true" href="#api"><span class="octicon octicon-link"></span></a></h2><blockquote>
 <p>You must provide the key attribute for all children of QueueAnim, children would not peform any animation without key.</p>
 </blockquote>
 <table>
