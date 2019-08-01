@@ -58,6 +58,23 @@ ReactDom.render(
 | --- | --- | --- | --- | --- |
 | IE 10+ ✔ | Chrome 31.0+ ✔ | Firefox 31.0+ ✔ | Opera 30.0+ ✔ | Safari 7.0+ ✔ |
 
+### 1.7.x add childRefs and currentRef; 
+
+```jsx
+<QueueAnim 
+  component={Row} 
+  ref={(c) => {
+    this.ref = c;
+  }}
+  onEnd={() => {
+    // this..currentRef = <Row />
+    // this..childRefs.a = <Col key="a">1212</Col>
+  }}
+>
+  <Col key="a">1212</Col>
+</QueueAnim>
+```
+
 ## API
 
 > You must provide the key attribute for all children of QueueAnim, children would not peform any animation without key.

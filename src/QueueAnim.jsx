@@ -10,7 +10,7 @@ import {
 } from './utils';
 import AnimTypes from './animTypes';
 
-const noop = () => {};
+const noop = () => { };
 
 const typeDefault = [
   'displayName',
@@ -104,6 +104,16 @@ class QueueAnim extends React.Component {
      * 进场时 deley 的 timeout 记录;
      */
     this.placeholderTimeoutIds = {};
+    /**
+     * @param childRefs;
+     * 储存 children 的 ref;
+     */
+    this.childRefs = {};
+    /**
+     * @param currentRef;
+     * 记录 component 是组件时的 ref;
+     */
+    this.currentRef = null
     // 第一次进入，默认进场
     const children = toArrayChildren(getChildrenFromProps(props));
     const childrenShow = {};
@@ -381,6 +391,9 @@ class QueueAnim extends React.Component {
         }
       });
     }
+    let ref = () => {
+      delete this.childRefs[key];
+    };
     // 处理出场
     if (i >= 0) {
       if (this.leaveUnfinishedChild.indexOf(key) >= 0) {
@@ -396,6 +409,9 @@ class QueueAnim extends React.Component {
     } else {
       // 处理进场;
       i = this.keysToEnterToCallback.indexOf(key);
+      ref = (c) => {
+        this.childRefs[key] = c && c.currentRef ? c.currentRef : c;
+      }
       // appear=false 时，设定 childrenShow 和 tweenToEnter 都为 true, 这里不渲染 animation;
       if (this.tweenToEnter[key] && !forcedReplay) {
         // 如果是已进入的，将直接返回标签。。
@@ -404,6 +420,7 @@ class QueueAnim extends React.Component {
           component: child.type,
           forcedJudg,
           componentProps: child.props,
+          ref,
         });
       } else if (!this.tweenToEnter[key]) {
         animation = this.enterAnimation[key] || this.getTweenEnterOrLeaveData(key, i, 0, 'enter');
@@ -418,6 +435,7 @@ class QueueAnim extends React.Component {
       forcedJudg,
       componentProps: child.props,
       animation,
+      ref,
     });
     this.saveTweenOneTag[key] = tag;
     return tag;
@@ -506,24 +524,28 @@ class QueueAnim extends React.Component {
   };
 
   render() {
-    const { ...tagProps } = this.props;
-    [
-      'component',
-      'componentProps',
-      'interval',
-      'duration',
-      'delay',
-      'type',
-      'animConfig',
-      'ease',
-      'leaveReverse',
-      'animatingClassName',
-      'forcedReplay',
-      'onEnd',
-      'appear',
-    ].forEach(key => delete tagProps[key]);
+    const {
+      component,
+      componentProps,
+      interval,
+      duration,
+      delay,
+      type,
+      animConfig,
+      ease,
+      leaveReverse,
+      animatingClassName,
+      forcedReplay,
+      onEnd,
+      appear,
+      ...tagProps
+    } = this.props;
     const childrenToRender = toArrayChildren(this.state.children).map(this.getChildrenToRender);
-    const props = { ...tagProps, ...this.props.componentProps };
+    const props = {
+      ...tagProps,
+      ...this.props.componentProps,
+      ref: (c) => { this.currentRef = c; }
+    };
     return createElement(this.props.component, props, childrenToRender);
   }
 }
