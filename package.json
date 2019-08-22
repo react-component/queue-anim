@@ -1,6 +1,6 @@
 {
   "name": "rc-queue-anim",
-  "version": "1.7.0",
+  "version": "1.8.0",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
@@ -83,7 +83,8 @@
   "dependencies": {
     "babel-runtime": "6.x",
     "prop-types": "^15.6.0",
-    "rc-tween-one": "^2.5.0"
+    "rc-tween-one": "^2.5.0",
+    "react-lifecycles-compat": "^3.0.4"
   },
   "types": "index.d.ts",
   "pre-commit": [

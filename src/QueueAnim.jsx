@@ -1,6 +1,8 @@
 import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import TweenOne, { ticker } from 'rc-tween-one';
+import { polyfill } from 'react-lifecycles-compat';
+
 import {
   toArrayChildren,
   findChildInChildrenByKey,
@@ -54,6 +56,108 @@ class QueueAnim extends React.Component {
     onEnd: noop,
     appear: true,
   };
+
+  static getDerivedStateFromProps(props, { prevProps, children, childrenShow: prevChildShow, $self }) {
+    const nextState = {
+      prevProps: props,
+    };
+    const prevChildren = prevProps ? toArrayChildren(prevProps.children).filter(c => c) : [];
+    const nextChildren = toArrayChildren(props.children).filter(c => c);
+    if (prevProps &&
+      prevChildren.map(c => c.key).join() !== nextChildren.map(c => c.key).join()
+    ) {
+      let currentChildren = $self.originalChildren.filter(item => item);
+      if (children.length) {
+        /**
+         * 多次刷新处理
+         * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
+         */
+        const leaveChild = children.filter(
+          item => item && $self.keysToLeave.indexOf(item.key) >= 0,
+        );
+        $self.leaveUnfinishedChild = leaveChild.map(item => item.key);
+        /**
+         * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
+         * 避逸 state.children 在 leaveComplete 里没全部完成不触发，
+         * leaveComplete 里如果动画完成了是会删除 keyToLeave，但 state.children 是在全部出场后才触发清除，
+         * 所以这里需要处理出场完成的元素做清除。
+         */
+        const stateChildren = mergeChildren(currentChildren, children);
+        const currentChild = [];
+        const childReOrder = child => {
+          child.forEach(item => {
+            const order = stateChildren.indexOf(item);
+            // -1 不应该出现的情况，直接插入数组后面.
+            if (order === -1) {
+              currentChild.push(item);
+            } else {
+              currentChild.splice(order, 0, item);
+            }
+          });
+        };
+        childReOrder(leaveChild);
+        childReOrder(currentChildren);
+        currentChildren = currentChild.filter(c => c);
+      }
+      const newChildren = mergeChildren(currentChildren, nextChildren);
+
+      const childrenShow = !newChildren.length ? {} : prevChildShow;
+      $self.keysToEnterPaused = {};
+      const emptyBool = !nextChildren.length && !currentChildren.length && children.length;
+      /**
+       * 在出场没结束时，childrenShow 里的值将不会清除。
+       * 再触发进场时， childrenShow 里的值是保留着的, 设置了 forcedReplay 将重新播放进场。
+       */
+      if (!emptyBool) {
+        // 空子级状态下刷新不做处理
+        const nextKeys = nextChildren.map(c => c.key);
+        $self.keysToLeave.forEach(key => {
+          // 将所有在出场里的停止掉。避免间隔性出现
+          if (nextKeys.indexOf(key) >= 0) {
+            $self.keysToEnterPaused[key] = true;
+            currentChildren = currentChildren.filter(item => item.key !== key);
+            if (props.forcedReplay) {
+              // 清掉所有出场的。
+              delete childrenShow[key];
+            }
+          }
+        });
+      }
+
+      $self.keysToEnter = [];
+      $self.keysToLeave = [];
+
+      // need render to avoid update
+      nextState.childrenShow = childrenShow;
+      nextState.children = newChildren;
+
+      nextChildren.forEach(c => {
+        if (!c) {
+          return;
+        }
+        const key = c.key;
+        const hasPrev = findChildInChildrenByKey(currentChildren, key);
+        if (!hasPrev && key) {
+          $self.keysToEnter.push(key);
+        }
+      });
+
+      currentChildren.forEach(c => {
+        if (!c) {
+          return;
+        }
+        const key = c.key;
+        const hasNext = findChildInChildrenByKey(nextChildren, key);
+        if (!hasNext && key) {
+          $self.keysToLeave.push(key);
+          ticker.clear($self.placeholderTimeoutIds[key]);
+          delete $self.placeholderTimeoutIds[key];
+        }
+      });
+      $self.keysToEnterToCallback = [...$self.keysToEnter];
+    }
+    return nextState;
+  }
   constructor(props) {
     super(props);
     /**
@@ -133,6 +237,7 @@ class QueueAnim extends React.Component {
     this.state = {
       children,
       childrenShow,
+      $self: this,
     };
   }
 
@@ -140,101 +245,6 @@ class QueueAnim extends React.Component {
     if (this.props.appear) {
       this.componentDidUpdate();
     }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    const nextChildren = toArrayChildren(nextProps.children).filter(item => item);
-    let currentChildren = this.originalChildren.filter(item => item);
-    if (this.state.children.length) {
-      /**
-       * 多次刷新处理
-       * 如果 state.children 里还有元素，元素还在动画，当前子级加回在出场的子级;
-       */
-      const leaveChild = this.state.children.filter(
-        item => item && this.keysToLeave.indexOf(item.key) >= 0,
-      );
-      this.leaveUnfinishedChild = leaveChild.map(item => item.key);
-      /**
-       * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
-       * 避逸 state.children 在 leaveComplete 里没全部完成不触发，
-       * leaveComplete 里如果动画完成了是会删除 keyToLeave，但 state.children 是在全部出场后才触发清除，
-       * 所以这里需要处理出场完成的元素做清除。
-       */
-      const stateChildrens = mergeChildren(currentChildren, this.state.children);
-      const currentChild = [];
-      const childReOrder = child => {
-        child.forEach(item => {
-          const order = stateChildrens.indexOf(item);
-          // -1 不应该出现的情况，直接插入数组后面.
-          if (order === -1) {
-            currentChild.push(item);
-          } else {
-            currentChild.splice(order, 0, item);
-          }
-        });
-      };
-      childReOrder(leaveChild);
-      childReOrder(currentChildren);
-      currentChildren = currentChild.filter(c => c);
-    }
-    const newChildren = mergeChildren(currentChildren, nextChildren);
-
-    const childrenShow = !newChildren.length ? {} : this.state.childrenShow;
-    this.keysToEnterPaused = {};
-    const emptyBool = !nextChildren.length && !currentChildren.length && this.state.children.length;
-    /**
-     * 在出场没结束时，childrenShow 里的值将不会清除。
-     * 再触发进场时， childrenShow 里的值是保留着的, 设置了 forcedReplay 将重新播放进场。
-     */
-    if (!emptyBool) {
-      // 空子级状态下刷新不做处理
-      const nextKeys = nextChildren.map(c => c.key);
-      this.keysToLeave.forEach(key => {
-        // 将所有在出场里的停止掉。避免间隔性出现
-        if (nextKeys.indexOf(key) >= 0) {
-          this.keysToEnterPaused[key] = true;
-          currentChildren = currentChildren.filter(item => item.key !== key);
-          if (nextProps.forcedReplay) {
-            // 清掉所有出场的。
-            delete childrenShow[key];
-          }
-        }
-      });
-    }
-
-    this.keysToEnter = [];
-    this.keysToLeave = [];
-
-    // need render to avoid update
-    this.setState({
-      childrenShow,
-      children: newChildren,
-    });
-
-    nextChildren.forEach(c => {
-      if (!c) {
-        return;
-      }
-      const key = c.key;
-      const hasPrev = findChildInChildrenByKey(currentChildren, key);
-      if (!hasPrev && key) {
-        this.keysToEnter.push(key);
-      }
-    });
-
-    currentChildren.forEach(c => {
-      if (!c) {
-        return;
-      }
-      const key = c.key;
-      const hasNext = findChildInChildrenByKey(nextChildren, key);
-      if (!hasNext && key) {
-        this.keysToLeave.push(key);
-        ticker.clear(this.placeholderTimeoutIds[key]);
-        delete this.placeholderTimeoutIds[key];
-      }
-    });
-    this.keysToEnterToCallback = [...this.keysToEnter];
   }
 
   componentDidUpdate() {
@@ -550,4 +560,4 @@ class QueueAnim extends React.Component {
   }
 }
 QueueAnim.isQueueAnim = true;
-export default QueueAnim;
+export default polyfill(QueueAnim);
