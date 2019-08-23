@@ -61,11 +61,9 @@ class QueueAnim extends React.Component {
     const nextState = {
       prevProps: props,
     };
-    const prevChildren = prevProps ? toArrayChildren(prevProps.children).filter(c => c) : [];
-    const nextChildren = toArrayChildren(props.children).filter(c => c);
-    if (prevProps &&
-      prevChildren.map(c => c.key).join() !== nextChildren.map(c => c.key).join()
+    if (prevProps && !$self.isInsideRender
     ) {
+      const nextChildren = toArrayChildren(props.children).filter(c => c);
       let currentChildren = $self.originalChildren.filter(item => item);
       if (children.length) {
         /**
@@ -253,6 +251,7 @@ class QueueAnim extends React.Component {
     const keysToLeave = [...this.keysToLeave];
     keysToEnter.forEach(this.performEnter);
     keysToLeave.forEach(this.performLeave);
+    this.isInsideRender = false;
   }
 
   componentWillUnmount() {
@@ -469,6 +468,7 @@ class QueueAnim extends React.Component {
     delete this.keysToEnterPaused[key];
     ticker.clear(this.placeholderTimeoutIds[key]);
     delete this.placeholderTimeoutIds[key];
+    this.isInsideRender = true;
     this.setState({ childrenShow });
   };
 
@@ -523,6 +523,7 @@ class QueueAnim extends React.Component {
     const needLeave = this.keysToLeave.some(c => childrenShow[c]);
     if (!needLeave) {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
+      this.isInsideRender = true;
       this.setState({
         children: currentChildren,
         childrenShow,
