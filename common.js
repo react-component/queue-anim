@@ -4631,17 +4631,10 @@ var QueueAnim = function (_React$Component) {
       var nextState = {
         prevProps: props
       };
-      var prevChildren = prevProps ? Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(prevProps.children).filter(function (c) {
-        return c;
-      }) : [];
-      var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(props.children).filter(function (c) {
-        return c;
-      });
-      if (prevProps && prevChildren.map(function (c) {
-        return c.key;
-      }).join() !== nextChildren.map(function (c) {
-        return c.key;
-      }).join()) {
+      if (prevProps && !$self.isInsideRender) {
+        var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(props.children).filter(function (c) {
+          return c;
+        });
         var currentChildren = $self.originalChildren.filter(function (item) {
           return item;
         });
@@ -4850,6 +4843,7 @@ var QueueAnim = function (_React$Component) {
       var keysToLeave = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToLeave));
       keysToEnter.forEach(this.performEnter);
       keysToLeave.forEach(this.performLeave);
+      this.isInsideRender = false;
     }
   }, {
     key: 'componentWillUnmount',
@@ -5117,6 +5111,7 @@ var _initialiseProps = function _initialiseProps() {
     delete _this5.keysToEnterPaused[key];
     __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["b" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
+    _this5.isInsideRender = true;
     _this5.setState({ childrenShow: childrenShow });
   };
 
@@ -5173,6 +5168,7 @@ var _initialiseProps = function _initialiseProps() {
     });
     if (!needLeave) {
       var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(_this5.props));
+      _this5.isInsideRender = true;
       _this5.setState({
         children: currentChildren,
         childrenShow: childrenShow
