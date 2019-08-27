@@ -68,7 +68,9 @@ var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
 
 
 /***/ }),
-/* 11 */
+/* 11 */,
+/* 12 */,
+/* 13 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -138,8 +140,6 @@ module.exports = warning;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(7)))
 
 /***/ }),
-/* 12 */,
-/* 13 */,
 /* 14 */,
 /* 15 */,
 /* 16 */,
@@ -3073,13 +3073,13 @@ var MenuContext = __WEBPACK_IMPORTED_MODULE_0__ant_design_create_react_context__
     icon: 'icon'
   },
   Text: {
-    edit: 'edit',
-    copy: 'copy',
-    copied: 'copy success',
-    expand: 'expand'
+    edit: 'Edit',
+    copy: 'Copy',
+    copied: 'Copied',
+    expand: 'Expand'
   },
   PageHeader: {
-    back: 'back'
+    back: 'Back'
   }
 });
 //# sourceMappingURL=default.js.map
@@ -9848,20 +9848,44 @@ function alias(type) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* WEBPACK VAR INJECTION */(function(process) {/* unused harmony export warning */
+/* unused harmony export note */
 /* unused harmony export resetWarned */
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning__ = __webpack_require__(11);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_warning___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_warning__);
-
+/* unused harmony export call */
+/* unused harmony export warningOnce */
+/* unused harmony export noteOnce */
+/* eslint-disable no-console */
 var warned = {};
+function warning(valid, message) {
+  // Support uglify
+  if (process.env.NODE_ENV !== 'production' && !valid && console !== undefined) {
+    console.error("Warning: ".concat(message));
+  }
+}
+function note(valid, message) {
+  // Support uglify
+  if (process.env.NODE_ENV !== 'production' && !valid && console !== undefined) {
+    console.warn("Note: ".concat(message));
+  }
+}
 function resetWarned() {
   warned = {};
 }
-/* harmony default export */ __webpack_exports__["a"] = (function (valid, message) {
+function call(method, valid, message) {
   if (!valid && !warned[message]) {
-    __WEBPACK_IMPORTED_MODULE_0_warning___default()(false, message);
+    method(false, message);
     warned[message] = true;
   }
-});
+}
+function warningOnce(valid, message) {
+  call(warning, valid, message);
+}
+function noteOnce(valid, message) {
+  call(note, valid, message);
+}
+/* harmony default export */ __webpack_exports__["a"] = (warningOnce);
+/* eslint-enable */
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(7)))
 
 /***/ }),
 /* 204 */
@@ -15915,7 +15939,7 @@ var _gud = __webpack_require__(238);
 
 var _gud2 = _interopRequireDefault(_gud);
 
-var _warning = __webpack_require__(11);
+var _warning = __webpack_require__(13);
 
 var _warning2 = _interopRequireDefault(_warning);
 

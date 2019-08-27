@@ -527,8 +527,7 @@ exports.default = function () {
 
 /***/ }),
 /* 10 */,
-/* 11 */,
-/* 12 */
+/* 11 */
 /***/ (function(module, exports) {
 
 var core = module.exports = { version: '2.6.9' };
@@ -536,7 +535,7 @@ if (typeof __e == 'number') __e = core; // eslint-disable-line no-undef
 
 
 /***/ }),
-/* 13 */
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var store = __webpack_require__(58)('wks');
@@ -553,6 +552,7 @@ $exports.store = store;
 
 
 /***/ }),
+/* 13 */,
 /* 14 */
 /***/ (function(module, exports) {
 
@@ -789,7 +789,7 @@ function polyfill(Component) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(14);
-var core = __webpack_require__(12);
+var core = __webpack_require__(11);
 var ctx = __webpack_require__(51);
 var hide = __webpack_require__(22);
 var has = __webpack_require__(20);
@@ -1591,7 +1591,7 @@ module.exports = function (key) {
 /* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var core = __webpack_require__(12);
+var core = __webpack_require__(11);
 var global = __webpack_require__(14);
 var SHARED = '__core-js_shared__';
 var store = global[SHARED] || (global[SHARED] = {});
@@ -1621,7 +1621,7 @@ module.exports = (
 
 var def = __webpack_require__(15).f;
 var has = __webpack_require__(20);
-var TAG = __webpack_require__(13)('toStringTag');
+var TAG = __webpack_require__(12)('toStringTag');
 
 module.exports = function (it, tag, stat) {
   if (it && !has(it = stat ? it : it.prototype, TAG)) def(it, TAG, { configurable: true, value: tag });
@@ -1632,7 +1632,7 @@ module.exports = function (it, tag, stat) {
 /* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
-exports.f = __webpack_require__(13);
+exports.f = __webpack_require__(12);
 
 
 /***/ }),
@@ -1640,7 +1640,7 @@ exports.f = __webpack_require__(13);
 /***/ (function(module, exports, __webpack_require__) {
 
 var global = __webpack_require__(14);
-var core = __webpack_require__(12);
+var core = __webpack_require__(11);
 var LIBRARY = __webpack_require__(38);
 var wksExt = __webpack_require__(61);
 var defineProperty = __webpack_require__(15).f;
@@ -1983,7 +1983,7 @@ var Iterators = __webpack_require__(32);
 var $iterCreate = __webpack_require__(128);
 var setToStringTag = __webpack_require__(60);
 var getPrototypeOf = __webpack_require__(133);
-var ITERATOR = __webpack_require__(13)('iterator');
+var ITERATOR = __webpack_require__(12)('iterator');
 var BUGGY = !([].keys && 'next' in [].keys()); // Safari has buggy iterators w/o `next`
 var FF_ITERATOR = '@@iterator';
 var KEYS = 'keys';
@@ -3832,7 +3832,7 @@ p.interval = function (fn, time) {
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(123);
-var $Object = __webpack_require__(12).Object;
+var $Object = __webpack_require__(11).Object;
 module.exports = function defineProperty(it, key, desc) {
   return $Object.defineProperty(it, key, desc);
 };
@@ -3907,7 +3907,7 @@ var setToStringTag = __webpack_require__(60);
 var IteratorPrototype = {};
 
 // 25.1.2.1.1 %IteratorPrototype%[@@iterator]()
-__webpack_require__(22)(IteratorPrototype, __webpack_require__(13)('iterator'), function () { return this; });
+__webpack_require__(22)(IteratorPrototype, __webpack_require__(12)('iterator'), function () { return this; });
 
 module.exports = function (Constructor, NAME, next) {
   Constructor.prototype = create(IteratorPrototype, { next: descriptor(1, next) });
@@ -4011,7 +4011,7 @@ __webpack_require__(135);
 var global = __webpack_require__(14);
 var hide = __webpack_require__(22);
 var Iterators = __webpack_require__(32);
-var TO_STRING_TAG = __webpack_require__(13)('toStringTag');
+var TO_STRING_TAG = __webpack_require__(12)('toStringTag');
 
 var DOMIterables = ('CSSRuleList,CSSStyleDeclaration,CSSValueList,ClientRectList,DOMRectList,DOMStringList,' +
   'DOMTokenList,DataTransferItemList,FileList,HTMLAllCollection,HTMLCollection,HTMLFormElement,HTMLSelectElement,' +
@@ -4099,7 +4099,7 @@ __webpack_require__(140);
 __webpack_require__(145);
 __webpack_require__(146);
 __webpack_require__(147);
-module.exports = __webpack_require__(12).Symbol;
+module.exports = __webpack_require__(11).Symbol;
 
 
 /***/ }),
@@ -4119,7 +4119,7 @@ var $fails = __webpack_require__(30);
 var shared = __webpack_require__(58);
 var setToStringTag = __webpack_require__(60);
 var uid = __webpack_require__(40);
-var wks = __webpack_require__(13);
+var wks = __webpack_require__(12);
 var wksExt = __webpack_require__(61);
 var wksDefine = __webpack_require__(62);
 var enumKeys = __webpack_require__(142);
@@ -4502,7 +4502,7 @@ module.exports = { "default": __webpack_require__(149), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(150);
-module.exports = __webpack_require__(12).Object.setPrototypeOf;
+module.exports = __webpack_require__(11).Object.setPrototypeOf;
 
 
 /***/ }),
@@ -4556,7 +4556,7 @@ module.exports = { "default": __webpack_require__(153), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(154);
-var $Object = __webpack_require__(12).Object;
+var $Object = __webpack_require__(11).Object;
 module.exports = function create(P, D) {
   return $Object.create(P, D);
 };
@@ -4631,7 +4631,7 @@ var QueueAnim = function (_React$Component) {
       var nextState = {
         prevProps: props
       };
-      if (prevProps && !$self.isInsideRender) {
+      if (prevProps && props !== prevProps) {
         var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(props.children).filter(function (c) {
           return c;
         });
@@ -4646,6 +4646,7 @@ var QueueAnim = function (_React$Component) {
           var leaveChild = children.filter(function (item) {
             return item && $self.keysToLeave.indexOf(item.key) >= 0;
           });
+
           $self.leaveUnfinishedChild = leaveChild.map(function (item) {
             return item.key;
           });
@@ -4675,7 +4676,6 @@ var QueueAnim = function (_React$Component) {
           });
         }
         var newChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["c" /* mergeChildren */])(currentChildren, nextChildren);
-
         var childrenShow = !newChildren.length ? {} : prevChildShow;
         $self.keysToEnterPaused = {};
         var emptyBool = !nextChildren.length && !currentChildren.length && children.length;
@@ -4733,7 +4733,6 @@ var QueueAnim = function (_React$Component) {
             delete $self.placeholderTimeoutIds[key];
           }
         });
-        $self.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()($self.keysToEnter));
       }
       return nextState;
     }
@@ -4818,7 +4817,6 @@ var QueueAnim = function (_React$Component) {
         _this.tweenToEnter[child.key] = true;
       }
     });
-    _this.keysToEnterToCallback = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(_this.keysToEnter));
     _this.originalChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(props));
     _this.state = {
       children: children,
@@ -4843,7 +4841,6 @@ var QueueAnim = function (_React$Component) {
       var keysToLeave = [].concat(__WEBPACK_IMPORTED_MODULE_2_babel_runtime_helpers_toConsumableArray___default()(this.keysToLeave));
       keysToEnter.forEach(this.performEnter);
       keysToLeave.forEach(this.performLeave);
-      this.isInsideRender = false;
     }
   }, {
     key: 'componentWillUnmount',
@@ -5027,7 +5024,8 @@ var _initialiseProps = function _initialiseProps() {
         forcedReplay = _props2.forcedReplay,
         leaveReverse = _props2.leaveReverse,
         delay = _props2.delay,
-        interval = _props2.interval;
+        interval = _props2.interval,
+        children = _props2.children;
 
     if (!child || !child.key) {
       return child;
@@ -5063,7 +5061,9 @@ var _initialiseProps = function _initialiseProps() {
       animation = _this5.getTweenEnterOrLeaveData(key, i, $delay, 'leave');
     } else {
       // 处理进场;
-      i = _this5.keysToEnterToCallback.indexOf(key);
+      i = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(children).findIndex(function (c) {
+        return c && c.key === key;
+      });
       ref = function ref(c) {
         _this5.childRefs[key] = c && c.currentRef ? c.currentRef : c;
       };
@@ -5111,7 +5111,6 @@ var _initialiseProps = function _initialiseProps() {
     delete _this5.keysToEnterPaused[key];
     __WEBPACK_IMPORTED_MODULE_9_rc_tween_one__["b" /* ticker */].clear(_this5.placeholderTimeoutIds[key]);
     delete _this5.placeholderTimeoutIds[key];
-    _this5.isInsideRender = true;
     _this5.setState({ childrenShow: childrenShow });
   };
 
@@ -5153,7 +5152,9 @@ var _initialiseProps = function _initialiseProps() {
 
   this.leaveComplete = function (key, e) {
     // 切换时同时触发 onComplete。 手动跳出。。。
-    if (_this5.keysToEnterToCallback.indexOf(key) >= 0) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(_this5.props.children).findIndex(function (c) {
+      return c && c.key === key;
+    }) >= 0) {
       return;
     }
     var childrenShow = _this5.state.childrenShow;
@@ -5168,7 +5169,6 @@ var _initialiseProps = function _initialiseProps() {
     });
     if (!needLeave) {
       var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(Object(__WEBPACK_IMPORTED_MODULE_11__utils__["b" /* getChildrenFromProps */])(_this5.props));
-      _this5.isInsideRender = true;
       _this5.setState({
         children: currentChildren,
         childrenShow: childrenShow
@@ -5194,7 +5194,7 @@ module.exports = { "default": __webpack_require__(157), __esModule: true };
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(158);
-module.exports = __webpack_require__(12).Object.assign;
+module.exports = __webpack_require__(11).Object.assign;
 
 
 /***/ }),
@@ -5291,7 +5291,7 @@ module.exports = { "default": __webpack_require__(162), __esModule: true };
 
 __webpack_require__(86);
 __webpack_require__(163);
-module.exports = __webpack_require__(12).Array.from;
+module.exports = __webpack_require__(11).Array.from;
 
 
 /***/ }),
@@ -5362,7 +5362,7 @@ module.exports = function (iterator, fn, value, entries) {
 
 // check on default Array iterator
 var Iterators = __webpack_require__(32);
-var ITERATOR = __webpack_require__(13)('iterator');
+var ITERATOR = __webpack_require__(12)('iterator');
 var ArrayProto = Array.prototype;
 
 module.exports = function (it) {
@@ -5390,9 +5390,9 @@ module.exports = function (object, index, value) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var classof = __webpack_require__(168);
-var ITERATOR = __webpack_require__(13)('iterator');
+var ITERATOR = __webpack_require__(12)('iterator');
 var Iterators = __webpack_require__(32);
-module.exports = __webpack_require__(12).getIteratorMethod = function (it) {
+module.exports = __webpack_require__(11).getIteratorMethod = function (it) {
   if (it != undefined) return it[ITERATOR]
     || it['@@iterator']
     || Iterators[classof(it)];
@@ -5405,7 +5405,7 @@ module.exports = __webpack_require__(12).getIteratorMethod = function (it) {
 
 // getting tag from 19.1.3.6 Object.prototype.toString()
 var cof = __webpack_require__(56);
-var TAG = __webpack_require__(13)('toStringTag');
+var TAG = __webpack_require__(12)('toStringTag');
 // ES3 wrong here
 var ARG = cof(function () { return arguments; }()) == 'Arguments';
 
@@ -5432,7 +5432,7 @@ module.exports = function (it) {
 /* 169 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var ITERATOR = __webpack_require__(13)('iterator');
+var ITERATOR = __webpack_require__(12)('iterator');
 var SAFE_CLOSING = false;
 
 try {
@@ -36327,11 +36327,11 @@ var TweenOneGroup = function (_Component) {
       var nextState = {
         prevProps: props
       };
-      if (prevProps) {
+      if (prevProps && props !== prevProps) {
         var nextChildren = Object(__WEBPACK_IMPORTED_MODULE_9__util__["j" /* toArrayChildren */])(props.children);
         if (Object.keys($self.isTween).length && !props.exclusive) {
           $self.animQueue.push(nextChildren);
-          return;
+          return nextState;
         }
         var currentChildren = Object(__WEBPACK_IMPORTED_MODULE_9__util__["j" /* toArrayChildren */])($self.currentChildren);
         nextState.children = $self.changeChildren(nextChildren, currentChildren);
