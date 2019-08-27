@@ -61,7 +61,7 @@ class QueueAnim extends React.Component {
     const nextState = {
       prevProps: props,
     };
-    if (prevProps && !$self.isInsideRender
+    if (prevProps && props !== prevProps
     ) {
       const nextChildren = toArrayChildren(props.children).filter(c => c);
       let currentChildren = $self.originalChildren.filter(item => item);
@@ -73,6 +73,7 @@ class QueueAnim extends React.Component {
         const leaveChild = children.filter(
           item => item && $self.keysToLeave.indexOf(item.key) >= 0,
         );
+       
         $self.leaveUnfinishedChild = leaveChild.map(item => item.key);
         /**
          * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
@@ -98,7 +99,6 @@ class QueueAnim extends React.Component {
         currentChildren = currentChild.filter(c => c);
       }
       const newChildren = mergeChildren(currentChildren, nextChildren);
-
       const childrenShow = !newChildren.length ? {} : prevChildShow;
       $self.keysToEnterPaused = {};
       const emptyBool = !nextChildren.length && !currentChildren.length && children.length;
@@ -152,7 +152,6 @@ class QueueAnim extends React.Component {
           delete $self.placeholderTimeoutIds[key];
         }
       });
-      $self.keysToEnterToCallback = [...$self.keysToEnter];
     }
     return nextState;
   }
@@ -230,7 +229,6 @@ class QueueAnim extends React.Component {
         this.tweenToEnter[child.key] = true;
       }
     });
-    this.keysToEnterToCallback = [...this.keysToEnter];
     this.originalChildren = toArrayChildren(getChildrenFromProps(props));
     this.state = {
       children,
@@ -251,7 +249,6 @@ class QueueAnim extends React.Component {
     const keysToLeave = [...this.keysToLeave];
     keysToEnter.forEach(this.performEnter);
     keysToLeave.forEach(this.performLeave);
-    this.isInsideRender = false;
   }
 
   componentWillUnmount() {
@@ -381,7 +378,7 @@ class QueueAnim extends React.Component {
   };
 
   getChildrenToRender = child => {
-    const { forcedReplay, leaveReverse, delay, interval } = this.props;
+    const { forcedReplay, leaveReverse, delay, interval, children } = this.props;
     if (!child || !child.key) {
       return child;
     }
@@ -417,7 +414,7 @@ class QueueAnim extends React.Component {
       animation = this.getTweenEnterOrLeaveData(key, i, $delay, 'leave');
     } else {
       // 处理进场;
-      i = this.keysToEnterToCallback.indexOf(key);
+      i = toArrayChildren(children).findIndex(c => c && c.key === key);
       ref = (c) => {
         this.childRefs[key] = c && c.currentRef ? c.currentRef : c;
       }
@@ -468,7 +465,6 @@ class QueueAnim extends React.Component {
     delete this.keysToEnterPaused[key];
     ticker.clear(this.placeholderTimeoutIds[key]);
     delete this.placeholderTimeoutIds[key];
-    this.isInsideRender = true;
     this.setState({ childrenShow });
   };
 
@@ -510,7 +506,7 @@ class QueueAnim extends React.Component {
 
   leaveComplete = (key, e) => {
     // 切换时同时触发 onComplete。 手动跳出。。。
-    if (this.keysToEnterToCallback.indexOf(key) >= 0) {
+    if (toArrayChildren(this.props.children).findIndex(c => c && c.key === key) >= 0) {
       return;
     }
     const childrenShow = this.state.childrenShow;
@@ -523,7 +519,6 @@ class QueueAnim extends React.Component {
     const needLeave = this.keysToLeave.some(c => childrenShow[c]);
     if (!needLeave) {
       const currentChildren = toArrayChildren(getChildrenFromProps(this.props));
-      this.isInsideRender = true;
       this.setState({
         children: currentChildren,
         childrenShow,

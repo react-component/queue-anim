@@ -1,6 +1,8 @@
 /* eslint no-console:0 no-restricted-globals:0 */
-import 'core-js/es6/map';
-import 'core-js/es6/set';
+import 'core-js/es/map';
+import 'core-js/es/set';
+import 'core-js/es/array';
+
 import React from 'react';
 import ReactDom from 'react-dom';
 import expect from 'expect.js';
