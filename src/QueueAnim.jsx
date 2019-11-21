@@ -2,11 +2,11 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import TweenOne, { ticker } from 'rc-tween-one';
 import { polyfill } from 'react-lifecycles-compat';
-import { windowIsUndefined } from './utils';
 
 import {
   toArrayChildren,
   findChildInChildrenByKey,
+  windowIsUndefined,
   mergeChildren,
   transformArguments,
   getChildrenFromProps,
