@@ -2,6 +2,7 @@ import React, { createElement } from 'react';
 import PropTypes from 'prop-types';
 import TweenOne, { ticker } from 'rc-tween-one';
 import { polyfill } from 'react-lifecycles-compat';
+import { windowIsUndefined } from './utils';
 
 import {
   toArrayChildren,
@@ -73,7 +74,7 @@ class QueueAnim extends React.Component {
         const leaveChild = children.filter(
           item => item && $self.keysToLeave.indexOf(item.key) >= 0,
         );
-       
+
         $self.leaveUnfinishedChild = leaveChild.map(item => item.key);
         /**
          * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
@@ -546,6 +547,9 @@ class QueueAnim extends React.Component {
       appear,
       ...tagProps
     } = this.props;
+    if (windowIsUndefined) {
+      return createElement(component, { ...tagProps, ...componentProps }, this.props.children);
+    }
     const childrenToRender = toArrayChildren(this.state.children).map(this.getChildrenToRender);
     const props = {
       ...tagProps,
