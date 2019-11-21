@@ -4893,6 +4893,9 @@ var QueueAnim = function (_React$Component) {
           appear = _props.appear,
           tagProps = __WEBPACK_IMPORTED_MODULE_1_babel_runtime_helpers_objectWithoutProperties___default()(_props, ['component', 'componentProps', 'interval', 'duration', 'delay', 'type', 'animConfig', 'ease', 'leaveReverse', 'animatingClassName', 'forcedReplay', 'onEnd', 'appear']);
 
+      if (__WEBPACK_IMPORTED_MODULE_11__utils__["f" /* windowIsUndefined */]) {
+        return Object(__WEBPACK_IMPORTED_MODULE_7_react__["createElement"])(component, __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, tagProps, componentProps), this.props.children);
+      }
       var childrenToRender = Object(__WEBPACK_IMPORTED_MODULE_11__utils__["d" /* toArrayChildren */])(this.state.children).map(this.getChildrenToRender);
       var props = __WEBPACK_IMPORTED_MODULE_0_babel_runtime_helpers_extends___default()({}, tagProps, this.props.componentProps, {
         ref: function ref(c) {
@@ -36583,6 +36586,7 @@ TweenOneGroup.isTweenOneGroup = true;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "f", function() { return windowIsUndefined; });
 /* harmony export (immutable) */ __webpack_exports__["d"] = toArrayChildren;
 /* harmony export (immutable) */ __webpack_exports__["a"] = findChildInChildrenByKey;
 /* harmony export (immutable) */ __webpack_exports__["c"] = mergeChildren;
@@ -36592,6 +36596,8 @@ TweenOneGroup.isTweenOneGroup = true;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_react___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_react__);
 /* eslint no-prototype-builtins: 0 */
 
+
+var windowIsUndefined = !(typeof window !== 'undefined' && window.document && window.document.createElement);
 
 function toArrayChildren(children) {
   var ret = [];
