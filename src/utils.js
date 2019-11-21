@@ -1,6 +1,12 @@
 /* eslint no-prototype-builtins: 0 */
 import React from 'react';
 
+export const windowIsUndefined = !(
+  typeof window !== 'undefined' &&
+  window.document &&
+  window.document.createElement
+);
+
 export function toArrayChildren(children) {
   const ret = [];
   React.Children.forEach(children, c => {

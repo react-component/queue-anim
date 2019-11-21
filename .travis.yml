@@ -7,7 +7,7 @@ notifications:
   - 155259966@qq.com
 
 node_js:
-- 8.1.0
+- 10
 
 before_install:
 - |
@@ -16,8 +16,6 @@ before_install:
       echo "Only docs were updated, stopping build process."
       exit
     fi
-    npm install npm@3.x -g
-    phantomjs --version
 script:
 - |
     if [ "$TEST_TYPE" = test ]; then
@@ -30,7 +28,6 @@ env:
   - TEST_TYPE=lint
   - TEST_TYPE=test
   - TEST_TYPE=coverage
-
 
 matrix:
   allow_failures:
