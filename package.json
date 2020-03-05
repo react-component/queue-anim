@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@types/react": "^16.0.0",
-    "antd": "3.x",
+    "antd": "4.x",
     "core-js": "^3.2.1",
     "expect.js": "0.3.x",
     "precommit-hook": "^3.0.0",
