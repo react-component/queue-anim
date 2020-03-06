@@ -22,6 +22,7 @@ const typeDefault = [
   'defaultProps',
   'childContextTypes',
   'contextTypes',
+  'contextType',
 ];
 
 class QueueAnim extends React.Component {
