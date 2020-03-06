@@ -4615,7 +4615,7 @@ $export($export.S, 'Object', { create: __webpack_require__(55) });
 
 var noop = function noop() {};
 
-var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps', 'childContextTypes', 'contextTypes'];
+var typeDefault = ['displayName', 'propTypes', 'getDefaultProps', 'defaultProps', 'childContextTypes', 'contextTypes', 'contextType'];
 
 var QueueAnim = function (_React$Component) {
   __WEBPACK_IMPORTED_MODULE_6_babel_runtime_helpers_inherits___default()(QueueAnim, _React$Component);
