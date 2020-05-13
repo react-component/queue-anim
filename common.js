@@ -4646,9 +4646,13 @@ var QueueAnim = function (_React$Component) {
           var leaveChild = children.filter(function (item) {
             return item && $self.keysToLeave.indexOf(item.key) >= 0;
           });
-
           $self.leaveUnfinishedChild = leaveChild.map(function (item) {
-            return item.key;
+            if ($self.placeholderTimeoutIds[item.key]) {
+              return item.key;
+            }
+            return null;
+          }).filter(function (c) {
+            return c;
           });
           /**
            * 获取 leaveChild 在 state.children 里的序列，再将 leaveChild 和 currentChildren 的重新排序。
@@ -4660,7 +4664,12 @@ var QueueAnim = function (_React$Component) {
           var currentChild = [];
           var childReOrder = function childReOrder(child) {
             child.forEach(function (item) {
-              var order = stateChildren.indexOf(item);
+              var order = stateChildren.findIndex(function (c) {
+                return c.key === item.key;
+              });
+              if (currentChild.indexOf(item) !== -1) {
+                return;
+              }
               // -1 不应该出现的情况，直接插入数组后面.
               if (order === -1) {
                 currentChild.push(item);
@@ -4761,11 +4770,6 @@ var QueueAnim = function (_React$Component) {
      * 记录 TweenOne 标签，在 leaveUnfinishedChild 里使用，残留的元素不需要考虑 props 的变更。
      */
     _this.saveTweenOneTag = {};
-    /**
-     * @param enterAnimation;
-     * 记录进场的动画, 在没进场完成, 将进场的动画保存，免得重新生成。
-     */
-    _this.enterAnimation = {};
     /**
      * @param childrenShow;
      * 记录 animation 里是否需要 startAnim;
@@ -5080,9 +5084,9 @@ var _initialiseProps = function _initialiseProps() {
           componentProps: child.props,
           ref: ref
         });
-      } else if (!_this5.tweenToEnter[key]) {
-        animation = _this5.enterAnimation[key] || _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
-        _this5.enterAnimation[key] = animation;
+      }
+      if (!_this5.tweenToEnter[key] || forcedReplay) {
+        animation = _this5.getTweenEnterOrLeaveData(key, i, 0, 'enter');
       }
     }
     var paused = _this5.keysToEnterPaused[key] && _this5.keysToLeave.indexOf(key) === -1;
@@ -5139,7 +5143,6 @@ var _initialiseProps = function _initialiseProps() {
     var elem = e.target;
     elem.className = elem.className.replace(_this5.props.animatingClassName[0], '').trim();
     _this5.tweenToEnter[key] = true;
-    delete _this5.enterAnimation[key];
     _this5.props.onEnd({ key: key, type: 'enter', target: elem });
   };
 
