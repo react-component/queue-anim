@@ -68,7 +68,7 @@
     "core-js": "^3.2.1",
     "expect.js": "0.3.x",
     "precommit-hook": "^3.0.0",
-    "rc-dialog": "~7.4.0",
+    "rc-dialog": "~8.0.0",
     "rc-test": "6.x",
     "rc-tools": "8.x",
     "react": "^16.0.0",
