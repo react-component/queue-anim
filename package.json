@@ -78,7 +78,7 @@
     "react-test-renderer": "^16.0.0",
     "tslint-config-prettier": "^1.17.0",
     "tslint-react": "^5.0.0",
-    "typescript": "3.x"
+    "typescript": "4.x"
   },
   "dependencies": {
     "babel-runtime": "6.x",
