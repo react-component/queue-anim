@@ -79,7 +79,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.11.1",
-    "rc-tween-one": "^3.0.0-beta.11"
+    "tween-one": "^1.0.52"
   },
   "husky": {
     "hooks": {
