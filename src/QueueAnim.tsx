@@ -20,7 +20,7 @@ import {
 } from './utils';
 import AnimTypes from './animTypes';
 
-import { IObject, IProps, IKeys, IQueueType } from './type';
+import type { IObject, IProps, IKeys, IQueueType } from './type';
 
 const noop = () => {};
 
@@ -117,8 +117,8 @@ export default forwardRef((props: IProps, ref: any) => {
     return getTweenSingleConfig(data, num, enterOrLeave);
   };
 
-  const getTweenType = (type: IQueueType, num: number) => {
-    const data = AnimTypes[type];
+  const getTweenType = ($type: IQueueType, num: number) => {
+    const data = AnimTypes[$type];
     return getTweenAnimConfig(data, num);
   };
 
@@ -136,13 +136,13 @@ export default forwardRef((props: IProps, ref: any) => {
         )
       : getTweenType(transformArguments(type, key, i)[enterOrLeave], startOrEnd);
 
-  const getTweenData = (key: string | number, i: number, type: string) => {
-    const enterOrLeave = type === 'enter' ? 0 : 1;
-    const start = type === 'enter' ? 1 : 0;
-    const end = type === 'enter' ? 0 : 1;
+  const getTweenData = (key: string | number, i: number, $type: string) => {
+    const enterOrLeave = $type === 'enter' ? 0 : 1;
+    const start = $type === 'enter' ? 1 : 0;
+    const end = $type === 'enter' ? 0 : 1;
     const animate = getAnimData(key, i, enterOrLeave, end);
     const startAnim =
-      type === 'enter' && (forcedReplay || !childrenShow.current[key])
+      $type === 'enter' && (forcedReplay || !childrenShow.current[key])
         ? getAnimData(key, i, enterOrLeave, start)
         : null;
     let $ease = transformArguments(ease, key, i)[enterOrLeave];
@@ -231,7 +231,7 @@ export default forwardRef((props: IProps, ref: any) => {
     }, $interval * i + $delay);
   };
 
-  const performLeave = (key: string | number, i: number) => {
+  const performLeave = (key: string | number) => {
     Ticker.clear(placeholderTimeoutIds.current[key]);
     delete placeholderTimeoutIds.current[key];
   };
@@ -239,12 +239,16 @@ export default forwardRef((props: IProps, ref: any) => {
   const getTweenOneEnterOrLeave = (
     key: string | number,
     i: number,
-    delay: number,
-    type: string,
+    $delay: number,
+    $type: string,
   ) => {
-    const animateData = getTweenData(key, i, type);
-    const onStart = (type === 'enter' ? enterBegin : leaveBegin).bind(this, key);
-    const onComplete = (type === 'enter' ? enterComplete : leaveComplete).bind(this, key);
+    const animateData = getTweenData(key, i, $type);
+    const onStart = (e: any) => {
+      ($type === 'enter' ? enterBegin : leaveBegin)(key, e);
+    };
+    const onComplete = (e: any) => {
+      ($type === 'enter' ? enterComplete : leaveComplete)(key, e);
+    };
     if (Array.isArray(animateData.animate)) {
       const length = animateData.animate.length - 1;
       const animation = animateData.animate.map((item, ii) => {
@@ -252,7 +256,7 @@ export default forwardRef((props: IProps, ref: any) => {
           ...item,
           startAt: animateData.startAnim ? animateData.startAnim[ii] : undefined,
           duration: animateData.duration / length,
-          delay: !ii && type === 'leave' ? delay : 0,
+          delay: !ii && $type === 'leave' ? $delay : 0,
           onStart: !ii ? onStart : undefined,
           onComplete: ii === length ? onComplete : undefined,
         };
@@ -266,7 +270,7 @@ export default forwardRef((props: IProps, ref: any) => {
       duration: animateData.duration,
       onStart,
       onComplete,
-      delay,
+      delay: $delay,
     };
   };
   useEffect(
@@ -283,17 +287,17 @@ export default forwardRef((props: IProps, ref: any) => {
   );
   useEffect(() => {
     const nextChildren = toArrayChildren(props.children).filter((c) => c);
-    let currentChildren = originalChildren.current.filter((item) => item);
+    const currentChildren = originalChildren.current.filter((item) => item);
     const newChildren = mergeChildren(currentChildren, nextChildren);
     const $keysToEnter: IKeys = [];
     const $keysToLeave: IKeys = [];
     if (!appear && !oneEnterBool.current) {
       const $childShow: IObject = {};
-      newChildren.forEach((child: any) => {
-        if (!child || !child.key) {
+      newChildren.forEach((c: any) => {
+        if (!c || !c.key) {
           return;
         }
-        $childShow[child.key] = true;
+        $childShow[c.key] = true;
       });
       originalChildren.current = newChildren;
       childrenShow.current = { ...$childShow };
@@ -303,7 +307,7 @@ export default forwardRef((props: IProps, ref: any) => {
         if (!c) {
           return;
         }
-        const key = c.key;
+        const { key } = c;
         const hasNext = findChildInChildrenByKey(nextChildren, key);
         if (!hasNext && key) {
           $keysToLeave.push(key);
@@ -359,13 +363,13 @@ export default forwardRef((props: IProps, ref: any) => {
           return;
         }
         let animation;
-        let index = keysToLeave.current.indexOf(key); //children.findIndex(c => c.key === key);
+        let index = keysToLeave.current.indexOf(key); // children.findIndex(c => c.key === key);
         const $interval = transformArguments(interval, key, index);
-        let $delay = transformArguments(delay, key, index);
+        const $delay = transformArguments(delay, key, index);
 
         // 处理出场
         if (index >= 0) {
-          if (recordAnimKeys.current[key] == 'leave') {
+          if (recordAnimKeys.current[key] === 'leave') {
             return;
           }
 
@@ -402,7 +406,6 @@ export default forwardRef((props: IProps, ref: any) => {
         recordTweenKeys.current[key] = TweenOne(dom, {
           animation,
         });
-
       });
     }
   }, [childShow, child]);

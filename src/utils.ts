@@ -1,5 +1,5 @@
 /* eslint no-prototype-builtins: 0 */
-import { IObject } from './type';
+import type { IObject } from './type';
 import React from 'react';
 
 export const windowIsUndefined = !(

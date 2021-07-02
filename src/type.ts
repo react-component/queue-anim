@@ -1,6 +1,6 @@
-import { IObject as IObj } from 'tween-one/lib/typings';
-import { IEaseType as IEase } from 'tween-one/lib/typings/IAnimObject';
-import React from 'react';
+import type { IObject as IObj } from 'tween-one/lib/typings';
+import type { IEaseType as IEase } from 'tween-one/lib/typings/IAnimObject';
+import type React from 'react';
 
 export type IObject = IObj;
 
