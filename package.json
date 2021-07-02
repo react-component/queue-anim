@@ -1,6 +1,6 @@
 {
   "name": "rc-queue-anim",
-  "version": "1.8.5",
+  "version": "2.0.0-beta.0",
   "description": "Queue animation component for react",
   "keywords": [
     "react",
@@ -19,7 +19,7 @@
     "ant-motion"
   ],
   "homepage": "https://github.com/react-component/queue-anim",
-  "author": "afc163@gmail.com",
+  "author": "155259966@qq.com",
   "repository": {
     "type": "git",
     "url": "https://github.com/react-component/queue-anim.git"
@@ -37,58 +37,55 @@
   "licenses": "MIT",
   "main": "./lib/index",
   "module": "./es/index",
-  "config": {
-    "port": 8001,
-    "entry": {
-      "rc-queue-anim": [
-        "./assets/index.less",
-        "./src/index.js"
-      ]
-    }
-  },
   "scripts": {
-    "dist": "rc-tools run dist",
-    "build": "rc-tools run build",
-    "gh-pages": "rc-tools run gh-pages",
-    "start": "rc-tools run server",
-    "compile": "rc-tools run compile --babel-runtime",
-    "pub": "rc-tools run pub --babel-runtime",
-    "lint": "rc-tools run lint -fix",
-    "karma": "rc-test run karma",
-    "saucelabs": "rc-test run saucelabs",
-    "test": "rc-test run test",
-    "prettier": "rc-tools run prettier",
-    "chrome-test": "rc-test run chrome-test",
-    "coverage": "rc-test run coverage",
-    "validate": "npm ls"
+    "start": "dumi dev",
+    "docs:build": "dumi build",
+    "docs:deploy": "gh-pages -d docs-dist",
+    "compile": "father-build",
+    "deploy": "npm run docs:build && npm run docs:deploy",
+    "prettier": "prettier --write \"**/*.{js,jsx,tsx,ts,less,md,json}\"",
+    "test": "umi-test test",
+    "test:coverage": "umi-test --coverage",
+    "prepublishOnly": "npm run compile && np --tag=beta --no-cleanup --yolo --no-publish --any-branch",
+    "lint": "eslint src/ --fix --ext .tsx,.ts",
+    "lint:tsc": "tsc -p tsconfig.json --noEmit",
+    "now-build": "npm run docs:build"
   },
   "devDependencies": {
-    "@types/react": "^16.0.0",
-    "antd": "4.x",
-    "core-js": "^3.2.1",
-    "expect.js": "0.3.x",
-    "precommit-hook": "^3.0.0",
-    "rc-dialog": "~8.4.0",
-    "rc-test": "6.x",
-    "rc-tools": "8.x",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0",
-    "react-router": "~4.3.1",
-    "react-router-dom": "^4.1.0",
-    "react-test-renderer": "^16.0.0",
-    "tslint-config-prettier": "^1.17.0",
-    "tslint-react": "^5.0.0",
-    "typescript": "4.x"
+    "@ant-design/icons": "^4.3.0",
+    "@types/enzyme": "^3.10.5",
+    "@types/jest": "^25.2.1",
+    "@types/lodash": "^4.14.135",
+    "@types/react": "^16.8.19",
+    "@types/react-dom": "^16.8.4",
+    "@umijs/test": "^3.2.28",
+    "antd": "^4.8.4",
+    "dumi": "^1.1.19",
+    "eslint": "^7.14.0",
+    "father": "^2.22.6",
+    "father-build": "^1.18.6",
+    "gh-pages": "^3.1.0",
+    "husky": "^4.3.0",
+    "np": "^6.0.3",
+    "prettier": "^2.1.2",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "regenerator-runtime": "^0.13.7",
+    "typescript": "^4.0.2"
+  },
+  "peerDependencies": {
+    "react": ">=16.9.0",
+    "react-dom": ">=16.9.0"
   },
   "dependencies": {
-    "babel-runtime": "6.x",
-    "prop-types": "^15.6.0",
-    "rc-tween-one": "^2.5.0",
-    "react-lifecycles-compat": "^3.0.4"
+    "@babel/runtime": "^7.11.1",
+    "rc-tween-one": "^3.0.0-beta.11"
   },
-  "types": "index.d.ts",
-  "pre-commit": [
-    "lint",
-    "test"
-  ]
+  "husky": {
+    "hooks": {
+      "pre-commit": [
+        "npm run lint"
+      ]
+    }
+  }
 }
