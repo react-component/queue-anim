@@ -1,6 +1,7 @@
+.storybook
 *.iml
 *.log
-.idea
+.idea/
 .ipr
 .iws
 *~
@@ -12,17 +13,34 @@
 Thumbs.db
 .project
 .*proj
-.svn
+.svn/
 *.swp
 *.swo
 *.pyc
 *.pyo
+.build
 node_modules
 .cache
-*.css
+dist
+assets/**/*.css
 build
 lib
-coverage
-dist
 es
-*.lock
+coverage
+yarn.lock
+package-lock.json
+.vscode
+.doc
+# production
+/dist
+/docs-dist
+
+# misc
+.DS_Store
+# umi
+.umi
+.umi-production
+.umi-test
+.env.local
+src/.umi
+QueueAnim_1.jsx

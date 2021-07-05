@@ -1,31 +1,30 @@
 {
   "compilerOptions": {
-    "outDir": "build/dist",
+    "target": "esnext",
     "module": "esnext",
-    "target": "es2016",
-    "lib": ["es6", "dom"],
-    "sourceMap": true,
-    "jsx": "react",
-    "allowSyntheticDefaultImports": true,
     "moduleResolution": "node",
-    "rootDirs": ["/src", "./typings"],
-    "forceConsistentCasingInFileNames": true,
-    "noImplicitReturns": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "noUnusedLocals": true,
-    "allowJs": true,
-    "experimentalDecorators": true
+    "importHelpers": true,
+    "jsx": "react",
+    "typeRoots": ["./typings"],
+    "declaration": true,
+    "esModuleInterop": true,
+    "sourceMap": true,
+    "baseUrl": "./",
+    "strict": true,
+    "paths": {
+      "@/*": ["src/*"],
+      "@@/*": ["src/.umi/*"],
+      "rc-queue-anim": ["src/index.tsx"]
+    },
+    "allowSyntheticDefaultImports": true
   },
-  "include": ["./src"],
   "exclude": [
     "node_modules",
-    "build",
-    "scripts",
-    "acceptance-tests",
-    "webpack",
-    "jest",
-    "src/setupTests.ts",
-    "tslint:latest",
-    "tslint-config-prettier"
+    "lib",
+    "es",
+    "dist",
+    "typings",
+    "**/__test__",
+    "test"
   ]
 }
