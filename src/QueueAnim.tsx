@@ -303,6 +303,7 @@ export default forwardRef((props: IProps, ref: any) => {
       childrenShow.current = { ...$childShow };
       setChildShow($childShow);
     } else {
+      // console.log(nextChildren, recordAnimKeys.current, keysToEnter.current, keysToLeave.current);
       currentChildren.forEach((c) => {
         if (!c) {
           return;
@@ -315,6 +316,7 @@ export default forwardRef((props: IProps, ref: any) => {
           delete placeholderTimeoutIds.current[key];
         }
       });
+
       nextChildren.forEach((c: any) => {
         if (!c) {
           return;
@@ -325,7 +327,9 @@ export default forwardRef((props: IProps, ref: any) => {
         // 如果 nextChildren 和当前的一致，且动画里是出场，改回进场；
         if (
           (!hasPrev && key) ||
-          ((recordAnimKeys.current[key] === 'leave' || keysToEnter.current.indexOf(key) >= 0) &&
+          ((!recordAnimKeys.current[key] ||
+            recordAnimKeys.current[key] === 'leave' ||
+            keysToEnter.current.indexOf(key) >= 0) &&
             $keysToLeave.indexOf(key) === -1)
         ) {
           $keysToEnter.push(key);
@@ -340,6 +344,7 @@ export default forwardRef((props: IProps, ref: any) => {
     keysToLeave.current = $keysToLeave;
     recordKeysToLeave.current = [...$keysToLeave];
 
+    // console.log($keysToEnter, $keysToLeave);
     setChild(newChildren);
   }, [props.children]);
   useLayoutEffect(() => {
