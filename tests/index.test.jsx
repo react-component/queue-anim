@@ -35,7 +35,7 @@ beforeEach(() => {
   document.body.appendChild(container);
 
   TweenOne({}, { x: 100, duration: 2000000 });
-  //jest.useFakeTimers();
+  // jest.useFakeTimers();
 });
 
 afterEach(() => {
@@ -43,7 +43,7 @@ afterEach(() => {
   unmountComponentAtNode(container);
   container.remove();
   container = null;
-  //jest.useRealTimers();
+  // jest.useRealTimers();
 });
 
 const items = [
