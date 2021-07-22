@@ -27,8 +27,8 @@ Animate React Component in queue, thanks to [rc-animate](https://github.com/reac
 [download-url]: https://npmjs.org/package/rc-queue-anim
 
 ## Example
-
-http://react-component.github.io/queue-anim/examples/
+2.x: https://queue-anim.vercel.app/
+1.x: http://react-component.github.io/queue-anim/examples/
 
 ![](https://t.alipayobjects.com/images/rmsweb/T12PliXjXgXXXXXXXX.gif)
 
